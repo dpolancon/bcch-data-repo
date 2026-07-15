@@ -1,0 +1,24 @@
+[project]
+name = "bcch-data-repo"
+version = "0.1.0"
+description = "Production-grade data pipeline for the Central Bank of Chile"
+authors = [
+    { name = "Diego Polanco" }
+]
+dependencies = [
+    "pandas>=2.0.0",
+    "requests>=2.31.0",
+    "openpyxl>=3.1.2",
+    "pyarrow>=14.0.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "tenacity>=8.2.0",
+    "python-dotenv>=1.0.0"
+]
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "responses>=0.23.0"
+]
