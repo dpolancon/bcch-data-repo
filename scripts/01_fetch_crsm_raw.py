@@ -28,6 +28,8 @@ import logging
 import os
 import pathlib
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timezone
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -38,7 +40,7 @@ import requests
 from lib import codes as codes_lib
 from lib import config as config_lib
 from lib.catalog import CatalogManager
-from lib.client import BCChAPIError
+from lib.client import BCChAPIClient, BCChAPIError
 from lib.paths import CRSM_RAW_DIR, ensure_dir
 from lib.regions import PARSE_CUADRO, parse_region
 from lib.storage import LocalCacheManager
@@ -101,8 +103,9 @@ OUTPUT_COLUMNS = [
 
 DEFAULT_START = date(1980, 1, 1)
 
-# Series per API request during the cold load.
-BATCH_SIZE = 25
+# Concurrent workers for the cold load. The API is single-series per request,
+# so throughput comes from concurrency; keep this modest to stay polite.
+DEFAULT_WORKERS = 6
 
 
 def load_catalog(catalog: CatalogManager) -> pd.DataFrame:
@@ -217,14 +220,19 @@ def cold_load_uncached(
     cache: LocalCacheManager,
     start_date: date,
     end_date: date,
-    batch_size: int = BATCH_SIZE,
+    workers: int = DEFAULT_WORKERS,
 ) -> None:
-    """Populate the cache for series not yet held, using batched requests.
+    """Populate the cache for series not yet held, one request per series.
 
-    The API accepts a comma-separated series list, so a cold load of ~4,000
-    series costs ~160 requests instead of ~4,000. Each batch is split by
-    seriesId and written to the per-series cache, which keeps the run
-    resumable: an interrupted cold load picks up where it stopped.
+    The API rejects multi-series requests (lib.client.MAX_SERIES_PER_REQUEST),
+    so a cold load is inherently one round trip per series. Each request is
+    latency-bound rather than compute-bound -- roughly 1.5 s, almost all of it
+    waiting -- so a small thread pool cuts a ~100-minute serial load to ~20
+    minutes without raising the request rate much above 3/s.
+
+    Each worker gets its own client, so the per-client throttle stays correct
+    without a shared lock. Results are written per series as they arrive, which
+    keeps the load resumable: an interrupted run picks up where it stopped.
     """
     uncached = [
         code
@@ -236,27 +244,44 @@ def cold_load_uncached(
         return
 
     logger.info(
-        "Cold-loading %d uncached series in batches of %d (~%d requests)...",
-        len(uncached), batch_size, -(-len(uncached) // batch_size),
+        "Cold-loading %d uncached series, %d workers (1 series per request)...",
+        len(uncached), workers,
     )
 
-    for start in range(0, len(uncached), batch_size):
-        chunk = uncached[start : start + batch_size]
+    thread_local = threading.local()
+
+    def client_for_thread() -> BCChAPIClient:
+        if not hasattr(thread_local, "client"):
+            thread_local.client = BCChAPIClient()
+        return thread_local.client
+
+    def fetch_one(code: str):
         try:
-            df = cache.api_client.get_series(chunk, firstdate=start_date, lastdate=end_date)
-        except (BCChAPIError, requests.RequestException) as exc:
-            logger.error("Batch at %d failed (%d codes): %s", start, len(chunk), exc)
-            continue
+            df = client_for_thread().get_series(
+                [code], firstdate=start_date, lastdate=end_date
+            )
+            return code, df, ""
+        except Exception as exc:  # noqa: BLE001 - one bad series must not abort the load
+            return code, pd.DataFrame(), str(exc)[:200]
 
-        if df.empty:
-            continue
-        for code, group in df.groupby("seriesId"):
-            cache.save_to_cache(str(code), group.reset_index(drop=True))
+    done = failed = 0
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = {pool.submit(fetch_one, code): code for code in uncached}
+        for future in as_completed(futures):
+            code, df, error = future.result()
+            done += 1
+            if error:
+                failed += 1
+                logger.warning("  %s: %s", code, error)
+            elif not df.empty:
+                cache.save_to_cache(code, df)
 
-        logger.info(
-            "  cold load %d/%d series | %d observations in this batch",
-            min(start + batch_size, len(uncached)), len(uncached), len(df),
-        )
+            if done % 200 == 0 or done == len(uncached):
+                logger.info(
+                    "  cold load %d/%d (%d failed)", done, len(uncached), failed
+                )
+
+    logger.info("Cold load complete: %d fetched, %d failed.", done - failed, failed)
 
 
 def _read_cached(
@@ -279,6 +304,7 @@ def fetch_series(
     start_date: date,
     end_date: date,
     refresh: bool = False,
+    workers: int = DEFAULT_WORKERS,
 ) -> tuple:
     """Assemble every series in the universe. Returns (observations, manifest).
 
@@ -290,7 +316,7 @@ def fetch_series(
     request immediately after being downloaded. Pass refresh=True on a later
     run to pick up revisions and new observations.
     """
-    cold_load_uncached(universe, cache, start_date, end_date)
+    cold_load_uncached(universe, cache, start_date, end_date, workers=workers)
 
     meta_by_code = universe.set_index("series_code").to_dict("index")
     frames, manifest = [], []
@@ -405,7 +431,7 @@ def main() -> int:
     parser.add_argument("--sht-only", action="store_true", help="restrict to the SHT core variable set")
     parser.add_argument("--start", type=str, default=None, help="start date, YYYY-MM-DD")
     parser.add_argument("--end", type=str, default=None, help="end date, YYYY-MM-DD")
-    parser.add_argument("--batch-size", type=int, default=BATCH_SIZE, help="series per request on cold load")
+    parser.add_argument("--workers", type=int, default=DEFAULT_WORKERS, help="concurrent requests during cold load")
     parser.add_argument("--refresh", action="store_true", help="delta-update already-cached series")
     args = parser.parse_args()
 
@@ -437,7 +463,7 @@ def main() -> int:
     end = date.fromisoformat(args.end) if args.end else date.today()
 
     cache = LocalCacheManager(catalog_manager=catalog)
-    observations, manifest = fetch_series(universe, cache, start, end, refresh=args.refresh)
+    observations, manifest = fetch_series(universe, cache, start, end, refresh=args.refresh, workers=args.workers)
 
     write_outputs(observations, out_dir)
     manifest.to_csv(out_dir / "fetch_manifest.csv", index=False, encoding="utf-8-sig")

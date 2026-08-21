@@ -122,6 +122,40 @@ class TestCsvOnlyDataFormat:
         assert "pyarrow" not in pyproject
 
 
+class TestDeclaredDependencies:
+    """Every third-party import must appear in pyproject.toml.
+
+    seaborn, matplotlib and numpy were all imported by reporting stages while
+    undeclared, so a clean `pip install -e .` produced an environment that
+    could not run them.
+    """
+
+    def test_no_undeclared_third_party_imports(self):
+        import sys
+
+        stdlib = set(sys.stdlib_module_names)
+        local = {"lib"}
+        found = set()
+        for path in all_python_files():
+            tree = ast.parse(path.read_text(encoding="utf-8"))
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Import):
+                    found.update(a.name.split(".")[0] for a in node.names)
+                elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
+                    found.add(node.module.split(".")[0])
+
+        pyproject = (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8").lower()
+        # Distribution names may hyphenate where the module underscores.
+        aliases = {"dotenv": "python-dotenv", "pydantic_settings": "pydantic-settings"}
+
+        undeclared = [
+            m
+            for m in sorted(found - stdlib - local)
+            if aliases.get(m, m).lower() not in pyproject
+        ]
+        assert not undeclared, f"imported but not declared in pyproject.toml: {undeclared}"
+
+
 class TestNoDeadDuplicates:
     """The legacy stubs were strict subsets of the lib modules."""
 

@@ -21,9 +21,14 @@ from datetime import date
 
 logger = logging.getLogger(__name__)
 
-# The API accepts a comma-separated series list. Keep batches modest so the
-# request URL stays well inside server limits.
-DEFAULT_BATCH_SIZE = 25
+# The SieteRestWS `timeseries` parameter is single-valued in practice. Despite
+# accepting a comma-separated list syntactically, any request naming more than
+# one series returns "error code -50: An internal error has occurred" -- probed
+# empirically at n = 2, 3, 5, 8, 10 and 25, all of which fail while n = 1
+# succeeds. Multi-series batching is therefore not available; throughput comes
+# from concurrency instead.
+MAX_SERIES_PER_REQUEST = 1
+DEFAULT_BATCH_SIZE = MAX_SERIES_PER_REQUEST
 
 # Minimum seconds between requests. The API publishes no documented rate limit,
 # so we self-throttle rather than discover one mid-run.
@@ -153,11 +158,11 @@ class BCChAPIClient:
         batch_size: int = DEFAULT_BATCH_SIZE,
         on_error: str = "skip",
     ) -> pd.DataFrame:
-        """Fetch many series in chunks, one request per `batch_size` codes.
+        """Fetch many series sequentially, `batch_size` codes per request.
 
-        The API already accepts a comma-separated series list, but callers
-        historically passed one code at a time -- for a universe of thousands of
-        series that is thousands of round trips. Chunking cuts that by ~batch_size.
+        batch_size defaults to 1 because the API rejects multi-series requests
+        (see MAX_SERIES_PER_REQUEST). Kept as a parameter so the limit can be
+        revisited if BCCh fixes it, but do not raise it without re-probing.
 
         on_error='skip' logs and drops a failed batch so one bad code cannot
         abort a long run; on_error='raise' propagates.

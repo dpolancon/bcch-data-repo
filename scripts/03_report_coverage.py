@@ -17,6 +17,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.paths import REPO_ROOT
+from lib.codes import parse_frequency, parse_sector, is_sectoral_total
+from lib.regions import parse_region
 
 import os
 import pandas as pd
@@ -67,52 +69,49 @@ def clean_text(text):
     return text.strip()
 
 def get_freq_from_code(code):
-    if not isinstance(code, str):
-        return "UNKNOWN"
-    parts = code.split('.')
-    return parts[-1].upper() if len(parts) > 1 else "UNKNOWN"
+    """Frequency from the code suffix, via the shared parser."""
+    return parse_frequency(code) or "UNKNOWN"
 
 def map_region(code, name, table):
-    # Try F035 pattern (length 12) where region is typically at position -3
-    if isinstance(code, str) and code.startswith("F035"):
-        parts = code.split('.')
-        if len(parts) == 12:
-            reg_code = parts[9]
-            if reg_code in REGION_MAP:
-                return reg_code, REGION_MAP[reg_code]
-            elif reg_code == 'Z' or reg_code == '00':
-                return 'Nacional', 'Total Nacional'
-    
-    # Text matching on Table Name and Series Name
-    full_text = f"{table} {name}".lower()
-    for reg_id, reg_name in REGION_MAP.items():
-        # Match regional names with or without accents
-        reg_norm = reg_name.lower().replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u').replace('ñ', 'n')
-        text_norm = full_text.replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u').replace('ñ', 'n')
-        if reg_norm in text_norm:
-            return reg_id, reg_name
-        
-        # Specific shorthand matching
-        if reg_id == '13' and 'metropolitana' in text_norm:
-            return '13', 'Metropolitana'
-        if reg_id == '06' and ("o'higgins" in text_norm or "ohiggins" in text_norm):
-            return '06', "O'Higgins"
-        if reg_id == '16' and 'ñuble' in text_norm:
-            return '16', 'Ñuble'
-        if reg_id == '15' and 'arica' in text_norm:
-            return '15', 'Arica y Parinacota'
-        if reg_id == '11' and 'aysen' in text_norm:
-            return '11', 'Aysén'
-            
-    # Check if national
-    if 'nacional' in full_text or 'total nacional' in full_text or ' chile ' in f" {full_text} ":
+    """Resolve the region via the shared four-encoding parser.
+
+    The local implementation this replaces handled only F035 positional codes
+    plus a text fallback, so F034 (851 series), F022, F049 and F068 fell
+    through to text matching alone.
+    """
+    match = parse_region(code, name, table)
+    if match is None:
+        return 'UNKNOWN', 'No Especificado'
+    if match.region is None:
         return 'Nacional', 'Total Nacional'
-        
-    return 'UNKNOWN', 'No Especificado'
+    return match.region.id, match.region.name_es
 
 def map_sector(code, name, table):
+    """Resolve the economic sector, preferring the code over the description.
+
+    The code is authoritative and the text is a fallback, not the other way
+    round. Two reasons:
+
+    1. F035 sectoral GDP series are *named* after their region ("Region de
+       Antofagasta"), not their sector, so keyword matching on the description
+       cannot see the sector at all and returned UNKNOWN for all of mining.
+    2. The keyword scheme below numbers sectors differently from BCCh's own
+       activity codes: it diverges from 08 onward (its 10 is "financiero",
+       BCCh's 10 is "servicios de vivienda e inmobiliarios"), and its
+       'vivienda' rule sent real-estate series to 06 Construccion.
+
+    Between them those two faults mislabelled precisely the two sectors the
+    SHT framework rests on -- mining and real estate.
+    """
+    sector_id, sector_name = parse_sector(code)
+    if sector_id is not None:
+        return sector_id, sector_name or 'No Especificado'
+    if is_sectoral_total(code):
+        return 'Z', 'Total regional (sin desglose sectorial)'
+
     full_text = f"{table} {name}".lower()
-    
+
+    # Keyword fallback, for non-F035 codes that carry no sector field.
     # Detailed keyword matching for 12 sectors
     if any(k in full_text for k in ['agropecuario', 'silvicola', 'silvoagro', 'agricultura', 'forestal']):
         return '01', SECTORS_12['01']
