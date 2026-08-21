@@ -3,7 +3,8 @@ Purpose:  Fault-tolerant REST client for the BCCh SieteRestWS API, with
           connection pooling, bounded retries, request throttling and parsing
           into tidy DataFrames.
 Task:     BCCh data pipeline infrastructure
-Inputs:   BCCh SieteRestWS API; BCCH_USER / BCCH_PASSWORD from .env
+Inputs:   BCCh SieteRestWS API; BCCH_TOKEN (preferred) or
+          BCCH_USER + BCCH_PASSWORD from .env
 Outputs:  n/a (returns DataFrames)
 Created:  2026-07-06
 Updated:  2026-08-21
@@ -27,6 +28,9 @@ DEFAULT_BATCH_SIZE = 25
 # Minimum seconds between requests. The API publishes no documented rate limit,
 # so we self-throttle rather than discover one mid-run.
 DEFAULT_MIN_REQUEST_INTERVAL = 0.34
+
+# The API returns observation dates as DD-MM-YYYY.
+BCCH_DATE_FORMAT = "%d-%m-%Y"
 
 
 class BCChAPIError(Exception):
@@ -59,23 +63,43 @@ class BCChAPIClient:
         self,
         user: Optional[str] = None,
         password: Optional[str] = None,
+        token: Optional[str] = None,
         min_request_interval: float = DEFAULT_MIN_REQUEST_INTERVAL,
     ):
-        # Fallback to config settings if not explicitly provided
-        if not user or not password:
+        # Two auth schemes are supported. The API Key token is the one BCCh
+        # now recommends for REST; user/password is the legacy pair. Token
+        # wins when both are available.
+        self.token = token
+        self.user = user
+        self.password = password
+
+        if not self.token and not (self.user and self.password):
             from lib.config import settings
             if not settings:
-                raise ValueError("API credentials (user/password) must be set via .env or constructor arguments.")
-            self.user = user or settings.bcch_user
-            self.password = password or settings.bcch_password
-        else:
-            self.user = user
-            self.password = password
+                raise ValueError(
+                    "BCCh API credentials must be set via .env (BCCH_TOKEN, or "
+                    "BCCH_USER + BCCH_PASSWORD) or constructor arguments."
+                )
+            self.token = self.token or settings.bcch_token
+            self.user = self.user or settings.bcch_user
+            self.password = self.password or settings.bcch_password
+
+        if not self.token and not (self.user and self.password):
+            raise ValueError(
+                "No usable BCCh credentials: set BCCH_TOKEN, or both "
+                "BCCH_USER and BCCH_PASSWORD."
+            )
 
         self.base_url = "https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx"
         self.session = requests.Session()
         self.min_request_interval = min_request_interval
         self._last_request_at = 0.0
+
+    def _auth_params(self) -> dict:
+        """Return the auth query params for whichever scheme is configured."""
+        if self.token:
+            return {"token": self.token}
+        return {"user": self.user, "pass": self.password}
 
     def _throttle(self) -> None:
         """Space out requests so a wide fan-out does not hammer the API."""
@@ -192,8 +216,7 @@ class BCChAPIClient:
         ldate_str = (lastdate or (settings.default_end_date if settings else date.today())).strftime("%Y-%m-%d")
 
         params = {
-            "user": self.user,
-            "pass": self.password,
+            **self._auth_params(),
             "firstdate": fdate_str,
             "lastdate": ldate_str,
             "timeseries": ",".join(series_codes),
@@ -208,8 +231,7 @@ class BCChAPIClient:
         Queries the BCCh API to discover metadata for available series.
         """
         params = {
-            "user": self.user,
-            "pass": self.password,
+            **self._auth_params(),
             "function": "SearchSeries"
         }
         if frequency:
@@ -253,9 +275,15 @@ class BCChAPIClient:
         if df.empty:
             return pd.DataFrame(columns=["seriesId", "date", "value", "status"])
             
-        # Clean and type the columns
+        # Clean and type the columns.
+        #
+        # BCCh returns indexDateString as DAY-first: "03-08-2026" is 3 August.
+        # Parsing without an explicit format is not merely wrong, it is
+        # inconsistently wrong -- pandas reads 03-08-2026 as 8 March but
+        # 13-08-2026 as 13 August, so days 1-12 silently swap month and day
+        # while days 13-31 come out correct. Pin the format.
         df["seriesId"] = df["seriesId"].astype(str)
-        df["date"] = pd.to_datetime(df["date"], errors="coerce")
+        df["date"] = pd.to_datetime(df["date"], format=BCCH_DATE_FORMAT, errors="coerce")
         df["value"] = df["value"].astype("float64")
         df["status"] = df["status"].astype(str)
         

@@ -11,7 +11,7 @@ Outputs:  data/raw/regional-spatial-macro-dataset/raw_{daily,monthly,quarterly,a
 Created:  2026-08-21
 Updated:  2026-08-21
 Owner:    dpolancon
-Run:      python scripts/01_fetch_crsm_raw.py [--dry-run] [--limit N] [--sht-only]
+Run:      python scripts/01_fetch_crsm_raw.py [--dry-run] [--limit N] [--sht-only] [--refresh]
 
 Selection principle
 -------------------
@@ -25,6 +25,7 @@ a regional match in an unexpected chapter is flagged for review.
 
 import argparse
 import logging
+import os
 import pathlib
 import sys
 from datetime import date, datetime, timezone
@@ -32,6 +33,7 @@ from datetime import date, datetime, timezone
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 import pandas as pd
+import requests
 
 from lib import codes as codes_lib
 from lib import config as config_lib
@@ -98,6 +100,9 @@ OUTPUT_COLUMNS = [
 ]
 
 DEFAULT_START = date(1980, 1, 1)
+
+# Series per API request during the cold load.
+BATCH_SIZE = 25
 
 
 def load_catalog(catalog: CatalogManager) -> pd.DataFrame:
@@ -207,28 +212,100 @@ def report_universe(universe: pd.DataFrame) -> None:
         logger.info("%d series resolved via the cuadro-name fallback", n_fallback)
 
 
+def cold_load_uncached(
+    universe: pd.DataFrame,
+    cache: LocalCacheManager,
+    start_date: date,
+    end_date: date,
+    batch_size: int = BATCH_SIZE,
+) -> None:
+    """Populate the cache for series not yet held, using batched requests.
+
+    The API accepts a comma-separated series list, so a cold load of ~4,000
+    series costs ~160 requests instead of ~4,000. Each batch is split by
+    seriesId and written to the per-series cache, which keeps the run
+    resumable: an interrupted cold load picks up where it stopped.
+    """
+    uncached = [
+        code
+        for code in universe["series_code"]
+        if not os.path.exists(cache._get_cache_path(code))
+    ]
+    if not uncached:
+        logger.info("Cache is warm: all %d series already present.", len(universe))
+        return
+
+    logger.info(
+        "Cold-loading %d uncached series in batches of %d (~%d requests)...",
+        len(uncached), batch_size, -(-len(uncached) // batch_size),
+    )
+
+    for start in range(0, len(uncached), batch_size):
+        chunk = uncached[start : start + batch_size]
+        try:
+            df = cache.api_client.get_series(chunk, firstdate=start_date, lastdate=end_date)
+        except (BCChAPIError, requests.RequestException) as exc:
+            logger.error("Batch at %d failed (%d codes): %s", start, len(chunk), exc)
+            continue
+
+        if df.empty:
+            continue
+        for code, group in df.groupby("seriesId"):
+            cache.save_to_cache(str(code), group.reset_index(drop=True))
+
+        logger.info(
+            "  cold load %d/%d series | %d observations in this batch",
+            min(start + batch_size, len(uncached)), len(uncached), len(df),
+        )
+
+
+def _read_cached(
+    cache: LocalCacheManager, code: str, start_date: date, end_date: date
+) -> pd.DataFrame:
+    """Read one series from cache and clip it to the requested window."""
+    df = cache.load_from_cache(code)
+    if df is None or df.empty:
+        return pd.DataFrame(columns=["seriesId", "date", "value", "status"])
+    if start_date:
+        df = df[df["date"].dt.date >= start_date]
+    if end_date:
+        df = df[df["date"].dt.date <= end_date]
+    return df.reset_index(drop=True)
+
+
 def fetch_series(
     universe: pd.DataFrame,
     cache: LocalCacheManager,
     start_date: date,
     end_date: date,
+    refresh: bool = False,
 ) -> tuple:
-    """Fetch every series in the universe. Returns (observations, manifest).
+    """Assemble every series in the universe. Returns (observations, manifest).
 
-    Uses smart_sync per series so an interrupted run resumes from the Parquet
-    cache rather than refetching everything.
+    A batched cold load populates the cache, then assembly reads straight from
+    it. Assembly deliberately does NOT call smart_sync by default: a series
+    just fetched still looks "stale" to the freshness rule (an annual series
+    whose last observation is last December is older than the annual
+    threshold), so every one of the ~4,000 series would fire a redundant delta
+    request immediately after being downloaded. Pass refresh=True on a later
+    run to pick up revisions and new observations.
     """
+    cold_load_uncached(universe, cache, start_date, end_date)
+
     meta_by_code = universe.set_index("series_code").to_dict("index")
     frames, manifest = [], []
     total = len(universe)
 
     for i, code in enumerate(universe["series_code"], start=1):
-        if i % 100 == 0 or i == total:
-            logger.info("Fetching %d/%d ...", i, total)
+        if i % 500 == 0 or i == total:
+            logger.info("Assembling %d/%d ...", i, total)
 
         fetched_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
         try:
-            df = cache.smart_sync(code, start_date=start_date, end_date=end_date)
+            if refresh:
+                df = cache.smart_sync(code, start_date=start_date, end_date=end_date)
+            else:
+                df = _read_cached(cache, code, start_date, end_date)
             error = ""
         except (BCChAPIError, Exception) as exc:  # noqa: BLE001 - one bad series must not abort the run
             logger.error("Failed %s: %s", code, exc)
@@ -328,6 +405,8 @@ def main() -> int:
     parser.add_argument("--sht-only", action="store_true", help="restrict to the SHT core variable set")
     parser.add_argument("--start", type=str, default=None, help="start date, YYYY-MM-DD")
     parser.add_argument("--end", type=str, default=None, help="end date, YYYY-MM-DD")
+    parser.add_argument("--batch-size", type=int, default=BATCH_SIZE, help="series per request on cold load")
+    parser.add_argument("--refresh", action="store_true", help="delta-update already-cached series")
     args = parser.parse_args()
 
     out_dir = ensure_dir(CRSM_RAW_DIR)
@@ -358,7 +437,7 @@ def main() -> int:
     end = date.fromisoformat(args.end) if args.end else date.today()
 
     cache = LocalCacheManager(catalog_manager=catalog)
-    observations, manifest = fetch_series(universe, cache, start, end)
+    observations, manifest = fetch_series(universe, cache, start, end, refresh=args.refresh)
 
     write_outputs(observations, out_dir)
     manifest.to_csv(out_dir / "fetch_manifest.csv", index=False, encoding="utf-8-sig")
