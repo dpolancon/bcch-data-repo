@@ -1,12 +1,17 @@
 """
-Purpose:  Local Parquet cache with delta (incremental) syncing against the
-          BCCh API, so a re-run fetches only observations newer than the cache.
+Purpose:  Local CSV cache with delta (incremental) syncing against the BCCh
+          API, so a re-run fetches only observations newer than the cache.
 Task:     BCCh data pipeline infrastructure
-Inputs:   BCCh API; data/cache/*.parquet
-Outputs:  data/cache/*.parquet (one file per series)
+Inputs:   BCCh API; data/cache/*.csv
+Outputs:  data/cache/*.csv (one file per series)
 Created:  2026-07-06
 Updated:  2026-08-21
 Owner:    dpolancon
+
+The cache is CSV rather than Parquet so that every intermediate artifact in
+this repo is plain text -- readable without pyarrow, diffable, and directly
+loadable from R in codes/. CSV carries no dtypes, so `date` is parsed on read
+and `value` is coerced to float.
 """
 
 import os
@@ -20,7 +25,7 @@ from lib.paths import CACHE_DIR
 
 class LocalCacheManager:
     """
-    Manages local file storage using Apache Parquet.
+    Manages local file storage using CSV.
     Implements a smart incremental syncing mechanism (delta updates).
     """
     def __init__(
@@ -39,31 +44,43 @@ class LocalCacheManager:
     def _get_cache_path(self, series_id: str) -> str:
         # Standardize series_id to safe filename
         safe_name = series_id.replace(".", "_").replace("/", "_")
-        return os.path.join(self.cache_dir, f"{safe_name}.parquet")
+        return os.path.join(self.cache_dir, f"{safe_name}.csv")
 
     def load_from_cache(self, series_id: str) -> Optional[pd.DataFrame]:
-        """Loads cached data from Parquet file if it exists."""
+        """Loads cached data from the CSV file if it exists.
+
+        CSV stores no dtypes, so `date` and `value` are re-typed here to keep
+        the same contract the API client returns.
+        """
         path = self._get_cache_path(series_id)
         if os.path.exists(path):
             try:
-                df = pd.read_parquet(path)
-                # Ensure date column is datetime64[ns]
-                df["date"] = pd.to_datetime(df["date"])
+                df = pd.read_csv(path)
+                df["date"] = pd.to_datetime(df["date"], errors="coerce")
+                df = df.dropna(subset=["date"])
+                if "value" in df.columns:
+                    df["value"] = pd.to_numeric(df["value"], errors="coerce")
                 return df
             except Exception as e:
-                # If reading fails (e.g., corrupt file), log and return None to force a refresh
+                # If reading fails (e.g., truncated file), log and return None to force a refresh
                 import logging
-                logging.getLogger(__name__).warning(f"Failed to read Parquet cache for {series_id}: {e}")
+                logging.getLogger(__name__).warning(f"Failed to read CSV cache for {series_id}: {e}")
                 return None
         return None
 
     def save_to_cache(self, series_id: str, df: pd.DataFrame) -> None:
-        """Saves a DataFrame to Parquet file."""
+        """Saves a DataFrame to a CSV file.
+
+        Writes to a temp file and replaces, so an interrupted write cannot
+        leave a half-written cache behind -- CSV has no footer checksum to
+        make truncation detectable on read.
+        """
         if df.empty:
             return
         path = self._get_cache_path(series_id)
-        # Reset index to clean structure
-        df.reset_index(drop=True).to_parquet(path, index=False)
+        tmp_path = f"{path}.tmp"
+        df.reset_index(drop=True).to_csv(tmp_path, index=False, encoding="utf-8")
+        os.replace(tmp_path, path)
 
     def smart_sync(
         self, 

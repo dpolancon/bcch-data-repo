@@ -103,6 +103,25 @@ class TestProvenanceHeaders:
             )
 
 
+class TestCsvOnlyDataFormat:
+    """Every data artifact is plain CSV -- see the rule in CLAUDE.md."""
+
+    @pytest.mark.parametrize("path", all_python_files(), ids=lambda p: p.name)
+    def test_no_parquet_io(self, path):
+        text = path.read_text(encoding="utf-8")
+        code_only = re.sub(r'""".*?"""', "", text, flags=re.DOTALL)
+        offenders = re.findall(r"\b(?:to_parquet|read_parquet)\b", code_only)
+        assert not offenders, f"{path.name} uses Parquet I/O: {set(offenders)}"
+
+    def test_no_parquet_files_in_data(self):
+        stray = [p.name for p in (REPO_ROOT / "data").rglob("*.parquet")]
+        assert not stray, f"Parquet files under data/: {stray}"
+
+    def test_pyarrow_is_not_a_dependency(self):
+        pyproject = (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        assert "pyarrow" not in pyproject
+
+
 class TestNoDeadDuplicates:
     """The legacy stubs were strict subsets of the lib modules."""
 

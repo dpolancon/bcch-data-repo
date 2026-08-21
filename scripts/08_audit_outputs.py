@@ -3,7 +3,7 @@ Stage:    08 -- Audit pipeline outputs
 Purpose:  Cross-check the generated tables, figures and panels for internal
           consistency and emit the source-of-truth regional GDP extract.
 Task:     Regional reporting quality control
-Inputs:   data/panel_regional_pib_annual.parquet; bcch-data-repo-vault/assets/*
+Inputs:   data/panel_regional_pib_annual.csv; bcch-data-repo-vault/assets/*
 Outputs:  data/source_of_truth_regional_pib.csv
 Created:  2026-07-06
 Updated:  2026-08-21
@@ -99,16 +99,16 @@ def compute_hhi(values):
 def run_final_audit():
     logger.info("Initializing Final PASS Audit...")
     
-    # 1. Load the parquet annual panel and write the Source of Truth CSV
-    parquet_path = os.path.join(DATA_DIR, "panel_regional_pib_annual.parquet")
-    if not os.path.exists(parquet_path):
-        raise FileNotFoundError(f"Parquet panel not found at: {parquet_path}")
+    # 1. Load the annual panel and write the Source of Truth CSV
+    panel_path = os.path.join(DATA_DIR, "panel_regional_pib_annual.csv")
+    if not os.path.exists(panel_path):
+        raise FileNotFoundError(f"Annual panel not found at: {panel_path}")
         
-    df_parquet = pd.read_parquet(parquet_path)
-    df_parquet['year'] = df_parquet['date'].dt.year
+    df_panel = pd.read_csv(panel_path, parse_dates=["date"], dtype={"region_code": str})
+    df_panel['year'] = df_panel['date'].dt.year
     
     sot_path = os.path.join(DATA_DIR, "source_of_truth_regional_pib.csv")
-    df_parquet.to_csv(sot_path, index=False)
+    df_panel.to_csv(sot_path, index=False)
     logger.info(f"Successfully generated Source of Truth CSV: {sot_path}")
     
     # Reload from CSV to ensure we are auditing the CSV file directly

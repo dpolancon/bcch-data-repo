@@ -4,8 +4,8 @@ Purpose:  Fetch regional GDP (PIB) by region and compile the annual and
           quarterly long-format panels used by the downstream analysis stages.
 Task:     Regional economic development analysis
 Inputs:   data/catalogo_series.xlsx; BCCh SieteRestWS API
-Outputs:  data/panel_regional_pib_annual.parquet
-          data/panel_regional_pib_quarterly.parquet
+Outputs:  data/panel_regional_pib_annual.csv
+          data/panel_regional_pib_quarterly.csv
 Created:  2026-07-06
 Updated:  2026-08-21
 Owner:    dpolancon
@@ -324,8 +324,8 @@ def build_regional_panels(use_synthetic: bool = False):
             df_annual_raw = pd.concat(dfs_annual, ignore_index=True)
             df_annual_panel = format_to_panel(df_annual_raw, REGION_MAP, "Annual")
             
-            output_path = "data/panel_regional_pib_annual.parquet"
-            df_annual_panel.to_parquet(output_path, index=False)
+            output_path = os.path.join(DATA_DIR, "panel_regional_pib_annual.csv")
+            df_annual_panel.to_csv(output_path, index=False, encoding="utf-8")
             logger.info(f"Successfully saved Annual panel data with {len(df_annual_panel)} observations to: {output_path}")
         else:
             logger.error("No Annual data could be built.")
@@ -356,8 +356,8 @@ def build_regional_panels(use_synthetic: bool = False):
             df_qtr_raw = pd.concat(dfs_quarterly, ignore_index=True)
             df_qtr_panel = format_to_panel(df_qtr_raw, REGION_MAP, "Quarterly")
             
-            output_path = "data/panel_regional_pib_quarterly.parquet"
-            df_qtr_panel.to_parquet(output_path, index=False)
+            output_path = os.path.join(DATA_DIR, "panel_regional_pib_quarterly.csv")
+            df_qtr_panel.to_csv(output_path, index=False, encoding="utf-8")
             logger.info(f"Successfully saved Quarterly panel data with {len(df_qtr_panel)} observations to: {output_path}")
         else:
             logger.error("No Quarterly data could be built.")

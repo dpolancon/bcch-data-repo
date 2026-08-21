@@ -5,7 +5,7 @@
 
 A production-grade data pipeline and research environment for retrieving, processing, and analyzing regional GDP (PIB Regional) and economic indicators from the **Central Bank of Chile (Banco Central de Chile - BCCh) API**.
 
-This repository is designed for researchers, economists, and data analysts. It implements a robust, fault-tolerant client for the BCCh REST API, manages incremental local caching via Apache Parquet, compiles multi-frequency regional panel datasets, and automatically generates research reports and interactive charts.
+This repository is designed for researchers, economists, and data analysts. It implements a robust, fault-tolerant client for the BCCh REST API, manages incremental local caching as plain CSV, compiles multi-frequency regional panel datasets, and automatically generates research reports and interactive charts.
 
 ---
 
@@ -24,7 +24,7 @@ The project follows a modular, structured layout:
 │
 ├── data/
 │   ├── catalogo_series.xlsx    # Master Excel catalog of BCCh series
-│   ├── cache/                  # Parquet delta cache (gitignored)
+│   ├── cache/                  # CSV delta cache (gitignored)
 │   ├── raw/
 │   │   └── regional-spatial-macro-dataset/   # CRSM raw landing zone
 │   │       ├── raw_daily.csv               # one file per native frequency
@@ -33,8 +33,8 @@ The project follows a modular, structured layout:
 │   │       ├── raw_annual.csv
 │   │       ├── crsm_series_universe.csv    # selected + mapped catalog subset
 │   │       └── fetch_manifest.csv          # per-series fetch provenance
-│   ├── panel_regional_pib_annual.parquet
-│   └── panel_regional_pib_quarterly.parquet
+│   ├── panel_regional_pib_annual.csv
+│   └── panel_regional_pib_quarterly.csv
 │
 ├── scripts/                    # ALL Python (Python only -- binding rule)
 │   ├── lib/                    # importable modules (no stage number, no date)
@@ -42,7 +42,7 @@ The project follows a modular, structured layout:
 │   │   ├── config.py           # Pydantic settings + credential guards
 │   │   ├── client.py           # BCCh API client: retry, batching, throttle
 │   │   ├── catalog.py          # catalog search and metadata lookup
-│   │   ├── storage.py          # Parquet delta-caching manager
+│   │   ├── storage.py          # CSV delta-caching manager
 │   │   ├── regions.py          # canonical 16-region table + 4-encoding parser
 │   │   ├── codes.py            # frequency and sector parsing
 │   │   └── transform.py        # time-series transformations
@@ -145,7 +145,7 @@ Compile regional GDP into annual and quarterly panel datasets. Storage uses a **
 ```bash
 python scripts/02_build_regional_panel.py
 ```
-*Outputs:* `data/panel_regional_pib_{annual,quarterly}.parquet`, plus `data/cache/*.parquet`.
+*Outputs:* `data/panel_regional_pib_{annual,quarterly}.csv`, plus `data/cache/*.csv`.
 
 > **Credentials are required.** If `.env` is missing or still holds the `.env.example` placeholders, the fetch stages abort with an error. They never fall back to generated data. For offline development, pass `--synthetic` explicitly — it writes to a separate cache namespace and stamps every row `status="MOCK"`.
 
