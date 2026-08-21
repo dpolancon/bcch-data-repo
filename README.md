@@ -16,8 +16,11 @@ The project follows a modular, structured layout:
 ```text
 ├── .env.example                # Template for BCCh API credentials
 ├── .gitignore                  # Git exclusion rules (venv, local caches, secrets)
+├── CLAUDE.md                   # Project conventions and agent guide
 ├── pyproject.toml              # Project dependencies, packaging metadata, and tool configuration
 ├── README.md                   # Project documentation (this file)
+│
+├── codes/                      # R scripts and analysis code (R only)
 │
 ├── data/                       # Dataset directory (raw inputs, caches, compiled panels)
 │   ├── catalogo_series.xlsx    # Master Excel catalog of series available on the BCCh API
@@ -33,7 +36,7 @@ The project follows a modular, structured layout:
 │   ├── storage.py              # Smart sync and delta caching manager using Parquet files
 │   └── transform.py            # Financial and economic time-series transformations
 │
-├── scripts/                    # Command-line pipelines and reporting scripts
+├── scripts/                    # Python CLI pipelines and reporting scripts (Python only)
 │   ├── build_regional_panels.py    # Fetches API data and compiles regional panels
 │   ├── analyze_and_report.py   # Computes regional statistics and outputs reports/visuals
 │   ├── generate_coverage_report.py # Computes data completeness inventories

@@ -16,3 +16,9 @@ ENV/
 # IDE files
 .idea/
 .vscode/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
