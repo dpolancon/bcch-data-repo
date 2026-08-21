@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 import numpy as np
-from src.transform import fill_missing, resample_series, compute_yoy, compute_mom, compute_log_returns
+from lib.transform import fill_missing, resample_series, compute_yoy, compute_mom, compute_log_returns
 
 def test_fill_missing():
     # Construct a sample df with a missing observation

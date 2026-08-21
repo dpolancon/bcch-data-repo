@@ -1,7 +1,25 @@
+"""
+Purpose:  Search and metadata lookup over the local BCCh series catalog
+          (catalogo_series.xlsx), with lazy loading and in-memory caching.
+Task:     BCCh data pipeline infrastructure
+Inputs:   data/catalogo_series.xlsx
+Outputs:  n/a (returns SeriesMetadata / DataFrames)
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+
+Note: the shipped catalog has only 4 columns (CAPITULO, NOMBRE CUADRO, CODIGO,
+NOMBRE DE LA SERIE). It carries no frequency or unit column, so
+SeriesMetadata.frequency and .unit are always None in practice -- derive
+frequency from the code suffix via lib.codes.parse_frequency instead.
+"""
+
 import os
 import pandas as pd
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
+
+from lib.paths import CATALOG_XLSX
 
 @dataclass
 class SeriesMetadata:
@@ -17,8 +35,8 @@ class CatalogManager:
     Manages search operations and metadata retrieval from the local Excel catalog.
     Supports in-memory caching and advanced regex/multi-keyword filters.
     """
-    def __init__(self, file_path: str = "data/catalogo_series.xlsx"):
-        self.file_path = file_path
+    def __init__(self, file_path: Optional[str] = None):
+        self.file_path = str(file_path or CATALOG_XLSX)
         self._df: Optional[pd.DataFrame] = None
 
     @property

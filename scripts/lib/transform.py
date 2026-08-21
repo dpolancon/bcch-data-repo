@@ -1,3 +1,18 @@
+"""
+Purpose:  Single-series time-series transformations -- imputation, resampling,
+          and growth-rate computations.
+Task:     BCCh data pipeline infrastructure
+Inputs:   n/a (operates on DataFrames with `date` / `value` columns)
+Outputs:  n/a (pure functions)
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+
+None of these are groupby-aware: apply them per series, never to a stacked
+multi-series panel. They are also NOT used in the CRSM raw layer, which stores
+observations exactly as fetched with no interpolation or resampling.
+"""
+
 import numpy as np
 import pandas as pd
 from typing import Optional

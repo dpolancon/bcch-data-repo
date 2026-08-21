@@ -1,9 +1,22 @@
+"""
+Purpose:  Local Parquet cache with delta (incremental) syncing against the
+          BCCh API, so a re-run fetches only observations newer than the cache.
+Task:     BCCh data pipeline infrastructure
+Inputs:   BCCh API; data/cache/*.parquet
+Outputs:  data/cache/*.parquet (one file per series)
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+"""
+
 import os
 import pandas as pd
 from typing import List, Optional
 from datetime import date, timedelta
-from src.client import BCChAPIClient
-from src.catalog import CatalogManager
+from lib.client import BCChAPIClient
+from lib.catalog import CatalogManager
+from lib.codes import FREQ_STORAGE, parse_frequency
+from lib.paths import CACHE_DIR
 
 class LocalCacheManager:
     """
@@ -11,12 +24,12 @@ class LocalCacheManager:
     Implements a smart incremental syncing mechanism (delta updates).
     """
     def __init__(
-        self, 
-        cache_dir: str = "data/cache",
+        self,
+        cache_dir: Optional[str] = None,
         api_client: Optional[BCChAPIClient] = None,
         catalog_manager: Optional[CatalogManager] = None
     ):
-        self.cache_dir = cache_dir
+        self.cache_dir = str(cache_dir or CACHE_DIR)
         self.api_client = api_client or BCChAPIClient()
         self.catalog_manager = catalog_manager or CatalogManager()
         
@@ -69,10 +82,24 @@ class LocalCacheManager:
         if cached_df is not None and not cached_df.empty:
             max_cached_date = cached_df["date"].max().date()
             
-            # Determine freshness based on series frequency if available
-            metadata = self.catalog_manager.get_metadata(series_id)
-            frequency = metadata.frequency.upper() if metadata and metadata.frequency else "DAILY"
-            
+            # Determine freshness from the series frequency.
+            #
+            # Frequency comes from the code's own suffix, NOT from catalog
+            # metadata: the shipped catalogo_series.xlsx has no frequency
+            # column, so SeriesMetadata.frequency is always None. Relying on it
+            # made every series fall through to the DAILY branch, which marked
+            # annual and quarterly series stale on every single call and fired
+            # an API request each time. The code suffix resolves for 100% of
+            # catalog rows, so we use it and fall back to metadata only if the
+            # code is malformed.
+            frequency = None
+            freq_letter = parse_frequency(series_id)
+            if freq_letter:
+                frequency = FREQ_STORAGE[freq_letter]
+            if frequency is None:
+                metadata = self.catalog_manager.get_metadata(series_id)
+                frequency = metadata.frequency.upper() if metadata and metadata.frequency else "DAILY"
+
             is_stale = False
             if frequency == "DAILY" and max_cached_date < today:
                 is_stale = True
@@ -81,7 +108,7 @@ class LocalCacheManager:
                 is_stale = True
             elif frequency == "QUARTERLY" and max_cached_date < today - timedelta(days=90):
                 is_stale = True
-            elif max_cached_date < today - timedelta(days=365): # Annual default
+            elif frequency == "ANNUAL" and max_cached_date < today - timedelta(days=365):
                 is_stale = True
 
             if is_stale:

@@ -1,3 +1,22 @@
+"""
+Stage:    06 -- Generate the coverage LaTeX
+Purpose:  Format the coverage inventory and figures into LaTeX sources for the
+          data coverage report.
+Task:     Regional data coverage reporting
+Inputs:   bcch-data-repo-vault/report2_REG_ECON_DEV/assets/*
+Outputs:  bcch-data-repo-vault/report2_REG_ECON_DEV/tex/*.tex
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+Run:      python scripts/06_generate_coverage_tex.py
+"""
+
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib.paths import REPO_ROOT
+
 import os
 import re
 import shutil
@@ -7,7 +26,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Paths
-ROOT_DIR = "c:/ReposGitHub/bcch-data-repo"
+ROOT_DIR = str(REPO_ROOT)
 REPORT_DIR = os.path.join(ROOT_DIR, "bcch-data-repo-vault", "report2_REG_ECON_DEV")
 ASSETS_DIR = os.path.join(REPORT_DIR, "assets")
 TEX_DIR = os.path.join(REPORT_DIR, "tex")

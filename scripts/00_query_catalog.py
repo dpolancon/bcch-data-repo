@@ -1,3 +1,16 @@
+"""
+Stage:    00 -- Query the series catalog
+Purpose:  Interactive CLI for discovering BCCh series codes by keyword,
+          chapter, or code prefix. The discovery step that precedes any fetch.
+Task:     BCCh series discovery
+Inputs:   data/catalogo_series.xlsx
+Outputs:  stdout only
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+Run:      python scripts/00_query_catalog.py --search vivienda
+"""
+
 import os
 import pandas as pd
 import argparse

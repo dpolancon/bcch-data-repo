@@ -5,7 +5,12 @@ __pycache__/
 
 # Caches and data
 data/cache/
+data/cache_synthetic/
 .env
+
+# Raw landing zone: large, regenerable from the API. The series universe and
+# fetch manifest are kept because they document what a run selected and got.
+data/raw/**/raw_*.csv
 
 # Environments
 .venv/

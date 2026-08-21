@@ -1,3 +1,22 @@
+"""
+Stage:    08 -- Audit pipeline outputs
+Purpose:  Cross-check the generated tables, figures and panels for internal
+          consistency and emit the source-of-truth regional GDP extract.
+Task:     Regional reporting quality control
+Inputs:   data/panel_regional_pib_annual.parquet; bcch-data-repo-vault/assets/*
+Outputs:  data/source_of_truth_regional_pib.csv
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+Run:      python scripts/08_audit_outputs.py
+"""
+
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib.paths import REPO_ROOT
+
 import os
 import pandas as pd
 import numpy as np
@@ -7,9 +26,9 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Constants
-VAULT_DIR = "c:/ReposGitHub/bcch-data-repo/bcch-data-repo-vault"
+VAULT_DIR = os.path.join(REPO_ROOT, "bcch-data-repo-vault")
 ASSETS_DIR = os.path.join(VAULT_DIR, "assets")
-DATA_DIR = "c:/ReposGitHub/bcch-data-repo/data"
+DATA_DIR = os.path.join(REPO_ROOT, "data")
 
 REGION_MAP = {
     '15': 'Arica y Parinacota', '01': 'Tarapacá', '02': 'Antofagasta', 

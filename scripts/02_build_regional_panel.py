@@ -1,3 +1,25 @@
+"""
+Stage:    02 -- Build the regional GDP panel
+Purpose:  Fetch regional GDP (PIB) by region and compile the annual and
+          quarterly long-format panels used by the downstream analysis stages.
+Task:     Regional economic development analysis
+Inputs:   data/catalogo_series.xlsx; BCCh SieteRestWS API
+Outputs:  data/panel_regional_pib_annual.parquet
+          data/panel_regional_pib_quarterly.parquet
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+Run:      python scripts/02_build_regional_panel.py [--synthetic]
+
+The --synthetic flag generates mock data for offline development. It must be
+passed explicitly: this script previously switched to synthetic generation on
+its own whenever .env held placeholder credentials, which produced fabricated
+Parquet panels that looked identical to fetched ones. Synthetic rows are
+labelled status="MOCK" and are written to a separate cache namespace so they
+can never be mistaken for, or mixed into, real data.
+"""
+
+import argparse
 import os
 import sys
 import pandas as pd
@@ -9,12 +31,14 @@ import logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-# Add the project root directory to the python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Add this script's directory to the path so `lib` resolves from any CWD.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from src.catalog import CatalogManager
-from src.storage import LocalCacheManager
-from src.client import BCChAPIError
+from lib.catalog import CatalogManager
+from lib.storage import LocalCacheManager
+from lib.client import BCChAPIError
+from lib.config import require_real_credentials
+from lib.paths import CACHE_DIR, DATA_DIR
 
 # Region code to descriptive name map
 REGION_MAP = {
@@ -237,10 +261,24 @@ def format_to_panel(df_raw: pd.DataFrame, region_map: dict, frequency: str) -> p
     df_panel = df_panel.sort_values(by=['region_code', 'date']).reset_index(drop=True)
     return df_panel
 
-def build_regional_panels():
+def build_regional_panels(use_synthetic: bool = False):
+    # Check credentials before constructing anything that needs them, so the
+    # failure message names the actual problem rather than surfacing as a
+    # ValueError from deep inside the client constructor.
+    if not use_synthetic:
+        require_real_credentials()
+    else:
+        logger.warning(
+            "SYNTHETIC MODE: generating mock data. Outputs are NOT real BCCh "
+            "observations and every row is stamped status='MOCK'."
+        )
+
     logger.info("Initializing CatalogManager and LocalCacheManager...")
-    catalog = CatalogManager("data/catalogo_series.xlsx")
-    cache = LocalCacheManager()
+    catalog = CatalogManager()
+    # Synthetic runs use a separate cache namespace so mock series can never be
+    # picked up by a later real run.
+    cache_dir = str(CACHE_DIR.parent / "cache_synthetic") if use_synthetic else str(CACHE_DIR)
+    cache = LocalCacheManager(cache_dir=cache_dir, catalog_manager=catalog)
 
     base_pattern = "F035.PIB.FLU.R.CLP.2018.Z.Z.Z.{code}.0.{freq}"
     
@@ -257,15 +295,6 @@ def build_regional_panels():
             quarterly_codes.append(qtr_code)
             
     logger.info(f"Verified series in catalog: {len(annual_codes)} Annual, {len(quarterly_codes)} Quarterly.")
-
-    # Check if API Credentials are still placeholders
-    use_synthetic = False
-    if cache.api_client.user == "your_email@example.com" or "example.com" in cache.api_client.user:
-        logger.warning(
-            "API Credentials in .env are still placeholders. "
-            "Activating fallback to high-fidelity synthetic regional GDP generator."
-        )
-        use_synthetic = True
 
     # 1. Build Annual Panel
     if annual_codes:
@@ -285,11 +314,9 @@ def build_regional_panels():
                     if not df_series.empty:
                         dfs_annual.append(df_series)
                 except BCChAPIError as e:
+                    # No synthetic fallback: a failed fetch is reported as a
+                    # failure, never quietly replaced with fabricated numbers.
                     logger.error(f"API Error syncing {code}: {e}")
-                    logger.info(f"Falling back to synthetic data starting in 2013 for {code}")
-                    df_series = generate_synthetic_series(code, "A")
-                    cache.save_to_cache(code, df_series)
-                    dfs_annual.append(df_series)
                 except Exception as e:
                     logger.error(f"Unexpected error syncing {code}: {e}")
                     
@@ -322,10 +349,6 @@ def build_regional_panels():
                         dfs_quarterly.append(df_series)
                 except BCChAPIError as e:
                     logger.error(f"API Error syncing {code}: {e}")
-                    logger.info(f"Falling back to synthetic data starting in 2013 for {code}")
-                    df_series = generate_synthetic_series(code, "T")
-                    cache.save_to_cache(code, df_series)
-                    dfs_quarterly.append(df_series)
                 except Exception as e:
                     logger.error(f"Unexpected error syncing {code}: {e}")
                 
@@ -340,4 +363,11 @@ def build_regional_panels():
             logger.error("No Quarterly data could be built.")
 
 if __name__ == "__main__":
-    build_regional_panels()
+    parser = argparse.ArgumentParser(description="Build the regional GDP panels.")
+    parser.add_argument(
+        "--synthetic",
+        action="store_true",
+        help="generate MOCK data for offline development instead of fetching",
+    )
+    args = parser.parse_args()
+    build_regional_panels(use_synthetic=args.synthetic)

@@ -1,3 +1,23 @@
+"""
+Stage:    03 -- Report catalog coverage
+Purpose:  Build the regional series inventory from the catalog and render
+          coverage figures and a Spanish coverage report.
+Task:     Regional data coverage audit
+Inputs:   data/catalogo_series.xlsx
+Outputs:  bcch-data-repo-vault/report2_REG_ECON_DEV/assets/data_coverage_inventory.csv
+          bcch-data-repo-vault/report2_REG_ECON_DEV/assets/fig*.png
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+Run:      python scripts/03_report_coverage.py
+"""
+
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib.paths import REPO_ROOT
+
 import os
 import pandas as pd
 import numpy as np
@@ -9,7 +29,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Paths
-ROOT_DIR = "c:/ReposGitHub/bcch-data-repo"
+ROOT_DIR = str(REPO_ROOT)
 VAULT_DIR = os.path.join(ROOT_DIR, "bcch-data-repo-vault", "report2_REG_ECON_DEV")
 ASSETS_DIR = os.path.join(VAULT_DIR, "assets")
 os.makedirs(ASSETS_DIR, exist_ok=True)
@@ -330,7 +350,7 @@ La relación entre la frecuencia temporal y el dominio de información expone qu
 
 ---
 
-## **3. Cobertura Geográfica: Región Administrativa ($r = 1 \dots 16$)**
+## **3. Cobertura Geográfica: Región Administrativa ($r = 1 \\dots 16$)**
 
 Chile está compuesto por 16 regiones administrativas de distintas escalas demográficas y productivas. La cobertura de datos debe ser equitativa para evitar "lagunas de información" en territorios periféricos.
 
@@ -345,7 +365,7 @@ La distribución de series por región es altamente homogénea en los dominios p
 
 ---
 
-## **4. Cobertura Sectorial ($s = 1 \dots 12$)**
+## **4. Cobertura Sectorial ($s = 1 \\dots 12$)**
 
 La desagregación del PIB y del empleo en 12 sectores económicos estándar permite estudiar la especialización productiva regional y la vulnerabilidad ante choques sectoriales.
 
@@ -474,7 +494,7 @@ Instrucciones:
 1. **Explorar el Inventario**: Abre [data_coverage_inventory.csv](assets/data_coverage_inventory.csv) en Obsidian. Puedes usar plugins como *DB Folder* o *Markdown Table Editor* para filtrar por región (`Region_Id`), sector (`Sector_Id`), frecuencia (`Frecuencia`) o dominio (`Dominio`).
 2. **Consultar Series en Python**: Puedes usar el `CatalogManager` para encontrar códigos específicos. Por ejemplo:
    ```python
-   from src.catalog import CatalogManager
+   from lib.catalog import CatalogManager
    catalog = CatalogManager("data/catalogo_series.xlsx")
    
    # Buscar series de Cuentas Corrientes en Biobío
@@ -484,7 +504,7 @@ Instrucciones:
    ```
 3. **Descargar e Integrar Datos**: Si requieres descargar las observaciones de una serie identificada, agrégala al pipeline de sincronización local:
    ```python
-   from src.storage import LocalCacheManager
+   from lib.storage import LocalCacheManager
    cache = LocalCacheManager()
    df = cache.smart_sync("F022.CCPNAN.STO.Z.Z.Z.M") # Ejemplo de código de cuentas corrientes
    ```

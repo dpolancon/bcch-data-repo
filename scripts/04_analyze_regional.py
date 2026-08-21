@@ -1,3 +1,22 @@
+"""
+Stage:    04 -- Analyze the regional panel
+Purpose:  Compute regional inequality indices, location quotients, convergence
+          parameters and sectoral profiles; emit tables, figures and reports.
+Task:     Regional economic development analysis
+Inputs:   data/panel_regional_pib_annual.parquet
+Outputs:  bcch-data-repo-vault/assets/table*.csv, fig*.png/pdf, report_*.md
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+Run:      python scripts/04_analyze_regional.py
+"""
+
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib.paths import REPO_ROOT
+
 import os
 import pandas as pd
 import numpy as np
@@ -9,7 +28,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Constants
-VAULT_DIR = "c:/ReposGitHub/bcch-data-repo/bcch-data-repo-vault"
+VAULT_DIR = os.path.join(REPO_ROOT, "bcch-data-repo-vault")
 ASSETS_DIR = os.path.join(VAULT_DIR, "assets")
 os.makedirs(ASSETS_DIR, exist_ok=True)
 
@@ -122,7 +141,7 @@ REGION_SECTOR_PROFILES = {
 }
 
 def load_data():
-    df_ann = pd.read_parquet("c:/ReposGitHub/bcch-data-repo/data/panel_regional_pib_annual.parquet")
+    df_ann = pd.read_parquet(os.path.join(REPO_ROOT, "data/panel_regional_pib_annual.parquet"))
     df_ann['year'] = df_ann['date'].dt.year
     return df_ann
 

@@ -1,3 +1,21 @@
+"""
+Stage:    07 -- Validate the generated LaTeX
+Purpose:  Audit generated .tex sources for syntax faults before compilation.
+Task:     Regional reporting quality control
+Inputs:   bcch-data-repo-vault/report2_REG_ECON_DEV/tex/*.tex
+Outputs:  stdout audit log
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+Run:      python scripts/07_validate_tex.py
+"""
+
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib.paths import REPO_ROOT
+
 import os
 import re
 import logging
@@ -5,7 +23,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-TEX_PATH = "c:/ReposGitHub/bcch-data-repo/bcch-data-repo-vault/report2_REG_ECON_DEV/tex/report_REG_ECON_DEV_coverage_ES.tex"
+TEX_PATH = os.path.join(REPO_ROOT, "bcch-data-repo-vault/report2_REG_ECON_DEV/tex/report_REG_ECON_DEV_coverage_ES.tex")
 
 def validate_tex():
     logger.info("Initializing refined TeX Syntax Audit...")

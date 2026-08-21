@@ -1,3 +1,22 @@
+"""
+Stage:    05 -- Generate the analysis LaTeX
+Purpose:  Format analysis tables and figures into the Spanish LaTeX sources for
+          the regional development report.
+Task:     Regional economic development reporting
+Inputs:   bcch-data-repo-vault/assets/*.csv, *.png
+Outputs:  bcch-data-repo-vault/report1_REG_ECON_DEV/tex_es/*.tex
+Created:  2026-07-06
+Updated:  2026-08-21
+Owner:    dpolancon
+Run:      python scripts/05_generate_tex.py
+"""
+
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib.paths import REPO_ROOT
+
 import os
 import pandas as pd
 import logging
@@ -6,7 +25,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Constants
-VAULT_DIR = "c:/ReposGitHub/bcch-data-repo/bcch-data-repo-vault"
+VAULT_DIR = os.path.join(REPO_ROOT, "bcch-data-repo-vault")
 ASSETS_DIR = os.path.join(VAULT_DIR, "assets")
 TEX_DIR = os.path.join(VAULT_DIR, "report1_REG_ECON_DEV", "tex_es")
 

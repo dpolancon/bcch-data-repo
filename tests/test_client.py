@@ -2,7 +2,7 @@ import pytest
 import responses
 import pandas as pd
 from datetime import date
-from src.client import BCChAPIClient, BCChAPIError
+from lib.client import BCChAPIClient, BCChAPIError
 
 @responses.activate
 def test_get_series_success():
