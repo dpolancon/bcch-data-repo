@@ -11,10 +11,14 @@
             "id": "5a41ca3949e44485",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "report2_REG_ECON_DEV/data_coverage_report_ES.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "data_coverage_report_ES"
             }
           }
         ]
@@ -37,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -178,25 +184,25 @@
   },
   "active": "5a41ca3949e44485",
   "lastOpenFiles": [
-    "report2_REG_ECON_DEV/data_coverage_report_ES.pdf",
-    "report2_REG_ECON_DEV/data_coverage_report_ES.md",
-    "report2_REG_ECON_DEV/tex/report_REG_ECON_DEV_coverage_ES.pdf",
     "report2_REG_ECON_DEV/coverage_prompt_instructions.md",
+    "report2_REG_ECON_DEV/data_coverage_report_ES.md",
+    "report2_REG_ECON_DEV/data_coverage_report_ES.pdf",
     "report2_REG_ECON_DEV/tex/fig3_sectoral_matrix.png",
     "report2_REG_ECON_DEV/tex/fig2_regional_heatmap.png",
     "report2_REG_ECON_DEV/tex/fig1_frequencies.png",
+    "report1_REG_ECON_DEV/report_REG_ECON_DEV_ES.md",
+    "report1_REG_ECON_DEV/report_structure_REG_ECON_DEV.md",
+    "report2_REG_ECON_DEV/tex/report_REG_ECON_DEV_coverage_ES.pdf",
     "report2_REG_ECON_DEV/tex/report_REG_ECON_DEV_coverage_ES.tex",
     "report2_REG_ECON_DEV/tex",
     "report2_REG_ECON_DEV/assets/data_coverage_inventory - Copy.xlsx",
     "report2_REG_ECON_DEV/assets/AAD55420",
     "report2_REG_ECON_DEV/assets/~$data_coverage_inventory - Copy.xlsx",
     "report2_REG_ECON_DEV/assets/data_coverage_inventory - Copy.csv",
-    "report1_REG_ECON_DEV/report_REG_ECON_DEV_ES.md",
     "report1_REG_ECON_DEV/report_REG_ECON_DEV_ES.pdf",
     "report1_REG_ECON_DEV/tex_es/report_REG_ECON_DEV_ES.tex",
     "report1_REG_ECON_DEV/report_REG_ECON_DEV.md",
     "report1_REG_ECON_DEV/response_to_reviewers.md",
-    "report1_REG_ECON_DEV/report_structure_REG_ECON_DEV.md",
     "assets/fig2_2e_radar_austral.png",
     "assets/fig2_2d_radar_sur.png",
     "assets/fig2_2c_radar_centrosur.png",
