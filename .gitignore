@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Build artifacts from `pip install -e .` and wheel builds
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+
 # Secrets -- never commit credentials.
 # Everything under secrets/ is ignored except the tracked documentation, so the
 # folder self-documents in a fresh clone while its contents stay local.
