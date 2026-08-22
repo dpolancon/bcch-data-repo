@@ -131,3 +131,34 @@ def is_sectoral_total(code: str) -> bool:
     """True when the code is an F035 regional total (no sector breakdown)."""
     parts = code.strip().split(".") if isinstance(code, str) else []
     return len(parts) == 12 and parts[0] == "F035" and parts[6].upper() == SECTOR_TOTAL_TOKEN
+
+
+# --- Selectors ---------------------------------------------------------------
+# Token 7 of an F035 code is a SUB-activity slot. It is 'Z' for most
+# region/sector pairs, but not all: mining (03) and construction (06) use '21'
+# for some regions, notably Tarapaca. A selector written as the obvious
+# `...03\.Z\.Z\.` therefore silently drops those regions -- Tarapaca's 34% mining
+# share vanishes from the panel with no error and no empty cell, just a missing
+# row. Always build F035 selectors through this function.
+
+F035_SUBACTIVITY_ANY = r"[^.]+"
+
+
+def f035_pattern(
+    measure: str = "PIB",
+    flow: str = "FLU",
+    valuation: str = "N",
+    ref_year: str = "2018",
+    sector: str = SECTOR_TOTAL_TOKEN,
+    frequency: str = FREQ_ANNUAL,
+    region: str = r"\d\d",
+) -> str:
+    """Build a regex matching one family of F035 regional series.
+
+    The sub-activity slot (token 7) is wildcarded by default, which is the
+    whole point -- see the note above.
+    """
+    return (
+        rf"^F035\.{measure}\.{flow}\.{valuation}\.CLP\.{ref_year}\."
+        rf"{sector}\.{F035_SUBACTIVITY_ANY}\.Z\.{region}\.0\.{frequency}$"
+    )

@@ -125,3 +125,40 @@ class TestFullCatalogCoverage:
 
         for sector_id, n in counts.items():
             assert n > 0, f"sector {sector_id} has no regional series"
+
+
+class TestF035Selectors:
+    """The sub-activity slot (token 7) must be wildcarded.
+
+    Mining and construction use '21' there for some regions. A selector that
+    hardcodes 'Z' drops them silently -- Tarapaca's 34% mining share simply
+    stops existing, with no error to notice.
+    """
+
+    def test_matches_both_subactivity_variants(self):
+        import re
+
+        from lib.codes import f035_pattern
+
+        pat = re.compile(f035_pattern(sector="03"))
+        assert pat.match("F035.PIB.FLU.N.CLP.2018.03.Z.Z.02.0.A")   # most regions
+        assert pat.match("F035.PIB.FLU.N.CLP.2018.03.21.Z.01.0.A")  # Tarapaca
+
+    def test_respects_sector_and_frequency(self):
+        import re
+
+        from lib.codes import f035_pattern
+
+        pat = re.compile(f035_pattern(sector="10", frequency="A"))
+        assert pat.match("F035.PIB.FLU.N.CLP.2018.10.Z.Z.13.0.A")
+        assert not pat.match("F035.PIB.FLU.N.CLP.2018.03.Z.Z.13.0.A")  # wrong sector
+        assert not pat.match("F035.PIB.FLU.N.CLP.2018.10.Z.Z.13.0.T")  # wrong frequency
+
+    def test_total_pattern_excludes_sectoral(self):
+        import re
+
+        from lib.codes import f035_pattern
+
+        pat = re.compile(f035_pattern())  # sector defaults to the total token Z
+        assert pat.match("F035.PIB.FLU.N.CLP.2018.Z.Z.Z.13.0.A")
+        assert not pat.match("F035.PIB.FLU.N.CLP.2018.10.Z.Z.13.0.A")

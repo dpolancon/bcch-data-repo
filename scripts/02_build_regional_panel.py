@@ -39,14 +39,12 @@ from lib.storage import LocalCacheManager
 from lib.client import BCChAPIError
 from lib.config import require_real_credentials
 from lib.paths import CACHE_DIR, DATA_DIR
+from lib.regions import REGIONS
 
-# Region code to descriptive name map
-REGION_MAP = {
-    '15': 'Arica_y_Parinacota', '01': 'Tarapaca', '02': 'Antofagasta', 
-    '03': 'Atacama', '04': 'Coquimbo', '05': 'Valparaiso', '13': 'Metropolitana',
-    '06': 'OHiggins', '07': 'Maule', '16': 'Nuble', '08': 'Biobio', 
-    '09': 'Araucania', '14': 'Los_Rios', '10': 'Los_Lagos', '11': 'Aysen', '12': 'Magallanes'
-}
+# Region code -> ASCII name, derived from the canonical table in lib.regions
+# so this file no longer carries its own copy. ASCII (not accented) names are
+# used because they are the panel's on-disk `region_name` values.
+REGION_MAP = {r.id: r.name_ascii for r in REGIONS}
 
 # Real GDP size scale factors for Chilean regions (reference base year 2018 in millions of CLP)
 REGION_SCALES = {
