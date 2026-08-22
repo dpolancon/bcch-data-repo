@@ -1,7 +1,11 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "bcch-data-repo"
 version = "0.1.0"
-description = "Production-grade data pipeline for the Central Bank of Chile"
+description = "Data pipeline for regional economic statistics from the Central Bank of Chile"
 authors = [
     { name = "Diego Polanco" }
 ]
@@ -23,5 +27,22 @@ requires-python = ">=3.9"
 [project.optional-dependencies]
 dev = [
     "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
     "responses>=0.23.0"
 ]
+
+# The importable library is scripts/lib, exposed as the top-level package `lib`.
+#
+# This list is deliberately explicit rather than auto-discovered. Setuptools'
+# flat-layout discovery scans the repo root and picks up agents/, codes/, data/,
+# reports/ AND secrets/ as "packages" while missing scripts/lib entirely -- so
+# discovery would both fail to install the library and sweep credentials into
+# the distribution. Never replace this with a find directive.
+[tool.setuptools]
+package-dir = {"" = "scripts"}
+packages = ["lib"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["scripts"]
+addopts = "-q"
