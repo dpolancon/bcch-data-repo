@@ -20,6 +20,12 @@ CODES_DIR = REPO_ROOT / "codes"
 DATA_DIR = REPO_ROOT / "data"
 TESTS_DIR = REPO_ROOT / "tests"
 
+# Local credentials. Everything here is gitignored except the tracked
+# .env.example and README.md -- see secrets/README.md.
+SECRETS_DIR = REPO_ROOT / "secrets"
+ENV_FILE = SECRETS_DIR / ".env"
+LEGACY_ENV_FILE = REPO_ROOT / ".env"  # pre-move location, still honoured
+
 CATALOG_XLSX = DATA_DIR / "catalogo_series.xlsx"
 CACHE_DIR = DATA_DIR / "cache"
 RAW_DIR = DATA_DIR / "raw"

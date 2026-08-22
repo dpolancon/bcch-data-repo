@@ -14,13 +14,16 @@ This repository is designed for researchers, economists, and data analysts. It i
 The project follows a modular, structured layout:
 
 ```text
-├── .env.example                # Template for BCCh API credentials
 ├── .gitignore                  # Git exclusion rules (venv, local caches, secrets)
 ├── CLAUDE.md                   # Project conventions, naming protocol, agent guide
 ├── pyproject.toml              # Project dependencies, packaging metadata
 ├── README.md                   # Project documentation (this file)
 │
 ├── codes/                      # ALL R code (R only -- binding rule)
+│
+├── secrets/                    # Local credentials (gitignored except docs)
+│   ├── .env.example            # Template -- copy to secrets/.env
+│   └── README.md               # Setup and verification steps
 │
 ├── data/
 │   ├── catalogo_series.xlsx    # Master Excel catalog of BCCh series
@@ -100,17 +103,26 @@ source .venv/bin/activate
 pip install -e .[dev]
 ```
 
-### 3. Environment Configuration
-Create a local `.env` file by copying the template and filling in your credentials:
+### 3. Credentials
+All credentials live in `secrets/`, which is gitignored except its two
+documentation files. See [secrets/README.md](secrets/README.md).
 
 ```bash
-cp .env.example .env
+cp secrets/.env.example secrets/.env
 ```
 
-Open `.env` in your text editor and update:
+Open `secrets/.env` and set your API Key token:
 ```env
-BCCH_USER=your_registered_email@example.com
-BCCH_PASSWORD=your_api_password
+BCCH_TOKEN=your_api_key_token
+```
+
+Get the token from [si3.bcentral.cl](https://si3.bcentral.cl) → **Mi Cuenta** →
+**Apikey Token** (valid one year). The legacy `BCCH_USER` / `BCCH_PASSWORD` pair
+still works, and plain environment variables override the file entirely.
+
+Confirm nothing leaked before your first commit:
+```bash
+git status --short          # secrets/.env must not appear
 ```
 
 ---

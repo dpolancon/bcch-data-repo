@@ -77,7 +77,7 @@ scripts/            # ALL Python
 ├── lib/            # importable modules
 │   ├── paths.py    # repo-root anchored paths
 │   ├── config.py   # settings + credential guards
-│   ├── client.py   # BCCh API client (retry, batching, throttle)
+│   ├── client.py   # BCCh API client (retry, throttle, token auth)
 │   ├── catalog.py  # catalogo_series.xlsx search / metadata
 │   ├── storage.py  # CSV delta cache
 │   ├── regions.py  # canonical 16-region table + 4-encoding parser
@@ -92,6 +92,10 @@ scripts/            # ALL Python
 └── 06_generate_coverage_tex.py
 
 codes/              # ALL R
+secrets/            # local credentials -- gitignored except the two docs
+├── .env.example    # template (tracked)
+├── README.md       # setup + verification (tracked)
+└── .env            # your credentials (ignored)
 data/
 ├── catalogo_series.xlsx
 ├── cache/          # CSV delta cache (gitignored)
@@ -105,8 +109,14 @@ bcch-data-repo-vault/   # Obsidian research vault
 
 - Python 3.9+
 - Install: `pip install -e .[dev]`
-- Copy `.env.example` to `.env` and fill in `BCCH_USER` and `BCCH_PASSWORD`
-- Never commit `.env` — it is gitignored
+- Credentials live in `secrets/` — see [secrets/README.md](secrets/README.md):
+  ```bash
+  cp secrets/.env.example secrets/.env   # then set BCCH_TOKEN
+  ```
+- `secrets/*` is gitignored except `.env.example` and `README.md`. Never move a
+  credential out of that folder, and never commit one. Plain environment
+  variables override the file, so `BCCH_TOKEN` can live in your shell profile
+  instead.
 
 ## Standard Workflow
 
@@ -132,7 +142,7 @@ pytest --cov=scripts/lib tests/
 
 ## Key Constraints
 
-- **Never fabricate data.** Fetch stages call `lib.config.require_real_credentials()` and abort when `.env` is missing or still holds placeholders. `02_build_regional_panel.py` can generate mock data, but only behind an explicit `--synthetic` flag, which writes to a separate cache namespace and stamps every row `status="MOCK"`.
+- **Never fabricate data.** Fetch stages call `lib.config.require_real_credentials()` and abort when `secrets/.env` is missing or still holds placeholders. `02_build_regional_panel.py` can generate mock data, but only behind an explicit `--synthetic` flag, which writes to a separate cache namespace and stamps every row `status="MOCK"`.
 - **CSV everywhere, no Parquet.** Every data artifact — the delta cache, the raw landing zone, the compiled panels — is plain CSV. It stays readable without pyarrow, diffs in git, and loads directly from R in `codes/`. Do not reintroduce Parquet. CSV carries no dtypes, so always read with `parse_dates=["date"]` and `dtype={"region_code": str}` (region codes are zero-padded and become integers otherwise, silently breaking joins).
 - **The raw layer does not transform.** `data/raw/` is an immutable landing zone: no interpolation, no aggregation, no cross-frequency mixing. Derived panels are built downstream.
 - **Frequency comes from the code suffix**, via `lib.codes.parse_frequency` — the last dot-token, which resolves for 100% of catalog rows. The catalog has no frequency column, so `SeriesMetadata.frequency` is always `None`; do not rely on it.

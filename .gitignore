@@ -3,14 +3,21 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Secrets -- never commit credentials
+# Secrets -- never commit credentials.
+# Everything under secrets/ is ignored except the tracked documentation, so the
+# folder self-documents in a fresh clone while its contents stay local.
+secrets/*
+!secrets/.env.example
+!secrets/README.md
+
+# Belt and braces: these patterns catch credentials dropped anywhere else.
 .env
 .env.*
-!.env.example
-token.txt
+!secrets/.env.example
 *token*.txt
 *credentials*
-secrets/
+*.pem
+*.key
 
 # Caches and data
 data/cache/

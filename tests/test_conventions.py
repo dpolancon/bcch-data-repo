@@ -170,3 +170,44 @@ class TestNoDeadDuplicates:
             if re.search(r"^\s*(from|import)\s+src\b", text, re.MULTILINE):
                 offenders.append(path.name)
         assert not offenders, f"files still importing src.*: {offenders}"
+
+
+class TestSecretsAreIgnored:
+    """Credentials must be unreachable by git, and must stay that way."""
+
+    @pytest.mark.parametrize(
+        "relpath",
+        ["secrets/.env", "secrets/token.txt", ".env", "secrets/anything.key"],
+    )
+    def test_credential_paths_are_gitignored(self, relpath):
+        import subprocess
+
+        result = subprocess.run(
+            ["git", "check-ignore", "-q", relpath],
+            cwd=REPO_ROOT, capture_output=True,
+        )
+        assert result.returncode == 0, f"{relpath} is NOT gitignored"
+
+    @pytest.mark.parametrize("relpath", ["secrets/.env.example", "secrets/README.md"])
+    def test_secrets_docs_stay_tracked(self, relpath):
+        import subprocess
+
+        result = subprocess.run(
+            ["git", "check-ignore", "-q", relpath],
+            cwd=REPO_ROOT, capture_output=True,
+        )
+        assert result.returncode != 0, f"{relpath} should be tracked, not ignored"
+
+    def test_no_credential_file_is_tracked(self):
+        import subprocess
+
+        tracked = subprocess.run(
+            ["git", "ls-files"], cwd=REPO_ROOT,
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+        ).stdout.split()
+        bad = [
+            f for f in tracked
+            if f.endswith((".env", "token.txt", ".pem", ".key"))
+            or ("credential" in f.lower())
+        ]
+        assert not bad, f"credential-looking files are tracked: {bad}"

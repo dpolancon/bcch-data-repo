@@ -1,8 +1,8 @@
 """
 Purpose:  Environment-backed settings (BCCh API credentials, default date
-          bounds), loaded from the repo-root .env.
+          bounds), loaded from secrets/.env.
 Task:     BCCh data pipeline infrastructure
-Inputs:   <repo root>/.env -- BCCH_TOKEN (preferred), or
+Inputs:   secrets/.env -- BCCH_TOKEN (preferred), or
           BCCH_USER + BCCH_PASSWORD
 Outputs:  n/a (module-level `settings` singleton, or None if unset)
 Created:  2026-07-06
@@ -17,10 +17,13 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from dotenv import load_dotenv
 
-from lib.paths import REPO_ROOT
+from lib.paths import ENV_FILE as SECRETS_ENV_FILE
+from lib.paths import LEGACY_ENV_FILE
 
-# Anchor .env to the repo root so credentials resolve no matter the CWD.
-ENV_FILE = REPO_ROOT / ".env"
+# Credentials live in secrets/.env. A repo-root .env is still honoured so an
+# existing checkout keeps working after the move. Real environment variables
+# take precedence over both, since load_dotenv does not override them.
+ENV_FILE = SECRETS_ENV_FILE if SECRETS_ENV_FILE.exists() else LEGACY_ENV_FILE
 load_dotenv(ENV_FILE)
 
 # Credential values that mean "the template was never filled in".
@@ -83,9 +86,10 @@ def require_real_credentials() -> None:
     """
     if credentials_are_placeholders():
         raise RuntimeError(
-            "BCCh API credentials are missing or still set to the .env.example "
-            "placeholders. Copy .env.example to .env and set BCCH_TOKEN (get an "
-            "API Key token from 'Mi Cuenta' > 'Apikey Token' at si3.bcentral.cl), "
-            "or set BCCH_USER and BCCH_PASSWORD. This pipeline will not "
-            "fabricate data as a fallback."
+            "BCCh API credentials are missing or still set to the example "
+            "placeholders. Copy secrets/.env.example to secrets/.env and set "
+            "BCCH_TOKEN (get an API Key token from 'Mi Cuenta' > 'Apikey Token' "
+            "at si3.bcentral.cl), or set BCCH_USER and BCCH_PASSWORD. "
+            "See secrets/README.md. This pipeline will not fabricate data as a "
+            "fallback."
         )
