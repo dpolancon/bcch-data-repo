@@ -3,7 +3,8 @@ Stage:    02 -- Build the regional GDP panel
 Purpose:  Fetch regional GDP (PIB) by region and compile the annual and
           quarterly long-format panels used by the downstream analysis stages.
 Task:     Regional economic development analysis
-Inputs:   data/catalogo_series.xlsx; BCCh SieteRestWS API
+Inputs:   data/catalogo_series.xlsx; data/cache/ (GDP + F049 population);
+          BCCh SieteRestWS API
 Outputs:  data/panel_regional_pib_annual.csv
           data/panel_regional_pib_quarterly.csv
 Created:  2026-07-06
@@ -11,12 +12,17 @@ Updated:  2026-08-21
 Owner:    dpolancon
 Run:      python scripts/02_build_regional_panel.py [--synthetic]
 
-The --synthetic flag generates mock data for offline development. It must be
+Population is real INE data read from the cache, not extrapolated. Both the GDP
+values and the population are fetched observations, so gdp_pc is a real ratio.
+
+The --synthetic flag generates mock GDP for offline development. It must be
 passed explicitly: this script previously switched to synthetic generation on
-its own whenever .env held placeholder credentials, which produced fabricated
-Parquet panels that looked identical to fetched ones. Synthetic rows are
-labelled status="MOCK" and are written to a separate cache namespace so they
-can never be mistaken for, or mixed into, real data.
+its own whenever credentials were placeholders, producing fabricated panels
+indistinguishable from fetched ones. Synthetic rows are labelled status="MOCK"
+and use a separate cache namespace so they can never be mixed into real data.
+
+Prerequisite: run scripts/01_fetch_crsm_raw.py first, which populates the cache
+with both the GDP and the F049 population series this stage reads.
 """
 
 import argparse
@@ -64,47 +70,6 @@ REGION_SCALES = {
     '12': 1.5,   # Magallanes
     '15': 1.1,   # Arica y Parinacota
     '11': 0.8,   # Aysen
-}
-
-# Initial population in 2013 (approximate real values in thousands)
-# Anchored to 2013 to match BCCh regional GDP availability start year
-REGION_POP_2013 = {
-    '13': 7000.0,
-    '02': 610.0,
-    '08': 1610.0,
-    '05': 1760.0,
-    '06': 880.0,
-    '10': 810.0,
-    '03': 290.0,
-    '07': 1000.0,
-    '09': 930.0,
-    '01': 310.0,
-    '04': 710.0,
-    '14': 380.0,
-    '16': 460.0,
-    '12': 160.0,
-    '15': 210.0,
-    '11': 98.0,
-}
-
-# Annual population growth rate factor
-REGION_POP_GROWTH = {
-    '13': 0.010,
-    '02': 0.015,
-    '08': 0.006,
-    '05': 0.009,
-    '06': 0.008,
-    '10': 0.008,
-    '03': 0.012,
-    '07': 0.007,
-    '09': 0.005,
-    '01': 0.017,
-    '04': 0.011,
-    '14': 0.006,
-    '16': 0.005,
-    '12': 0.007,
-    '15': 0.008,
-    '11': 0.007,
 }
 
 # Historical national growth shocks in Chile (from 2013 onwards)
@@ -225,39 +190,101 @@ def generate_synthetic_series(series_code: str, freq: str) -> pd.DataFrame:
     df["status"] = df["status"].astype(str)
     return df
 
-def format_to_panel(df_raw: pd.DataFrame, region_map: dict, frequency: str) -> pd.DataFrame:
-    """Transforms raw time-series observations into a clean long-format panel dataset with population data."""
+PANEL_COLUMNS = [
+    'date', 'region_code', 'region_name', 'value',
+    'population', 'gdp_pc', 'indicator', 'frequency', 'unit',
+]
+
+# GDP arrives as "miles de millones de pesos encadenados" (10^9 CLP);
+# population is a headcount. GDP per capita is therefore CLP per person.
+GDP_UNIT_SCALE = 1_000_000_000
+GDP_UNIT_LABEL = 'Miles_de_millones_pesos_encadenados_2018'
+
+
+def load_regional_population(cache: LocalCacheManager) -> pd.DataFrame:
+    """Load real INE population by region and year from the cache.
+
+    Returns a (region_code, year) -> population frame. Population used to be
+    extrapolated here from a hardcoded 2013 base and assumed growth rates,
+    which put fabricated numbers into a panel labelled as fetched data. The
+    F049 population series are real, cover all 16 regions from 2002, and sum to
+    Chile's actual population, so there is no reason to invent them.
+
+    Region cannot be parsed from the F049 code, so the code is built from each
+    region's glued mnemonic instead (POBTA, POBAN, ...).
+    """
+    frames = []
+    for region in REGIONS:
+        code = f"F049.POB{region.mnemonic}.STO.INE.AT.A"
+        df = cache.load_from_cache(code)
+        if df is None or df.empty:
+            logger.warning("No population series cached for %s (%s)", region.name_es, code)
+            continue
+        frames.append(pd.DataFrame({
+            'region_code': region.id,
+            'year': pd.to_datetime(df['date']).dt.year,
+            'population': pd.to_numeric(df['value'], errors='coerce'),
+        }))
+
+    if not frames:
+        raise RuntimeError(
+            "No regional population series found in the cache. Run "
+            "scripts/01_fetch_crsm_raw.py first -- this script will not "
+            "substitute estimated population."
+        )
+
+    pop = pd.concat(frames, ignore_index=True).dropna(subset=['population'])
+    pop = pop.drop_duplicates(subset=['region_code', 'year'], keep='last')
+    logger.info(
+        "Population loaded: %d regions, %d-%d",
+        pop.region_code.nunique(), pop.year.min(), pop.year.max(),
+    )
+    return pop
+
+
+def format_to_panel(
+    df_raw: pd.DataFrame,
+    region_map: dict,
+    frequency: str,
+    population: pd.DataFrame,
+) -> pd.DataFrame:
+    """Transform raw observations into a long-format panel with real population.
+
+    Population is annual, so a quarterly panel joins each quarter to its own
+    year's figure. Rows outside the population series' coverage keep a null
+    population and a null gdp_pc rather than an extrapolated one.
+    """
     df = df_raw.copy()
     if df.empty:
-        return pd.DataFrame(columns=['date', 'region_code', 'region_name', 'value', 'population', 'gdp_pc', 'indicator', 'frequency', 'unit'])
+        return pd.DataFrame(columns=PANEL_COLUMNS)
 
     df['region_code'] = df['seriesId'].str.split('.').str[-3]
     df['region_name'] = df['region_code'].map(region_map)
-    
+
     df_panel = df[['date', 'region_code', 'region_name', 'value']].copy()
     df_panel['date'] = pd.to_datetime(df_panel['date'])
     df_panel['value'] = pd.to_numeric(df_panel['value'], errors='coerce')
-    
-    pop_values = []
-    for _, row in df_panel.iterrows():
-        y = row['date'].year
-        code = row['region_code']
-        pop_2013 = REGION_POP_2013.get(code, 500.0)
-        pop_growth = REGION_POP_GROWTH.get(code, 0.01)
-        
-        # pop_t = pop_2013 * (1 + r)^(y - 2013)
-        pop_t = pop_2013 * ((1 + pop_growth) ** (y - 2013))
-        pop_values.append(pop_t)
-        
-    df_panel['population'] = pop_values
-    df_panel['gdp_pc'] = (df_panel['value'] / df_panel['population']) * 1000.0
-    
+
+    df_panel['year'] = df_panel['date'].dt.year
+    df_panel = df_panel.merge(population, on=['region_code', 'year'], how='left')
+
+    missing = df_panel['population'].isna().sum()
+    if missing:
+        logger.warning(
+            "%d of %d rows have no population match; gdp_pc left null for those.",
+            missing, len(df_panel),
+        )
+
+    df_panel['gdp_pc'] = (df_panel['value'] * GDP_UNIT_SCALE) / df_panel['population']
+
     df_panel['indicator'] = 'PIB_Real_Regional'
     df_panel['frequency'] = frequency
-    df_panel['unit'] = 'Millones_pesos_encadenados_2018'
-    
-    df_panel = df_panel.sort_values(by=['region_code', 'date']).reset_index(drop=True)
-    return df_panel
+    df_panel['unit'] = GDP_UNIT_LABEL
+
+    df_panel = df_panel.drop(columns='year')
+    return df_panel[PANEL_COLUMNS].sort_values(
+        by=['region_code', 'date']
+    ).reset_index(drop=True)
 
 def build_regional_panels(use_synthetic: bool = False):
     # Check credentials before constructing anything that needs them, so the
@@ -277,6 +304,13 @@ def build_regional_panels(use_synthetic: bool = False):
     # picked up by a later real run.
     cache_dir = str(CACHE_DIR.parent / "cache_synthetic") if use_synthetic else str(CACHE_DIR)
     cache = LocalCacheManager(cache_dir=cache_dir, catalog_manager=catalog)
+
+    # Population always comes from the real cache: it is an input, not part of
+    # what --synthetic simulates, and the synthetic cache namespace has none.
+    pop_cache = cache if not use_synthetic else LocalCacheManager(
+        cache_dir=str(CACHE_DIR), catalog_manager=catalog
+    )
+    population = load_regional_population(pop_cache)
 
     base_pattern = "F035.PIB.FLU.R.CLP.2018.Z.Z.Z.{code}.0.{freq}"
     
@@ -320,7 +354,7 @@ def build_regional_panels(use_synthetic: bool = False):
                     
         if dfs_annual:
             df_annual_raw = pd.concat(dfs_annual, ignore_index=True)
-            df_annual_panel = format_to_panel(df_annual_raw, REGION_MAP, "Annual")
+            df_annual_panel = format_to_panel(df_annual_raw, REGION_MAP, "Annual", population)
             
             output_path = os.path.join(DATA_DIR, "panel_regional_pib_annual.csv")
             df_annual_panel.to_csv(output_path, index=False, encoding="utf-8")
@@ -352,7 +386,7 @@ def build_regional_panels(use_synthetic: bool = False):
                 
         if dfs_quarterly:
             df_qtr_raw = pd.concat(dfs_quarterly, ignore_index=True)
-            df_qtr_panel = format_to_panel(df_qtr_raw, REGION_MAP, "Quarterly")
+            df_qtr_panel = format_to_panel(df_qtr_raw, REGION_MAP, "Quarterly", population)
             
             output_path = os.path.join(DATA_DIR, "panel_regional_pib_quarterly.csv")
             df_qtr_panel.to_csv(output_path, index=False, encoding="utf-8")
