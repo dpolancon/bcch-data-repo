@@ -7,7 +7,7 @@ Inputs:   data/catalogo_series.xlsx
 Outputs:  bcch-data-repo-vault/report2_REG_ECON_DEV/assets/data_coverage_inventory.csv
           bcch-data-repo-vault/report2_REG_ECON_DEV/assets/fig*.png
 Created:  2026-07-06
-Updated:  2026-08-21
+Updated:  2026-08-22
 Owner:    dpolancon
 Run:      python scripts/03_report_coverage.py
 """
@@ -497,7 +497,7 @@ Instrucciones:
    cache = LocalCacheManager()
    df = cache.smart_sync("F022.CCPNAN.STO.Z.Z.Z.M") # Ejemplo de código de cuentas corrientes
    ```
-4. **Visualizar Paneles**: Las imágenes en la carpeta `assets/` se renderizan automáticamente en el archivo [data_coverage_report_ES.md](data_coverage_report_ES.md). Si agregas o actualizas los datos, vuelve a ejecutar el script `python scripts/generate_coverage_report.py` para regenerar las figuras y el reporte.
+4. **Visualizar Paneles**: Las imágenes en la carpeta `assets/` se renderizan automáticamente en el archivo [data_coverage_report_ES.md](data_coverage_report_ES.md). Si agregas o actualizas los datos, vuelve a ejecutar el script `python scripts/03_report_coverage.py` para regenerar las figuras y el reporte.
 """)
 
     logger.info("Prompt instructions written successfully!")

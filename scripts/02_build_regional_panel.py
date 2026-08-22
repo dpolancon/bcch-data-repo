@@ -8,18 +8,17 @@ Inputs:   data/catalogo_series.xlsx; data/cache/ (GDP + F049 population);
 Outputs:  data/panel_regional_pib_annual.csv
           data/panel_regional_pib_quarterly.csv
 Created:  2026-07-06
-Updated:  2026-08-21
+Updated:  2026-08-22
 Owner:    dpolancon
-Run:      python scripts/02_build_regional_panel.py [--synthetic]
+Run:      python scripts/02_build_regional_panel.py
 
 Population is real INE data read from the cache, not extrapolated. Both the GDP
 values and the population are fetched observations, so gdp_pc is a real ratio.
 
-The --synthetic flag generates mock GDP for offline development. It must be
-passed explicitly: this script previously switched to synthetic generation on
-its own whenever credentials were placeholders, producing fabricated panels
-indistinguishable from fetched ones. Synthetic rows are labelled status="MOCK"
-and use a separate cache namespace so they can never be mixed into real data.
+There is no synthetic or offline mode. An earlier version generated mock GDP
+whenever credentials were missing, producing panels indistinguishable from
+fetched ones that reached published reports. If credentials are absent this
+stage fails; it never substitutes estimates.
 
 Prerequisite: run scripts/01_fetch_crsm_raw.py first, which populates the cache
 with both the GDP and the F049 population series this stage reads.
@@ -51,144 +50,6 @@ from lib.regions import REGIONS
 # so this file no longer carries its own copy. ASCII (not accented) names are
 # used because they are the panel's on-disk `region_name` values.
 REGION_MAP = {r.id: r.name_ascii for r in REGIONS}
-
-# Real GDP size scale factors for Chilean regions (reference base year 2018 in millions of CLP)
-REGION_SCALES = {
-    '13': 43.5,  # Metropolitana
-    '02': 10.2,  # Antofagasta
-    '08': 7.8,   # Biobio
-    '05': 7.4,   # Valparaiso
-    '06': 4.7,   # OHiggins
-    '10': 4.4,   # Los Lagos
-    '03': 4.1,   # Atacama
-    '07': 3.7,   # Maule
-    '09': 3.1,   # Araucania
-    '01': 3.0,   # Tarapaca
-    '04': 2.9,   # Coquimbo
-    '14': 1.9,   # Los Rios
-    '16': 1.7,   # Nuble
-    '12': 1.5,   # Magallanes
-    '15': 1.1,   # Arica y Parinacota
-    '11': 0.8,   # Aysen
-}
-
-# Historical national growth shocks in Chile (from 2013 onwards)
-ANNUAL_GROWTH_SHOCKS = {
-    2013: 4.0, 2014: 1.8, 2015: 2.1, 2016: 1.7, 2017: 1.4, 2018: 4.0, 2019: 0.8, 
-    2020: -6.1, 2021: 11.7, 2022: 2.4, 2023: 0.2, 2024: 2.3, 2025: 2.1, 2026: 2.2
-}
-
-# Copper cycle index (from 2013 onwards)
-COPPER_CYCLE = {
-    2013: 0.8, 2014: -1.8, 2015: -3.2, 2016: -3.6, 2017: 0.6, 2018: 1.4, 2019: -0.6, 
-    2020: -1.2, 2021: 4.2, 2022: 2.2, 2023: 0.4, 2024: 1.6, 2025: 1.0, 2026: 1.2
-}
-
-REGION_COPPER_EXPOSURE = {
-    '02': 0.8,  # Antofagasta
-    '03': 0.7,  # Atacama
-    '01': 0.6,  # Tarapaca
-    '06': 0.4,  # OHiggins
-    '04': 0.3,  # Coquimbo
-    '12': 0.2,  # Magallanes
-}
-
-def generate_synthetic_series(series_code: str, freq: str) -> pd.DataFrame:
-    """
-    Generates time-series data starting strictly in 2013 to align with 
-    the actual availability of regional GDP reference 2018 in BCCh.
-    """
-    parts = series_code.split('.')
-    region_code = parts[-3]
-    scale = REGION_SCALES.get(region_code, 2.0)
-    
-    # Baseline GDP in 2018 (million CLP)
-    base_gdp_2018 = scale * 1800000
-    
-    records = []
-    copper_exp = REGION_COPPER_EXPOSURE.get(region_code, 0.0)
-    
-    gdp_by_year = {}
-    gdp_by_year[2018] = base_gdp_2018
-    
-    def get_growth_rate(y):
-        base_g = ANNUAL_GROWTH_SHOCKS.get(y, 2.2)
-        cop_shock = COPPER_CYCLE.get(y, 0.0) * copper_exp * 1.5
-        
-        spec_shock = 0.0
-        if region_code == '13' and y == 2020:
-            spec_shock = -2.5
-        elif region_code == '13' and y == 2021:
-            spec_shock = 2.0
-        elif region_code in ['15', '12', '11'] and y == 2020:
-            spec_shock = -3.0
-            
-        np.random.seed(int(region_code) + y)
-        noise = np.random.normal(0, 0.5)
-        
-        return base_g + cop_shock + spec_shock + noise
-
-    # Go backward from 2018 to 2013
-    val = base_gdp_2018
-    for y in reversed(range(2013, 2018)):
-        g_rate = get_growth_rate(y + 1) / 100.0
-        val = val / (1.0 + g_rate)
-        gdp_by_year[y] = val
-        
-    # Go forward from 2018 to 2026
-    val = base_gdp_2018
-    for y in range(2019, 2027):
-        g_rate = get_growth_rate(y) / 100.0
-        val = val * (1.0 + g_rate)
-        gdp_by_year[y] = val
-
-    if freq == "A":
-        years = sorted(list(range(2013, 2027)))
-        for y in years:
-            date_str = f"{y}-12-31"
-            records.append({
-                "seriesId": series_code,
-                "date": pd.to_datetime(date_str),
-                "value": round(gdp_by_year[y], 2),
-                "status": "MOCK"
-            })
-            
-    else: # Quarterly "T"
-        quarterly_seasonality = {1: 0.93, 2: 0.99, 3: 1.01, 4: 1.07}
-        years = range(2013, 2027)
-        
-        for y in years:
-            ann_gdp = gdp_by_year[y]
-            quarterly_base = ann_gdp / 4.0
-            
-            for q, mult in quarterly_seasonality.items():
-                if y == 2026 and q > 2:
-                    continue
-                
-                if q == 1:
-                    date_str = f"{y}-03-31"
-                elif q == 2:
-                    date_str = f"{y}-06-30"
-                elif q == 3:
-                    date_str = f"{y}-09-30"
-                else:
-                    date_str = f"{y}-12-31"
-                    
-                q_noise = np.random.normal(0, 0.003)
-                q_val = quarterly_base * (mult + q_noise)
-                
-                records.append({
-                    "seriesId": series_code,
-                    "date": pd.to_datetime(date_str),
-                    "value": round(q_val, 2),
-                    "status": "MOCK"
-                })
-                
-    df = pd.DataFrame(records)
-    df["seriesId"] = df["seriesId"].astype(str)
-    df["value"] = df["value"].astype("float64")
-    df["status"] = df["status"].astype(str)
-    return df
 
 PANEL_COLUMNS = [
     'date', 'region_code', 'region_name', 'value',
@@ -286,31 +147,17 @@ def format_to_panel(
         by=['region_code', 'date']
     ).reset_index(drop=True)
 
-def build_regional_panels(use_synthetic: bool = False):
+def build_regional_panels():
     # Check credentials before constructing anything that needs them, so the
     # failure message names the actual problem rather than surfacing as a
     # ValueError from deep inside the client constructor.
-    if not use_synthetic:
-        require_real_credentials()
-    else:
-        logger.warning(
-            "SYNTHETIC MODE: generating mock data. Outputs are NOT real BCCh "
-            "observations and every row is stamped status='MOCK'."
-        )
+    require_real_credentials()
 
     logger.info("Initializing CatalogManager and LocalCacheManager...")
     catalog = CatalogManager()
-    # Synthetic runs use a separate cache namespace so mock series can never be
-    # picked up by a later real run.
-    cache_dir = str(CACHE_DIR.parent / "cache_synthetic") if use_synthetic else str(CACHE_DIR)
-    cache = LocalCacheManager(cache_dir=cache_dir, catalog_manager=catalog)
+    cache = LocalCacheManager(cache_dir=str(CACHE_DIR), catalog_manager=catalog)
 
-    # Population always comes from the real cache: it is an input, not part of
-    # what --synthetic simulates, and the synthetic cache namespace has none.
-    pop_cache = cache if not use_synthetic else LocalCacheManager(
-        cache_dir=str(CACHE_DIR), catalog_manager=catalog
-    )
-    population = load_regional_population(pop_cache)
+    population = load_regional_population(cache)
 
     base_pattern = "F035.PIB.FLU.R.CLP.2018.Z.Z.Z.{code}.0.{freq}"
     
@@ -334,23 +181,17 @@ def build_regional_panels(use_synthetic: bool = False):
         dfs_annual = []
         
         for code in annual_codes:
-            if use_synthetic:
-                logger.info(f"Generating high-variance synthetic cache starting in 2013 for series: {code}")
-                df_series = generate_synthetic_series(code, "A")
-                cache.save_to_cache(code, df_series)
-                dfs_annual.append(df_series)
-            else:
-                logger.info(f"Syncing series: {code}")
-                try:
-                    df_series = cache.smart_sync(code, start_date=date(2013, 1, 1), end_date=date(2026, 12, 31))
-                    if not df_series.empty:
-                        dfs_annual.append(df_series)
-                except BCChAPIError as e:
-                    # No synthetic fallback: a failed fetch is reported as a
-                    # failure, never quietly replaced with fabricated numbers.
-                    logger.error(f"API Error syncing {code}: {e}")
-                except Exception as e:
-                    logger.error(f"Unexpected error syncing {code}: {e}")
+            logger.info(f"Syncing series: {code}")
+            try:
+                df_series = cache.smart_sync(code, start_date=date(2013, 1, 1), end_date=date(2026, 12, 31))
+                if not df_series.empty:
+                    dfs_annual.append(df_series)
+            except BCChAPIError as e:
+                # No synthetic fallback: a failed fetch is reported as a
+                # failure, never quietly replaced with fabricated numbers.
+                logger.error(f"API Error syncing {code}: {e}")
+            except Exception as e:
+                logger.error(f"Unexpected error syncing {code}: {e}")
                     
         if dfs_annual:
             df_annual_raw = pd.concat(dfs_annual, ignore_index=True)
@@ -368,21 +209,15 @@ def build_regional_panels(use_synthetic: bool = False):
         dfs_quarterly = []
         
         for code in quarterly_codes:
-            if use_synthetic:
-                logger.info(f"Generating synthetic cache starting in 2013 for series: {code}")
-                df_series = generate_synthetic_series(code, "T")
-                cache.save_to_cache(code, df_series)
-                dfs_quarterly.append(df_series)
-            else:
-                logger.info(f"Syncing series: {code}")
-                try:
-                    df_series = cache.smart_sync(code, start_date=date(2013, 1, 1), end_date=date(2026, 12, 31))
-                    if not df_series.empty:
-                        dfs_quarterly.append(df_series)
-                except BCChAPIError as e:
-                    logger.error(f"API Error syncing {code}: {e}")
-                except Exception as e:
-                    logger.error(f"Unexpected error syncing {code}: {e}")
+            logger.info(f"Syncing series: {code}")
+            try:
+                df_series = cache.smart_sync(code, start_date=date(2013, 1, 1), end_date=date(2026, 12, 31))
+                if not df_series.empty:
+                    dfs_quarterly.append(df_series)
+            except BCChAPIError as e:
+                logger.error(f"API Error syncing {code}: {e}")
+            except Exception as e:
+                logger.error(f"Unexpected error syncing {code}: {e}")
                 
         if dfs_quarterly:
             df_qtr_raw = pd.concat(dfs_quarterly, ignore_index=True)
@@ -395,11 +230,5 @@ def build_regional_panels(use_synthetic: bool = False):
             logger.error("No Quarterly data could be built.")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Build the regional GDP panels.")
-    parser.add_argument(
-        "--synthetic",
-        action="store_true",
-        help="generate MOCK data for offline development instead of fetching",
-    )
-    args = parser.parse_args()
-    build_regional_panels(use_synthetic=args.synthetic)
+    argparse.ArgumentParser(description="Build the regional GDP panels.").parse_args()
+    build_regional_panels()

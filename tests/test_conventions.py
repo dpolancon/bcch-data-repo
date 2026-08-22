@@ -6,7 +6,7 @@ Task:     Repository infrastructure
 Inputs:   scripts/, codes/
 Outputs:  n/a
 Created:  2026-08-21
-Updated:  2026-08-21
+Updated:  2026-08-22
 Owner:    dpolancon
 """
 
@@ -211,3 +211,75 @@ class TestSecretsAreIgnored:
             or ("credential" in f.lower())
         ]
         assert not bad, f"credential-looking files are tracked: {bad}"
+
+
+class TestNoFabrication:
+    """No pipeline stage may invent data.
+
+    The repo previously generated mock GDP, mock population and mock sector
+    shares. All three reached published reports described as official BCCh
+    statistics, and one "audit" verified the fabricated sectors by re-running
+    the producer's own RNG. Randomness has no legitimate use in this pipeline.
+    """
+
+    @pytest.mark.parametrize("path", all_python_files(), ids=lambda p: p.name)
+    def test_no_random_number_generation(self, path):
+        text = path.read_text(encoding="utf-8")
+        code_only = re.sub(r'""".*?"""', "", text, flags=re.DOTALL)
+        code_only = re.sub(r"#.*", "", code_only)
+        offenders = re.findall(r"\b(?:np\.random|random\.(?:seed|normal|uniform|choice)|default_rng)\b", code_only)
+        assert not offenders, f"{path.name} generates random data: {sorted(set(offenders))}"
+
+    @pytest.mark.parametrize(
+        "symbol",
+        ["REGION_SECTOR_PROFILES", "generate_sector_panel", "generate_synthetic_series",
+         "REGION_SCALES", "ANNUAL_GROWTH_SHOCKS", "COPPER_CYCLE", "REGION_COPPER_EXPOSURE"],
+    )
+    def test_removed_fabrication_symbols_stay_removed(self, symbol):
+        offenders = [
+            p.name for p in all_python_files()
+            if symbol in re.sub(r'""".*?"""', "", p.read_text(encoding="utf-8"), flags=re.DOTALL)
+        ]
+        assert not offenders, f"{symbol} reappeared in: {offenders}"
+
+
+class TestPackagingSafety:
+    """Packaging must never be able to reach secrets/."""
+
+    def test_package_list_is_explicit(self):
+        pyproject = (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        assert "[tool.setuptools]" in pyproject
+        assert 'packages = ["lib"]' in pyproject
+
+    def test_no_find_directive(self):
+        """Auto-discovery picks up secrets/ as a top-level package."""
+        pyproject = (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        assert "find:" not in pyproject
+        assert "[tool.setuptools.packages.find]" not in pyproject
+
+    def test_build_system_is_declared(self):
+        pyproject = (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        assert "[build-system]" in pyproject
+
+
+class TestNoBuildResidue:
+    """Generated artifacts must not be tracked."""
+
+    @pytest.mark.parametrize("pattern", ["*.aux", "*.log", "*.out", "*.synctex.gz"])
+    def test_no_latex_residue_tracked(self, pattern):
+        import subprocess
+
+        tracked = subprocess.run(
+            ["git", "ls-files", pattern], cwd=REPO_ROOT,
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+        ).stdout.split()
+        assert not tracked, f"LaTeX build residue is tracked: {tracked}"
+
+    def test_obsidian_ui_state_is_not_tracked(self):
+        import subprocess
+
+        tracked = subprocess.run(
+            ["git", "ls-files", "bcch-data-repo-vault/.obsidian/workspace.json"],
+            cwd=REPO_ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace",
+        ).stdout.strip()
+        assert not tracked, "workspace.json is volatile UI state and must not be tracked"

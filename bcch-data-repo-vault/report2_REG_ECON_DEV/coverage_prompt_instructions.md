@@ -48,4 +48,4 @@ Instrucciones:
    cache = LocalCacheManager()
    df = cache.smart_sync("F022.CCPNAN.STO.Z.Z.Z.M") # Ejemplo de código de cuentas corrientes
    ```
-4. **Visualizar Paneles**: Las imágenes en la carpeta `assets/` se renderizan automáticamente en el archivo [data_coverage_report_ES.md](data_coverage_report_ES.md). Si agregas o actualizas los datos, vuelve a ejecutar el script `python scripts/generate_coverage_report.py` para regenerar las figuras y el reporte.
+4. **Visualizar Paneles**: Las imágenes en la carpeta `assets/` se renderizan automáticamente en el archivo [data_coverage_report_ES.md](data_coverage_report_ES.md). Si agregas o actualizas los datos, vuelve a ejecutar el script `python scripts/03_report_coverage.py` para regenerar las figuras y el reporte.

@@ -9,7 +9,7 @@ Outputs:  data/raw/regional-spatial-macro-dataset/raw_{daily,monthly,quarterly,a
           data/raw/regional-spatial-macro-dataset/crsm_series_universe.csv
           data/raw/regional-spatial-macro-dataset/fetch_manifest.csv
 Created:  2026-08-21
-Updated:  2026-08-21
+Updated:  2026-08-22
 Owner:    dpolancon
 Run:      python scripts/01_fetch_crsm_raw.py [--dry-run] [--limit N] [--sht-only] [--refresh]
 
@@ -318,6 +318,7 @@ def fetch_series(
     """
     cold_load_uncached(universe, cache, start_date, end_date, workers=workers)
 
+    run_started = datetime.now(timezone.utc).isoformat(timespec="seconds")
     meta_by_code = universe.set_index("series_code").to_dict("index")
     frames, manifest = [], []
     total = len(universe)
@@ -326,7 +327,6 @@ def fetch_series(
         if i % 500 == 0 or i == total:
             logger.info("Assembling %d/%d ...", i, total)
 
-        fetched_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
         try:
             if refresh:
                 df = cache.smart_sync(code, start_date=start_date, end_date=end_date)
@@ -341,7 +341,6 @@ def fetch_series(
         manifest.append(
             {
                 "series_code": code,
-                "fetched_at_utc": fetched_at,
                 "n_obs": len(df),
                 "date_min": df["date"].min() if not df.empty else pd.NaT,
                 "date_max": df["date"].max() if not df.empty else pd.NaT,
@@ -376,7 +375,12 @@ def fetch_series(
     observations = (
         pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(columns=OUTPUT_COLUMNS)
     )
-    return observations, pd.DataFrame(manifest)
+    manifest_df = pd.DataFrame(manifest)
+    # One run-level timestamp rather than one per row: a per-row wall clock
+    # rewrote all ~4,000 rows on every run, producing a whole-file diff that
+    # carried no information.
+    manifest_df.attrs["run_started_utc"] = run_started
+    return observations, manifest_df
 
 
 def write_outputs(observations: pd.DataFrame, out_dir: pathlib.Path) -> None:
@@ -467,6 +471,9 @@ def main() -> int:
 
     write_outputs(observations, out_dir)
     manifest.to_csv(out_dir / "fetch_manifest.csv", index=False, encoding="utf-8-sig")
+    (out_dir / "last_fetch.txt").write_text(
+        f"{manifest.attrs.get('run_started_utc', '')}\n", encoding="utf-8"
+    )
     logger.info("Wrote fetch_manifest.csv (%d rows)", len(manifest))
 
     summarize(observations)

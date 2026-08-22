@@ -82,6 +82,9 @@ scripts/            # ALL Python
 │   ├── storage.py  # CSV delta cache
 │   ├── regions.py  # canonical 16-region table + 4-encoding parser
 │   ├── codes.py    # frequency + sector parsing
+│   ├── sectors.py  # real regional sectoral GDP from data/raw/
+│   ├── stats.py    # weighted Gini / Theil / HHI
+│   ├── reporting.py# LaTeX escaping, table export
 │   └── transform.py
 ├── 00_query_catalog.py          07_validate_tex.py
 ├── 01_fetch_crsm_raw.py         08_audit_outputs.py
@@ -140,9 +143,14 @@ pytest
 pytest --cov=scripts/lib tests/
 ```
 
+`tests/test_conventions.py` enforces the rules on this page mechanically: the
+language split, the naming protocol, header format and ISO dates, CSV-only
+data, declared dependencies, no fabrication, no tracked build residue, and
+that `secrets/` can never be packaged.
+
 ## Key Constraints
 
-- **Never fabricate data.** Fetch stages call `lib.config.require_real_credentials()` and abort when `secrets/.env` is missing or still holds placeholders. `02_build_regional_panel.py` can generate mock data, but only behind an explicit `--synthetic` flag, which writes to a separate cache namespace and stamps every row `status="MOCK"`.
+- **Never fabricate data.** There is no synthetic, mock or offline mode anywhere in the pipeline, deliberately. Fetch stages call `lib.config.require_real_credentials()` and abort when credentials are missing. Earlier versions generated mock GDP, mock population and mock sector shares; all three reached published reports described as official BCCh statistics. `tests/test_conventions.py` fails on any use of `np.random` in `scripts/`. If data is unavailable, report the gap — never estimate, interpolate or extrapolate.
 - **CSV everywhere, no Parquet.** Every data artifact — the delta cache, the raw landing zone, the compiled panels — is plain CSV. It stays readable without pyarrow, diffs in git, and loads directly from R in `codes/`. Do not reintroduce Parquet. CSV carries no dtypes, so always read with `parse_dates=["date"]` and `dtype={"region_code": str}` (region codes are zero-padded and become integers otherwise, silently breaking joins).
 - **The raw layer does not transform.** `data/raw/` is an immutable landing zone: no interpolation, no aggregation, no cross-frequency mixing. Derived panels are built downstream.
 - **Frequency comes from the code suffix**, via `lib.codes.parse_frequency` — the last dot-token, which resolves for 100% of catalog rows. The catalog has no frequency column, so `SeriesMetadata.frequency` is always `None`; do not rely on it.
@@ -153,3 +161,5 @@ pytest --cov=scripts/lib tests/
 - **Observation dates are day-first** (`03-08-2026` is 3 August). `lib.client` pins `%d-%m-%Y`; never parse them without an explicit format, since pandas reads days 1–12 as month-first and days 13–31 correctly, corrupting only part of a series.
 - Series are selected by **region-parseability, not chapter whitelist**. Chapter is editorial metadata used only as a cross-check.
 - The storage layer uses delta-caching to minimize API load; configuration is Pydantic-based in `lib/config.py`.
+- **Sector taxonomy is `lib.codes.SECTOR_MAP`**, which is BCCh's own. Note the 2018 reference base has **no combined `07`** — commerce splits into `COM` and `RH`. Assuming `07` drops ~13% of every region's output. Use `lib.sectors` rather than rebuilding a breakdown.
+- **Packaging must stay explicit.** `pyproject.toml` names `packages = ["lib"]`. Never replace it with auto-discovery: setuptools' flat-layout scan picks up `secrets/` as a top-level package and misses `scripts/lib` entirely.

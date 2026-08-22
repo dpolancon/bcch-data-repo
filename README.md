@@ -48,6 +48,9 @@ The project follows a modular, structured layout:
 │   │   ├── storage.py          # CSV delta-caching manager
 │   │   ├── regions.py          # canonical 16-region table + 4-encoding parser
 │   │   ├── codes.py            # frequency and sector parsing
+│   │   ├── sectors.py          # real regional sectoral GDP
+│   │   ├── stats.py            # weighted Gini / Theil / HHI
+│   │   ├── reporting.py        # LaTeX escaping, table export
 │   │   └── transform.py        # time-series transformations
 │   │
 │   ├── 00_query_catalog.py           # discover series codes (CLI)
@@ -64,7 +67,9 @@ The project follows a modular, structured layout:
 │   ├── conftest.py             # puts scripts/ on sys.path
 │   ├── test_regions.py         # the four region encodings + false-positive guards
 │   ├── test_codes.py           # frequency and sector parsing
-│   ├── test_conventions.py     # naming protocol and header enforcement
+│   ├── test_sectors.py         # real sectoral GDP loader
+│   ├── test_storage.py         # CSV cache round-trip
+│   ├── test_conventions.py     # conventions, no-fabrication, packaging safety
 │   ├── test_client.py
 │   └── test_transform.py
 │
@@ -80,7 +85,7 @@ The project follows a modular, structured layout:
 
 ### 1. Prerequisites
 *   **Python 3.9+**
-*   **BCCh API Credentials**: You need to register on the [Central Bank of Chile Website](https://si3.bcentral.cl/SieteRestWS/) to obtain your email API username and password.
+*   **BCCh API credentials**: register at [si3.bcentral.cl](https://si3.bcentral.cl) and generate an API Key token under **Mi Cuenta** > **Apikey Token** (valid one year).
 
 ### 2. Installation
 Clone the repository and set up a virtual environment:
@@ -150,7 +155,8 @@ python scripts/01_fetch_crsm_raw.py --sht-only  # the SHT core variable set only
 *Outputs in `data/raw/regional-spatial-macro-dataset/`:*
 *   `raw_daily.csv`, `raw_monthly.csv`, `raw_quarterly.csv`, `raw_annual.csv`
 *   `crsm_series_universe.csv` — the selected and mapped catalog subset
-*   `fetch_manifest.csv` — per-series fetch provenance
+*   `fetch_manifest.csv` — per-series row counts and date ranges
+*   `last_fetch.txt` — timestamp of the run
 
 ### Step 2: Build the Regional Panels
 Compile regional GDP into annual and quarterly panel datasets. Storage uses a **delta update** mechanism (fetching only dates newer than the cache) to reduce API load.
@@ -159,7 +165,7 @@ python scripts/02_build_regional_panel.py
 ```
 *Outputs:* `data/panel_regional_pib_{annual,quarterly}.csv`, plus `data/cache/*.csv`.
 
-> **Credentials are required.** If `.env` is missing or still holds the `.env.example` placeholders, the fetch stages abort with an error. They never fall back to generated data. For offline development, pass `--synthetic` explicitly — it writes to a separate cache namespace and stamps every row `status="MOCK"`.
+> **Credentials are required, and there is no offline mode.** If `secrets/.env` is missing or still holds placeholders, the fetch stages abort. They never fall back to generated data — an earlier version did, and its output reached published reports indistinguishable from real statistics.
 
 ### Step 3: Run Data Coverage Auditing
 Build the regional series inventory and coverage matrices from the catalog.

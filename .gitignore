@@ -48,3 +48,19 @@ ENV/
 .RData
 .Rproj.user/
 *.Rproj
+
+# Obsidian volatile UI state. app.json and core-plugins.json ARE tracked:
+# app.json holds the PDF export settings the reports depend on.
+bcch-data-repo-vault/.obsidian/workspace.json
+bcch-data-repo-vault/.obsidian/workspace-mobile.json
+bcch-data-repo-vault/.obsidian/cache
+bcch-data-repo-vault/.obsidian/plugins/*/data.json
+
+# LaTeX build residue
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.toc
