@@ -34,7 +34,7 @@ Instrucciones:
 1. **Explorar el Inventario**: Abre [data_coverage_inventory.csv](assets/data_coverage_inventory.csv) en Obsidian. Puedes usar plugins como *DB Folder* o *Markdown Table Editor* para filtrar por región (`Region_Id`), sector (`Sector_Id`), frecuencia (`Frecuencia`) o dominio (`Dominio`).
 2. **Consultar Series en Python**: Puedes usar el `CatalogManager` para encontrar códigos específicos. Por ejemplo:
    ```python
-   from src.catalog import CatalogManager
+   from lib.catalog import CatalogManager
    catalog = CatalogManager("data/catalogo_series.xlsx")
    
    # Buscar series de Cuentas Corrientes en Biobío
@@ -44,7 +44,7 @@ Instrucciones:
    ```
 3. **Descargar e Integrar Datos**: Si requieres descargar las observaciones de una serie identificada, agrégala al pipeline de sincronización local:
    ```python
-   from src.storage import LocalCacheManager
+   from lib.storage import LocalCacheManager
    cache = LocalCacheManager()
    df = cache.smart_sync("F022.CCPNAN.STO.Z.Z.Z.M") # Ejemplo de código de cuentas corrientes
    ```

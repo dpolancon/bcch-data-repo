@@ -15,9 +15,11 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib.paths import REPO_ROOT
+from lib.paths import REPO_ROOT, DATA_DIR, VAULT_DIR, VAULT_ASSETS_DIR
+from lib.regions import REGIONS
+from lib.sectors import compute_location_quotients
+from lib.stats import compute_hhi, compute_weighted_gini, compute_weighted_theil
 
-import os
 import pandas as pd
 import numpy as np
 import logging
@@ -26,75 +28,20 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Constants
-VAULT_DIR = os.path.join(REPO_ROOT, "bcch-data-repo-vault")
-ASSETS_DIR = os.path.join(VAULT_DIR, "assets")
-DATA_DIR = os.path.join(REPO_ROOT, "data")
+VAULT_DIR = str(VAULT_DIR)
+ASSETS_DIR = str(VAULT_ASSETS_DIR)
+DATA_DIR = str(DATA_DIR)
 
-REGION_MAP = {
-    '15': 'Arica y Parinacota', '01': 'Tarapacá', '02': 'Antofagasta', 
-    '03': 'Atacama', '04': 'Coquimbo', '05': 'Valparaíso', '13': 'Metropolitana',
-    '06': "O'Higgins", '07': 'Maule', '16': 'Ñuble', '08': 'Biobío', 
-    '09': 'Araucanía', '14': 'Los Ríos', '10': 'Los Lagos', '11': 'Aysén', '12': 'Magallanes'
-}
+# Numeric tolerance for comparing regenerated values against published tables.
+TOLERANCE = 1e-4
 
-SECTORS_12 = [
-    "Agropecuario_silvicola", "Pesca", "Mineria", "Industria_manufacturera",
-    "Electricidad_Gas_Agua", "Construccion", "Comercio", "Restaurantes_Hoteles",
-    "Transporte_Comunicaciones", "Servicios_Financieros", "Vivienda_Inmobiliario", "Servicios_Sociales_Personales"
-]
+REGION_MAP = {r.id: r.name_es for r in REGIONS}
 
-# Regional sector profiles (reference base year 2018 in Chilean economy across 12 sectors)
-REGION_SECTOR_PROFILES = {
-    '13': {"Agropecuario_silvicola": 0.01, "Pesca": 0.00, "Mineria": 0.01, "Industria_manufacturera": 0.08, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.06, "Comercio": 0.16, "Restaurantes_Hoteles": 0.03, "Transporte_Comunicaciones": 0.09, "Servicios_Financieros": 0.18, "Vivienda_Inmobiliario": 0.15, "Servicios_Sociales_Personales": 0.20},
-    '02': {"Agropecuario_silvicola": 0.001, "Pesca": 0.009, "Mineria": 0.55, "Industria_manufacturera": 0.04, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.08, "Comercio": 0.05, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.06, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.04, "Servicios_Sociales_Personales": 0.07},
-    '03': {"Agropecuario_silvicola": 0.05, "Pesca": 0.01, "Mineria": 0.35, "Industria_manufacturera": 0.05, "Electricidad_Gas_Agua": 0.04, "Construccion": 0.12, "Comercio": 0.06, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.06, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.06, "Servicios_Sociales_Personales": 0.12},
-    '08': {"Agropecuario_silvicola": 0.06, "Pesca": 0.03, "Mineria": 0.01, "Industria_manufacturera": 0.18, "Electricidad_Gas_Agua": 0.05, "Construccion": 0.08, "Comercio": 0.14, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.08, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.17},
-    '05': {"Agropecuario_silvicola": 0.05, "Pesca": 0.02, "Mineria": 0.02, "Industria_manufacturera": 0.10, "Electricidad_Gas_Agua": 0.04, "Construccion": 0.08, "Comercio": 0.16, "Restaurantes_Hoteles": 0.03, "Transporte_Comunicaciones": 0.10, "Servicios_Financieros": 0.09, "Vivienda_Inmobiliario": 0.13, "Servicios_Sociales_Personales": 0.18},
-    '10': {"Agropecuario_silvicola": 0.10, "Pesca": 0.10, "Mineria": 0.001, "Industria_manufacturera": 0.12, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.07, "Comercio": 0.14, "Restaurantes_Hoteles": 0.03, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.17},
-    '09': {"Agropecuario_silvicola": 0.12, "Pesca": 0.01, "Mineria": 0.001, "Industria_manufacturera": 0.06, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.08, "Comercio": 0.14, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.11, "Servicios_Sociales_Personales": 0.30},
-    '04': {"Agropecuario_silvicola": 0.08, "Pesca": 0.02, "Mineria": 0.15, "Industria_manufacturera": 0.04, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.09, "Comercio": 0.14, "Restaurantes_Hoteles": 0.03, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.18},
-    '01': {"Agropecuario_silvicola": 0.01, "Pesca": 0.02, "Mineria": 0.30, "Industria_manufacturera": 0.04, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.09, "Comercio": 0.16, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.07, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.06, "Servicios_Sociales_Personales": 0.14},
-    '15': {"Agropecuario_silvicola": 0.08, "Pesca": 0.02, "Mineria": 0.002, "Industria_manufacturera": 0.05, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.10, "Comercio": 0.16, "Restaurantes_Hoteles": 0.03, "Transporte_Comunicaciones": 0.09, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.11, "Servicios_Sociales_Personales": 0.28},
-    '07': {"Agropecuario_silvicola": 0.15, "Pesca": 0.01, "Mineria": 0.002, "Industria_manufacturera": 0.12, "Electricidad_Gas_Agua": 0.04, "Construccion": 0.09, "Comercio": 0.14, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.17},
-    '06': {"Agropecuario_silvicola": 0.12, "Pesca": 0.002, "Mineria": 0.22, "Industria_manufacturera": 0.12, "Electricidad_Gas_Agua": 0.04, "Construccion": 0.06, "Comercio": 0.10, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.08, "Servicios_Sociales_Personales": 0.10},
-    '16': {"Agropecuario_silvicola": 0.16, "Pesca": 0.002, "Mineria": 0.002, "Industria_manufacturera": 0.10, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.07, "Comercio": 0.14, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.11, "Servicios_Sociales_Personales": 0.22},
-    '14': {"Agropecuario_silvicola": 0.08, "Pesca": 0.02, "Mineria": 0.002, "Industria_manufacturera": 0.14, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.08, "Comercio": 0.14, "Restaurantes_Hoteles": 0.03, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.11, "Servicios_Sociales_Personales": 0.23},
-    '11': {"Agropecuario_silvicola": 0.14, "Pesca": 0.08, "Mineria": 0.002, "Industria_manufacturera": 0.04, "Electricidad_Gas_Agua": 0.03, "Construccion": 0.12, "Comercio": 0.08, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.09, "Servicios_Sociales_Personales": 0.27},
-    '12': {"Agropecuario_silvicola": 0.05, "Pesca": 0.04, "Mineria": 0.12, "Industria_manufacturera": 0.08, "Electricidad_Gas_Agua": 0.04, "Construccion": 0.08, "Comercio": 0.12, "Restaurantes_Hoteles": 0.02, "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.21}
-}
+
 
 # ----------------------------------------------------
 # Inequality Calculators (Weighted)
 # ----------------------------------------------------
-def compute_weighted_gini(y, pop):
-    n = len(y)
-    pop_sum = np.sum(pop)
-    s = pop / pop_sum
-    mu = np.sum(s * y)
-    
-    double_sum = 0.0
-    for i in range(n):
-        for j in range(n):
-            double_sum += s[i] * s[j] * abs(y[i] - y[j])
-            
-    return double_sum / (2.0 * mu)
-
-def compute_weighted_theil(y, pop):
-    pop_sum = np.sum(pop)
-    s = pop / pop_sum
-    mu = np.sum(s * y)
-    
-    theil = 0.0
-    for i in range(len(y)):
-        ratio = y[i] / mu
-        if ratio > 0:
-            theil += s[i] * ratio * np.log(ratio)
-            
-    return theil
-
-def compute_hhi(values):
-    shares = values / np.sum(values)
-    return np.sum(shares ** 2)
 
 def run_final_audit():
     logger.info("Initializing Final PASS Audit...")
@@ -112,7 +59,10 @@ def run_final_audit():
     logger.info(f"Successfully generated Source of Truth CSV: {sot_path}")
     
     # Reload from CSV to ensure we are auditing the CSV file directly
-    df_sot = pd.read_csv(sot_path)
+    # Same dtype as the panel: without it region_code becomes int64 here while
+    # other comparison sites expect the zero-padded string, so a join silently
+    # matches nothing.
+    df_sot = pd.read_csv(sot_path, dtype={"region_code": str})
     
     # 2. Load Output tables for verification
     t1_path = os.path.join(ASSETS_DIR, "table1_summary_stats.csv")
@@ -147,7 +97,7 @@ def run_final_audit():
             discrepancies.append(f"Table 1 region '{reg_name}' could not be mapped to code.")
             continue
             
-        df_reg = df_sot[df_sot['region_code'] == int(reg_code)].sort_values("year")
+        df_reg = df_sot[df_sot['region_code'] == reg_code].sort_values("year")
         
         # Independent calculations
         expected_mean = df_reg['value'].mean() / 1000.0
@@ -159,8 +109,7 @@ def run_final_audit():
         expected_growth = growth.mean()
         expected_vol = growth.std()
         
-        # Check against output values (tolerance 1e-4)
-        tol = 1e-4
+        tol = TOLERANCE
         if abs(row['mean_gdp'] - expected_mean) > tol:
             audit_failed = True
             discrepancies.append(f"Table 1 '{reg_name}' mean GDP mismatch: Output={row['mean_gdp']:.4f}, Expected={expected_mean:.4f}")
@@ -178,66 +127,44 @@ def run_final_audit():
     # Audit Table 2: Location Quotients (12 Sectors)
     # ----------------------------------------------------
     logger.info("Auditing Table 2 (Location Quotients)...")
-    year_lq = 2025
-    
-    # Re-generate 12-sector panel independently in the audit script
-    records_sec = []
-    for _, row in df_sot.iterrows():
-        y = row['year']
-        code = f"{row['region_code']:02d}"
-        total_val = row['value']
-        
-        profile = REGION_SECTOR_PROFILES.get(code, REGION_SECTOR_PROFILES['13'])
-        
-        # Apply deterministic profile matching the generator seed logic
-        np.random.seed(row['region_code'] + y)
-        noise = np.random.normal(0, 0.008, len(profile))
-        noise = noise - noise.mean()
-        
-        shares = {}
-        for (sec, base_share), n_val in zip(profile.items(), noise):
-            shares[sec] = max(0.0005, base_share + n_val)
-            
-        sum_shares = sum(shares.values())
-        for sec in shares:
-            shares[sec] /= sum_shares
-            
-        for sec, share in shares.items():
-            records_sec.append({
-                "year": y,
-                "region_code": code,
-                "sector": sec,
-                "value": total_val * share
-            })
-            
-    df_sec_audit = pd.DataFrame(records_sec)
-    
-    df_sec_y = df_sec_audit[df_sec_audit['year'] == year_lq]
-    df_total_y = df_sot[df_sot['year'] == year_lq]
-    
-    national_total_sec = df_sec_y.groupby("sector")["value"].sum().to_dict()
-    national_total_gdp = df_total_y["value"].sum()
-    
+
+    # Recompute location quotients from the raw fetched series.
+    #
+    # This block used to re-run the producer's sector generator with the same
+    # random seed, so it only ever verified that two copies of one RNG agreed --
+    # an audit that certified fabricated numbers. It now recomputes from
+    # data/raw/, which is an input neither script derives from the other.
+    year_lq = int(df_t2_out.attrs.get("year", 0)) or None
+    lq_expected = compute_location_quotients(year=year_lq, valuation="N")
+    year_lq = int(lq_expected["year"].iloc[0])
+    logger.info("  recomputed independently for %d", year_lq)
+
+    ascii_to_display = {r.name_ascii: r.name_es for r in REGIONS}
+    lq_expected["Region"] = lq_expected["region_name"].map(ascii_to_display).fillna(
+        lq_expected["region_name"]
+    )
+    expected_lookup = {
+        (row["Region"], row["sector_name"]): row["lq"]
+        for _, row in lq_expected.iterrows()
+    }
+
+    sector_cols = [c for c in df_t2_out.columns if c != "Region"]
     for _, row in df_t2_out.iterrows():
-        reg_name = row['Region']
-        
-        reg_code = None
-        for k, v in REGION_MAP.items():
-            if v == reg_name:
-                reg_code = k
-                break
-                
-        reg_total = df_total_y[df_total_y['region_code'] == int(reg_code)]["value"].values[0]
-        reg_sec_vals = df_sec_y[df_sec_y['region_code'] == reg_code].set_index("sector")["value"].to_dict()
-        
-        for sec in SECTORS_12:
-            reg_sec_gdp = reg_sec_vals.get(sec, 0)
-            nat_sec_gdp = national_total_sec.get(sec, 1)
-            expected_lq = (reg_sec_gdp / reg_total) / (nat_sec_gdp / national_total_gdp)
-            
-            if abs(row[sec] - expected_lq) > 1e-4:
+        reg_name = row["Region"]
+        for sec in sector_cols:
+            expected = expected_lookup.get((reg_name, sec))
+            if expected is None:
                 audit_failed = True
-                discrepancies.append(f"Table 2 '{reg_name}' Sector '{sec}' LQ Mismatch: Output={row[sec]:.4f}, Expected={expected_lq:.4f}")
+                discrepancies.append(
+                    f"Table 2 '{reg_name}' sector '{sec}' has no counterpart in the raw data"
+                )
+                continue
+            if abs(row[sec] - expected) > TOLERANCE:
+                audit_failed = True
+                discrepancies.append(
+                    f"Table 2 '{reg_name}' Sector '{sec}' LQ Mismatch: "
+                    f"Output={row[sec]:.4f}, Expected={expected:.4f}"
+                )
 
     # ----------------------------------------------------
     # Audit Table 3: Spatial Inequality Indices
@@ -256,7 +183,7 @@ def run_final_audit():
         expected_theil = compute_weighted_theil(vals, pop)
         expected_hhi = compute_hhi(gdp_raw)
         
-        tol = 1e-4
+        tol = TOLERANCE
         if abs(row['Gini Coefficient'] - expected_gini) > tol:
             audit_failed = True
             discrepancies.append(f"Table 3 Year {y} Gini Mismatch: Output={row['Gini Coefficient']:.4f}, Expected={expected_gini:.4f}")

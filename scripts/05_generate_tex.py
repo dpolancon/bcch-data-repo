@@ -16,6 +16,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.paths import REPO_ROOT
+from lib.reporting import escape_latex
 
 import os
 import pandas as pd
@@ -41,7 +42,7 @@ def generate_tex_report():
     t3_path = os.path.join(ASSETS_DIR, "table3_spatial_inequality.csv")
     
     if not (os.path.exists(t1_path) and os.path.exists(t2_path) and os.path.exists(t3_path)):
-        raise FileNotFoundError("One or more CSV table files are missing. Please run analyze_and_report.py first.")
+        raise FileNotFoundError("One or more CSV table files are missing. Run scripts/04_analyze_regional.py first.")
         
     df_t1 = pd.read_csv(t1_path)
     df_t2 = pd.read_csv(t2_path)
@@ -55,14 +56,20 @@ def generate_tex_report():
         )
     t1_table_body = "\n".join(t1_rows)
     
-    # Format Table 2 LaTeX Rows
+    # Format Table 2 LaTeX Rows.
+    # Sector columns are whatever the analysis stage produced -- BCCh's real
+    # taxonomy. The previous version named twelve invented columns and raised
+    # KeyError the moment real sectoral data arrived.
+    t2_sectors = [c for c in df_t2.columns if c != "Region"]
+    t2_col_spec = "l" + "r" * len(t2_sectors)
+    t2_header = " & ".join(
+        r"\rotatebox{90}{" + escape_latex(c) + "}" for c in t2_sectors
+    )
     t2_rows = []
     for _, row in df_t2.iterrows():
+        cells = " & ".join(f"{row[c]:.2f}" for c in t2_sectors)
         t2_rows.append(
-            f"\\textbf{{{row['Region']}}} & {row['Agropecuario_silvicola']:.2f} & {row['Pesca']:.2f} & {row['Mineria']:.2f} & "
-            f"{row['Industria_manufacturera']:.2f} & {row['Electricidad_Gas_Agua']:.2f} & {row['Construccion']:.2f} & "
-            f"{row['Comercio']:.2f} & {row['Restaurantes_Hoteles']:.2f} & {row['Transporte_Comunicaciones']:.2f} & "
-            f"{row['Servicios_Financieros']:.2f} & {row['Vivienda_Inmobiliario']:.2f} & {row['Servicios_Sociales_Personales']:.2f} \\\\"
+            r"\textbf{" + escape_latex(str(row["Region"])) + "} & " + cells + r" \\"
         )
     t2_table_body = "\n".join(t2_rows)
     
@@ -177,14 +184,17 @@ donde:
 
 \begin{table}[H]
 \centering
-\caption{Cocientes de Localización (LQ) por Región y Sector (2025 - 12 Sectores)}
+\caption{Cocientes de Localización (LQ) por Región y Sector}
 \label{tab:lq}
 \begin{adjustbox}{width=\textwidth}
-\begin{tabular}{lcccccccccccc}
-\toprule
-\textbf{Región} & \textbf{Agro} & \textbf{Pesca} & \textbf{Min} & \textbf{Manuf} & \textbf{EGA} & \textbf{Const} & \textbf{Com} & \textbf{Hot} & \textbf{Trans} & \textbf{Fin} & \textbf{Inmob} & \textbf{Soc} \\
-\midrule
 """)
+        # Column spec and header are derived: the real BCCh breakdown has 13
+        # sectors, and the hardcoded 12-column layout this replaces produced a
+        # malformed table the moment real data arrived.
+        f.write("\\begin{tabular}{" + t2_col_spec + "}\n")
+        f.write("\\toprule\n")
+        f.write("\\textbf{Región} & " + t2_header + " \\\\\n")
+        f.write("\\midrule\n")
         f.write(t2_table_body)
         f.write(r"""
 \bottomrule

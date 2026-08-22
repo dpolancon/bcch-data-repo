@@ -17,7 +17,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.paths import REPO_ROOT
-from lib.codes import parse_frequency, parse_sector, is_sectoral_total
+from lib.codes import SECTOR_MAP, parse_frequency, parse_sector, is_sectoral_total
+from lib.regions import REGIONS
 from lib.regions import parse_region
 
 import os
@@ -40,28 +41,14 @@ os.makedirs(ASSETS_DIR, exist_ok=True)
 CATALOG_PATH = os.path.join(ROOT_DIR, "data", "catalogo_series.xlsx")
 
 # Region configuration
-REGION_MAP = {
-    '15': 'Arica y Parinacota', '01': 'Tarapacá', '02': 'Antofagasta', 
-    '03': 'Atacama', '04': 'Coquimbo', '05': 'Valparaíso', '13': 'Metropolitana',
-    '06': "O'Higgins", '07': 'Maule', '16': 'Ñuble', '08': 'Biobío', 
-    '09': 'Araucanía', '14': 'Los Ríos', '10': 'Los Lagos', '11': 'Aysén', '12': 'Magallanes'
-}
+REGION_MAP = {r.id: r.name_es for r in REGIONS}
 
-# The 12 standard economic sectors in Chile
-SECTORS_12 = {
-    '01': 'Agropecuario-silvícola',
-    '02': 'Pesca',
-    '03': 'Minería',
-    '04': 'Industria manufacturera',
-    '05': 'Electricidad, Gas y Agua',
-    '06': 'Construcción',
-    '07': 'Comercio',
-    '08': 'Restaurantes y hoteles',
-    '09': 'Transporte, información y comunicaciones',
-    '10': 'Servicios financieros y empresariales',
-    '11': 'Vivienda e inmobiliario',
-    '12': 'Servicios sociales, personales y administración pública'
-}
+# Sector names come from lib.codes.SECTOR_MAP, which is BCCh's own taxonomy.
+# The local dict this replaces used a different numbering -- its 10 was
+# "Servicios financieros" where BCCh's 10 is "Servicios de vivienda e
+# inmobiliarios" -- which is how mining ended up unclassified and real-estate
+# series ended up labelled Construccion in the previous inventory.
+SECTORS_12 = dict(SECTOR_MAP)
 
 def clean_text(text):
     if not isinstance(text, str):
@@ -259,7 +246,7 @@ def main():
     
     plt.figure(figsize=(13, 9))
     reg_domain = df_regions_only.groupby(['Region_Name', 'Dominio']).size().unstack(fill_value=0)
-    reg_domain = reg_domain.reindex([REGION_MAP[r] for r in region_order])
+    reg_domain = reg_domain.reindex([REGION_MAP[r] for r in region_order]).fillna(0).astype(int)
     
     sns.heatmap(reg_domain, cmap="YlGnBu", annot=True, fmt="d", linewidths=0.5, cbar_kws={'label': 'Cantidad de Series'})
     plt.title('Mapa de Disponibilidad de Datos: Regiones vs Dominios Financieros y Territoriales', fontsize=14, fontweight='bold')
@@ -276,7 +263,10 @@ def main():
     
     plt.figure(figsize=(13, 9))
     reg_sector = df_sectors_only.groupby(['Region_Name', 'Sector_Name']).size().unstack(fill_value=0)
-    reg_sector = reg_sector.reindex(index=[REGION_MAP[r] for r in region_order], columns=list(SECTORS_12.values()), fill_value=0)
+    sector_cols = [c for c in SECTORS_12.values() if c in reg_sector.columns]
+    reg_sector = reg_sector.reindex(
+        index=[REGION_MAP[r] for r in region_order], columns=sector_cols, fill_value=0
+    ).fillna(0).astype(int)
     
     sns.heatmap(reg_sector, cmap="Purples", annot=True, fmt="d", linewidths=0.5, cbar_kws={'label': 'Cantidad de Series'})
     plt.title('Cobertura Sectorial por Región (12 Sectores Económicos)', fontsize=14, fontweight='bold')
