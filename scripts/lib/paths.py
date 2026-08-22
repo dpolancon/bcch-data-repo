@@ -37,7 +37,17 @@ CRSM_SLUG = "regional-spatial-macro-dataset"
 CRSM_RAW_DIR = RAW_DIR / CRSM_SLUG
 
 VAULT_DIR = REPO_ROOT / "bcch-data-repo-vault"
-VAULT_ASSETS_DIR = VAULT_DIR / "assets"
+
+# Each report owns its own assets, so there is exactly one copy of every
+# generated table and figure. A shared vault-level assets/ directory used to
+# sit alongside per-report copies, and the duplicates silently went stale.
+REPORT1_DIR = VAULT_DIR / "report1_REG_ECON_DEV"
+REPORT1_ASSETS_DIR = REPORT1_DIR / "assets"
+REPORT1_TEX_DIR = REPORT1_DIR / "tex_es"
+
+REPORT2_DIR = VAULT_DIR / "report2_REG_ECON_DEV"
+REPORT2_ASSETS_DIR = REPORT2_DIR / "assets"
+REPORT2_TEX_DIR = REPORT2_DIR / "tex"
 
 
 def ensure_dir(path: Path) -> Path:

@@ -283,3 +283,73 @@ class TestNoBuildResidue:
             cwd=REPO_ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace",
         ).stdout.strip()
         assert not tracked, "workspace.json is volatile UI state and must not be tracked"
+
+
+class TestDataCoherence:
+    """Published artifacts must agree with the data they claim to describe.
+
+    See the "Data Coherence" binding rule in CLAUDE.md. These checks catch the
+    two ways coherence has actually broken here: a hand-copied figure drifting
+    from its table, and a second copy of an artifact going stale.
+    """
+
+    VAULT = REPO_ROOT / "bcch-data-repo-vault"
+    REPORT1 = VAULT / "report1_REG_ECON_DEV"
+
+    def test_no_duplicate_assets_directory(self):
+        """A vault-level assets/ used to shadow the per-report copies."""
+        assert not (self.VAULT / "assets").exists(), (
+            "A second assets/ directory reintroduces the duplication that let "
+            "one copy go stale. Each report owns its own assets/."
+        )
+
+    def test_reports_live_with_their_assets(self):
+        """Reports are written beside the assets they reference."""
+        for name in ("report_REG_ECON_DEV.md", "report_REG_ECON_DEV_ES.md"):
+            assert not (self.VAULT / name).exists(), (
+                f"{name} at the vault root duplicates the copy in report1"
+            )
+
+    @pytest.mark.skipif(
+        not (REPO_ROOT / "bcch-data-repo-vault" / "report1_REG_ECON_DEV"
+             / "assets" / "table3_spatial_inequality.csv").exists(),
+        reason="analysis outputs not generated; run scripts/04_analyze_regional.py",
+    )
+    def test_report_prose_matches_its_own_table(self):
+        """The inequality figures quoted in the report must equal the table.
+
+        This is the check that would have caught the reports citing a Gini of
+        0.2007 while their own table said otherwise.
+        """
+        import csv
+
+        table = self.REPORT1 / "assets" / "table3_spatial_inequality.csv"
+        with open(table, encoding="utf-8") as fh:
+            rows = list(csv.DictReader(fh))
+        first, last = rows[0], rows[-1]
+        expected = {
+            f"{float(first['Gini Coefficient']):.4f}",
+            f"{float(last['Gini Coefficient']):.4f}",
+        }
+
+        report = self.REPORT1 / "report_REG_ECON_DEV.md"
+        if not report.exists():
+            pytest.skip("English report not generated")
+        text = report.read_text(encoding="utf-8")
+
+        quoted = set(re.findall(r"\*\*(0\.\d{4})\*\*", text))
+        gini_like = {q for q in quoted if 0.05 < float(q) < 0.35}
+        assert expected & gini_like, (
+            f"Report quotes {sorted(gini_like)} but its own table says "
+            f"{sorted(expected)} -- prose and table disagree."
+        )
+
+    @pytest.mark.parametrize("path", all_python_files(), ids=lambda p: p.name)
+    def test_no_unresolved_narrative_tokens_in_source(self, path):
+        """Token placeholders must be resolved at write time, never shipped."""
+        text = path.read_text(encoding="utf-8")
+        # A stage may define and substitute tokens; it must also verify none survive.
+        if "@@" in text and "NARRATIVE" in text:
+            assert "Unresolved narrative tokens" in text, (
+                f"{path.name} substitutes tokens but never checks for leftovers"
+            )

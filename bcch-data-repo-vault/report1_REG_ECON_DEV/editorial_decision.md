@@ -7,7 +7,7 @@
 
 Dear Author,
 
-The Editorial Board has completed the evaluation of your report: *Regional Economic Disparities in Chile - A Descriptive Analysis (2000-2025)*. 
+The Editorial Board has completed the evaluation of your report: *Regional Economic Disparities in Chile - A Descriptive Analysis (2013-2025)*. 
 
 Based on the independent evaluations of three peer reviewers and our Devil's Advocate, we have decided to request a **Major Revision** before the manuscript can be considered for publication. 
 

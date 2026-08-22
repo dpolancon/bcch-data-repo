@@ -10,12 +10,10 @@ Owner:    dpolancon
 
 Background
 ----------
-04_analyze_regional.py used to build its 12-sector breakdown by multiplying
-each region's total GDP by hand-written shares (REGION_SECTOR_PROFILES) plus
-seeded Gaussian noise, while the reports described the result as "the official
-12-sector regional GDP classification compiled by the Central Bank of Chile".
-08_audit_outputs.py then "verified" those numbers by re-running the same
-generator with the same seed.
+The analysis stage used to construct its sectoral breakdown from hand-written
+shares plus seeded noise, while the reports described the result as BCCh's
+official classification -- and the audit stage "verified" it by re-running the
+same generator with the same seed, so nothing was actually checked.
 
 BCCh publishes the real thing: annual sectoral GDP per region, current and
 chained prices, all 16 regions. This module reads it.

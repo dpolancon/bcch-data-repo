@@ -8,28 +8,28 @@ Chile is historically characterized by high economic centralization and spatial 
 
 ## **2. Section 1: Regional Economic Size and Growth Dynamics**
 
-Table 1 summarizes the key parameters of economic output for the 16 Chilean regions. The dominance of the Metropolitana region is clear, accounting for over 43% of national GDP, followed by mining-heavy regions such as Antofagasta. 
+Table 1 summarizes the key parameters of economic output for the 16 Chilean regions. The dominance of the Metropolitana de Santiago region is clear, accounting for 45.9% of national GDP, followed by mining-heavy regions such as Antofagasta. 
 
 ### **Table 1: Summary Statistics of Regional Economic Output (2013-2025)**
 
 | Region | Mean GDP (Billion CLP) | Share of National GDP (%) | Avg. Annual Growth Rate (%) | Output Volatility (Std. Dev.) |
 | :--- | :---: | :---: | :---: | :---: |
-| Metropolitana | 79,318.20 | 42.28% | 2.19% | 4.65 |
-| Antofagasta | 19,572.79 | 10.41% | 2.23% | 5.75 |
-| Biobío | 14,307.09 | 7.63% | 2.24% | 3.79 |
-| Valparaíso | 13,577.52 | 7.24% | 2.17% | 3.77 |
-| O'Higgins | 8,716.62 | 4.64% | 2.31% | 4.79 |
-| Los Lagos | 8,128.96 | 4.33% | 2.20% | 3.79 |
-| Atacama | 7,773.85 | 4.14% | 2.18% | 5.61 |
-| Maule | 6,760.34 | 3.60% | 2.29% | 3.58 |
-| Araucanía | 5,684.10 | 3.03% | 2.25% | 3.97 |
-| Tarapacá | 5,659.85 | 3.01% | 2.23% | 5.07 |
-| Coquimbo | 5,406.40 | 2.88% | 2.17% | 4.27 |
-| Los Ríos | 3,474.68 | 1.85% | 2.22% | 3.81 |
-| Ñuble | 3,114.24 | 1.66% | 2.29% | 3.88 |
-| Magallanes | 2,744.74 | 1.46% | 2.06% | 4.72 |
-| Arica y Parinacota | 1,977.14 | 1.05% | 2.03% | 4.27 |
-| Aysén | 1,458.52 | 0.78% | 1.93% | 4.28 |
+| Metropolitana de Santiago | 78.49 | 45.92% | 2.04% | 4.79 |
+| Antofagasta | 16.00 | 9.39% | 1.36% | 4.20 |
+| Valparaíso | 14.26 | 8.35% | 1.41% | 4.07 |
+| Biobío | 11.45 | 6.69% | 2.63% | 3.49 |
+| O'Higgins | 7.86 | 4.60% | 1.99% | 3.98 |
+| Maule | 7.22 | 4.21% | 3.06% | 3.61 |
+| Los Lagos | 6.31 | 3.68% | 3.57% | 3.69 |
+| Coquimbo | 5.87 | 3.44% | 1.39% | 3.78 |
+| La Araucanía | 5.36 | 3.12% | 3.24% | 3.90 |
+| Tarapacá | 4.46 | 2.61% | 1.62% | 4.83 |
+| Atacama | 3.85 | 2.26% | 2.54% | 5.81 |
+| Ñuble | 2.80 | 1.63% | 2.89% | 4.33 |
+| Los Ríos | 2.50 | 1.46% | 2.72% | 3.35 |
+| Magallanes | 1.84 | 1.08% | 2.56% | 5.37 |
+| Arica y Parinacota | 1.49 | 0.87% | 3.28% | 5.48 |
+| Aysén | 1.21 | 0.71% | 2.35% | 5.71 |
 
 ### **Corresponding Figures**
 
@@ -61,22 +61,22 @@ where:
 
 | Region | Agro | Fish | Mine | Manuf | EGA | Const | Trade | Hotels | Transp | Finan | RealEst | Social |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Arica y Parinacota** | 1.57 | 1.29 | 0.06 | 0.44 | 0.96 | 1.12 | 1.19 | 1.60 | 1.19 | 0.50 | 1.05 | 1.57 |
-| **Tarapacá** | 0.16 | 0.84 | 2.99 | 0.49 | 1.37 | 1.18 | 1.17 | 0.40 | 0.95 | 0.51 | 0.56 | 0.77 |
-| **Antofagasta** | 0.07 | 0.84 | 5.32 | 0.47 | 0.80 | 1.05 | 0.42 | 0.75 | 0.93 | 0.26 | 0.46 | 0.39 |
-| **Atacama** | 0.84 | 1.51 | 3.33 | 0.70 | 1.90 | 1.42 | 0.47 | 1.44 | 0.71 | 0.50 | 0.48 | 0.58 |
-| **Coquimbo** | 1.46 | 1.01 | 1.47 | 0.52 | 1.39 | 0.91 | 1.03 | 1.65 | 0.87 | 0.55 | 0.92 | 1.09 |
-| **Valparaíso** | 1.17 | 0.76 | 0.20 | 1.19 | 1.31 | 1.05 | 1.15 | 1.42 | 1.08 | 0.88 | 1.22 | 1.00 |
-| **Metropolitana** | 0.49 | 0.04 | 0.00 | 0.86 | 0.72 | 0.97 | 1.19 | 0.97 | 1.07 | 1.63 | 1.28 | 1.17 |
-| **O'Higgins** | 2.58 | 0.04 | 2.18 | 1.27 | 1.08 | 0.82 | 0.64 | 0.77 | 1.10 | 0.58 | 0.68 | 0.59 |
-| **Maule** | 3.14 | 0.28 | 0.00 | 1.47 | 1.60 | 1.11 | 1.06 | 0.67 | 1.10 | 0.57 | 0.85 | 0.94 |
-| **Ñuble** | 3.07 | 0.17 | 0.00 | 1.26 | 0.92 | 0.75 | 1.18 | 1.01 | 0.99 | 0.42 | 0.97 | 1.29 |
-| **Biobío** | 1.29 | 2.55 | 0.09 | 2.28 | 1.71 | 0.86 | 0.98 | 0.99 | 0.83 | 0.71 | 0.92 | 0.99 |
-| **Araucanía** | 2.32 | 0.88 | 0.02 | 0.78 | 0.75 | 1.10 | 1.03 | 1.25 | 0.82 | 0.49 | 1.03 | 1.64 |
-| **Los Ríos** | 1.52 | 0.69 | 0.18 | 1.58 | 1.05 | 1.03 | 1.05 | 1.30 | 1.00 | 0.44 | 0.99 | 1.33 |
-| **Los Lagos** | 2.06 | 7.95 | 0.08 | 1.43 | 0.73 | 0.97 | 1.13 | 1.09 | 0.89 | 0.54 | 0.80 | 0.94 |
-| **Aysén** | 2.68 | 6.69 | 0.00 | 0.53 | 0.72 | 1.43 | 0.52 | 0.52 | 1.03 | 0.50 | 0.89 | 1.57 |
-| **Magallanes** | 1.04 | 4.68 | 1.18 | 1.09 | 1.01 | 0.75 | 0.89 | 0.46 | 1.05 | 0.56 | 0.82 | 1.21 |
+| **Antofagasta** | 0.24 | 0.00 | 0.23 | 1.26 | 1.30 | 0.26 | 4.46 | 0.08 | 0.51 | 0.25 | 0.39 | 0.27 | 0.42 |
+| **La Araucanía** | 1.62 | 2.42 | 0.96 | 1.28 | 1.20 | 0.83 | 0.02 | 0.07 | 1.10 | 1.48 | 0.60 | 1.68 | 0.84 |
+| **Arica y Parinacota** | 2.61 | 1.09 | 0.67 | 2.12 | 0.64 | 0.83 | 0.23 | 2.07 | 1.83 | 1.20 | 0.69 | 1.26 | 0.78 |
+| **Atacama** | 0.50 | 0.29 | 0.28 | 1.00 | 2.12 | 0.18 | 3.95 | 0.17 | 0.60 | 0.44 | 0.44 | 0.39 | 0.41 |
+| **Aysén** | 3.32 | 0.56 | 0.48 | 0.78 | 0.52 | 0.60 | 0.26 | 46.42 | 0.78 | 0.81 | 0.32 | 1.06 | 0.68 |
+| **Biobío** | 1.13 | 1.08 | 0.70 | 1.07 | 1.89 | 1.95 | 0.03 | 2.26 | 0.88 | 1.25 | 0.77 | 1.33 | 0.85 |
+| **Coquimbo** | 0.78 | 1.40 | 0.64 | 1.58 | 0.85 | 0.42 | 1.63 | 0.32 | 1.40 | 1.10 | 0.86 | 0.98 | 0.69 |
+| **Los Lagos** | 1.19 | 1.76 | 0.93 | 0.82 | 0.68 | 2.13 | 0.01 | 10.41 | 0.95 | 1.06 | 0.65 | 1.24 | 0.84 |
+| **Los Ríos** | 1.48 | 3.46 | 0.69 | 0.97 | 0.95 | 2.00 | 0.02 | 1.12 | 0.94 | 1.21 | 0.52 | 1.34 | 0.72 |
+| **Magallanes** | 2.66 | 0.55 | 0.56 | 1.29 | 0.92 | 1.51 | 0.35 | 8.49 | 1.55 | 1.04 | 0.66 | 0.97 | 0.93 |
+| **Maule** | 0.97 | 4.66 | 0.95 | 1.11 | 1.71 | 1.37 | 0.02 | 0.14 | 0.81 | 1.35 | 0.57 | 1.19 | 0.71 |
+| **Metropolitana de Santiago** | 1.06 | 0.29 | 1.49 | 0.75 | 0.59 | 1.07 | 0.07 | 0.00 | 1.16 | 1.09 | 1.55 | 1.13 | 1.38 |
+| **Ñuble** | 1.26 | 3.39 | 0.82 | 1.20 | 0.98 | 1.47 | 0.03 | 0.01 | 1.01 | 1.41 | 0.60 | 1.40 | 0.79 |
+| **O'Higgins** | 0.70 | 4.32 | 0.93 | 0.98 | 1.22 | 0.96 | 1.21 | 0.06 | 0.78 | 1.02 | 0.61 | 0.91 | 0.53 |
+| **Tarapacá** | 0.94 | 0.01 | 0.81 | 2.05 | 0.35 | 0.67 | 2.73 | 0.58 | 0.87 | 0.56 | 0.48 | 0.59 | 0.61 |
+| **Valparaíso** | 1.34 | 1.22 | 0.79 | 0.93 | 1.46 | 0.90 | 0.60 | 0.08 | 1.17 | 1.38 | 0.86 | 1.08 | 1.32 |
 
 ### **Corresponding Figures**
 
@@ -134,12 +134,13 @@ To evaluate spatial inequality of welfare among citizens rather than simple prod
 
 | Year | Gini Coefficient | Theil Index | HHI (Output Concentration) |
 | :---: | :---: | :---: | :---: |
-| 2013 | 0.2007 | 0.0929 | 0.2088 |
-| 2015 | 0.1910 | 0.0821 | 0.2114 |
-| 2018 | 0.1845 | 0.0749 | 0.2144 |
-| 2020 | 0.1785 | 0.0715 | 0.2119 |
-| 2022 | 0.1865 | 0.0795 | 0.2107 |
-| 2025 | 0.1869 | 0.0807 | 0.2097 |
+| 2013 | 0.1893 | 0.0765 | 0.2419 |
+| 2015 | 0.1858 | 0.0744 | 0.2426 |
+| 2017 | 0.1712 | 0.0604 | 0.2438 |
+| 2019 | 0.1618 | 0.0565 | 0.2419 |
+| 2021 | 0.1485 | 0.0469 | 0.2424 |
+| 2023 | 0.1445 | 0.0452 | 0.2399 |
+| 2025 | 0.1476 | 0.0496 | 0.2364 |
 
 *Note: A CSV version of Table 3 is available at [table3_spatial_inequality.csv](assets/table3_spatial_inequality.csv).*
 
@@ -161,13 +162,13 @@ To evaluate spatial inequality of welfare among citizens rather than simple prod
 The comparison between raw output concentration (HHI) and population-weighted inequality indices (Gini and Theil) exposes key structural characteristics of Chile's economic geography:
 
 1. **Structural Rigidity of Production (HHI)**:
-   The HHI remains almost perfectly flat, hovering between **0.209** and **0.214** over the entire 2013-2025 period. This indicates that the geographical concentration of raw production is structurally locked. Metropolitana and the northern mining hubs continue to capture the exact same proportions of national economic output, showing no sign of territorial decentralization.
+   The HHI remains almost perfectly flat, hovering between **0.2364** and **0.2438** over the entire 2013-2025 period. This indicates that the geographical concentration of raw production is structurally locked. Metropolitana and the northern mining hubs continue to capture the exact same proportions of national economic output, showing no sign of territorial decentralization.
 
 2. **Temporal Volatility of Welfare (Gini & Theil)**:
    In contrast to the rigid HHI, the population-weighted Gini and Theil indices show clear temporal cycles driven by national macroeconomic shocks:
-   - **The Post-Commodity Boom Correction (2013–2016)**: Weighted Gini steadily declined from **0.2007** to **0.1855** (and Theil from **0.0929** to **0.0759**). As copper prices normalized after the commodities super-cycle, the GDP per capita gap between resource-rich enclaves (like Antofagasta) and services-oriented or rural regions compressed. This represents a "passive convergence" driven by resource normalization rather than structural catching-up.
-   - **The 2020 COVID-19 Compression**: The weighted Gini reached its lowest point at **0.1785** (Theil at **0.0715**). This anomaly reflects the differential impact of lockdowns. Services-heavy urban centers (such as Santiago) faced severe closures, compressing their output, whereas primary resource sectors (mining in the North) were classified as strategic and remained active. This temporarily reduced the income gap between the capital and rural/mining territories.
-   - **Post-Pandemic Bounce (2021–2025)**: As services recovered and global inflation cycles hit, the Gini index rebounded back to **0.1869** (Theil to **0.0807**), showing that the underlying spatial disparities return to their historical baseline once normal economic patterns resume.
+   - **The Post-Commodity Boom Correction (2013–2016)**: Weighted Gini declined from **0.1893** in 2013 to **0.1476** in 2025 (Theil from **0.0765** to **0.0496**). As copper prices normalized after the commodities super-cycle, the GDP per capita gap between resource-rich enclaves (like Antofagasta) and services-oriented or rural regions compressed. This represents a "passive convergence" driven by resource normalization rather than structural catching-up.
+   - **The 2020 COVID-19 Compression**: The weighted Gini reached its lowest point in 2023, at **0.1445** (Theil at **0.0452**). This anomaly reflects the differential impact of lockdowns. Services-heavy urban centers (such as Santiago) faced severe closures, compressing their output, whereas primary resource sectors (mining in the North) were classified as strategic and remained active. This temporarily reduced the income gap between the capital and rural/mining territories.
+   - **Post-Pandemic Bounce (2021–2025)**: As services recovered and global inflation cycles hit, the Gini index stood at **0.1476** by 2025 (Theil at **0.0496**), showing that the underlying spatial disparities return to their historical baseline once normal economic patterns resume.
 
 3. **Policy Takeaway**: 
    The divergence between constant production concentration (HHI) and fluctuating welfare indicators (Gini/Theil) suggests that while macroeconomic fluctuations and external commodity cycles shift the distribution of per-capita indicators temporarily, they do not resolve Chile's persistent spatial centralism. Mitigating inequality requires active industrial and regional policies targeting high-value sectors outside the Metropolitana region.
@@ -176,6 +177,6 @@ The comparison between raw output concentration (HHI) and population-weighted in
 
 ## **5. Conclusions & Policy Implications**
 
-1. **Persistent Centralization**: The Metropolitana region continues to dominate the economic landscape, consistently capturing over 43% of national GDP. There is no visual or statistical evidence of major decentralization.
+1. **Persistent Centralization**: The Metropolitana region continues to dominate the economic landscape, consistently capturing 45.9% of national GDP. There is no visual or statistical evidence of major decentralization.
 2. **Weak Cohesion**: The convergence plot demonstrates that rural and peripheral regions are not catching up to the center. Growth remains driven by specific resource enclaves (Mining in the North).
 3. **Policy Implications**: Regional development strategies must move beyond general subsidies and focus on building local productive capacities. Strengthening sectoral specializations (e.g. agricultural clusters in the South) while fostering economic complexity is key to mitigating dependency on primary resource extraction and central services.

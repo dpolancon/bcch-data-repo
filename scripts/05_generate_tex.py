@@ -12,10 +12,12 @@ Run:      python scripts/05_generate_tex.py
 """
 
 import os
+import pathlib
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib.paths import REPO_ROOT
+from lib.paths import REPO_ROOT, REPORT1_ASSETS_DIR, REPORT1_TEX_DIR
 from lib.reporting import escape_latex
 
 import os
@@ -27,8 +29,8 @@ logger = logging.getLogger(__name__)
 
 # Constants
 VAULT_DIR = os.path.join(REPO_ROOT, "bcch-data-repo-vault")
-ASSETS_DIR = os.path.join(VAULT_DIR, "assets")
-TEX_DIR = os.path.join(VAULT_DIR, "report1_REG_ECON_DEV", "tex_es")
+ASSETS_DIR = str(REPORT1_ASSETS_DIR)
+TEX_DIR = str(REPORT1_TEX_DIR)
 
 def generate_tex_report():
     logger.info("Initializing TeX Report Compiler...")
@@ -81,6 +83,27 @@ def generate_tex_report():
         )
     t3_table_body = "\n".join(t3_rows)
     
+    # Narrative figures, derived from the computed tables. These paragraphs
+    # previously carried literals from a synthetic build; every one of them was
+    # wrong against real data.
+    _g = df_t3.set_index("Year")
+    _first, _last = int(_g.index.min()), int(_g.index.max())
+    _min_year = int(_g["Gini Coefficient"].idxmin())
+    NARRATIVE = {
+        "@@HHI_LO@@": f"{_g['HHI (Output Concentration)'].min():.4f}",
+        "@@HHI_HI@@": f"{_g['HHI (Output Concentration)'].max():.4f}",
+        "@@SPAN@@": f"{_first}-{_last}",
+        "@@GINI_FIRST@@": f"{_g.loc[_first, 'Gini Coefficient']:.4f}",
+        "@@GINI_LAST@@": f"{_g.loc[_last, 'Gini Coefficient']:.4f}",
+        "@@THEIL_FIRST@@": f"{_g.loc[_first, 'Theil Index']:.4f}",
+        "@@THEIL_LAST@@": f"{_g.loc[_last, 'Theil Index']:.4f}",
+        "@@GINI_FIRST_YEAR@@": str(_first),
+        "@@GINI_LAST_YEAR@@": str(_last),
+        "@@GINI_MIN@@": f"{_g.loc[_min_year, 'Gini Coefficient']:.4f}",
+        "@@GINI_MIN_YEAR@@": str(_min_year),
+        "@@THEIL_AT_MIN@@": f"{_g.loc[_min_year, 'Theil Index']:.4f}",
+    }
+
     # Write LaTeX Document
     tex_path = os.path.join(TEX_DIR, "report_REG_ECON_DEV_ES.tex")
     
@@ -148,7 +171,7 @@ La Tabla 1 resume los parámetros clave de la producción económica de las 16 r
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../../assets/fig1_1_distribution.pdf}
+\includegraphics[width=0.85\textwidth]{../assets/fig1_1_distribution.pdf}
 \caption{Distribución del PIB Regional - La Dominancia de Santiago}
 \label{fig:dist_pib}
 \end{figure}
@@ -156,7 +179,7 @@ La Tabla 1 resume los parámetros clave de la producción económica de las 16 r
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../../assets/fig1_2_convergence.pdf}
+\includegraphics[width=0.85\textwidth]{../assets/fig1_2_convergence.pdf}
 \caption{Crecimiento vs. Tamaño - Patrones de Convergencia}
 \label{fig:convergence}
 \end{figure}
@@ -208,7 +231,7 @@ donde:
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{../../assets/fig2_1_heatmap.pdf}
+\includegraphics[width=0.9\textwidth]{../assets/fig2_1_heatmap.pdf}
 \caption{Mapa de Calor de Especialización en 12 Sectores}
 \label{fig:heatmap}
 \end{figure}
@@ -220,7 +243,7 @@ Agrupamos los gráficos de radar regionales por macrozonas geográficas para exp
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{../../assets/fig2_2a_radar_norte.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/fig2_2a_radar_norte.pdf}
 \caption{Macro-Zona Norte (Núcleo Minero)}
 \label{fig:radar_norte}
 \end{figure}
@@ -228,7 +251,7 @@ Agrupamos los gráficos de radar regionales por macrozonas geográficas para exp
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../../assets/fig2_2b_radar_centro.pdf}
+\includegraphics[width=0.85\textwidth]{../assets/fig2_2b_radar_centro.pdf}
 \caption{Macro-Zona Centro (Centro de Servicios y Conectividad)}
 \label{fig:radar_centro}
 \end{figure}
@@ -236,7 +259,7 @@ Agrupamos los gráficos de radar regionales por macrozonas geográficas para exp
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{../../assets/fig2_2c_radar_centrosur.pdf}
+\includegraphics[width=0.7\textwidth]{../assets/fig2_2c_radar_centrosur.pdf}
 \caption{Macro-Zona Centro Sur (Corazón Agrícola-Industrial)}
 \label{fig:radar_centrosur}
 \end{figure}
@@ -244,7 +267,7 @@ Agrupamos los gráficos de radar regionales por macrozonas geográficas para exp
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../../assets/fig2_2d_radar_sur.pdf}
+\includegraphics[width=0.85\textwidth]{../assets/fig2_2d_radar_sur.pdf}
 \caption{Macro-Zona Sur (Corazón Silvoagropecuario y Acuícola)}
 \label{fig:radar_sur}
 \end{figure}
@@ -252,7 +275,7 @@ Agrupamos los gráficos de radar regionales por macrozonas geográficas para exp
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{../../assets/fig2_2e_radar_austral.pdf}
+\includegraphics[width=0.75\textwidth]{../assets/fig2_2e_radar_austral.pdf}
 \caption{Macro-Zona Austral (Enclaves de Recursos Primarios y Servicios Públicos)}
 \label{fig:radar_austral}
 \end{figure}
@@ -306,7 +329,7 @@ Para evaluar la desigualdad espacial del bienestar entre los ciudadanos en lugar
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../../assets/fig3_1_inequality.pdf}
+\includegraphics[width=0.85\textwidth]{../assets/fig3_1_inequality.pdf}
 \caption{Tendencias de Desigualdad Espacial Ponderada por Población (2013-2025)}
 \label{fig:ineq_trends}
 \end{figure}
@@ -317,7 +340,7 @@ Para evaluar la desigualdad espacial del bienestar entre los ciudadanos en lugar
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../../assets/fig3_2_stacked_area.pdf}
+\includegraphics[width=0.85\textwidth]{../assets/fig3_2_stacked_area.pdf}
 \caption{Evolución de la Participación en el PIB Regional - Área Apilada}
 \label{fig:stacked_area}
 \end{figure}
@@ -329,14 +352,14 @@ La comparación entre la concentración bruta de la producción (HHI) y los índ
 
 \begin{enumerate}
     \item \textbf{Rigidez Estructural de la Producción (HHI)}:\\
-    El HHI se mantiene prácticamente plano, oscilando entre \textbf{0.209} y \textbf{0.214} durante todo el período 2013-2025. Esto indica que la concentración geográfica de la producción bruta está estructuralmente bloqueada. La Región Metropolitana y los centros mineros del norte siguen capturando exactamente las mismas proporciones de la producción económica nacional, sin mostrar señales de descentralización territorial.
+    El HHI se mantiene prácticamente plano, oscilando entre \textbf{@@HHI_LO@@} y \textbf{@@HHI_HI@@} durante todo el período @@SPAN@@. Esto indica que la concentración geográfica de la producción bruta está estructuralmente bloqueada. La Región Metropolitana y los centros mineros del norte siguen capturando exactamente las mismas proporciones de la producción económica nacional, sin mostrar señales de descentralización territorial.
 
     \item \textbf{Volatilidad Temporal del Bienestar (Gini y Theil)}:\\
     A diferencia de la rigidez del HHI, el Gini y Theil ponderados por población muestran ciclos temporales claros impulsados por choques macroeconómicos nacionales:
     \begin{itemize}
-        \item \textbf{La Corrección Post-Boom de Commodities (2013–2016)}: El Gini ponderado disminuyó de manera constante de \textbf{0.2007} a \textbf{0.1855} (y el Theil de \textbf{0.0929} a \textbf{0.0759}). Al normalizarse los precios del cobre tras el súper-ciclo, la brecha de PIB per cápita entre las regiones ricas en recursos (como Antofagasta) y las regiones agrícolas o de servicios se comprimió. Esto representa una ``convergencia pasiva'' por normalización de rentas y no por un catch-up estructural de los sectores rezagados.
-        \item \textbf{La Compresión por el COVID-19 en 2020}: El Gini ponderado alcanzó su mínimo histórico de \textbf{0.1785} (Theil en \textbf{0.0715}). Esta anomalía refleja el impacto desigual de las cuarentenas. Los centros urbanos basados en servicios (como Santiago) enfrentaron cierres severos que contrajeron su producción, mientras que los sectores primarios (minería en el Norte) se mantuvieron activos al ser catalogados como estratégicos. Esto redujo temporalmente la brecha de ingresos entre la capital y las regiones periféricas.
-        \item \textbf{Rebote Post-Pandemia (2021–2025)}: Con la reapertura de los servicios y los ciclos de inflación global, el Gini rebotó a \textbf{0.1869} (Theil a \textbf{0.0807}), demostrando que las disparidades espaciales subyacentes regresan a sus niveles históricos una vez que se normaliza el ciclo económico.
+        \item \textbf{La Corrección Post-Boom de Commodities (2013–2016)}: El Gini ponderado disminuyó de \textbf{@@GINI_FIRST@@} en @@GINI_FIRST_YEAR@@ a \textbf{@@GINI_LAST@@} en @@GINI_LAST_YEAR@@ (y el Theil de \textbf{@@THEIL_FIRST@@} a \textbf{@@THEIL_LAST@@}). Al normalizarse los precios del cobre tras el súper-ciclo, la brecha de PIB per cápita entre las regiones ricas en recursos (como Antofagasta) y las regiones agrícolas o de servicios se comprimió. Esto representa una ``convergencia pasiva'' por normalización de rentas y no por un catch-up estructural de los sectores rezagados.
+        \item \textbf{La Compresión por el COVID-19 en 2020}: El Gini ponderado alcanzó su mínimo en @@GINI_MIN_YEAR@@, en \textbf{@@GINI_MIN@@} (Theil en \textbf{@@THEIL_AT_MIN@@}). Esta anomalía refleja el impacto desigual de las cuarentenas. Los centros urbanos basados en servicios (como Santiago) enfrentaron cierres severos que contrajeron su producción, mientras que los sectores primarios (minería en el Norte) se mantuvieron activos al ser catalogados como estratégicos. Esto redujo temporalmente la brecha de ingresos entre la capital y las regiones periféricas.
+        \item \textbf{Rebote Post-Pandemia (2021–2025)}: Con la reapertura de los servicios y los ciclos de inflación global, el Gini se situó en \textbf{@@GINI_LAST@@} hacia @@GINI_LAST_YEAR@@ (Theil en \textbf{@@THEIL_LAST@@}), demostrando que las disparidades espaciales subyacentes regresan a sus niveles históricos una vez que se normaliza el ciclo económico.
     \end{itemize}
 
     \item \textbf{Implicancia de Política Pública}:\\
@@ -356,6 +379,17 @@ La comparación entre la concentración bruta de la producción (HHI) y los índ
 \end{document}
 """)
         
+    # Substitute derived figures as a post-pass: the document body is full of
+    # LaTeX braces, which an f-string would try to read as format fields.
+    _tex = pathlib.Path(tex_path)
+    _text = _tex.read_text(encoding="utf-8")
+    for _token, _value in NARRATIVE.items():
+        _text = _text.replace(_token, _value)
+    _leftover = re.findall(r"@@[A-Z_]+@@", _text)
+    if _leftover:
+        raise ValueError(f"Unresolved narrative tokens in {tex_path}: {sorted(set(_leftover))}")
+    _tex.write_text(_text, encoding="utf-8")
+
     logger.info("TeX Report generation complete!")
 
 if __name__ == "__main__":

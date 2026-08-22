@@ -17,6 +17,35 @@ The active dataset is **CRSM** (Chilean Regional Spatial-Macro), built to test a
 
 Do not place Python files in `codes/` or R files in `scripts/`. This rule is non-negotiable and is enforced by `tests/test_conventions.py`.
 
+## Data Coherence (Binding Rule)
+
+**Every artifact in this repository must be coherent with the real data.** Not
+annotated as outdated, not caveated — coherent, or deleted.
+
+This applies to everything, not just the pipeline: compiled panels, tables,
+figures, LaTeX sources, compiled PDFs, the Markdown reports, and the
+peer-review correspondence. If a figure or a sentence disagrees with what the
+BCCh API returns, it is wrong and gets regenerated or rewritten. A note saying
+"these numbers are from an earlier build" does not satisfy this rule; a reader
+who trusts the document is still misled, and the note is the first thing that
+goes stale.
+
+Three practices follow from it:
+
+1. **Derive, never restate.** Prose that quotes a statistic must interpolate it
+   from the computed table, not copy it. Hand-copied figures are correct exactly
+   once. Both report stages resolve `@@TOKEN@@` placeholders from the tables
+   they describe, and fail on any token left unresolved.
+2. **One copy of every artifact.** Each report owns its `assets/`; there is no
+   shared directory holding a second copy. Duplicates do not stay in sync — one
+   side silently becomes the stale one.
+3. **Regenerate the whole chain.** Changing the data means re-running stages
+   `01` through `08` and recompiling the PDFs, not patching the file you
+   happened to notice.
+
+Correcting a document to match the data is not falsifying a record. Publishing
+one that contradicts the data is.
+
 ## Python File Naming Protocol
 
 **Runnable pipeline stages** — `NN_verb_object.py`, directly under `scripts/`

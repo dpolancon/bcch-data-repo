@@ -15,7 +15,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib.paths import REPO_ROOT, DATA_DIR, VAULT_DIR, VAULT_ASSETS_DIR
+from lib.paths import REPO_ROOT, DATA_DIR, REPORT1_ASSETS_DIR, REPORT1_DIR
 from lib.regions import REGIONS
 from lib.sectors import compute_location_quotients
 from lib.stats import compute_hhi, compute_weighted_gini, compute_weighted_theil
@@ -28,8 +28,8 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Constants
-VAULT_DIR = str(VAULT_DIR)
-ASSETS_DIR = str(VAULT_ASSETS_DIR)
+VAULT_DIR = str(REPORT1_DIR)
+ASSETS_DIR = str(REPORT1_ASSETS_DIR)
 DATA_DIR = str(DATA_DIR)
 
 # Numeric tolerance for comparing regenerated values against published tables.

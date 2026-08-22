@@ -15,7 +15,7 @@ from typing import Optional
 
 import pandas as pd
 
-from lib.paths import VAULT_ASSETS_DIR, ensure_dir
+from lib.paths import REPORT1_ASSETS_DIR, ensure_dir
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ def export_table_to_csv(
     df: pd.DataFrame, filename: str, assets_dir: Optional[str] = None
 ) -> str:
     """Write a table to the vault assets directory and return its path."""
-    target = ensure_dir(VAULT_ASSETS_DIR if assets_dir is None else __import__("pathlib").Path(assets_dir))
+    target = ensure_dir(REPORT1_ASSETS_DIR if assets_dir is None else __import__("pathlib").Path(assets_dir))
     path = os.path.join(str(target), filename)
     df.to_csv(path, index=False)
     logger.info("Saved Table CSV: %s", filename)

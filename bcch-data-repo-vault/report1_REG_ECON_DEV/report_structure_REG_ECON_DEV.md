@@ -1,7 +1,7 @@
 
 ---
 
-# **Report: Regional Economic Disparities in Chile - A Descriptive Analysis (2000-2025)**
+# **Report: Regional Economic Disparities in Chile - A Descriptive Analysis (2013-2025)**
 
 ## **Report Structure**
 
@@ -14,7 +14,7 @@
 
 ### **2. Section 1: Regional Economic Size and Growth Dynamics**
 
-**Table 1: Summary Statistics of Regional Economic Output (2000-2025)**
+**Table 1: Summary Statistics of Regional Economic Output (2013-2025)**
 
 | Region        | Mean GDP (Billion CLP) | Share of National GDP (%) | Avg. Annual Growth Rate | Output Volatility (Std. Dev.) |
 | ------------- | ---------------------- | ------------------------- | ----------------------- | ----------------------------- |
@@ -35,8 +35,8 @@
 
 **Figure 1.2: Growth vs. Size - Convergence Patterns**
 - **Type:** Scatter plot
-- **X-axis:** Initial GDP level (2000)
-- **Y-axis:** Average annual growth rate (2000-2025)
+- **X-axis:** Initial GDP level (2013)
+- **Y-axis:** Average annual growth rate (2013-2025)
 - **Bubble size:** Share of national GDP
 - **Trend line:** Include negative slope if convergence exists
 - **Annotations:** Label outliers (e.g., high-growth mining regions)
@@ -86,20 +86,21 @@
 
 | Year | Gini Coefficient | Theil Index | HHI (Output Concentration) |
 |------|------------------|-------------|----------------------------|
-| 2000 | [value] | [value] | [value] |
-| 2005 | [value] | [value] | [value] |
-| 2010 | [value] | [value] | [value] |
+| 2013 | [value] | [value] | [value] |
 | 2015 | [value] | [value] | [value] |
-| 2020 | [value] | [value] | [value] |
+| 2017 | [value] | [value] | [value] |
+| 2019 | [value] | [value] | [value] |
+| 2021 | [value] | [value] | [value] |
+| 2023 | [value] | [value] | [value] |
 | 2025 | [value] | [value] | [value] |
 
 *Note: Higher values = greater spatial inequality/concentration*
 
 **Corresponding Figures:**
 
-**Figure 3.1: Spatial Inequality Trends (2000-2025)**
+**Figure 3.1: Spatial Inequality Trends (2013-2025)**
 - **Type:** Multi-line chart with dual axes
-- **X-axis:** Years (2000-2025)
+- **X-axis:** Years (2013-2025)
 - **Left Y-axis:** Gini Coefficient (0-1 scale)
 - **Right Y-axis:** Theil Index and HHI
 - **Lines:** 
@@ -111,7 +112,7 @@
 
 **Figure 3.2: Regional GDP Share Evolution - Stacked Area**
 - **Type:** 100% stacked area chart
-- **X-axis:** Years (2000-2025)
+- **X-axis:** Years (2013-2025)
 - **Y-axis:** Cumulative % of national GDP (0-100%)
 - **Areas:** Each region as a colored band
 - **Highlight:** RM as the bottom layer (showing if its dominance is growing or shrinking)

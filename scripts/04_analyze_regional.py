@@ -15,7 +15,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib.paths import REPO_ROOT, DATA_DIR, VAULT_DIR, VAULT_ASSETS_DIR
+from lib.paths import REPO_ROOT, DATA_DIR, REPORT1_ASSETS_DIR, REPORT1_DIR
 from lib.regions import REGIONS
 from lib.codes import SECTOR_MAP, SECTOR_MINING
 from lib.sectors import compute_location_quotients, compute_sector_shares
@@ -34,8 +34,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Constants
-VAULT_DIR = str(VAULT_DIR)
-ASSETS_DIR = str(VAULT_ASSETS_DIR)
+# Reports and their assets live together under report1, so nothing is
+# duplicated between a vault-level assets/ and a per-report copy.
+VAULT_DIR = str(REPORT1_DIR)
+ASSETS_DIR = str(REPORT1_ASSETS_DIR)
 os.makedirs(ASSETS_DIR, exist_ok=True)
 
 # Display names, keyed by region id. Derived from lib.regions so this file no
@@ -494,9 +496,9 @@ def main():
     # Generate the Markdown Report file (English)
     # ----------------------------------------------------
     # Narrative facts, derived from the tables rather than restated by hand.
-    # These paragraphs previously carried literals from a synthetic build
-    # (Gini 0.2007 -> 0.1855, HHI 0.209-0.214, "over 43% of national GDP");
-    # none of them survived contact with the real data.
+    # These paragraphs used to carry hand-copied literals, which silently went
+    # stale the moment the underlying data changed. Deriving them means the
+    # prose cannot disagree with the tables it describes.
     _g = df_t3.set_index("Year")
     gini_first_year, gini_last_year = int(_g.index.min()), int(_g.index.max())
     gini_first = _g.loc[gini_first_year, "Gini Coefficient"]

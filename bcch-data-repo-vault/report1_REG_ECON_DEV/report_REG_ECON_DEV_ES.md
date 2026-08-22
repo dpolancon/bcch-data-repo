@@ -8,28 +8,28 @@ Chile se caracteriza históricamente por una alta centralización económica y d
 
 ## **2. Sección 1: Tamaño Económico Regional y Dinámicas de Crecimiento**
 
-La Tabla 1 resume los parámetros clave de la producción económica de las 16 regiones chilenas. La dominancia de la Región Metropolitana es clara, representando más del 43% del PIB nacional, seguida de regiones con fuerte actividad minera como Antofagasta. 
+La Tabla 1 resume los parámetros clave de la producción económica de las 16 regiones chilenas. La dominancia de la Región Metropolitana es clara, representando el 45.9% del PIB nacional, seguida de regiones con fuerte actividad minera como Antofagasta. 
 
 ### **Tabla 1: Estadísticas Resumidas del Producto Económico Regional (2013-2025)**
 
 | Región | PIB Promedio (Miles de Millones de CLP) | Participación en el PIB Nacional (%) | Tasa de Crecimiento Anual Promedio (%) | Volatilidad del Producto (Desv. Est.) |
 | :--- | :---: | :---: | :---: | :---: |
-| Metropolitana | 79,318.20 | 42.28% | 2.19% | 4.65 |
-| Antofagasta | 19,572.79 | 10.41% | 2.23% | 5.75 |
-| Biobío | 14,307.09 | 7.63% | 2.24% | 3.79 |
-| Valparaíso | 13,577.52 | 7.24% | 2.17% | 3.77 |
-| O'Higgins | 8,716.62 | 4.64% | 2.31% | 4.79 |
-| Los Lagos | 8,128.96 | 4.33% | 2.20% | 3.79 |
-| Atacama | 7,773.85 | 4.14% | 2.18% | 5.61 |
-| Maule | 6,760.34 | 3.60% | 2.29% | 3.58 |
-| Araucanía | 5,684.10 | 3.03% | 2.25% | 3.97 |
-| Tarapacá | 5,659.85 | 3.01% | 2.23% | 5.07 |
-| Coquimbo | 5,406.40 | 2.88% | 2.17% | 4.27 |
-| Los Ríos | 3,474.68 | 1.85% | 2.22% | 3.81 |
-| Ñuble | 3,114.24 | 1.66% | 2.29% | 3.88 |
-| Magallanes | 2,744.74 | 1.46% | 2.06% | 4.72 |
-| Arica y Parinacota | 1,977.14 | 1.05% | 2.03% | 4.27 |
-| Aysén | 1,458.52 | 0.78% | 1.93% | 4.28 |
+| Metropolitana de Santiago | 78.49 | 45.92% | 2.04% | 4.79 |
+| Antofagasta | 16.00 | 9.39% | 1.36% | 4.20 |
+| Valparaíso | 14.26 | 8.35% | 1.41% | 4.07 |
+| Biobío | 11.45 | 6.69% | 2.63% | 3.49 |
+| O'Higgins | 7.86 | 4.60% | 1.99% | 3.98 |
+| Maule | 7.22 | 4.21% | 3.06% | 3.61 |
+| Los Lagos | 6.31 | 3.68% | 3.57% | 3.69 |
+| Coquimbo | 5.87 | 3.44% | 1.39% | 3.78 |
+| La Araucanía | 5.36 | 3.12% | 3.24% | 3.90 |
+| Tarapacá | 4.46 | 2.61% | 1.62% | 4.83 |
+| Atacama | 3.85 | 2.26% | 2.54% | 5.81 |
+| Ñuble | 2.80 | 1.63% | 2.89% | 4.33 |
+| Los Ríos | 2.50 | 1.46% | 2.72% | 3.35 |
+| Magallanes | 1.84 | 1.08% | 2.56% | 5.37 |
+| Arica y Parinacota | 1.49 | 0.87% | 3.28% | 5.48 |
+| Aysén | 1.21 | 0.71% | 2.35% | 5.71 |
 
 ### **Figuras Correspondientes**
 
@@ -61,22 +61,22 @@ donde:
 
 | Región | Agro | Pesca | Minería | Manuf | EGA | Const | Comercio | Hoteles | Transp | Finan | Inmob | Social |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Arica y Parinacota** | 1.57 | 1.29 | 0.06 | 0.44 | 0.96 | 1.12 | 1.19 | 1.60 | 1.19 | 0.50 | 1.05 | 1.57 |
-| **Tarapacá** | 0.16 | 0.84 | 2.99 | 0.49 | 1.37 | 1.18 | 1.17 | 0.40 | 0.95 | 0.51 | 0.56 | 0.77 |
-| **Antofagasta** | 0.07 | 0.84 | 5.32 | 0.47 | 0.80 | 1.05 | 0.42 | 0.75 | 0.93 | 0.26 | 0.46 | 0.39 |
-| **Atacama** | 0.84 | 1.51 | 3.33 | 0.70 | 1.90 | 1.42 | 0.47 | 1.44 | 0.71 | 0.50 | 0.48 | 0.58 |
-| **Coquimbo** | 1.46 | 1.01 | 1.47 | 0.52 | 1.39 | 0.91 | 1.03 | 1.65 | 0.87 | 0.55 | 0.92 | 1.09 |
-| **Valparaíso** | 1.17 | 0.76 | 0.20 | 1.19 | 1.31 | 1.05 | 1.15 | 1.42 | 1.08 | 0.88 | 1.22 | 1.00 |
-| **Metropolitana** | 0.49 | 0.04 | 0.00 | 0.86 | 0.72 | 0.97 | 1.19 | 0.97 | 1.07 | 1.63 | 1.28 | 1.17 |
-| **O'Higgins** | 2.58 | 0.04 | 2.18 | 1.27 | 1.08 | 0.82 | 0.64 | 0.77 | 1.10 | 0.58 | 0.68 | 0.59 |
-| **Maule** | 3.14 | 0.28 | 0.00 | 1.47 | 1.60 | 1.11 | 1.06 | 0.67 | 1.10 | 0.57 | 0.85 | 0.94 |
-| **Ñuble** | 3.07 | 0.17 | 0.00 | 1.26 | 0.92 | 0.75 | 1.18 | 1.01 | 0.99 | 0.42 | 0.97 | 1.29 |
-| **Biobío** | 1.29 | 2.55 | 0.09 | 2.28 | 1.71 | 0.86 | 0.98 | 0.99 | 0.83 | 0.71 | 0.92 | 0.99 |
-| **Araucanía** | 2.32 | 0.88 | 0.02 | 0.78 | 0.75 | 1.10 | 1.03 | 1.25 | 0.82 | 0.49 | 1.03 | 1.64 |
-| **Los Ríos** | 1.52 | 0.69 | 0.18 | 1.58 | 1.05 | 1.03 | 1.05 | 1.30 | 1.00 | 0.44 | 0.99 | 1.33 |
-| **Los Lagos** | 2.06 | 7.95 | 0.08 | 1.43 | 0.73 | 0.97 | 1.13 | 1.09 | 0.89 | 0.54 | 0.80 | 0.94 |
-| **Aysén** | 2.68 | 6.69 | 0.00 | 0.53 | 0.72 | 1.43 | 0.52 | 0.52 | 1.03 | 0.50 | 0.89 | 1.57 |
-| **Magallanes** | 1.04 | 4.68 | 1.18 | 1.09 | 1.01 | 0.75 | 0.89 | 0.46 | 1.05 | 0.56 | 0.82 | 1.21 |
+| **Antofagasta** | 0.24 | 0.00 | 0.23 | 1.26 | 1.30 | 0.26 | 4.46 | 0.08 | 0.51 | 0.25 | 0.39 | 0.27 | 0.42 |
+| **La Araucanía** | 1.62 | 2.42 | 0.96 | 1.28 | 1.20 | 0.83 | 0.02 | 0.07 | 1.10 | 1.48 | 0.60 | 1.68 | 0.84 |
+| **Arica y Parinacota** | 2.61 | 1.09 | 0.67 | 2.12 | 0.64 | 0.83 | 0.23 | 2.07 | 1.83 | 1.20 | 0.69 | 1.26 | 0.78 |
+| **Atacama** | 0.50 | 0.29 | 0.28 | 1.00 | 2.12 | 0.18 | 3.95 | 0.17 | 0.60 | 0.44 | 0.44 | 0.39 | 0.41 |
+| **Aysén** | 3.32 | 0.56 | 0.48 | 0.78 | 0.52 | 0.60 | 0.26 | 46.42 | 0.78 | 0.81 | 0.32 | 1.06 | 0.68 |
+| **Biobío** | 1.13 | 1.08 | 0.70 | 1.07 | 1.89 | 1.95 | 0.03 | 2.26 | 0.88 | 1.25 | 0.77 | 1.33 | 0.85 |
+| **Coquimbo** | 0.78 | 1.40 | 0.64 | 1.58 | 0.85 | 0.42 | 1.63 | 0.32 | 1.40 | 1.10 | 0.86 | 0.98 | 0.69 |
+| **Los Lagos** | 1.19 | 1.76 | 0.93 | 0.82 | 0.68 | 2.13 | 0.01 | 10.41 | 0.95 | 1.06 | 0.65 | 1.24 | 0.84 |
+| **Los Ríos** | 1.48 | 3.46 | 0.69 | 0.97 | 0.95 | 2.00 | 0.02 | 1.12 | 0.94 | 1.21 | 0.52 | 1.34 | 0.72 |
+| **Magallanes** | 2.66 | 0.55 | 0.56 | 1.29 | 0.92 | 1.51 | 0.35 | 8.49 | 1.55 | 1.04 | 0.66 | 0.97 | 0.93 |
+| **Maule** | 0.97 | 4.66 | 0.95 | 1.11 | 1.71 | 1.37 | 0.02 | 0.14 | 0.81 | 1.35 | 0.57 | 1.19 | 0.71 |
+| **Metropolitana de Santiago** | 1.06 | 0.29 | 1.49 | 0.75 | 0.59 | 1.07 | 0.07 | 0.00 | 1.16 | 1.09 | 1.55 | 1.13 | 1.38 |
+| **Ñuble** | 1.26 | 3.39 | 0.82 | 1.20 | 0.98 | 1.47 | 0.03 | 0.01 | 1.01 | 1.41 | 0.60 | 1.40 | 0.79 |
+| **O'Higgins** | 0.70 | 4.32 | 0.93 | 0.98 | 1.22 | 0.96 | 1.21 | 0.06 | 0.78 | 1.02 | 0.61 | 0.91 | 0.53 |
+| **Tarapacá** | 0.94 | 0.01 | 0.81 | 2.05 | 0.35 | 0.67 | 2.73 | 0.58 | 0.87 | 0.56 | 0.48 | 0.59 | 0.61 |
+| **Valparaíso** | 1.34 | 1.22 | 0.79 | 0.93 | 1.46 | 0.90 | 0.60 | 0.08 | 1.17 | 1.38 | 0.86 | 1.08 | 1.32 |
 
 ### **Figuras Correspondientes**
 
@@ -134,12 +134,13 @@ Para evaluar la desigualdad espacial del bienestar entre los ciudadanos en lugar
 
 | Año | Coeficiente de Gini | Índice de Theil | HHI (Concentración de la Producción) |
 | :---: | :---: | :---: | :---: |
-| 2013 | 0.2007 | 0.0929 | 0.2088 |
-| 2015 | 0.1910 | 0.0821 | 0.2114 |
-| 2018 | 0.1845 | 0.0749 | 0.2144 |
-| 2020 | 0.1785 | 0.0715 | 0.2119 |
-| 2022 | 0.1865 | 0.0795 | 0.2107 |
-| 2025 | 0.1869 | 0.0807 | 0.2097 |
+| 2013 | 0.1893 | 0.0765 | 0.2419 |
+| 2015 | 0.1858 | 0.0744 | 0.2426 |
+| 2017 | 0.1712 | 0.0604 | 0.2438 |
+| 2019 | 0.1618 | 0.0565 | 0.2419 |
+| 2021 | 0.1485 | 0.0469 | 0.2424 |
+| 2023 | 0.1445 | 0.0452 | 0.2399 |
+| 2025 | 0.1476 | 0.0496 | 0.2364 |
 
 *Nota: Una versión en formato CSV de la Tabla 3 está disponible en [table3_spatial_inequality.csv](assets/table3_spatial_inequality.csv).*
 
@@ -161,13 +162,13 @@ Para evaluar la desigualdad espacial del bienestar entre los ciudadanos en lugar
 La comparación entre la concentración bruta de la producción (HHI) y los índices de desigualdad ponderados por población (Gini y Theil) expone características estructurales clave de la geografía económica de Chile:
 
 1. **Rigidez Estructural de la Producción (HHI)**:
-   El HHI se mantiene prácticamente plano, oscilando entre **0.209** y **0.214** durante todo el período 2013-2025. Esto indica que la concentración geográfica de la producción bruta está estructuralmente bloqueada. La Región Metropolitana y los centros mineros del norte siguen capturando exactamente las mismas proporciones de la producción económica nacional, sin mostrar señales de descentralización territorial.
+   El HHI se mantiene prácticamente plano, oscilando entre **0.2364** y **0.2438** durante todo el período 2013-2025. Esto indica que la concentración geográfica de la producción bruta está estructuralmente bloqueada. La Región Metropolitana y los centros mineros del norte siguen capturando exactamente las mismas proporciones de la producción económica nacional, sin mostrar señales de descentralización territorial.
 
 2. **Volatilidad Temporal del Bienestar (Gini y Theil)**:
    A diferencia de la rigidez del HHI, el Gini y Theil ponderados por población muestran ciclos temporales claros impulsados por choques macroeconómicos nacionales:
-   - **La Corrección Post-Boom de Commodities (2013–2016)**: El Gini ponderado disminuyó de manera constante de **0.2007** a **0.1855** (y el Theil de **0.0929** a **0.0759**). Al normalizarse los precios del cobre tras el súper-ciclo, la brecha de PIB per cápita entre las regiones ricas en recursos (como Antofagasta) y las regiones agrícolas o de servicios se comprimió. Esto representa una "convergencia pasiva" por normalización de rentas y no por un catch-up estructural de los sectores rezagados.
-   - **La Compresión por el COVID-19 en 2020**: El Gini ponderado alcanzó su mínimo histórico de **0.1785** (Theil en **0.0715**). Esta anomalía refleja el impacto desigual de las cuarentenas. Los centros urbanos basados en servicios (como Santiago) enfrentaron cierres severos que contrajeron su producción, mientras que los sectores primarios (minería en el Norte) se mantuvieron activos al ser catalogados como estratégicos. Esto redujo temporalmente la brecha de ingresos entre la capital y las regiones periféricas.
-   - **Rebote Post-Pandemia (2021–2025)**: Con la reapertura de los servicios y los ciclos de inflación global, el Gini rebotó a **0.1869** (Theil a **0.0807**), demostrando que las disparidades espaciales subyacentes regresan a sus niveles históricos una vez que se normaliza el ciclo económico.
+   - **La Corrección Post-Boom de Commodities (2013–2016)**: El Gini ponderado disminuyó de **0.1893** en 2013 a **0.1476** en 2025 (y el Theil de **0.0765** a **0.0496**). Al normalizarse los precios del cobre tras el súper-ciclo, la brecha de PIB per cápita entre las regiones ricas en recursos (como Antofagasta) y las regiones agrícolas o de servicios se comprimió. Esto representa una "convergencia pasiva" por normalización de rentas y no por un catch-up estructural de los sectores rezagados.
+   - **La Compresión por el COVID-19 en 2020**: El Gini ponderado alcanzó su mínimo en 2023, en **0.1445** (Theil en **0.0452**). Esta anomalía refleja el impacto desigual de las cuarentenas. Los centros urbanos basados en servicios (como Santiago) enfrentaron cierres severos que contrajeron su producción, mientras que los sectores primarios (minería en el Norte) se mantuvieron activos al ser catalogados como estratégicos. Esto redujo temporalmente la brecha de ingresos entre la capital y las regiones periféricas.
+   - **Rebote Post-Pandemia (2021–2025)**: Con la reapertura de los servicios y los ciclos de inflación global, el Gini se situó en **0.1476** hacia 2025 (Theil en **0.0496**), demostrando que las disparidades espaciales subyacentes regresan a sus niveles históricos una vez que se normaliza el ciclo económico.
 
 3. **Implicancia de Política Pública**:
    La divergencia entre una concentración constante de la producción (HHI) y variables de bienestar fluctuantes (Gini/Theil) sugiere que los ciclos de commodities y choques temporales mueven los indicadores per cápita temporalmente, pero no resuelven el centralismo espacial persistente en Chile. Reducir la desigualdad requiere políticas industriales activas y de diversificación productiva dirigidas a sectores de alto valor fuera de la Región Metropolitana.
@@ -176,6 +177,6 @@ La comparación entre la concentración bruta de la producción (HHI) y los índ
 
 ## **5. Conclusiones e Implicancias de Política**
 
-1. **Centralización Persistente**: La Región Metropolitana continúa dominando el panorama económico, capturando consistentemente más del 43% del PIB nacional. No existe evidencia visual ni estadística de una descentralización importante.
+1. **Centralización Persistente**: La Región Metropolitana continúa dominando el panorama económico, capturando consistentemente el 45.9% del PIB nacional. No existe evidencia visual ni estadística de una descentralización importante.
 2. **Débil Cohesión**: El gráfico de convergencia demuestra que las regiones rurales y periféricas no están alcanzando al centro. El crecimiento sigue estando impulsado por enclaves de recursos específicos (Minería en el Norte).
 3. **Implicancias de Política**: Las estrategias de desarrollo regional deben ir más allá de los subsidios generales y enfocarse en construir capacidades productivas locales. Fortalecer las especializaciones sectoriales (por ejemplo, clusters agrícolas en el Sur) mientras se fomenta la complejidad económica es clave para mitigar la dependencia de la extracción de recursos primarios y los servicios centrales.
