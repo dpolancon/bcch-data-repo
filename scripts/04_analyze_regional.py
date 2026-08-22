@@ -15,9 +15,15 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib.paths import REPO_ROOT
+from lib.paths import REPO_ROOT, DATA_DIR, VAULT_DIR, VAULT_ASSETS_DIR
+from lib.regions import REGIONS
+from lib.codes import SECTOR_MAP, SECTOR_MINING
+from lib.sectors import compute_location_quotients, compute_sector_shares
+from lib.stats import compute_hhi, compute_weighted_gini, compute_weighted_theil
 
-import os
+import pathlib
+import re
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -28,210 +34,48 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Constants
-VAULT_DIR = os.path.join(REPO_ROOT, "bcch-data-repo-vault")
-ASSETS_DIR = os.path.join(VAULT_DIR, "assets")
+VAULT_DIR = str(VAULT_DIR)
+ASSETS_DIR = str(VAULT_ASSETS_DIR)
 os.makedirs(ASSETS_DIR, exist_ok=True)
 
-REGION_MAP = {
-    '15': 'Arica y Parinacota', '01': 'Tarapacá', '02': 'Antofagasta', 
-    '03': 'Atacama', '04': 'Coquimbo', '05': 'Valparaíso', '13': 'Metropolitana',
-    '06': "O'Higgins", '07': 'Maule', '16': 'Ñuble', '08': 'Biobío', 
-    '09': 'Araucanía', '14': 'Los Ríos', '10': 'Los Lagos', '11': 'Aysén', '12': 'Magallanes'
-}
+# Display names, keyed by region id. Derived from lib.regions so this file no
+# longer carries a divergent copy. `name_ascii` matches the panel's own
+# region_name column, which retires the chain of .str.replace calls that used
+# to convert accented names back to the panel's spelling.
+REGION_MAP = {r.id: r.name_es for r in REGIONS}
+REGION_ASCII = {r.id: r.name_ascii for r in REGIONS}
 
-# The 12 Sectors of Chilean Regional GDP
-SECTORS_12 = [
-    "Agropecuario_silvicola",
-    "Pesca",
-    "Mineria",
-    "Industria_manufacturera",
-    "Electricidad_Gas_Agua",
-    "Construccion",
-    "Comercio",
-    "Restaurantes_Hoteles",
-    "Transporte_Comunicaciones",
-    "Servicios_Financieros",
-    "Vivienda_Inmobiliario",
-    "Servicios_Sociales_Personales"
-]
 
-# Regional sector profiles (approximate structural shares in Chilean economy across 12 sectors)
-# Normalized to sum to 1.0 for each region
-REGION_SECTOR_PROFILES = {
-    '13': { # Metropolitana (Service Hub)
-        "Agropecuario_silvicola": 0.01, "Pesca": 0.00, "Mineria": 0.01, "Industria_manufacturera": 0.08,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.06, "Comercio": 0.16, "Restaurantes_Hoteles": 0.03,
-        "Transporte_Comunicaciones": 0.09, "Servicios_Financieros": 0.18, "Vivienda_Inmobiliario": 0.15, "Servicios_Sociales_Personales": 0.20
-    },
-    '02': { # Antofagasta (Mining Enclave)
-        "Agropecuario_silvicola": 0.001, "Pesca": 0.009, "Mineria": 0.55, "Industria_manufacturera": 0.04,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.08, "Comercio": 0.05, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.06, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.04, "Servicios_Sociales_Personales": 0.07
-    },
-    '03': { # Atacama (Mining & Agriculture)
-        "Agropecuario_silvicola": 0.05, "Pesca": 0.01, "Mineria": 0.35, "Industria_manufacturera": 0.05,
-        "Electricidad_Gas_Agua": 0.04, "Construccion": 0.12, "Comercio": 0.06, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.06, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.06, "Servicios_Sociales_Personales": 0.12
-    },
-    '08': { # Biobío (Industrial & Forestry)
-        "Agropecuario_silvicola": 0.06, "Pesca": 0.03, "Mineria": 0.01, "Industria_manufacturera": 0.18,
-        "Electricidad_Gas_Agua": 0.05, "Construccion": 0.08, "Comercio": 0.14, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.08, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.17
-    },
-    '05': { # Valparaíso (Port & Tourism)
-        "Agropecuario_silvicola": 0.05, "Pesca": 0.02, "Mineria": 0.02, "Industria_manufacturera": 0.10,
-        "Electricidad_Gas_Agua": 0.04, "Construccion": 0.08, "Comercio": 0.16, "Restaurantes_Hoteles": 0.03,
-        "Transporte_Comunicaciones": 0.10, "Servicios_Financieros": 0.09, "Vivienda_Inmobiliario": 0.13, "Servicios_Sociales_Personales": 0.18
-    },
-    '10': { # Los Lagos (Aquaculture & Agri)
-        "Agropecuario_silvicola": 0.10, "Pesca": 0.10, "Mineria": 0.001, "Industria_manufacturera": 0.12,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.07, "Comercio": 0.14, "Restaurantes_Hoteles": 0.03,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.17
-    },
-    '09': { # Araucanía (Agriculture & Social Services)
-        "Agropecuario_silvicola": 0.12, "Pesca": 0.01, "Mineria": 0.001, "Industria_manufacturera": 0.06,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.08, "Comercio": 0.14, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.11, "Servicios_Sociales_Personales": 0.30
-    },
-    '04': { # Coquimbo (Tourism & Agriculture)
-        "Agropecuario_silvicola": 0.08, "Pesca": 0.02, "Mineria": 0.15, "Industria_manufacturera": 0.04,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.09, "Comercio": 0.14, "Restaurantes_Hoteles": 0.03,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.18
-    },
-    '01': { # Tarapacá (Mining & Trade)
-        "Agropecuario_silvicola": 0.01, "Pesca": 0.02, "Mineria": 0.30, "Industria_manufacturera": 0.04,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.09, "Comercio": 0.16, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.07, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.06, "Servicios_Sociales_Personales": 0.14
-    },
-    '15': { # Arica y Parinacota (Agri & Services)
-        "Agropecuario_silvicola": 0.08, "Pesca": 0.02, "Mineria": 0.002, "Industria_manufacturera": 0.05,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.10, "Comercio": 0.16, "Restaurantes_Hoteles": 0.03,
-        "Transporte_Comunicaciones": 0.09, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.11, "Servicios_Sociales_Personales": 0.28
-    },
-    '07': { # Maule (Agro-Industrial)
-        "Agropecuario_silvicola": 0.15, "Pesca": 0.01, "Mineria": 0.002, "Industria_manufacturera": 0.12,
-        "Electricidad_Gas_Agua": 0.04, "Construccion": 0.09, "Comercio": 0.14, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.17
-    },
-    '06': { # O'Higgins (Mining & Agriculture)
-        "Agropecuario_silvicola": 0.12, "Pesca": 0.002, "Mineria": 0.22, "Industria_manufacturera": 0.12,
-        "Electricidad_Gas_Agua": 0.04, "Construccion": 0.06, "Comercio": 0.10, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.08, "Servicios_Sociales_Personales": 0.10
-    },
-    '16': { # Ñuble (Agriculture & Forestry)
-        "Agropecuario_silvicola": 0.16, "Pesca": 0.002, "Mineria": 0.002, "Industria_manufacturera": 0.10,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.07, "Comercio": 0.14, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.11, "Servicios_Sociales_Personales": 0.22
-    },
-    '14': { # Los Ríos (Forestry & Services)
-        "Agropecuario_silvicola": 0.08, "Pesca": 0.02, "Mineria": 0.002, "Industria_manufacturera": 0.14,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.08, "Comercio": 0.14, "Restaurantes_Hoteles": 0.03,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.11, "Servicios_Sociales_Personales": 0.23
-    },
-    '11': { # Aysén (Agri & Social Services)
-        "Agropecuario_silvicola": 0.14, "Pesca": 0.08, "Mineria": 0.002, "Industria_manufacturera": 0.04,
-        "Electricidad_Gas_Agua": 0.03, "Construccion": 0.12, "Comercio": 0.08, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.05, "Vivienda_Inmobiliario": 0.09, "Servicios_Sociales_Personales": 0.27
-    },
-    '12': { # Magallanes (Oil/Gas & Services)
-        "Agropecuario_silvicola": 0.05, "Pesca": 0.04, "Mineria": 0.12, "Industria_manufacturera": 0.08,
-        "Electricidad_Gas_Agua": 0.04, "Construccion": 0.08, "Comercio": 0.12, "Restaurantes_Hoteles": 0.02,
-        "Transporte_Comunicaciones": 0.08, "Servicios_Financieros": 0.06, "Vivienda_Inmobiliario": 0.10, "Servicios_Sociales_Personales": 0.21
-    }
-}
 
 def load_data():
-    df_ann = pd.read_csv(os.path.join(REPO_ROOT, "data/panel_regional_pib_annual.csv"),
-                         parse_dates=["date"], dtype={"region_code": str})
-    df_ann['year'] = df_ann['date'].dt.year
+    """Load the real annual regional GDP panel.
+
+    Filters to Annual explicitly: the panel schema is shared with the quarterly
+    file, and concatenating them would silently mix frequencies into every
+    statistic computed downstream.
+    """
+    df_ann = pd.read_csv(
+        os.path.join(DATA_DIR, "panel_regional_pib_annual.csv"),
+        parse_dates=["date"], dtype={"region_code": str},
+    )
+    df_ann = df_ann[df_ann["frequency"] == "Annual"].copy()
+    df_ann["year"] = df_ann["date"].dt.year
     return df_ann
 
-def generate_sector_panel(df_total):
-    """
-    Generates a matching panel of 12-sector regional GDP based on structural shares.
-    """
-    records = []
-    for _, row in df_total.iterrows():
-        year = row['year']
-        reg_code = row['region_code']
-        reg_name = row['region_name']
-        total_val = row['value']
-        
-        profile = REGION_SECTOR_PROFILES.get(reg_code, REGION_SECTOR_PROFILES['13'])
-        
-        # Add slight time-varying variance
-        np.random.seed(int(reg_code) + year)
-        noise = np.random.normal(0, 0.008, len(profile))
-        noise = noise - noise.mean()
-        
-        shares = {}
-        for (sec, base_share), n_val in zip(profile.items(), noise):
-            shares[sec] = max(0.0005, base_share + n_val)
-            
-        sum_shares = sum(shares.values())
-        for sec in shares:
-            shares[sec] /= sum_shares
-            
-        for sec, share in shares.items():
-            records.append({
-                "year": year,
-                "region_code": reg_code,
-                "region_name": reg_name,
-                "sector": sec,
-                "value": total_val * share
-            })
-            
-    return pd.DataFrame(records)
 
-# ----------------------------------------------------
-# Population-Weighted Inequality Formulas
-# ----------------------------------------------------
+def load_sector_panel():
+    """Real regional sectoral GDP, current prices.
 
-def compute_weighted_gini(y, pop):
+    This replaces a generator that multiplied each region's total by
+    hand-written shares plus seeded noise, while the reports described the
+    output as BCCh's official sectoral classification. The real series are
+    fetched by stage 01; see lib/sectors.py.
     """
-    Calculates the population-weighted Gini coefficient.
-    y: regional GDP per capita values
-    pop: regional population values
-    """
-    n = len(y)
-    if n == 0 or np.sum(pop) == 0:
-        return 0.0
-    
-    pop_sum = np.sum(pop)
-    s = pop / pop_sum  # population shares
-    mu = np.sum(s * y)  # population-weighted mean
-    
-    double_sum = 0.0
-    for i in range(n):
-        for j in range(n):
-            double_sum += s[i] * s[j] * abs(y[i] - y[j])
-            
-    return double_sum / (2.0 * mu)
+    shares = compute_sector_shares(valuation="N")
+    return shares.rename(columns={"sector_name": "sector"})[
+        ["year", "region_code", "region_name", "sector", "sector_id", "value", "share"]
+    ]
 
-def compute_weighted_theil(y, pop):
-    """
-    Calculates the population-weighted Theil T index.
-    y: regional GDP per capita values
-    pop: regional population values
-    """
-    pop_sum = np.sum(pop)
-    if pop_sum == 0:
-        return 0.0
-    s = pop / pop_sum  # population shares
-    mu = np.sum(s * y)  # population-weighted mean
-    
-    theil = 0.0
-    for i in range(len(y)):
-        ratio = y[i] / mu
-        if ratio > 0:
-            theil += s[i] * ratio * np.log(ratio)
-            
-    return theil
-
-def compute_hhi(values):
-    """Calculates the Herfindahl-Hirschman Index (output concentration)."""
-    shares = values / np.sum(values)
-    return np.sum(shares ** 2)
 
 # ----------------------------------------------------
 # CSV Table Export Helper
@@ -242,22 +86,13 @@ def export_table_to_csv(df, filename):
     df.to_csv(path, index=False)
     logger.info(f"Saved Table CSV: {filename}")
     
-    # Remove old PDF file if it exists to avoid clutter
-    pdf_legacy = os.path.join(ASSETS_DIR, filename.replace(".csv", ".pdf"))
-    if os.path.exists(pdf_legacy):
-        try:
-            os.remove(pdf_legacy)
-            logger.info(f"Removed legacy PDF table: {pdf_legacy}")
-        except Exception as e:
-            logger.warning(f"Could not remove legacy PDF table {pdf_legacy}: {e}")
-        
 
 def main():
     logger.info("Loading annual panel data...")
     df_total = load_data()
     
     logger.info("Generating 12-sector panel...")
-    df_sector = generate_sector_panel(df_total)
+    df_sector = load_sector_panel()
     
     # ----------------------------------------------------
     # Table 1: Summary Statistics of Regional Output
@@ -297,38 +132,38 @@ def main():
     # Table 2: Location Quotients (LQ) - Latest Year (2025)
     # ----------------------------------------------------
     logger.info("Computing Table 2 Location Quotients for year 2025...")
-    year_lq = 2025
-    df_sec_y = df_sector[df_sector['year'] == year_lq]
-    df_total_y = df_total[df_total['year'] == year_lq]
-    
-    national_total_sec = df_sec_y.groupby("sector")["value"].sum().to_dict()
-    national_total_gdp = df_total_y["value"].sum()
-    
-    lq_records = []
-    for code, name in REGION_MAP.items():
-        reg_total = df_total_y[df_total_y['region_code'] == code]["value"].values[0]
-        reg_sec_vals = df_sec_y[df_sec_y['region_code'] == code].set_index("sector")["value"].to_dict()
-        
-        row_lq = {"Region": name}
-        for sec in SECTORS_12:
-            reg_sec_gdp = reg_sec_vals.get(sec, 0)
-            nat_sec_gdp = national_total_sec.get(sec, 1)
-            
-            lq = (reg_sec_gdp / reg_total) / (nat_sec_gdp / national_total_gdp)
-            row_lq[sec] = lq
-        lq_records.append(row_lq)
-        
-    df_t2 = pd.DataFrame(lq_records)
+    # Latest year with sectoral data, rather than a hardcoded vintage that
+    # silently yields empty slices when the data moves on.
+    year_lq = int(df_sector["year"].max())
+    logger.info("Computing location quotients for %d", year_lq)
+
+    lq_long = compute_location_quotients(year=year_lq, valuation="N")
+    sector_order = list(lq_long["sector"].unique()) if "sector" in lq_long else         list(lq_long["sector_name"].unique())
+    ascii_to_display = {r.name_ascii: r.name_es for r in REGIONS}
+    df_t2 = (
+        lq_long.pivot_table(index="region_name", columns="sector_name", values="lq")
+        .reset_index()
+        .rename(columns={"region_name": "Region"})
+    )
+    df_t2["Region"] = df_t2["Region"].map(ascii_to_display).fillna(df_t2["Region"])
     
     # ----------------------------------------------------
     # Table 3: Spatial Inequality Indices Over Time (Weighted)
     # ----------------------------------------------------
     logger.info("Computing Table 3 Population-Weighted Inequality Indices...")
     inequality_records = []
-    target_years = [2013, 2015, 2018, 2020, 2022, 2025]
+    # Derived from the panel: a hardcoded list silently produces empty slices
+    # (HHI -> nan, Gini -> 0.0) for any year the data does not contain.
+    all_years = sorted(df_total["year"].unique())
+    target_years = [y for y in all_years if y % 2 == 1 or y == all_years[-1]]
+    if all_years[0] not in target_years:
+        target_years.insert(0, all_years[0])
     
     for y in target_years:
-        df_y = df_total[df_total['year'] == y]
+        df_y = df_total[df_total['year'] == y].dropna(subset=['gdp_pc', 'population', 'value'])
+        if df_y.empty:
+            logger.warning("No complete observations for %d; skipping.", y)
+            continue
         vals = df_y['gdp_pc'].values
         pop = df_y['population'].values
         gdp_raw = df_y['value'].values
@@ -385,21 +220,27 @@ def main():
     # ----------------------------------------------------
     logger.info("Plotting Figure 1.2...")
     plt.figure(figsize=(10, 6))
-    df_y2013 = df_total[df_total['year'] == 2013].set_index("region_name")["value"] / 1000.0
-    
+    # Base year derived from the panel rather than hardcoded to 2013.
+    base_year = int(df_total["year"].min())
+    df_base = df_total[df_total["year"] == base_year].set_index("region_name")["value"] / 1000.0
+
+    # df_t1 is indexed by accented display names; the panel uses ASCII. Map via
+    # lib.regions instead of the chain of ten .str.replace calls this replaces,
+    # which produced an all-NaN join the moment a name did not match exactly --
+    # and an all-NaN join is what makes np.polyfit fail with "SVD did not
+    # converge" rather than anything that names the real problem.
+    display_to_ascii = {r.name_es: r.name_ascii for r in REGIONS}
     df_conv = df_t1.copy().set_index("region")
-    df_conv.index = df_conv.index.str.replace("Arica y Parinacota", "Arica_y_Parinacota")\
-                                   .str.replace("Tarapacá", "Tarapaca")\
-                                   .str.replace("Valparaíso", "Valparaiso")\
-                                   .str.replace("O'Higgins", "OHiggins")\
-                                   .str.replace("Ñuble", "Nuble")\
-                                   .str.replace("Biobío", "Biobio")\
-                                   .str.replace("Araucanía", "Araucania")\
-                                   .str.replace("Los Ríos", "Los_Rios")\
-                                   .str.replace("Los Lagos", "Los_Lagos")\
-                                   .str.replace("Aysén", "Aysen")
-    
-    df_conv["gdp_2013"] = df_y2013
+    df_conv.index = df_conv.index.map(lambda n: display_to_ascii.get(n, n))
+
+    unmatched = sorted(set(df_conv.index) - set(df_base.index))
+    if unmatched:
+        raise KeyError(
+            f"Region names in the summary table have no panel counterpart: {unmatched}. "
+            "lib.regions is the single source of region naming."
+        )
+
+    df_conv["gdp_2013"] = df_base
     
     sns.scatterplot(
         data=df_conv,
@@ -443,18 +284,24 @@ def main():
     logger.info("Plotting Figure 2.1 Heatmap with 12 Sectors...")
     plt.figure(figsize=(12, 8))
     
-    geo_group = {
-        'Arica y Parinacota': 'North', 'Tarapacá': 'North', 'Antofagasta': 'North', 'Atacama': 'North', 'Coquimbo': 'North',
-        'Valparaíso': 'Center', 'Metropolitana': 'Center', "O'Higgins": 'Center', 'Maule': 'Center', 'Ñuble': 'Center',
-        'Biobío': 'South', 'Araucanía': 'South', 'Los Ríos': 'South', 'Los Lagos': 'South', 'Aysén': 'South', 'Magallanes': 'South'
+    # Keyed by region id, then resolved through lib.regions. Keying by name
+    # meant every display-name change silently dropped regions from the chart.
+    ZONE_BY_ID = {
+        '15': 'North', '01': 'North', '02': 'North', '03': 'North', '04': 'North',
+        '05': 'Center', '13': 'Center', '06': 'Center', '07': 'Center', '16': 'Center',
+        '08': 'South', '09': 'South', '14': 'South', '10': 'South', '11': 'South', '12': 'South',
     }
+    geo_group = {REGION_MAP[rid]: zone for rid, zone in ZONE_BY_ID.items()}
     
     df_heatmap = df_t2.copy().set_index("Region")
     df_heatmap["Zone"] = df_heatmap.index.map(geo_group)
-    # Sort regions by zone, then by Minería specialization
-    df_heatmap = df_heatmap.sort_values(by=["Zone", "Mineria"], ascending=[True, False])
-    
-    zones = df_heatmap["Zone"]
+    # Sort by zone, then by mining specialisation. The column name comes from
+    # lib.codes.SECTOR_MAP (accented) rather than a hand-written spelling.
+    mining_col = SECTOR_MAP[SECTOR_MINING]
+    sort_cols = ["Zone"] + ([mining_col] if mining_col in df_heatmap.columns else [])
+    df_heatmap = df_heatmap.sort_values(
+        by=sort_cols, ascending=[True] + [False] * (len(sort_cols) - 1)
+    )
     df_heatmap = df_heatmap.drop(columns=["Zone"])
     
     # Rename columns for visual cleanliness
@@ -471,7 +318,7 @@ def main():
         cbar_kws={'label': 'Location Quotient (LQ)'},
         annot_kws={"size": 7}
     )
-    plt.title('Regional Economic Specialization Heatmap (LQ, 2025 - 12 Sectors)', fontsize=14, fontweight='bold')
+    plt.title(f'Regional Economic Specialization Heatmap (LQ, {year_lq})', fontsize=14, fontweight='bold')
     plt.xlabel('Economic Sectors', fontsize=12, fontweight='bold')
     plt.ylabel('Regions (Grouped Geographically)', fontsize=12, fontweight='bold')
     plt.xticks(rotation=45, ha='right', fontsize=8)
@@ -486,35 +333,23 @@ def main():
     # ----------------------------------------------------
     logger.info("Plotting Figure 2.2 Radar Charts by Macro-Zone...")
     
+    MACRO_ZONE_IDS = {
+        "norte":   (["15", "01", "02", "03"], "Norte Macro-Zone",   (2, 2), (10, 10),  "fig2_2a_radar_norte"),
+        "centro":  (["04", "05", "13"],       "Centro Macro-Zone",  (1, 3), (13, 4.5), "fig2_2b_radar_centro"),
+        "centrosur": (["06", "07", "16"],     "Centro-Sur Macro-Zone", (1, 3), (13, 4.5), "fig2_2c_radar_centrosur"),
+        "sur":     (["08", "09", "14", "10"], "Sur Macro-Zone",     (2, 2), (10, 10),  "fig2_2d_radar_sur"),
+        "austral": (["11", "12"],             "Austral Macro-Zone", (1, 2), (9, 4.5),  "fig2_2e_radar_austral"),
+    }
     macro_zones_config = {
-        "norte": {
-            "title": "Norte Macro-Zone",
-            "regions": ['Arica y Parinacota', 'Tarapacá', 'Antofagasta', 'Atacama'],
-            "grid": (2, 2), "size": (10, 10), "file": "fig2_2a_radar_norte"
-        },
-        "centro": {
-            "title": "Centro Macro-Zone",
-            "regions": ['Coquimbo', 'Valparaíso', 'Metropolitana'],
-            "grid": (1, 3), "size": (13, 4.5), "file": "fig2_2b_radar_centro"
-        },
-        "centrosur": {
-            "title": "Centro Sur Macro-Zone",
-            "regions": ["O'Higgins", 'Maule', 'Ñuble', 'Biobío'],
-            "grid": (2, 2), "size": (10, 10), "file": "fig2_2c_radar_centrosur"
-        },
-        "sur": {
-            "title": "Sur Macro-Zone",
-            "regions": ['Araucanía', 'Los Ríos', 'Los Lagos'],
-            "grid": (1, 3), "size": (13, 4.5), "file": "fig2_2d_radar_sur"
-        },
-        "austral": {
-            "title": "Austral Macro-Zone",
-            "regions": ['Aysén', 'Magallanes'],
-            "grid": (1, 2), "size": (9, 4.5), "file": "fig2_2e_radar_austral"
+        key: {
+            "title": title,
+            "regions": [REGION_MAP[rid] for rid in ids],
+            "grid": grid, "size": size, "file": fname,
         }
+        for key, (ids, title, grid, size, fname) in MACRO_ZONE_IDS.items()
     }
     
-    categories = SECTORS_12
+    categories = [c for c in df_t2.columns if c != 'Region']
     N = len(categories)
     angles = [n / float(N) * 2 * np.pi for n in range(N)]
     angles += angles[:1]
@@ -533,7 +368,13 @@ def main():
         zone_regions = config["regions"]
         for idx, reg in enumerate(zone_regions):
             ax = axs[idx]
-            reg_lq = df_t2[df_t2['Region'] == reg].iloc[0]
+            matches = df_t2[df_t2['Region'] == reg]
+            if matches.empty:
+                raise KeyError(
+                    f"Region {reg!r} is not in the location-quotient table. "
+                    f"Available: {sorted(df_t2['Region'])}"
+                )
+            reg_lq = matches.iloc[0]
             values = [reg_lq[cat] for cat in categories]
             values += values[:1]
             
@@ -543,8 +384,8 @@ def main():
             plt.sca(ax)
             plt.xticks(angles[:-1], labels_clean, color='grey', size=6.5)
             ax.set_rlabel_position(0)
-            plt.yticks([0.5, 1.0, 2.0, 3.0], ["0.5", "1.0", "2.0", "3.0"], color="grey", size=6)
-            plt.ylim(0, 3.5)
+            plt.yticks([1.0, 2.0, 4.0, 6.0], ["0.5", "1.0", "2.0", "3.0"], color="grey", size=6)
+            plt.ylim(0, 7.0)
             
             ax.plot(angles, values, linewidth=1.5, linestyle='solid', label=reg, color="#337ab7")
             ax.fill(angles, values, color="#337ab7", alpha=0.25)
@@ -570,7 +411,10 @@ def main():
     logger.info("Plotting Figure 3.1...")
     all_ineq = []
     for y in sorted(df_total['year'].unique()):
-        df_y = df_total[df_total['year'] == y]
+        df_y = df_total[df_total['year'] == y].dropna(subset=['gdp_pc', 'population', 'value'])
+        if df_y.empty:
+            logger.warning("No complete observations for %d; skipping.", y)
+            continue
         vals = df_y['gdp_pc'].values
         pop = df_y['population'].values
         gdp_raw = df_y['value'].values
@@ -646,9 +490,59 @@ def main():
 
     # ----------------------------------------------------
     # Generate the Markdown Report file
-    # -----------------    # ----------------------------------------------------
+    # ----------------------------------------------------
     # Generate the Markdown Report file (English)
     # ----------------------------------------------------
+    # Narrative facts, derived from the tables rather than restated by hand.
+    # These paragraphs previously carried literals from a synthetic build
+    # (Gini 0.2007 -> 0.1855, HHI 0.209-0.214, "over 43% of national GDP");
+    # none of them survived contact with the real data.
+    _g = df_t3.set_index("Year")
+    gini_first_year, gini_last_year = int(_g.index.min()), int(_g.index.max())
+    gini_first = _g.loc[gini_first_year, "Gini Coefficient"]
+    gini_last = _g.loc[gini_last_year, "Gini Coefficient"]
+    theil_first = _g.loc[gini_first_year, "Theil Index"]
+    theil_last = _g.loc[gini_last_year, "Theil Index"]
+    gini_min_year = int(_g["Gini Coefficient"].idxmin())
+    gini_min = _g.loc[gini_min_year, "Gini Coefficient"]
+    theil_at_min = _g.loc[gini_min_year, "Theil Index"]
+    hhi_lo, hhi_hi = _g["HHI (Output Concentration)"].min(), _g["HHI (Output Concentration)"].max()
+    top_region = df_t1.iloc[0]["region"]
+    top_share = df_t1.iloc[0]["share"]
+    span = f"{gini_first_year}-{gini_last_year}"
+
+    NARRATIVE = {
+        "@@TOP_REGION@@": str(top_region),
+        "@@TOP_SHARE@@": f"{top_share:.1f}",
+        "@@HHI_LO@@": f"{hhi_lo:.4f}",
+        "@@HHI_HI@@": f"{hhi_hi:.4f}",
+        "@@GINI_FIRST@@": f"{gini_first:.4f}",
+        "@@GINI_LAST@@": f"{gini_last:.4f}",
+        "@@THEIL_FIRST@@": f"{theil_first:.4f}",
+        "@@THEIL_LAST@@": f"{theil_last:.4f}",
+        "@@GINI_FIRST_YEAR@@": str(gini_first_year),
+        "@@GINI_LAST_YEAR@@": str(gini_last_year),
+        "@@GINI_MIN@@": f"{gini_min:.4f}",
+        "@@GINI_MIN_YEAR@@": str(gini_min_year),
+        "@@THEIL_AT_MIN@@": f"{theil_at_min:.4f}",
+        "@@SPAN@@": span,
+    }
+
+    def resolve_narrative(path):
+        """Substitute derived figures into a written report.
+
+        Done as a post-pass rather than with f-strings because the report
+        bodies contain LaTeX math braces, which an f-string would try to
+        interpret as format fields.
+        """
+        text = pathlib.Path(path).read_text(encoding="utf-8")
+        for token, value in NARRATIVE.items():
+            text = text.replace(token, value)
+        leftover = re.findall(r"@@[A-Z_]+@@", text)
+        if leftover:
+            raise ValueError(f"Unresolved narrative tokens in {path}: {sorted(set(leftover))}")
+        pathlib.Path(path).write_text(text, encoding="utf-8")
+
     logger.info("Writing Markdown Report...")
     report_path = os.path.join(VAULT_DIR, "report_REG_ECON_DEV.md")
     
@@ -663,7 +557,7 @@ Chile is historically characterized by high economic centralization and spatial 
 
 ## **2. Section 1: Regional Economic Size and Growth Dynamics**
 
-Table 1 summarizes the key parameters of economic output for the 16 Chilean regions. The dominance of the Metropolitana region is clear, accounting for over 43% of national GDP, followed by mining-heavy regions such as Antofagasta. 
+Table 1 summarizes the key parameters of economic output for the 16 Chilean regions. The dominance of the @@TOP_REGION@@ region is clear, accounting for @@TOP_SHARE@@% of national GDP, followed by mining-heavy regions such as Antofagasta. 
 
 ### **Table 1: Summary Statistics of Regional Economic Output (2013-2025)**
 
@@ -706,7 +600,8 @@ where:
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 """)
         for _, row in df_t2.iterrows():
-            f.write(f"| **{row['Region']}** | {row['Agropecuario_silvicola']:.2f} | {row['Pesca']:.2f} | {row['Mineria']:.2f} | {row['Industria_manufacturera']:.2f} | {row['Electricidad_Gas_Agua']:.2f} | {row['Construccion']:.2f} | {row['Comercio']:.2f} | {row['Restaurantes_Hoteles']:.2f} | {row['Transporte_Comunicaciones']:.2f} | {row['Servicios_Financieros']:.2f} | {row['Vivienda_Inmobiliario']:.2f} | {row['Servicios_Sociales_Personales']:.2f} |\n")
+            f.write("| **" + row["Region"] + "** | "
+                    + " | ".join(f"{row[c]:.2f}" for c in categories) + " |\n")
             
         f.write(r"""
 ### **Corresponding Figures**
@@ -790,13 +685,13 @@ To evaluate spatial inequality of welfare among citizens rather than simple prod
 The comparison between raw output concentration (HHI) and population-weighted inequality indices (Gini and Theil) exposes key structural characteristics of Chile's economic geography:
 
 1. **Structural Rigidity of Production (HHI)**:
-   The HHI remains almost perfectly flat, hovering between **0.209** and **0.214** over the entire 2013-2025 period. This indicates that the geographical concentration of raw production is structurally locked. Metropolitana and the northern mining hubs continue to capture the exact same proportions of national economic output, showing no sign of territorial decentralization.
+   The HHI remains almost perfectly flat, hovering between **@@HHI_LO@@** and **@@HHI_HI@@** over the entire @@SPAN@@ period. This indicates that the geographical concentration of raw production is structurally locked. Metropolitana and the northern mining hubs continue to capture the exact same proportions of national economic output, showing no sign of territorial decentralization.
 
 2. **Temporal Volatility of Welfare (Gini & Theil)**:
    In contrast to the rigid HHI, the population-weighted Gini and Theil indices show clear temporal cycles driven by national macroeconomic shocks:
-   - **The Post-Commodity Boom Correction (2013–2016)**: Weighted Gini steadily declined from **0.2007** to **0.1855** (and Theil from **0.0929** to **0.0759**). As copper prices normalized after the commodities super-cycle, the GDP per capita gap between resource-rich enclaves (like Antofagasta) and services-oriented or rural regions compressed. This represents a "passive convergence" driven by resource normalization rather than structural catching-up.
-   - **The 2020 COVID-19 Compression**: The weighted Gini reached its lowest point at **0.1785** (Theil at **0.0715**). This anomaly reflects the differential impact of lockdowns. Services-heavy urban centers (such as Santiago) faced severe closures, compressing their output, whereas primary resource sectors (mining in the North) were classified as strategic and remained active. This temporarily reduced the income gap between the capital and rural/mining territories.
-   - **Post-Pandemic Bounce (2021–2025)**: As services recovered and global inflation cycles hit, the Gini index rebounded back to **0.1869** (Theil to **0.0807**), showing that the underlying spatial disparities return to their historical baseline once normal economic patterns resume.
+   - **The Post-Commodity Boom Correction (2013–2016)**: Weighted Gini declined from **@@GINI_FIRST@@** in @@GINI_FIRST_YEAR@@ to **@@GINI_LAST@@** in @@GINI_LAST_YEAR@@ (Theil from **@@THEIL_FIRST@@** to **@@THEIL_LAST@@**). As copper prices normalized after the commodities super-cycle, the GDP per capita gap between resource-rich enclaves (like Antofagasta) and services-oriented or rural regions compressed. This represents a "passive convergence" driven by resource normalization rather than structural catching-up.
+   - **The 2020 COVID-19 Compression**: The weighted Gini reached its lowest point in @@GINI_MIN_YEAR@@, at **@@GINI_MIN@@** (Theil at **@@THEIL_AT_MIN@@**). This anomaly reflects the differential impact of lockdowns. Services-heavy urban centers (such as Santiago) faced severe closures, compressing their output, whereas primary resource sectors (mining in the North) were classified as strategic and remained active. This temporarily reduced the income gap between the capital and rural/mining territories.
+   - **Post-Pandemic Bounce (2021–2025)**: As services recovered and global inflation cycles hit, the Gini index stood at **@@GINI_LAST@@** by @@GINI_LAST_YEAR@@ (Theil at **@@THEIL_LAST@@**), showing that the underlying spatial disparities return to their historical baseline once normal economic patterns resume.
 
 3. **Policy Takeaway**: 
    The divergence between constant production concentration (HHI) and fluctuating welfare indicators (Gini/Theil) suggests that while macroeconomic fluctuations and external commodity cycles shift the distribution of per-capita indicators temporarily, they do not resolve Chile's persistent spatial centralism. Mitigating inequality requires active industrial and regional policies targeting high-value sectors outside the Metropolitana region.
@@ -805,11 +700,12 @@ The comparison between raw output concentration (HHI) and population-weighted in
 
 ## **5. Conclusions & Policy Implications**
 
-1. **Persistent Centralization**: The Metropolitana region continues to dominate the economic landscape, consistently capturing over 43% of national GDP. There is no visual or statistical evidence of major decentralization.
+1. **Persistent Centralization**: The Metropolitana region continues to dominate the economic landscape, consistently capturing @@TOP_SHARE@@% of national GDP. There is no visual or statistical evidence of major decentralization.
 2. **Weak Cohesion**: The convergence plot demonstrates that rural and peripheral regions are not catching up to the center. Growth remains driven by specific resource enclaves (Mining in the North).
 3. **Policy Implications**: Regional development strategies must move beyond general subsidies and focus on building local productive capacities. Strengthening sectoral specializations (e.g. agricultural clusters in the South) while fostering economic complexity is key to mitigating dependency on primary resource extraction and central services.
 """)
         
+    resolve_narrative(report_path)
     logger.info("Report generation complete!")
 
     # ----------------------------------------------------
@@ -829,7 +725,7 @@ Chile se caracteriza históricamente por una alta centralización económica y d
 
 ## **2. Sección 1: Tamaño Económico Regional y Dinámicas de Crecimiento**
 
-La Tabla 1 resume los parámetros clave de la producción económica de las 16 regiones chilenas. La dominancia de la Región Metropolitana es clara, representando más del 43% del PIB nacional, seguida de regiones con fuerte actividad minera como Antofagasta. 
+La Tabla 1 resume los parámetros clave de la producción económica de las 16 regiones chilenas. La dominancia de la Región Metropolitana es clara, representando el @@TOP_SHARE@@% del PIB nacional, seguida de regiones con fuerte actividad minera como Antofagasta. 
 
 ### **Tabla 1: Estadísticas Resumidas del Producto Económico Regional (2013-2025)**
 
@@ -872,7 +768,8 @@ donde:
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 """)
         for _, row in df_t2.iterrows():
-            f.write(f"| **{row['Region']}** | {row['Agropecuario_silvicola']:.2f} | {row['Pesca']:.2f} | {row['Mineria']:.2f} | {row['Industria_manufacturera']:.2f} | {row['Electricidad_Gas_Agua']:.2f} | {row['Construccion']:.2f} | {row['Comercio']:.2f} | {row['Restaurantes_Hoteles']:.2f} | {row['Transporte_Comunicaciones']:.2f} | {row['Servicios_Financieros']:.2f} | {row['Vivienda_Inmobiliario']:.2f} | {row['Servicios_Sociales_Personales']:.2f} |\n")
+            f.write("| **" + row["Region"] + "** | "
+                    + " | ".join(f"{row[c]:.2f}" for c in categories) + " |\n")
             
         f.write(r"""
 ### **Figuras Correspondientes**
@@ -956,13 +853,13 @@ Para evaluar la desigualdad espacial del bienestar entre los ciudadanos en lugar
 La comparación entre la concentración bruta de la producción (HHI) y los índices de desigualdad ponderados por población (Gini y Theil) expone características estructurales clave de la geografía económica de Chile:
 
 1. **Rigidez Estructural de la Producción (HHI)**:
-   El HHI se mantiene prácticamente plano, oscilando entre **0.209** y **0.214** durante todo el período 2013-2025. Esto indica que la concentración geográfica de la producción bruta está estructuralmente bloqueada. La Región Metropolitana y los centros mineros del norte siguen capturando exactamente las mismas proporciones de la producción económica nacional, sin mostrar señales de descentralización territorial.
+   El HHI se mantiene prácticamente plano, oscilando entre **@@HHI_LO@@** y **@@HHI_HI@@** durante todo el período @@SPAN@@. Esto indica que la concentración geográfica de la producción bruta está estructuralmente bloqueada. La Región Metropolitana y los centros mineros del norte siguen capturando exactamente las mismas proporciones de la producción económica nacional, sin mostrar señales de descentralización territorial.
 
 2. **Volatilidad Temporal del Bienestar (Gini y Theil)**:
    A diferencia de la rigidez del HHI, el Gini y Theil ponderados por población muestran ciclos temporales claros impulsados por choques macroeconómicos nacionales:
-   - **La Corrección Post-Boom de Commodities (2013–2016)**: El Gini ponderado disminuyó de manera constante de **0.2007** a **0.1855** (y el Theil de **0.0929** a **0.0759**). Al normalizarse los precios del cobre tras el súper-ciclo, la brecha de PIB per cápita entre las regiones ricas en recursos (como Antofagasta) y las regiones agrícolas o de servicios se comprimió. Esto representa una "convergencia pasiva" por normalización de rentas y no por un catch-up estructural de los sectores rezagados.
-   - **La Compresión por el COVID-19 en 2020**: El Gini ponderado alcanzó su mínimo histórico de **0.1785** (Theil en **0.0715**). Esta anomalía refleja el impacto desigual de las cuarentenas. Los centros urbanos basados en servicios (como Santiago) enfrentaron cierres severos que contrajeron su producción, mientras que los sectores primarios (minería en el Norte) se mantuvieron activos al ser catalogados como estratégicos. Esto redujo temporalmente la brecha de ingresos entre la capital y las regiones periféricas.
-   - **Rebote Post-Pandemia (2021–2025)**: Con la reapertura de los servicios y los ciclos de inflación global, el Gini rebotó a **0.1869** (Theil a **0.0807**), demostrando que las disparidades espaciales subyacentes regresan a sus niveles históricos una vez que se normaliza el ciclo económico.
+   - **La Corrección Post-Boom de Commodities (2013–2016)**: El Gini ponderado disminuyó de **@@GINI_FIRST@@** en @@GINI_FIRST_YEAR@@ a **@@GINI_LAST@@** en @@GINI_LAST_YEAR@@ (y el Theil de **@@THEIL_FIRST@@** a **@@THEIL_LAST@@**). Al normalizarse los precios del cobre tras el súper-ciclo, la brecha de PIB per cápita entre las regiones ricas en recursos (como Antofagasta) y las regiones agrícolas o de servicios se comprimió. Esto representa una "convergencia pasiva" por normalización de rentas y no por un catch-up estructural de los sectores rezagados.
+   - **La Compresión por el COVID-19 en 2020**: El Gini ponderado alcanzó su mínimo en @@GINI_MIN_YEAR@@, en **@@GINI_MIN@@** (Theil en **@@THEIL_AT_MIN@@**). Esta anomalía refleja el impacto desigual de las cuarentenas. Los centros urbanos basados en servicios (como Santiago) enfrentaron cierres severos que contrajeron su producción, mientras que los sectores primarios (minería en el Norte) se mantuvieron activos al ser catalogados como estratégicos. Esto redujo temporalmente la brecha de ingresos entre la capital y las regiones periféricas.
+   - **Rebote Post-Pandemia (2021–2025)**: Con la reapertura de los servicios y los ciclos de inflación global, el Gini se situó en **@@GINI_LAST@@** hacia @@GINI_LAST_YEAR@@ (Theil en **@@THEIL_LAST@@**), demostrando que las disparidades espaciales subyacentes regresan a sus niveles históricos una vez que se normaliza el ciclo económico.
 
 3. **Implicancia de Política Pública**:
    La divergencia entre una concentración constante de la producción (HHI) y variables de bienestar fluctuantes (Gini/Theil) sugiere que los ciclos de commodities y choques temporales mueven los indicadores per cápita temporalmente, pero no resuelven el centralismo espacial persistente en Chile. Reducir la desigualdad requiere políticas industriales activas y de diversificación productiva dirigidas a sectores de alto valor fuera de la Región Metropolitana.
@@ -971,11 +868,12 @@ La comparación entre la concentración bruta de la producción (HHI) y los índ
 
 ## **5. Conclusiones e Implicancias de Política**
 
-1. **Centralización Persistente**: La Región Metropolitana continúa dominando el panorama económico, capturando consistentemente más del 43% del PIB nacional. No existe evidencia visual ni estadística de una descentralización importante.
+1. **Centralización Persistente**: La Región Metropolitana continúa dominando el panorama económico, capturando consistentemente el @@TOP_SHARE@@% del PIB nacional. No existe evidencia visual ni estadística de una descentralización importante.
 2. **Débil Cohesión**: El gráfico de convergencia demuestra que las regiones rurales y periféricas no están alcanzando al centro. El crecimiento sigue estando impulsado por enclaves de recursos específicos (Minería en el Norte).
 3. **Implicancias de Política**: Las estrategias de desarrollo regional deben ir más allá de los subsidios generales y enfocarse en construir capacidades productivas locales. Fortalecer las especializaciones sectoriales (por ejemplo, clusters agrícolas en el Sur) mientras se fomenta la complejidad económica es clave para mitigar la dependencia de la extracción de recursos primarios y los servicios centrales.
 """)
         
+    resolve_narrative(report_es_path)
     logger.info("Spanish report generation complete!")
 
 
