@@ -8,25 +8,42 @@ Esta versión expandida pone especial énfasis en el **Desarrollo Sectorial Inte
 
 ## **1. Resumen Ejecutivo de la Cobertura**
 
-El catálogo de series del Banco Central de Chile contiene un total de **3881 series de tiempo regionales** clasificadas dentro del capítulo de datos *Regionales*. Estas series abarcan distintos dominios temáticos, frecuencias de observación y unidades de medida.
+El capítulo *Regionales* del catálogo del Banco Central de Chile contiene **2306 series de tiempo únicas**. Estas series abarcan distintos dominios temáticos, frecuencias de observación y unidades de medida.
+
+> **Sobre este número.** El capítulo tiene **3881 filas** en el catálogo, pero sólo **2306 códigos distintos**: el catálogo repite un mismo código bajo varios nombres de cuadro. El código `F035.PIB.FLU.R.CLP.2018.Z.Z.Z.15.0.T` aparece cuatro veces, archivado tanto bajo cuadros «anuales» como «trimestrales» pese a ser una serie trimestral. Contar filas cuenta entradas de cuadro, no series. Todas las cifras de este reporte se calculan sobre códigos únicos.
+
+### **Reconciliación con el universo del pipeline**
+
+El pipeline no selecciona series por capítulo sino por **parseabilidad de región**: si el código resuelve a una de las 16 regiones, entra. Las dos cifras miden cosas distintas y ninguna contiene a la otra.
+
+| Medida | Series |
+|---|---|
+| Filas del catálogo en el capítulo *Regionales* | 3881 |
+| Códigos únicos en el capítulo | **2306** |
+| Universo del pipeline (parseables, todos los capítulos) | 4035 |
+| En ambos | 2250 |
+| En el capítulo pero no parseables | 56 |
+| Parseables pero **fuera** del capítulo | 1785 |
+
+La última fila es la importante: **1785 series regionales viven fuera del capítulo *Regionales***, la mayoría en *Cuentas Nacionales* —que es precisamente donde reside el PIB regional por actividad de la familia F035. Un inventario construido sobre el capítulo las omitiría por completo. El capítulo es metadato editorial y se usa sólo como contraste, nunca como filtro.
 
 ### **Desglose de Series por Frecuencia Temporal**
 En el análisis de series de tiempo, la frecuencia temporal define la capacidad de capturar dinámicas de corto o largo plazo:
-- **Anual (A)**: **1547 series**. Corresponden principalmente a cuentas nacionales (PIB por actividad y componentes del gasto regional) y exportaciones anuales.
-- **Trimestral (T)**: **816 series**. Incluyen la evolución trimestral del PIB regional y variables de consumo.
-- **Mensual (M)**: **1484 series**. Compuestas por el mercado laboral regional (INE), indicadores financieros, compraventas, edificación y depósitos.
+- **Anual (A)**: **1061 series**. Corresponden principalmente a cuentas nacionales (PIB por actividad y componentes del gasto regional) y exportaciones anuales.
+- **Trimestral (T)**: **458 series**. Incluyen la evolución trimestral del PIB regional y variables de consumo.
+- **Mensual (M)**: **753 series**. Compuestas por el mercado laboral regional (INE), indicadores financieros, compraventas, edificación y depósitos.
 - **Diario (D)**: **34 series**. Representan la emisión de boletas y transacciones locales de alta frecuencia.
 
 ### **Distribución por Dominios Temáticos (Expandido)**
 Las series se agrupan en los siguientes dominios clave de la economía regional, incluyendo los nuevos enfoques financieros y territoriales:
-- **Cuentas Nacionales (PIB y Consumo)**: 1624 series
-- **Finanzas y Sistema Financiero Regional**: 534 series
-- **Transacciones y Ventas Locales**: 418 series
-- **Otros Indicadores Regionales**: 359 series
-- **Desarrollo Territorial y Uso de Suelo**: 342 series
-- **Indicadores Sectoriales Corto Plazo**: 250 series
-- **Exportaciones Regionales**: 236 series
-- **Mercado Laboral**: 118 series
+- **Cuentas Nacionales (PIB y Consumo)**: 882 series
+- **Finanzas y Sistema Financiero Regional**: 345 series
+- **Otros Indicadores Regionales**: 289 series
+- **Exportaciones Regionales**: 214 series
+- **Transacciones y Ventas Locales**: 210 series
+- **Desarrollo Territorial y Uso de Suelo**: 171 series
+- **Indicadores Sectoriales Corto Plazo**: 125 series
+- **Mercado Laboral**: 70 series
 
 ---
 
@@ -39,8 +56,8 @@ La relación entre la frecuencia temporal y el dominio de información expone qu
 
 ### **Hallazgos Clave:**
 1. **Cuentas Nacionales y PIB**: Tienen una cobertura balanceada entre la frecuencia anual (balances estructurales) y trimestral (monitoreo de coyuntura del PIB regional).
-2. **Finanzas y Sistema Financiero Regional**: Con **534 series**, cuenta con un monitoreo de frecuencia mensual, registrando saldos y números de cuentas de ahorro y crédito.
-3. **Desarrollo Territorial y Uso de Suelo**: Con **342 series**, se actualiza mensualmente (INE), recopilando variables físicas críticas como metros cuadrados autorizados para edificación y parque vehicular.
+2. **Finanzas y Sistema Financiero Regional**: Con **345 series**, cuenta con un monitoreo de frecuencia mensual, registrando saldos y números de cuentas de ahorro y crédito.
+3. **Desarrollo Territorial y Uso de Suelo**: Con **171 series**, se actualiza mensualmente (INE), recopilando variables físicas críticas como metros cuadrados autorizados para edificación y parque vehicular.
 4. **Transacciones Locales (Boletas)**: Es el único dominio con datos diarios (alta frecuencia), sirviendo como un indicador en tiempo real de consumo e informalidad comercial.
 
 ---

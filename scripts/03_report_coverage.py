@@ -190,7 +190,21 @@ def main():
     
     logger.info("Filtering for regional data...")
     df_reg = df[df[cap_col].astype(str).str.contains('regional', case=False, na=False)].copy()
-    logger.info(f"Found {len(df_reg)} series in the 'Regionales' chapter.")
+
+    # The catalog lists the same series code under several table names -- the
+    # quarterly PIB code for Arica appears four times, filed under both "anual"
+    # and "trimestral" cuadros. Counting rows therefore counts cuadro entries,
+    # not series. Every tally below (the inventory CSV, all three figures, the
+    # frequency and domain totals) is built from this frame, so the duplicates
+    # are removed once, here, rather than in each consumer.
+    catalog_rows = len(df_reg)
+    df_reg = df_reg.drop_duplicates(subset=[code_col], keep="first").copy()
+    unique_codes = len(df_reg)
+    logger.info(
+        "Chapter 'Regionales': %d catalog rows -> %d unique series codes "
+        "(%d duplicate rows removed)",
+        catalog_rows, unique_codes, catalog_rows - unique_codes,
+    )
     
     # Clean text columns
     df_reg[code_col] = df_reg[code_col].apply(clean_text)
@@ -285,6 +299,27 @@ def main():
     report_path = os.path.join(VAULT_DIR, "data_coverage_report_ES.md")
     
     total_series = len(df_reg)
+
+    # Reconciliation against the pipeline's own universe. The two numbers in
+    # circulation measure different things, and both are worth stating: this
+    # chapter is neither deduplicated nor complete.
+    universe_path = os.path.join(
+        os.path.dirname(CATALOG_PATH), "raw", "regional-spatial-macro-dataset",
+        "crsm_series_universe.csv",
+    )
+    if os.path.exists(universe_path):
+        uni_codes = set(
+            pd.read_csv(universe_path, dtype=str)["series_code"].str.strip()
+        )
+        chapter_codes = set(df_reg[code_col].astype(str).str.strip())
+        n_universe = len(uni_codes)
+        n_both = len(chapter_codes & uni_codes)
+        n_chapter_only = len(chapter_codes - uni_codes)
+        n_universe_only = len(uni_codes - chapter_codes)
+    else:
+        n_universe = n_both = n_chapter_only = n_universe_only = 0
+        logger.warning("Universe file absent -- reconciliation will be empty.")
+
     total_ann = len(df_reg[df_reg['Frecuencia'] == 'A'])
     total_qtr = len(df_reg[df_reg['Frecuencia'] == 'T'])
     total_mth = len(df_reg[df_reg['Frecuencia'] == 'M'])
@@ -306,7 +341,24 @@ Esta versión expandida pone especial énfasis en el **Desarrollo Sectorial Inte
 
 ## **1. Resumen Ejecutivo de la Cobertura**
 
-El catálogo de series del Banco Central de Chile contiene un total de **{total_series} series de tiempo regionales** clasificadas dentro del capítulo de datos *Regionales*. Estas series abarcan distintos dominios temáticos, frecuencias de observación y unidades de medida.
+El capítulo *Regionales* del catálogo del Banco Central de Chile contiene **{total_series} series de tiempo únicas**. Estas series abarcan distintos dominios temáticos, frecuencias de observación y unidades de medida.
+
+> **Sobre este número.** El capítulo tiene **{catalog_rows} filas** en el catálogo, pero sólo **{unique_codes} códigos distintos**: el catálogo repite un mismo código bajo varios nombres de cuadro. El código `F035.PIB.FLU.R.CLP.2018.Z.Z.Z.15.0.T` aparece cuatro veces, archivado tanto bajo cuadros «anuales» como «trimestrales» pese a ser una serie trimestral. Contar filas cuenta entradas de cuadro, no series. Todas las cifras de este reporte se calculan sobre códigos únicos.
+
+### **Reconciliación con el universo del pipeline**
+
+El pipeline no selecciona series por capítulo sino por **parseabilidad de región**: si el código resuelve a una de las 16 regiones, entra. Las dos cifras miden cosas distintas y ninguna contiene a la otra.
+
+| Medida | Series |
+|---|---|
+| Filas del catálogo en el capítulo *Regionales* | {catalog_rows} |
+| Códigos únicos en el capítulo | **{unique_codes}** |
+| Universo del pipeline (parseables, todos los capítulos) | {n_universe} |
+| En ambos | {n_both} |
+| En el capítulo pero no parseables | {n_chapter_only} |
+| Parseables pero **fuera** del capítulo | {n_universe_only} |
+
+La última fila es la importante: **{n_universe_only} series regionales viven fuera del capítulo *Regionales***, la mayoría en *Cuentas Nacionales* —que es precisamente donde reside el PIB regional por actividad de la familia F035. Un inventario construido sobre el capítulo las omitiría por completo. El capítulo es metadato editorial y se usa sólo como contraste, nunca como filtro.
 
 ### **Desglose de Series por Frecuencia Temporal**
 En el análisis de series de tiempo, la frecuencia temporal define la capacidad de capturar dinámicas de corto o largo plazo:

@@ -37,15 +37,44 @@ Este reporte presenta una auditoría exhaustiva y un análisis de cobertura de t
 
 \section{Resumen Ejecutivo de la Cobertura}
 
-El catálogo de series del Banco Central de Chile contiene un total de \textbf{3881 series de tiempo regionales} clasificadas dentro del capítulo de datos \textit{Regionales}. Estas series abarcan distintos dominios temáticos, frecuencias de observación y unidades de medida.
+El capítulo \textit{Regionales} del catálogo del Banco Central de Chile contiene \textbf{2306 series de tiempo únicas}. Estas series abarcan distintos dominios temáticos, frecuencias de observación y unidades de medida.
+
+> \textbf{Sobre este número.} El capítulo tiene \textbf{3881 filas} en el catálogo, pero sólo \textbf{2306 códigos distintos}: el catálogo repite un mismo código bajo varios nombres de cuadro. El código `F035.PIB.FLU.R.CLP.2018.Z.Z.Z.15.0.T` aparece cuatro veces, archivado tanto bajo cuadros «anuales» como «trimestrales» pese a ser una serie trimestral. Contar filas cuenta entradas de cuadro, no series. Todas las cifras de este reporte se calculan sobre códigos únicos.
+
+
+\subsection{Reconciliación con el universo del pipeline}
+
+El pipeline no selecciona series por capítulo sino por \textbf{parseabilidad de región}: si el código resuelve a una de las 16 regiones, entra. Las dos cifras miden cosas distintas y ninguna contiene a la otra.
+
+\begin{table}[H]
+\centering
+\caption{Matriz Comparativa Regional Seleccionada: Indicadores Financieros y Físicos de Suelo}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lc}
+\toprule
+Medida & Series \\
+\midrule
+Filas del catálogo en el capítulo *Regionales* & 3881 \\
+Códigos únicos en el capítulo & **2306** \\
+Universo del pipeline (parseables, todos los capítulos) & 4035 \\
+En ambos & 2250 \\
+En el capítulo pero no parseables & 56 \\
+Parseables pero **fuera** del capítulo & 1785 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+
+La última fila es la importante: *\textit{1785 series regionales viven fuera del capítulo }Regionales**\textit{, la mayoría en }Cuentas Nacionales* —que es precisamente donde reside el PIB regional por actividad de la familia F035. Un inventario construido sobre el capítulo las omitiría por completo. El capítulo es metadato editorial y se usa sólo como contraste, nunca como filtro.
 
 
 \subsection{Desglose de Series por Frecuencia Temporal}
 En el análisis de series de tiempo, la frecuencia temporal define la capacidad de capturar dinámicas de corto o largo plazo:
 \begin{itemize}
-  \item \textbf{Anual (A)}: \textbf{1547 series}. Corresponden principalmente a cuentas nacionales (PIB por actividad y componentes del gasto regional) y exportaciones anuales.
-  \item \textbf{Trimestral (T)}: \textbf{816 series}. Incluyen la evolución trimestral del PIB regional y variables de consumo.
-  \item \textbf{Mensual (M)}: \textbf{1484 series}. Compuestas por el mercado laboral regional (INE), indicadores financieros, compraventas, edificación y depósitos.
+  \item \textbf{Anual (A)}: \textbf{1061 series}. Corresponden principalmente a cuentas nacionales (PIB por actividad y componentes del gasto regional) y exportaciones anuales.
+  \item \textbf{Trimestral (T)}: \textbf{458 series}. Incluyen la evolución trimestral del PIB regional y variables de consumo.
+  \item \textbf{Mensual (M)}: \textbf{753 series}. Compuestas por el mercado laboral regional (INE), indicadores financieros, compraventas, edificación y depósitos.
   \item \textbf{Diario (D)}: \textbf{34 series}. Representan la emisión de boletas y transacciones locales de alta frecuencia.
 
 \end{itemize}
@@ -53,14 +82,14 @@ En el análisis de series de tiempo, la frecuencia temporal define la capacidad 
 \subsection{Distribución por Dominios Temáticos (Expandido)}
 Las series se agrupan en los siguientes dominios clave de la economía regional, incluyendo los nuevos enfoques financieros y territoriales:
 \begin{itemize}
-  \item \textbf{Cuentas Nacionales (PIB y Consumo)}: 1624 series
-  \item \textbf{Finanzas y Sistema Financiero Regional}: 534 series
-  \item \textbf{Transacciones y Ventas Locales}: 418 series
-  \item \textbf{Otros Indicadores Regionales}: 359 series
-  \item \textbf{Desarrollo Territorial y Uso de Suelo}: 342 series
-  \item \textbf{Indicadores Sectoriales Corto Plazo}: 250 series
-  \item \textbf{Exportaciones Regionales}: 236 series
-  \item \textbf{Mercado Laboral}: 118 series
+  \item \textbf{Cuentas Nacionales (PIB y Consumo)}: 882 series
+  \item \textbf{Finanzas y Sistema Financiero Regional}: 345 series
+  \item \textbf{Otros Indicadores Regionales}: 289 series
+  \item \textbf{Exportaciones Regionales}: 214 series
+  \item \textbf{Transacciones y Ventas Locales}: 210 series
+  \item \textbf{Desarrollo Territorial y Uso de Suelo}: 171 series
+  \item \textbf{Indicadores Sectoriales Corto Plazo}: 125 series
+  \item \textbf{Mercado Laboral}: 70 series
 
 \end{itemize}
 
@@ -82,8 +111,8 @@ La relación entre la frecuencia temporal y el dominio de información expone qu
 \subsection{Hallazgos Clave}
 \begin{enumerate}
   \item \textbf{Cuentas Nacionales y PIB}: Tienen una cobertura balanceada entre la frecuencia anual (balances estructurales) y trimestral (monitoreo de coyuntura del PIB regional).
-  \item \textbf{Finanzas y Sistema Financiero Regional}: Con \textbf{534 series}, cuenta con un monitoreo de frecuencia mensual, registrando saldos y números de cuentas de ahorro y crédito.
-  \item \textbf{Desarrollo Territorial y Uso de Suelo}: Con \textbf{342 series}, se actualiza mensualmente (INE), recopilando variables físicas críticas como metros cuadrados autorizados para edificación y parque vehicular.
+  \item \textbf{Finanzas y Sistema Financiero Regional}: Con \textbf{345 series}, cuenta con un monitoreo de frecuencia mensual, registrando saldos y números de cuentas de ahorro y crédito.
+  \item \textbf{Desarrollo Territorial y Uso de Suelo}: Con \textbf{171 series}, se actualiza mensualmente (INE), recopilando variables físicas críticas como metros cuadrados autorizados para edificación y parque vehicular.
   \item \textbf{Transacciones Locales (Boletas)}: Es el único dominio con datos diarios (alta frecuencia), sirviendo como un indicador en tiempo real de consumo e informalidad comercial.
 
 \end{enumerate}
