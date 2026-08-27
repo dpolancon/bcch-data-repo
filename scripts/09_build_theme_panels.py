@@ -142,7 +142,8 @@ def main() -> int:
 
     fam = families_lib.get(args.family)
     logger.info(
-        "Building panel for %s (report %d, tier %s)", fam.name, fam.report, fam.tier
+        "Construyendo panel de %s (reporte %d, escala %s)",
+        fam.name, fam.report, fam.escala,
     )
 
     panel, summary = BUILDERS[args.family]()

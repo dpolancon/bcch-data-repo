@@ -44,10 +44,16 @@ class TestFamilyRegistry:
         for key, fam in families_lib.FAMILIES.items():
             assert key == fam.name, f"Key {key!r} does not match name {fam.name!r}"
 
-    def test_every_family_declares_a_tier(self):
-        valid = {families_lib.TIER_NATIONAL, families_lib.TIER_REGIONAL}
+    def test_every_family_declares_a_scale(self):
         for fam in families_lib.FAMILIES.values():
-            assert fam.tier in valid, f"{fam.name} has tier {fam.tier!r}"
+            assert fam.escala in families_lib.ESCALAS, (
+                f"{fam.name} declara escala {fam.escala!r}"
+            )
+
+    def test_every_scale_has_a_label(self):
+        """El distintivo del sitio se construye desde aquí; sin etiqueta, revienta."""
+        for escala in families_lib.ESCALAS:
+            assert escala in families_lib.ESCALA_LABEL, f"{escala} sin etiqueta"
 
     def test_every_family_declares_valid_frequencies(self):
         for fam in families_lib.FAMILIES.values():
@@ -61,25 +67,37 @@ class TestFamilyRegistry:
         for fam in families_lib.FAMILIES.values():
             re.compile(fam.pattern())
 
-    def test_tier_a_families_expect_zero_regions(self):
-        """Tier A has no regional geography; claiming otherwise misleads."""
+    def test_non_regional_scales_expect_zero_regions(self):
+        """Nacional y macro-zona no se desagregan; afirmar lo contrario engaña."""
         for fam in families_lib.FAMILIES.values():
-            if fam.tier == families_lib.TIER_NATIONAL:
+            if not fam.es_regional:
                 assert fam.expected_regions == 0, (
-                    f"{fam.name} is Tier A but expects {fam.expected_regions} regions"
+                    f"{fam.name} es escala {fam.escala} pero espera "
+                    f"{fam.expected_regions} regiones"
                 )
 
-    def test_tier_b_families_expect_all_sixteen_regions(self):
+    def test_regional_scales_expect_all_sixteen_regions(self):
         for fam in families_lib.FAMILIES.values():
-            if fam.tier == families_lib.TIER_REGIONAL:
+            if fam.es_regional:
                 assert fam.expected_regions == 16, (
-                    f"{fam.name} is Tier B but expects {fam.expected_regions} regions"
+                    f"{fam.name} es escala {fam.escala} pero espera "
+                    f"{fam.expected_regions} regiones"
                 )
 
-    def test_every_family_carries_notes(self):
-        """The traps are the point. A family without notes teaches nothing."""
+    def test_every_family_carries_notes_in_spanish(self):
+        """Las trampas son el punto, y el sitio es en español.
+
+        `notes` quedó como memoria técnica interna; lo que se publica es
+        `notas_es`. Una familia sin notas en español publica inglés o no
+        publica nada, y ambas cosas ya ocurrieron.
+        """
         for fam in families_lib.FAMILIES.values():
-            assert fam.notes.strip(), f"{fam.name} has no notes"
+            assert fam.notas_es.strip(), f"{fam.name} no tiene notas_es"
+
+    def test_every_family_declares_its_objective(self):
+        """A qué objetivo de la formulación responde. Sin esto no se sabe qué citar."""
+        for fam in families_lib.FAMILIES.values():
+            assert fam.objetivo.strip(), f"{fam.name} no declara objetivo"
 
     def test_ordered_is_by_report(self):
         got = [f.report for f in families_lib.ordered()]

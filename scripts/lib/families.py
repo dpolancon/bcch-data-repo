@@ -16,12 +16,42 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Sequence
 
-# Tier of the two-tier design. Tier A is measured nationally or by the seven
-# IPV zones and cannot be disaggregated to the 16 regions; Tier B is genuinely
-# regional. Mixing them in one chart without saying so is the single easiest
-# way to mislead a reader, so the tier travels with the family.
-TIER_NATIONAL = "A"
-TIER_REGIONAL = "B"
+# Escala de observación. El catálogo del Banco Central publica en cuatro
+# escalas, y no son intercambiables: difieren en volumen, en frecuencia
+# disponible y en estatus estadístico. El tier binario anterior colapsaba
+# nacional con zonal y regional con sectorial-regional, y esa simplificación
+# escondía justamente lo que la revisión tiene que mostrar.
+#
+# La asimetría entre ellas no es un accidente del catálogo. La BDE mide las
+# escalas que al Banco Central le interesa gobernar: el grueso es nacional
+# porque el mandato es la política monetaria nacional, la región aparece por
+# vía de Cuentas Nacionales, la macro-zona aparece como estadística
+# experimental, y el área metropolitana no aparece en absoluto.
+ESCALA_NACIONAL = "nacional"
+ESCALA_ZONAL = "macro-zona"
+ESCALA_REGIONAL = "regional"
+ESCALA_SECTORIAL_REGIONAL = "sectorial-regional"
+
+ESCALAS = (
+    ESCALA_NACIONAL,
+    ESCALA_ZONAL,
+    ESCALA_REGIONAL,
+    ESCALA_SECTORIAL_REGIONAL,
+)
+
+# Etiqueta legible y unidad de observación de cada escala, para los
+# distintivos del sitio y el encabezado de cada página.
+ESCALA_LABEL = {
+    ESCALA_NACIONAL: ("NACIONAL", "una economía"),
+    ESCALA_ZONAL: ("MACRO-ZONA", "7 zonas"),
+    ESCALA_REGIONAL: ("REGIONAL", "16 regiones"),
+    ESCALA_SECTORIAL_REGIONAL: ("SECTORIAL-REGIONAL", "16 regiones × 13 sectores"),
+}
+
+# Escalas que NO se desagregan a la región. Cruzarlas con una escala regional
+# exige declarar la pérdida por agregación, y la única dirección honesta es
+# subir el dato regional hasta la zona, nunca bajar el zonal hasta la región.
+ESCALAS_NO_REGIONALES = frozenset({ESCALA_NACIONAL, ESCALA_ZONAL})
 
 # Regions that BCCh does not publish for a given family are *absent*, not
 # failed. Quarterly mining GDP for the southern regions is the standing
@@ -83,6 +113,46 @@ ZONE_SUBSETS = {
 }
 
 
+# NAC, CAS y DEP no son macro-zonas: son el total nacional y sus dos
+# desagregaciones por tipo de vivienda. Tratarlos como zona infla la escala
+# zonal y confunde una tipología con una geografía. Sólo ZN, ZC, ZS y RM son
+# macro-zonas, más las cuatro subzonas de la RM en el vocabulario del IPV.
+ZONE_TOKENS_GEOGRAFICOS = frozenset({"ZN", "ZC", "ZS", "RM"})
+ZONE_TOKENS_NACIONALES = frozenset({"NAC", "CAS", "DEP"})
+
+# Etiquetas que corresponden a una macro-zona y no a un agregado nacional.
+ZONAS_GEOGRAFICAS = frozenset(
+    {
+        "Zona Norte", "Zona Centro", "Zona Sur", "Región Metropolitana",
+        "RM Centro", "RM Oriente", "RM Poniente", "RM Sur",
+        "RM Oriente -- casas", "RM Oriente -- departamentos",
+    }
+)
+
+# El token RM sirve a DOS esquemas incompatibles: el zonal
+# (NAC/CAS/DEP/ZN/ZC/ZS/RM del stock habitacional) y el de las 16 regiones,
+# donde la RM es una región más. Un código con RM aislado es ambiguo, y en el
+# catálogo hay 14 series así. Lo que desambigua es la compañía: un mnemónico
+# del esquema zonal aparece también con ZN, ZC o ZS; uno regional nunca. NAC
+# no sirve para distinguirlos porque ambos esquemas publican total nacional.
+def mnemonicos_del_esquema_zonal(codigos) -> frozenset[str]:
+    """Mnemónicos que en algún código usan una macro-zona geográfica distinta de RM."""
+    # El vocabulario del IPV codifica la zona DENTRO del mnemónico (IPVZ2 es
+    # Zona Centro), no en un token posicional, así que entra por declaración y
+    # no por detección. Sin esto, IPVZ4 se confunde con la región 13.
+    zonales = {m.upper() for m in IPV_ZONE_MAP}
+    for code in codigos:
+        if not isinstance(code, str):
+            continue
+        partes = code.strip().split(".")
+        if len(partes) < 3:
+            continue
+        marcas = {t.upper() for t in partes[2:]} & (ZONE_TOKENS_GEOGRAFICOS - {"RM"})
+        if marcas:
+            zonales.add(partes[1].upper())
+    return frozenset(zonales)
+
+
 def parse_zone(code: str) -> str | None:
     """Resolve the Tier A geography label for a series code, or None.
 
@@ -118,14 +188,25 @@ class SeriesFamily:
 
     name: str
     report: int
-    tier: str
+    escala: str
     title_es: str
     tokens: tuple[str, ...]
     frequencies: tuple[str, ...]
     expected_regions: int
     briefing_note: str
+    # A qué objetivo específico y a qué hipótesis de la formulación
+    # responde la familia. Vacío mientras no sirva a ninguno.
+    objetivo: str = ""
     notes: str = ""
+    # Las trampas en español, que es el idioma del sitio. `notes` queda
+    # como memoria técnica interna y no se publica.
+    notas_es: str = ""
     absent: tuple[str, ...] = field(default_factory=tuple)
+
+    @property
+    def es_regional(self) -> bool:
+        """True cuando la familia se desagrega a las 16 regiones."""
+        return self.escala not in ESCALAS_NO_REGIONALES
 
     def pattern(self) -> str:
         """Regex alternation matching any code in this family.
@@ -166,7 +247,7 @@ FAMILIES: dict[str, SeriesFamily] = {
     "two_axes": SeriesFamily(
         name="two_axes",
         report=3,
-        tier=TIER_REGIONAL,
+        escala=ESCALA_SECTORIAL_REGIONAL,
         title_es="Los dos ejes: renta espacial y renta de recursos",
         # Sector 10 (spatial rent) and 03 (resource rent) ride inside the F035
         # PIB codes already on disk. No new fetch: this family exists to prove
@@ -175,6 +256,12 @@ FAMILIES: dict[str, SeriesFamily] = {
         frequencies=("A", "T"),
         expected_regions=16,
         briefing_note="briefing_two_axes.md",
+        objetivo=(
+            "Contexto de selección de casos. No responde a un objetivo específico: sostiene el marco muestral, al medir cuán extractivas son las economías regionales cuyas capitales el proyecto estudia."
+        ),
+        notas_es=(
+            "Los dos ejes del marco de crecimiento desbalanceado tienen contraparte directa en las cuentas regionales: sector 10 (Servicios de vivienda e inmobiliarios) es renta espacial, sector 03 (Minería) es renta de recursos, sector 06 (Construcción) es la pata de inversión. Ninguna requiere descarga: ya están en raw_annual.csv. El sector 10 es mayoritariamente ALQUILER IMPUTADO de las cuentas nacionales, no arriendo efectivamente pagado; es el supuesto que sostiene todo el eje espacial y se declara en cada reporte que se apoya en él. La familia abarca dos escalas: 2.037 series sectorial-regionales y 209 totales regionales (sector Z). La escala declarada es la principal, no la única."
+        ),
         notes=(
             "No API calls required -- sector 10 and 03 are already present in "
             "raw_annual.csv. Sector 10 is largely IMPUTED rent from national "
@@ -185,12 +272,18 @@ FAMILIES: dict[str, SeriesFamily] = {
     "permits": SeriesFamily(
         name="permits",
         report=4,
-        tier=TIER_REGIONAL,
+        escala=ESCALA_REGIONAL,
         title_es="El ciclo regional de la construcción",
         tokens=("SAH", "SANH", "NVA", "CEYS"),
         frequencies=("M",),
         expected_regions=16,
         briefing_note="briefing_permits.md",
+        objetivo=(
+            "Objetivo 2 — demanda física de suelo. Es el insumo con que la formulación propone reconstruir el Consumo de Suelo Urbano del MINVU a partir de permisos de edificación desde 2010 (Proxy 2)."
+        ),
+        notas_es=(
+            "Primer encuentro con el sufijo de región de dos letras pegado al mnemónico (AP, TA, AN...). Son permisos: intención de construir, no construcción ejecutada. Fuerte estacionalidad, así que toda lectura mes contra mes es ruido; usar variación doce meses. CEYS es constitución de empresas de todo tipo y entra como control de dinamismo empresarial, no como parte del eje espacial: no sumarlo a los otros tres."
+        ),
         notes=(
             "First encounter with the two-letter region suffix vocabulary "
             "(AP, TA, AN, ...). Monthly regional data; pairs against sector-06 "
@@ -200,7 +293,7 @@ FAMILIES: dict[str, SeriesFamily] = {
     "housing_wealth": SeriesFamily(
         name="housing_wealth",
         report=5,
-        tier=TIER_NATIONAL,
+        escala=ESCALA_ZONAL,
         title_es="El inmueble como reserva de valor",
         # VALT vs VALC is the land-versus-structure split -- the most direct
         # measure of spatial rent the catalog offers, and it is national only.
@@ -208,6 +301,12 @@ FAMILIES: dict[str, SeriesFamily] = {
         frequencies=("A", "T"),
         expected_regions=0,  # seven zones, not regions -- see notes
         briefing_note="briefing_housing_wealth.md",
+        objetivo=(
+            "Reproduce y extiende la Figura 4 de la formulación (valor del stock de suelo residencial, agregado y unitario). VALT frente a VALC es la descomposición terreno/construcción de Knoll et al., premisa empírica de la propuesta, medida para Chile."
+        ),
+        notas_es=(
+            "La geografía son zonas, no regiones: Norte, Centro, Sur y cuatro subzonas de la Región Metropolitana. La correspondencia con las 16 regiones es de uno a muchos salvo en la RM, de modo que la única dirección de agregación honesta es subir el dato regional hasta la zona. Ojo con la transposición de origen: la zona 1 es IVPZ1 y no IPVZ1, y corregirla acá sencillamente no encontraría la serie. La familia abarca dos escalas: 56 series zonales y 21 nacionales. VALT y VALC --la descomposición entre valorización del terreno y de la construcción-- sólo existen para NAC, CAS y DEP, de modo que la premisa empírica de Knoll et al. es medible en Chile únicamente a escala nacional y nunca por zona."
+        ),
         notes=(
             "TIER A. Geography is 7 IPV zones (Norte/Centro/Sur + 4 RM "
             "sub-zones), which do NOT map onto the 16 regions. Any Tier A x "
@@ -216,15 +315,57 @@ FAMILIES: dict[str, SeriesFamily] = {
             "typo: zone 1 is IVPZ1, not IPVZ1."
         ),
     ),
+    "tasas": SeriesFamily(
+        name="tasas",
+        report=8,
+        escala=ESCALA_NACIONAL,
+        title_es="El precio del dinero: tasas y apalancamiento",
+        # La Tabla 1 de la formulación completa. Es enteramente de la BDE y es
+        # el conjunto de regresores de H1: la tasa de descuento con que se
+        # valoriza un activo que no se deprecia.
+        tokens=(
+            "TPM",      # tasa de política monetaria y operaciones BCCh
+            "ECB",      # expectativa de TPM, encuesta
+            "TIP",      # captación y colocación a distintos plazos
+            "BCU",      # bonos BCCh en UF
+            "VIV",      # tasa de créditos hipotecarios
+            "IPSA",     # IPSA e índices bursátiles externos
+            "DEUBH",    # deuda hipotecaria bancaria de hogares
+        ),
+        frequencies=("D", "M", "T", "A"),
+        expected_regions=0,  # nacional: no se desagrega y no lo necesita
+        briefing_note="briefing_tasas.md",
+        objetivo=(
+            "Objetivo 4 e hipótesis H1 — el efecto del descenso de las tasas "
+            "sobre la variación del precio del suelo. Es el único conjunto de "
+            "regresores de H1 que la BDE publica completo."
+        ),
+        notas_es=(
+            "Escala nacional, y no le falta desagregación: la tasa de "
+            "descuento que discute H1 es un precio único de la economía. La "
+            "cobertura es desigual entre series (captación y colocación desde "
+            "1983; TPM desde 1995; hipotecarias y bonos UF desde 2002), de "
+            "modo que cualquier ventana común es más corta que la más larga. "
+            "DEUBH mide apalancamiento de hogares como porcentaje del PIB y "
+            "del ingreso disponible, y es la contraparte financiera del stock "
+            "de vivienda que mide housing_wealth."
+        ),
+    ),
     "financial_depth": SeriesFamily(
         name="financial_depth",
         report=6,
-        tier=TIER_REGIONAL,
+        escala=ESCALA_REGIONAL,
         title_es="Profundidad financiera y morosidad por región",
         tokens=("DV90", "DCS90", "DCM90", "CCPN", "SCCPN", "SDV"),
         frequencies=("M",),
         expected_regions=16,
         briefing_note="briefing_financial_depth.md",
+        objetivo=(
+            "Objetivo 4 — huella regional del ciclo financiero. Mide angustia y profundidad de depósitos, nunca volumen de crédito: los volúmenes hipotecarios son nacionales."
+        ),
+        notas_es=(
+            "F022 usa la codificación de mnemónico pegado. F022.CTOBI NO es Biobío y F022.CAP NO es Arica y Parinacota: la lista blanca de raíces en lib.regions existe exactamente para esta familia. La selección por familia se ancla al mnemónico por la misma razón, después de que NVA hiciera match dentro de CCPNVA."
+        ),
         notes=(
             "F022 uses the glued-mnemonic encoding. F022.CTOBI is NOT Biobio "
             "and F022.CAP is NOT Arica y Parinacota -- lib.regions' "
@@ -236,12 +377,18 @@ FAMILIES: dict[str, SeriesFamily] = {
     "interregional_trade": SeriesFamily(
         name="interregional_trade",
         report=7,
-        tier=TIER_REGIONAL,
+        escala=ESCALA_REGIONAL,
         title_es="Estancamiento del sector dinámico",
         tokens=("CVRV", "CVRC", "NFRV", "NFRC", "XSE"),
         frequencies=("M", "T", "A"),
         expected_regions=16,
         briefing_note="briefing_interregional_trade.md",
+        objetivo=(
+            "Objetivo 1 — dinamismo del sector productivo. El estancamiento se argumenta con participaciones de producto y descomposición shift-share, nunca como caída de productividad medida: el catálogo no contiene ninguna serie de PTF."
+        ),
+        notas_es=(
+            "Las compraventas usan un token de región NUMÉRICO (15 = Arica y Parinacota), una quinta codificación que lib.regions todavía no resuelve. El parser va ahí, nunca como parser suelto en otro lado."
+        ),
         notes=(
             "Compraventas use a NUMERIC region token (15 = Arica y "
             "Parinacota) -- a fifth encoding lib.regions does not yet handle. "

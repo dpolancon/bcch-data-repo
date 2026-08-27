@@ -139,11 +139,13 @@ def build_zone_universe(df: pd.DataFrame, family: str) -> pd.DataFrame:
     regions -- which is correct for the regional panel and fatal for the rent
     axis, because BCCh publishes housing wealth and the price index only for
     coarse zones. This is the deliberate second door, and it is only ever
-    opened for a family declared TIER_NATIONAL.
+    opened for a family whose escala does not disaggregate to the regions.
     """
     fam = families_lib.get(family)
-    if fam.tier != families_lib.TIER_NATIONAL:
-        raise ValueError(f"{family} is Tier {fam.tier}; use build_universe()")
+    if fam.es_regional:
+        raise ValueError(
+            f"{family} es escala {fam.escala}; use build_universe()"
+        )
 
     rows = []
     for code, name, table, chapter in zip(
@@ -184,8 +186,8 @@ def build_zone_universe(df: pd.DataFrame, family: str) -> pd.DataFrame:
 
     universe = universe.drop_duplicates(subset=["series_code"])
     logger.info(
-        "--family %s (report %d, TIER A): %d series across %d zones",
-        fam.name, fam.report, len(universe), universe["zone"].nunique(),
+        "--family %s (reporte %d, escala %s): %d series en %d zonas",
+        fam.name, fam.report, fam.escala, len(universe), universe["zone"].nunique(),
     )
     logger.info("By zone: %s", universe["zone"].value_counts().to_dict())
     return universe.sort_values(["frequency", "zone", "series_code"]).reset_index(
@@ -241,8 +243,8 @@ def build_universe(
         if fam.frequencies:
             keep &= universe["frequency"].isin(fam.frequencies)
         logger.info(
-            "--family %s (report %d, tier %s): %d of %d series retained",
-            fam.name, fam.report, fam.tier, keep.sum(), len(universe),
+            "--family %s (reporte %d, escala %s): %d de %d series retenidas",
+            fam.name, fam.report, fam.escala, keep.sum(), len(universe),
         )
         universe = universe[keep].reset_index(drop=True)
         n_regions = universe["region_id"].nunique()
@@ -574,7 +576,7 @@ def main() -> int:
     catalog = CatalogManager()
 
     catalog_df = load_catalog(catalog)
-    if args.family and families_lib.get(args.family).tier == families_lib.TIER_NATIONAL:
+    if args.family and not families_lib.get(args.family).es_regional:
         universe = build_zone_universe(catalog_df, args.family)
     else:
         universe = build_universe(

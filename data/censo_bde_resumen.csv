@@ -1,0 +1,75 @@
+escala,capitulo,frecuencia,series
+macro-zona,Estadísticas Experimentales,A,20
+macro-zona,Estadísticas Experimentales,T,18
+macro-zona,Indicadores Sectoriales,T,18
+nacional,Cuentas Nacionales,T,6882
+nacional,Precios,M,2032
+nacional,Cuentas Nacionales,A,1497
+nacional,Derivados y Spot,M,1457
+nacional,Estadísticas Monetarias y Financieras,M,1158
+nacional,Sector Externo,M,823
+nacional,Derivados y Spot,D,714
+nacional,Operaciones de Mercado Abierto,D,684
+nacional,Mercado de Capitales,M,665
+nacional,Sector Externo,T,550
+nacional,Sector Externo,A,543
+nacional,Expectativas Económicas,T,426
+nacional,Estadísticas Experimentales,M,342
+nacional,Mercado Laboral y Demografía,M,323
+nacional,Género,M,301
+nacional,Cuentas Nacionales,M,273
+nacional,Finanzas Públicas,M,273
+nacional,Expectativas Económicas,M,252
+nacional,Finanzas Públicas,T,233
+nacional,Estadísticas Experimentales,A,229
+nacional,Economía Internacional,D,163
+nacional,Indicadores Sectoriales,A,135
+nacional,Indicadores Sectoriales,M,131
+nacional,Sector Externo,D,127
+nacional,Economía Internacional,M,120
+nacional,Mercado Laboral y Demografía,A,104
+nacional,Finanzas Públicas,A,102
+nacional,Estadísticas Históricas,A,84
+nacional,Principales Estadísticas Macro,T,73
+nacional,Economía Internacional,A,70
+nacional,Tipos de Cambio,D,70
+nacional,Operaciones de Mercado Abierto,M,53
+nacional,Estadísticas Experimentales,T,42
+nacional,Estadísticas Monetarias y Financieras,D,38
+nacional,Expectativas Económicas,D,36
+nacional,Tasas de Interés,M,35
+nacional,Tasas de Interés,D,34
+nacional,Estadísticas Monetarias y Financieras,A,30
+nacional,Tipos de Cambio,A,28
+nacional,Economía Internacional,T,27
+nacional,Mercado Laboral y Demografía,T,24
+nacional,Principales Estadísticas Macro,M,19
+nacional,Principales Estadísticas Macro,A,14
+nacional,Mercado de Capitales,T,11
+nacional,Indicadores Mercado de la Vivienda,M,8
+nacional,Mercado de Capitales,D,8
+nacional,Estadísticas Experimentales,D,7
+nacional,Estadísticas Históricas,M,7
+nacional,Indicadores Sectoriales,T,7
+nacional,Género,A,6
+nacional,Indicadores Mercado de la Vivienda,D,5
+nacional,Tipos de Cambio,M,3
+nacional,Indicadores Mercado de la Vivienda,T,2
+nacional,Precios,D,2
+nacional,Regionales,A,2
+nacional,Estadísticas Monetarias y Financieras,T,1
+nacional,Principales Estadísticas Macro,D,1
+nacional,Regionales,M,1
+regional,Regionales,M,541
+regional,Cuentas Nacionales,A,369
+regional,Cuentas Nacionales,T,208
+regional,Estadísticas Experimentales,M,192
+regional,Género,A,192
+regional,Estadísticas Experimentales,A,64
+regional,Regionales,A,44
+regional,Mercado Laboral y Demografía,M,34
+regional,Estadísticas Experimentales,D,32
+regional,Estadísticas Experimentales,T,16
+regional,Mercado de Capitales,T,3
+sectorial-regional,Cuentas Nacionales,A,2123
+sectorial-regional,Cuentas Nacionales,T,208

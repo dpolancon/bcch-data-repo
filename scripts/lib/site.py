@@ -156,9 +156,10 @@ def styles_css() -> str:
   max-width: 100%;
 }
 
-/* Tier badges: the two-tier design is the site's central claim, so the tier a
-   figure belongs to should be visible without reading the caption. */
-.tier {
+/* Distintivos de escala. La escala de observación es la afirmación central
+   de la revisión, así que a qué unidad se refiere una cifra debe leerse sin
+   entrar al texto. Cuatro escalas, de la más agregada a la más fina. */
+.escala {
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 600;
@@ -167,8 +168,10 @@ def styles_css() -> str:
   border-radius: 999px;
   vertical-align: middle;
 }
-.tier-a { background: #7c3aed22; color: #6d28d9; border: 1px solid #7c3aed55; }
-.tier-b { background: #0d948822; color: #0f766e; border: 1px solid #0d948855; }
+.esc-nac { background: #7c3aed22; color: #6d28d9; border: 1px solid #7c3aed55; }
+.esc-zon { background: #0891b222; color: #0e7490; border: 1px solid #0891b255; }
+.esc-reg { background: #0d948822; color: #0f766e; border: 1px solid #0d948855; }
+.esc-sec { background: #65a30d22; color: #4d7c0f; border: 1px solid #65a30d55; }
 
 /* A standing caveat block. Used wherever imputed rent or zone-vs-region
    aggregation is in play -- these are not footnotes, they are load-bearing. */
@@ -281,11 +284,25 @@ def es_pct(fraction: float, decimals: int = 2) -> str:
     return es(fraction * 100, decimals)
 
 
-def tier_badge(tier: str) -> str:
-    """Inline HTML badge naming the tier a page's data belongs to."""
-    if tier == families_lib.TIER_NATIONAL:
-        return '<span class="tier tier-a">TIER A &middot; nacional / zonas</span>'
-    return '<span class="tier tier-b">TIER B &middot; 16 regiones</span>'
+def escala_badge(escala: str) -> str:
+    """Distintivo con la escala de observación y su unidad.
+
+    Codifica algo verdadero y no decorativo: a qué unidad se refiere cada
+    número de la página. Cruzar escalas sin decirlo es la forma más fácil de
+    engañar a un lector, así que la escala viaja en el encabezado.
+    """
+    nombre, unidad = families_lib.ESCALA_LABEL[escala]
+    clase = ESCALA_CLASE[escala]
+    return f'<span class="escala {clase}">{nombre} &middot; {unidad}</span>'
+
+
+# Clase CSS por escala. El orden va de la unidad más agregada a la más fina.
+ESCALA_CLASE = {
+    families_lib.ESCALA_NACIONAL: "esc-nac",
+    families_lib.ESCALA_ZONAL: "esc-zon",
+    families_lib.ESCALA_REGIONAL: "esc-reg",
+    families_lib.ESCALA_SECTORIAL_REGIONAL: "esc-sec",
+}
 
 
 def caveat(text: str) -> str:
