@@ -82,6 +82,8 @@ verificable de forma automática.
 
 Cada familia de series ingerida deja una nota: qué significan los códigos, cómo se codifican las regiones, dónde están las trampas. Es lo que abre la compuerta del reporte siguiente.
 
+- [Nota de familia: Profundidad financiera y morosidad por región](briefings/briefing_financial_depth.qmd)
+- [Nota de familia: Estancamiento del sector dinámico](briefings/briefing_interregional_trade.qmd)
 - [Nota de familia: El ciclo regional de la construcción](briefings/briefing_permits.qmd)
 - [Nota de familia: Los dos ejes: renta espacial y renta de recursos](briefings/briefing_two_axes.qmd)
 

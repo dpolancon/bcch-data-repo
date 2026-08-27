@@ -80,7 +80,7 @@ F022 usa la codificación de mnemónico pegado. F022.CTOBI NO es Biobío y F022.
 
 ### `interregional_trade` — Reporte 7 (regional)
 
-Las compraventas usan un token de región NUMÉRICO (15 = Arica y Parinacota), una quinta codificación que lib.regions todavía no resuelve. El parser va ahí, nunca como parser suelto en otro lado.
+Las compraventas identifican la región con un token NUMÉRICO (01 = Tarapacá), distinto del sufijo de dos letras de F034 y F022. No es una codificación nueva: es la posicional de F035, que lib.regions ya resuelve. Verificado en la descarga: los doce mnemónicos de compraventas resuelven las 16 regiones por f035_positional. Antes esta nota afirmaba que hacía falta un parser nuevo, y era falso.
 
 ### `tasas` — Reporte 8 (nacional)
 
