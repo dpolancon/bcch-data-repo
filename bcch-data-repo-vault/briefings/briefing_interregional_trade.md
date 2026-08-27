@@ -36,10 +36,7 @@ que conecta la estructura productiva regional con los circuitos externos.
 
 ## Por qué esta familia importa en el programa
 
-Sirve al **Objetivo 1** —dinamismo del sector productivo— y da el contrapunto
-del eje espacial: si la renta espacial crece mientras la construcción cae
-(Reporte 4), la pregunta siguiente es qué pasa con el sector que sí produce
-bienes transables.
+Examina el dinamismo del sector productivo transable y da el contrapunto del eje espacial: si la renta espacial crece mientras la construcción cae (Reporte 4), la pregunta siguiente es qué pasa con el sector que sí produce bienes transables.
 
 ::: advertencia
 **El estancamiento no se puede medir como productividad.** El catálogo no

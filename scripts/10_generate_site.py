@@ -83,8 +83,22 @@ PUBLISHED_PANELS = [
 VAULT_REPORTS = [
     {
         "n": 1,
-        "slug": "report1-disparidades",
-        "nav_label": "1 · Disparidades regionales",
+        "vault_n": 2,
+        "slug": "report1-cobertura",
+        "nav_label": "1 · Cobertura de datos",
+        "title": "Reporte de cobertura de datos regionales",
+        "source": "data_coverage_report_ES.md",
+        "escala": families_lib.ESCALA_SECTORIAL_REGIONAL,
+        "lead": (
+            "Qué publica efectivamente el Banco Central a nivel regional, "
+            "por dominio temático, frecuencia y región."
+        ),
+    },
+    {
+        "n": 2,
+        "vault_n": 1,
+        "slug": "report2-disparidades",
+        "nav_label": "2 · Disparidades regionales",
         "title": "Disparidades económicas regionales en Chile",
         "source": "report_REG_ECON_DEV_ES.md",
         "escala": families_lib.ESCALA_SECTORIAL_REGIONAL,
@@ -92,18 +106,6 @@ VAULT_REPORTS = [
             "La geografía productiva de Chile está estructuralmente fijada, "
             "mientras que la desigualdad de bienestar apenas oscila con los "
             "ciclos de commodities."
-        ),
-    },
-    {
-        "n": 2,
-        "slug": "report2-cobertura",
-        "nav_label": "2 · Cobertura de datos",
-        "title": "Reporte de cobertura de datos regionales",
-        "source": "data_coverage_report_ES.md",
-        "escala": families_lib.ESCALA_SECTORIAL_REGIONAL,
-        "lead": (
-            "Qué publica efectivamente el Banco Central a nivel regional, "
-            "por dominio temático, frecuencia y región."
         ),
     },
 ]
@@ -1042,9 +1044,9 @@ title: "El precio del dinero"
 
 ## El argumento
 
-La hipótesis central del proyecto (H1) postula que la inflación del precio del suelo metropolitano en Chile responde primordialmente a un determinante financiero: el descenso tendencial de la tasa de descuento con que se descuenta el flujo futuro de rentas. Al ser el suelo un activo que no se deprecia ni se reproduce físicamente, una reducción sustantiva de la tasa de interés real genera una expansión mecánica y no lineal en su valor de capitalización.
+El análisis macro-financiero considera que la inflación del precio del suelo metropolitano en Chile responde primordialmente a un determinante financiero: el descenso tendencial de la tasa de descuento con que se descuenta el flujo futuro de rentas. Al ser el suelo un activo que no se deprecia ni se reproduce físicamente, una reducción sustantiva de la tasa de interés real genera una expansión mecánica y no lineal en su valor de capitalización.
 
-La BDE concentra a escala nacional el conjunto completo de regresores financieros requeridos para contrastar este mecanismo (Tabla 1 de la formulación): la Tasa de Política Monetaria (`TPM`), las expectativas de mercado, las tasas de colocación bancaria a largo plazo (`VIV`), la curva soberana en UF (`BCU`) y los ratios de apalancamiento bancario de los hogares (`DEUBH`).
+La BDE concentra a escala nacional el conjunto completo de regresores financieros requeridos para contrastar este mecanismo: la Tasa de Política Monetaria (`TPM`), las expectativas de mercado, las tasas de colocación bancaria a largo plazo (`VIV`), la curva soberana en UF (`BCU`) y los ratios de apalancamiento bancario de los hogares (`DEUBH`).
 
 ## Lo que muestran los datos
 
@@ -1082,7 +1084,7 @@ Este abaratamiento del costo del crédito facilitó una acumulación masiva de d
 :::
 
 ::: {{.caveat}}
-**La escala nacional es un precio único.** A diferencia de los flujos físicos de construcción o la morosidad bancaria regional, las tasas de interés y los bonos soberanos operan como precios únicos para toda la economía chilena. El análisis econométrico de H1 utiliza estas variables como regresores macroeconómicos comunes a todas las áreas metropolitanas bajo estudio.
+**La escala nacional es un precio único.** A diferencia de los flujos físicos de construcción o la morosidad bancaria regional, las tasas de interés y los bonos soberanos operan como precios únicos para toda la economía chilena. El análisis econométrico utiliza estas variables como regresores macroeconómicos comunes a todas las áreas metropolitanas bajo estudio.
 :::
 
 ## Nota metodológica
@@ -1673,8 +1675,7 @@ def build_diseno() -> str:
 title: "Diseño"
 ---
 
-A qué responde cada pieza de esta revisión dentro de la formulación del
-proyecto, y dónde la BDE no alcanza.
+A qué responde cada pieza de esta revisión dentro del diseño de investigación del proyecto, y dónde la BDE no alcanza.
 
 ## Correspondencia
 
@@ -1798,7 +1799,8 @@ def main() -> int:
     # ---- vault reports ---------------------------------------------------
     published = []
     for meta in VAULT_REPORTS:
-        src = report_dir(meta["n"]) / meta["source"]
+        vault_n = meta.get("vault_n", meta["n"])
+        src = report_dir(vault_n) / meta["source"]
         if not src.exists():
             logger.warning("Skipping report %d: %s not found", meta["n"], src)
             continue
@@ -1808,7 +1810,7 @@ def main() -> int:
         check_tokens(page, f"reportes/{meta['slug']}.qmd")
         write(root / "reportes" / f"{meta['slug']}.qmd", page)
 
-        assets_src = report_assets_dir(meta["n"])
+        assets_src = report_assets_dir(vault_n)
         if assets_src.exists():
             for asset in sorted(assets_src.iterdir()):
                 if asset.is_file() and asset.suffix.lower() in {

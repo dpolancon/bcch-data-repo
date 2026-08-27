@@ -257,7 +257,7 @@ FAMILIES: dict[str, SeriesFamily] = {
         expected_regions=16,
         briefing_note="briefing_two_axes.md",
         objetivo=(
-            "Contexto de selección de casos. No responde a un objetivo específico: sostiene el marco muestral, al medir cuán extractivas son las economías regionales cuyas capitales el proyecto estudia."
+            "Contexto de selección de casos. Sostiene el marco muestral al medir cuán extractivas son las economías regionales."
         ),
         notas_es=(
             "Los dos ejes del marco de crecimiento desbalanceado tienen contraparte directa en las cuentas regionales: sector 10 (Servicios de vivienda e inmobiliarios) es renta espacial, sector 03 (Minería) es renta de recursos, sector 06 (Construcción) es la pata de inversión. Ninguna requiere descarga: ya están en raw_annual.csv. El sector 10 es mayoritariamente ALQUILER IMPUTADO de las cuentas nacionales, no arriendo efectivamente pagado; es el supuesto que sostiene todo el eje espacial y se declara en cada reporte que se apoya en él. La familia abarca dos escalas: 2.037 series sectorial-regionales y 209 totales regionales (sector Z). La escala declarada es la principal, no la única."
@@ -279,7 +279,7 @@ FAMILIES: dict[str, SeriesFamily] = {
         expected_regions=16,
         briefing_note="briefing_permits.md",
         objetivo=(
-            "Objetivo 2 — demanda física de suelo. Es el insumo con que la formulación propone reconstruir el Consumo de Suelo Urbano del MINVU a partir de permisos de edificación desde 2010 (Proxy 2)."
+            "Demanda física de suelo. Permite analizar la trayectoria de la edificación residencial a partir de permisos de edificación desde 2010."
         ),
         notas_es=(
             "Primer encuentro con el sufijo de región de dos letras pegado al mnemónico (AP, TA, AN...). Son permisos: intención de construir, no construcción ejecutada. Fuerte estacionalidad, así que toda lectura mes contra mes es ruido; usar variación doce meses. CEYS es constitución de empresas de todo tipo y entra como control de dinamismo empresarial, no como parte del eje espacial: no sumarlo a los otros tres."
@@ -302,7 +302,7 @@ FAMILIES: dict[str, SeriesFamily] = {
         expected_regions=0,  # seven zones, not regions -- see notes
         briefing_note="briefing_housing_wealth.md",
         objetivo=(
-            "Reproduce y extiende la Figura 4 de la formulación (valor del stock de suelo residencial, agregado y unitario). VALT frente a VALC es la descomposición terreno/construcción de Knoll et al., premisa empírica de la propuesta, medida para Chile."
+            "Analiza el valor del stock de suelo residencial, agregado y unitario. VALT frente a VALC es la descomposición terreno/construcción propuesta por Knoll et al., medida para Chile."
         ),
         notas_es=(
             "La geografía son zonas, no regiones: Norte, Centro, Sur y cuatro subzonas de la Región Metropolitana. La correspondencia con las 16 regiones es de uno a muchos salvo en la RM, de modo que la única dirección de agregación honesta es subir el dato regional hasta la zona. Ojo con la transposición de origen: la zona 1 es IVPZ1 y no IPVZ1, y corregirla acá sencillamente no encontraría la serie. La familia abarca dos escalas: 56 series zonales y 21 nacionales. VALT y VALC --la descomposición entre valorización del terreno y de la construcción-- sólo existen para NAC, CAS y DEP, de modo que la premisa empírica de Knoll et al. es medible en Chile únicamente a escala nacional y nunca por zona."
@@ -320,9 +320,8 @@ FAMILIES: dict[str, SeriesFamily] = {
         report=8,
         escala=ESCALA_NACIONAL,
         title_es="El precio del dinero: tasas y apalancamiento",
-        # La Tabla 1 de la formulación completa. Es enteramente de la BDE y es
-        # el conjunto de regresores de H1: la tasa de descuento con que se
-        # valoriza un activo que no se deprecia.
+        # Conjunto completo de regresores financieros macroeconómicos: la tasa
+        # de descuento con que se valoriza un activo que no se deprecia.
         tokens=(
             "TPM",      # tasa de política monetaria y operaciones BCCh
             "ECB",      # expectativa de TPM, encuesta
@@ -336,13 +335,11 @@ FAMILIES: dict[str, SeriesFamily] = {
         expected_regions=0,  # nacional: no se desagrega y no lo necesita
         briefing_note="briefing_tasas.md",
         objetivo=(
-            "Objetivo 4 e hipótesis H1 — el efecto del descenso de las tasas "
-            "sobre la variación del precio del suelo. Es el único conjunto de "
-            "regresores de H1 que la BDE publica completo."
+            "Efecto del descenso de las tasas sobre la variación del precio del suelo. Reúne el conjunto completo de regresores financieros que la BDE publica a escala nacional."
         ),
         notas_es=(
             "Escala nacional, y no le falta desagregación: la tasa de "
-            "descuento que discute H1 es un precio único de la economía. La "
+            "descuento es un precio único de la economía. La "
             "cobertura es desigual entre series (captación y colocación desde "
             "1983; TPM desde 1995; hipotecarias y bonos UF desde 2002), de "
             "modo que cualquier ventana común es más corta que la más larga. "
@@ -361,7 +358,7 @@ FAMILIES: dict[str, SeriesFamily] = {
         expected_regions=16,
         briefing_note="briefing_financial_depth.md",
         objetivo=(
-            "Objetivo 4 — huella regional del ciclo financiero. Mide angustia y profundidad de depósitos, nunca volumen de crédito: los volúmenes hipotecarios son nacionales."
+            "Huella regional del ciclo financiero. Mide angustia y profundidad de depósitos, nunca volumen de crédito: los volúmenes hipotecarios son nacionales."
         ),
         notas_es=(
             "F022 usa la codificación de mnemónico pegado. F022.CTOBI NO es Biobío y F022.CAP NO es Arica y Parinacota: la lista blanca de raíces en lib.regions existe exactamente para esta familia. La selección por familia se ancla al mnemónico por la misma razón, después de que NVA hiciera match dentro de CCPNVA."
@@ -384,7 +381,7 @@ FAMILIES: dict[str, SeriesFamily] = {
         expected_regions=16,
         briefing_note="briefing_interregional_trade.md",
         objetivo=(
-            "Objetivo 1 — dinamismo del sector productivo. El estancamiento se argumenta con participaciones de producto y descomposición shift-share, nunca como caída de productividad medida: el catálogo no contiene ninguna serie de PTF."
+            "Dinamismo del sector productivo. El estancamiento se argumenta con participaciones de producto y descomposición shift-share, nunca como caída de productividad medida: el catálogo no contiene ninguna serie de PTF."
         ),
         notas_es=(
             "Las compraventas identifican la región con un token NUMÉRICO (01 = Tarapacá), distinto del sufijo de dos letras de F034 y F022. No es una codificación nueva: es la posicional de F035, que lib.regions ya resuelve. Verificado en la descarga: los doce mnemónicos de compraventas resuelven las 16 regiones por f035_positional. Antes esta nota afirmaba que hacía falta un parser nuevo, y era falso."
