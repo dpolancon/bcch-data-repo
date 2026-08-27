@@ -79,6 +79,14 @@ UNIDADES = {
         TASA, 1.0, PROMEDIO, "sobre ventas más compras interregionales",
     ),
     "fracción del producto regional": (TASA, 100.0, PROMEDIO, "participación sectorial"),
+    "%": (TASA, 1.0, PROMEDIO, "tasa porcentual o ratio"),
+    "porcentaje": (TASA, 1.0, PROMEDIO, "porcentaje"),
+    "% del PIB": (TASA, 1.0, PROMEDIO, "porcentaje del PIB anualizado"),
+    "% del ingreso disponible": (TASA, 1.0, PROMEDIO, "porcentaje del ingreso disponible"),
+    "millones de metros cuadrados": (SUPERFICIE, 1e6, TOTAL, "superficie en millones de m2"),
+    "índice base 2008=100": (TASA, 1.0, PROMEDIO, "índice de precios"),
+    "índice": (TASA, 1.0, PROMEDIO, "número índice"),
+    "propiedades": (CONTEO, 1.0, TOTAL, "número de propiedades"),
 }
 
 

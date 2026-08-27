@@ -69,6 +69,12 @@ EXPECTED_CHAPTERS = frozenset(
         "Mercado Laboral y Demografía",
         "Estadísticas Monetarias y Financieras",
         "Indicadores Mercado de la Vivienda",
+        "Expectativas Económicas",
+        "Operaciones de Mercado Abierto",
+        "Mercado de Capitales",
+        "Tasas de Interés",
+        "Principales Estadísticas Macro",
+        "Estadísticas Históricas",
     }
 )
 
@@ -191,6 +197,62 @@ def build_zone_universe(df: pd.DataFrame, family: str) -> pd.DataFrame:
     )
     logger.info("By zone: %s", universe["zone"].value_counts().to_dict())
     return universe.sort_values(["frequency", "zone", "series_code"]).reset_index(
+        drop=True
+    )
+
+
+def build_national_universe(df: pd.DataFrame, family: str) -> pd.DataFrame:
+    """Resolve a national family (e.g. tasas), which requires no regional split.
+
+    Drops international series and retains Chilean national indicators matching
+    the family tokens and frequencies.
+    """
+    fam = families_lib.get(family)
+    rows = []
+    for code, name, table, chapter in zip(
+        df[COL_CODE], df[COL_NAME], df[COL_TABLE], df[COL_CHAPTER]
+    ):
+        code_s = str(code).strip()
+        if not fam.matches(code_s):
+            continue
+
+        chapter_s = str(chapter).strip()
+        if chapter_s == "Economía Internacional":
+            continue
+
+        frequency = codes_lib.parse_frequency(code_s)
+        if frequency is None or (fam.frequencies and frequency not in fam.frequencies):
+            continue
+
+        rows.append(
+            {
+                "series_code": code_s,
+                "series_name": str(name).strip(),
+                "region_id": None,
+                "region_name": "Nacional",
+                "frequency": frequency,
+                "chapter": chapter_s,
+                "table_name": str(table).strip(),
+                "sector_id": None,
+                "sector_name": None,
+                "region_parse_method": "nacional",
+            }
+        )
+
+    universe = pd.DataFrame(rows)
+    if universe.empty:
+        return universe
+
+    universe = universe.drop_duplicates(subset=["series_code"])
+    logger.info(
+        "--family %s (reporte %d, escala %s): %d series nacionales retenidas",
+        fam.name,
+        fam.report,
+        fam.escala,
+        len(universe),
+    )
+    logger.info("By frequency: %s", universe["frequency"].value_counts().to_dict())
+    return universe.sort_values(["frequency", "series_code"]).reset_index(
         drop=True
     )
 
@@ -584,16 +646,23 @@ def main() -> int:
 
     out_dir = ensure_dir(CRSM_RAW_DIR)
     catalog = CatalogManager()
-
     catalog_df = load_catalog(catalog)
-    if args.family and not families_lib.get(args.family).es_regional:
-        universe = build_zone_universe(catalog_df, args.family)
+    if args.family:
+        fam = families_lib.get(args.family)
+        if fam.escala == families_lib.ESCALA_NACIONAL:
+            universe = build_national_universe(catalog_df, args.family)
+        elif fam.escala == families_lib.ESCALA_ZONAL:
+            universe = build_zone_universe(catalog_df, args.family)
+        else:
+            universe = build_universe(
+                catalog_df, sht_only=args.sht_only, family=args.family
+            )
     else:
         universe = build_universe(
             catalog_df, sht_only=args.sht_only, family=args.family
         )
     if universe.empty:
-        logger.error("No regional series resolved -- aborting.")
+        logger.error("No series resolved -- aborting.")
         return 1
 
     if "zone" not in universe.columns:

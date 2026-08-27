@@ -490,11 +490,173 @@ def build_interregional_trade() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFram
     return mensual, anual, resumen
 
 
+def build_tasas() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Reporte 8: tasas de interés, expectativas y apalancamiento de hogares."""
+    raw_m = pd.read_csv(CRSM_RAW_DIR / "raw_monthly.csv", low_memory=False)
+    raw_q = pd.read_csv(CRSM_RAW_DIR / "raw_quarterly.csv", low_memory=False)
+
+    series_m = {
+        "F022.TPM.TIN.D001.NO.Z.M": ("tpm", "%"),
+        "F022.VIV.TIP.MA03.UF.Z.M": ("tasa_hipotecaria", "%"),
+        "F089.TPM.TAS.11.M": ("tpm_expectativa_siguiente", "%"),
+        "F089.TPM.TAS.14.M": ("tpm_expectativa_11m", "%"),
+        "F089.TPM.TAS.15.M": ("tpm_expectativa_23m", "%"),
+    }
+
+    frames_m = []
+    for code, (ind, unit) in series_m.items():
+        sub = raw_m[raw_m["series_code"] == code][["date", "value"]].dropna().copy()
+        sub["indicador"] = ind
+        sub["unidad"] = unit
+        frames_m.append(sub)
+
+    mensual = pd.concat(frames_m, ignore_index=True).rename(columns={"value": "valor"})
+    mensual["date"] = pd.to_datetime(mensual["date"])
+    mensual["anio"] = mensual["date"].dt.year
+
+    anual_m = mensual.groupby(["anio", "indicador", "unidad"], as_index=False)["valor"].mean()
+
+    series_q = {
+        "F038.DEUBH.PPB2.53.10.N.2018.CLP.T": ("deuda_hipotecaria_pib", "% del PIB"),
+        "F038.DEUBH.PIND.53.10.N.2018.CLP.T": ("deuda_hipotecaria_ingreso", "% del ingreso disponible"),
+    }
+
+    frames_q = []
+    for code, (ind, unit) in series_q.items():
+        sub = raw_q[raw_q["series_code"] == code][["date", "value"]].dropna().copy()
+        sub["indicador"] = ind
+        sub["unidad"] = unit
+        frames_q.append(sub)
+
+    trim = pd.concat(frames_q, ignore_index=True).rename(columns={"value": "valor"})
+    trim["date"] = pd.to_datetime(trim["date"])
+    trim["anio"] = trim["date"].dt.year
+    anual_q = trim.groupby(["anio", "indicador", "unidad"], as_index=False)["valor"].mean()
+
+    anual = pd.concat([anual_m, anual_q], ignore_index=True).sort_values(["anio", "indicador"]).reset_index(drop=True)
+
+    tpm = raw_m[raw_m["series_code"] == "F022.TPM.TIN.D001.NO.Z.M"].dropna(subset=["value"]).sort_values("date")
+    hip = raw_m[raw_m["series_code"] == "F022.VIV.TIP.MA03.UF.Z.M"].dropna(subset=["value"]).sort_values("date")
+    deub_pib = raw_q[raw_q["series_code"] == "F038.DEUBH.PPB2.53.10.N.2018.CLP.T"].dropna(subset=["value"]).sort_values("date")
+    deub_ing = raw_q[raw_q["series_code"] == "F038.DEUBH.PIND.53.10.N.2018.CLP.T"].dropna(subset=["value"]).sort_values("date")
+
+    resumen_rows = [
+        {"indicador": "tpm_minimo", "valor": float(tpm["value"].min()), "unidad": "%", "anio": int(tpm.loc[tpm["value"].idxmin()]["date"][:4]), "medida": "tasa"},
+        {"indicador": "tpm_maximo", "valor": float(tpm["value"].max()), "unidad": "%", "anio": int(tpm.loc[tpm["value"].idxmax()]["date"][:4]), "medida": "tasa"},
+        {"indicador": "tpm_actual", "valor": float(tpm["value"].iloc[-1]), "unidad": "%", "anio": int(tpm.iloc[-1]["date"][:4]), "medida": "tasa"},
+        {"indicador": "hipotecaria_minima", "valor": float(hip["value"].min()), "unidad": "%", "anio": int(hip.loc[hip["value"].idxmin()]["date"][:4]), "medida": "tasa"},
+        {"indicador": "hipotecaria_maxima", "valor": float(hip["value"].max()), "unidad": "%", "anio": int(hip.loc[hip["value"].idxmax()]["date"][:4]), "medida": "tasa"},
+        {"indicador": "hipotecaria_actual", "valor": float(hip["value"].iloc[-1]), "unidad": "%", "anio": int(hip.iloc[-1]["date"][:4]), "medida": "tasa"},
+        {"indicador": "deuda_pib_minima", "valor": float(deub_pib["value"].min()), "unidad": "% del PIB", "anio": int(deub_pib.loc[deub_pib["value"].idxmin()]["date"][:4]), "medida": "ratio"},
+        {"indicador": "deuda_pib_maxima", "valor": float(deub_pib["value"].max()), "unidad": "% del PIB", "anio": int(deub_pib.loc[deub_pib["value"].idxmax()]["date"][:4]), "medida": "ratio"},
+        {"indicador": "deuda_pib_actual", "valor": float(deub_pib["value"].iloc[-1]), "unidad": "% del PIB", "anio": int(deub_pib.iloc[-1]["date"][:4]), "medida": "ratio"},
+        {"indicador": "deuda_ingreso_minima", "valor": float(deub_ing["value"].min()), "unidad": "% del ingreso disponible", "anio": int(deub_ing.loc[deub_ing["value"].idxmin()]["date"][:4]), "medida": "ratio"},
+        {"indicador": "deuda_ingreso_maxima", "valor": float(deub_ing["value"].max()), "unidad": "% del ingreso disponible", "anio": int(deub_ing.loc[deub_ing["value"].idxmax()]["date"][:4]), "medida": "ratio"},
+        {"indicador": "deuda_ingreso_actual", "valor": float(deub_ing["value"].iloc[-1]), "unidad": "% del ingreso disponible", "anio": int(deub_ing.iloc[-1]["date"][:4]), "medida": "ratio"},
+    ]
+    resumen = pd.DataFrame(resumen_rows)
+
+    mensual = unidades_lib.normalizar(mensual.drop(columns=["anio"]))
+    anual = unidades_lib.normalizar(anual)
+    resumen = unidades_lib.normalizar(resumen)
+    return mensual, anual, resumen
+
+
+def build_housing_wealth() -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Reporte 5: valor del stock habitacional, terreno vs construcción e IPV."""
+    raw_a = pd.read_csv(CRSM_RAW_DIR / "raw_annual.csv", low_memory=False)
+    raw_q = pd.read_csv(CRSM_RAW_DIR / "raw_quarterly.csv", low_memory=False)
+
+    annual_codes = {
+        "VALV.FLU": ("valor_vivienda", "miles de millones de pesos"),
+        "VALV.PPB": ("valor_vivienda_pib", "% del PIB"),
+        "VALT.FLU": ("valor_terreno", "miles de millones de pesos"),
+        "VALC.FLU": ("valor_construccion", "miles de millones de pesos"),
+        "MCT.FLU": ("metros_terreno", "millones de metros cuadrados"),
+        "MCC.FLU": ("metros_construidos", "millones de metros cuadrados"),
+        "NUMP.FLU": ("numero_propiedades", "propiedades"),
+    }
+
+    rows_a = []
+    for code, val, d in zip(raw_a["series_code"], raw_a["value"], raw_a["date"]):
+        if pd.isna(val):
+            continue
+        zone = families_lib.parse_zone(code)
+        if zone is None:
+            continue
+        for prefix, (ind, unit) in annual_codes.items():
+            if prefix in code:
+                rows_a.append(
+                    {
+                        "anio": int(str(d)[:4]),
+                        "zone": zone,
+                        "is_zone_subset": zone in families_lib.ZONE_SUBSETS,
+                        "indicador": ind,
+                        "valor": float(val),
+                        "unidad": unit,
+                    }
+                )
+                break
+
+    anual = pd.DataFrame(rows_a).sort_values(["anio", "zone", "indicador"]).reset_index(drop=True)
+
+    v_nac_12 = float(anual[(anual["anio"] == 2012) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_vivienda")]["valor"].iloc[0])
+    v_nac_24 = float(anual[(anual["anio"] == 2024) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_vivienda")]["valor"].iloc[0])
+
+    v_pib_12 = float(anual[(anual["anio"] == 2012) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_vivienda_pib")]["valor"].iloc[0])
+    v_pib_24 = float(anual[(anual["anio"] == 2024) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_vivienda_pib")]["valor"].iloc[0])
+    v_pib_max = float(anual[(anual["zone"] == "Nacional") & (anual["indicador"] == "valor_vivienda_pib")]["valor"].max())
+
+    vt_nac_12 = float(anual[(anual["anio"] == 2012) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_terreno")]["valor"].iloc[0])
+    vt_nac_24 = float(anual[(anual["anio"] == 2024) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_terreno")]["valor"].iloc[0])
+
+    vc_nac_12 = float(anual[(anual["anio"] == 2012) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_construccion")]["valor"].iloc[0])
+    vc_nac_24 = float(anual[(anual["anio"] == 2024) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_construccion")]["valor"].iloc[0])
+
+    v_rm_24 = float(anual[(anual["anio"] == 2024) & (anual["zone"] == "Región Metropolitana") & (anual["indicador"] == "valor_vivienda")]["valor"].iloc[0])
+
+    share_t_12 = (vt_nac_12 / v_nac_12) * 100
+    share_t_24 = (vt_nac_24 / v_nac_24) * 100
+    share_rm_24 = (v_rm_24 / v_nac_24) * 100
+
+    ipv_rm = raw_q[raw_q["series_code"] == "F034.IPVZ4.FLU.BCCH.2008.0.T"].dropna(subset=["value"]).sort_values("date")
+    ipv_rm_ini = float(ipv_rm.iloc[0]["value"])
+    ipv_rm_max = float(ipv_rm["value"].max())
+    ipv_rm_act = float(ipv_rm.iloc[-1]["value"])
+
+    res_rows = [
+        {"indicador": "valor_vivienda_nacional_2012", "valor": v_nac_12, "unidad": "miles de millones de pesos", "anio": 2012},
+        {"indicador": "valor_vivienda_nacional_2024", "valor": v_nac_24, "unidad": "miles de millones de pesos", "anio": 2024},
+        {"indicador": "valor_vivienda_pib_2012", "valor": v_pib_12, "unidad": "% del PIB", "anio": 2012},
+        {"indicador": "valor_vivienda_pib_2024", "valor": v_pib_24, "unidad": "% del PIB", "anio": 2024},
+        {"indicador": "valor_vivienda_pib_pico", "valor": v_pib_max, "unidad": "% del PIB", "anio": 2021},
+        {"indicador": "valor_terreno_nacional_2012", "valor": vt_nac_12, "unidad": "miles de millones de pesos", "anio": 2012},
+        {"indicador": "valor_terreno_nacional_2024", "valor": vt_nac_24, "unidad": "miles de millones de pesos", "anio": 2024},
+        {"indicador": "valor_construccion_nacional_2012", "valor": vc_nac_12, "unidad": "miles de millones de pesos", "anio": 2012},
+        {"indicador": "valor_construccion_nacional_2024", "valor": vc_nac_24, "unidad": "miles de millones de pesos", "anio": 2024},
+        {"indicador": "participacion_terreno_2012", "valor": share_t_12, "unidad": "%", "anio": 2012},
+        {"indicador": "participacion_terreno_2024", "valor": share_t_24, "unidad": "%", "anio": 2024},
+        {"indicador": "valor_vivienda_rm_2024", "valor": v_rm_24, "unidad": "miles de millones de pesos", "anio": 2024},
+        {"indicador": "participacion_rm_2024", "valor": share_rm_24, "unidad": "%", "anio": 2024},
+        {"indicador": "ipv_rm_inicio", "valor": ipv_rm_ini, "unidad": "índice base 2008=100", "anio": 2002},
+        {"indicador": "ipv_rm_pico", "valor": ipv_rm_max, "unidad": "índice base 2008=100", "anio": 2021},
+        {"indicador": "ipv_rm_actual", "valor": ipv_rm_act, "unidad": "índice base 2008=100", "anio": 2026},
+    ]
+
+    resumen = pd.DataFrame(res_rows)
+
+    anual = unidades_lib.normalizar(anual)
+    resumen = unidades_lib.normalizar(resumen)
+    return anual, resumen
+
+
 BUILDERS = {
     "two_axes": build_two_axes,
     "permits": build_permits,
     "financial_depth": build_financial_depth,
     "interregional_trade": build_interregional_trade,
+    "tasas": build_tasas,
+    "housing_wealth": build_housing_wealth,
 }
 
 

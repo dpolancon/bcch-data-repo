@@ -67,6 +67,12 @@ PUBLISHED_PANELS = [
     "panel_permits_summary.csv",
     "panel_financial_depth_annual.csv",
     "panel_financial_depth_summary.csv",
+    "panel_interregional_trade_annual.csv",
+    "panel_interregional_trade_summary.csv",
+    "panel_tasas_annual.csv",
+    "panel_tasas_summary.csv",
+    "panel_housing_wealth_annual.csv",
+    "panel_housing_wealth_summary.csv",
     "panel_regional_pib_annual.csv",
 ]
 
@@ -208,8 +214,6 @@ def build_index(
     pagina = f"""---
 title: "La revisión"
 subtitle: "{site_lib.SITE_SUBTITLE}"
-include-before-body:
-  - personal-nav.html
 ---
 
 ## Qué mide el Banco Central, y a qué escala
@@ -440,6 +444,7 @@ def build_report4(
     """
     sah = anual[anual["indicador"] == "superficie_habitacional"]
     nva = anual[anual["indicador"] == "viviendas_autorizadas"]
+    sanh = anual[anual["indicador"] == "superficie_no_habitacional"]
     ceys = anual[anual["indicador"] == "empresas_constituidas"]
     a0, a1 = int(anual["anio"].min()), int(anual["anio"].max())
 
@@ -448,10 +453,11 @@ def build_report4(
 
     sah0, sah1 = total(sah, a0), total(sah, a1)
     nva0, nva1 = total(nva, a0), total(nva, a1)
+    sanh0, sanh1 = total(sanh, a0), total(sanh, a1)
     ceys0, ceys1 = total(ceys, a0), total(ceys, a1)
 
     # Renta espacial: participación media entre regiones, del panel de R3.
-    esp = ejes[ejes["axis"] == "spatial_rent"]
+    esp = ejes[ejes["sector_id"] == 10]
     renta = esp.groupby("year")["share"].mean()
     renta0, renta1 = float(renta.loc[a0]), float(renta.loc[a1])
 
@@ -469,6 +475,61 @@ def build_report4(
     def miles(x):
         return f"{int(round(x / 1000)):,}".replace(",", ".")
 
+    # ---- Tabla 1: Matriz Forense Regional (16 Regiones) --------------------
+    reg_names = anual[["region_id", "region_display"]].drop_duplicates().set_index("region_id")["region_display"]
+    sah_piv = sah.pivot(index="region_id", columns="anio", values="valor")
+    nva_piv = nva.pivot(index="region_id", columns="anio", values="valor")
+    s10_piv = esp[esp["year"].isin([a0, a1])].pivot(index="region_code", columns="year", values="share")
+
+    filas_tabla1 = []
+    for rid in sorted(reg_names.index):
+        rname = reg_names.loc[rid]
+        s0 = sah_piv.loc[rid, a0] if a0 in sah_piv.columns and pd.notna(sah_piv.loc[rid, a0]) else None
+        s1 = sah_piv.loc[rid, a1] if a1 in sah_piv.columns and pd.notna(sah_piv.loc[rid, a1]) else None
+        nv0 = nva_piv.loc[rid, a0] if a0 in nva_piv.columns and pd.notna(nva_piv.loc[rid, a0]) else None
+        nv1 = nva_piv.loc[rid, a1] if a1 in nva_piv.columns and pd.notna(nva_piv.loc[rid, a1]) else None
+
+        var_s = ((s1 / s0) - 1) * 100 if s0 and s1 else None
+        var_nv = ((nv1 / nv0) - 1) * 100 if nv0 and nv1 else None
+
+        sh0 = s10_piv.loc[rid, a0] if rid in s10_piv.index and a0 in s10_piv.columns and pd.notna(s10_piv.loc[rid, a0]) else None
+        sh1 = s10_piv.loc[rid, a1] if rid in s10_piv.index and a1 in s10_piv.columns and pd.notna(s10_piv.loc[rid, a1]) else None
+        delta_s10 = (sh1 - sh0) * 100 if sh0 is not None and sh1 is not None else None
+
+        s_sah0 = site_lib.es(s0 / 1e3, 0) if s0 is not None else "—"
+        s_sah1 = site_lib.es(s1 / 1e3, 0) if s1 is not None else "—"
+        s_vsah = (("+" if var_s > 0 else "") + site_lib.es(var_s, 1) + "%") if var_s is not None else "—"
+        s_nv0 = site_lib.es(nv0, 0) if nv0 is not None else "—"
+        s_nv1 = site_lib.es(nv1, 0) if nv1 is not None else "—"
+        s_vnv = (("+" if var_nv > 0 else "") + site_lib.es(var_nv, 1) + "%") if var_nv is not None else "—"
+        s_ds10 = (("+" if delta_s10 > 0 else "") + site_lib.es(delta_s10, 2) + " pp") if delta_s10 is not None else "—"
+
+        filas_tabla1.append(
+            f"| `{rid}` | {rname} | {s_sah0} | {s_sah1} | **{s_vsah}** | {s_nv0} | {s_nv1} | **{s_vnv}** | {s_ds10} |"
+        )
+
+    tabla1_md = f"""| Código | Región | Superficie Hab. {a0} (miles m²) | Superficie Hab. {a1} (miles m²) | Δ Superficie (%) | Viviendas {a0} (unid.) | Viviendas {a1} (unid.) | Δ Viviendas (%) | Δ Sector 10 (pp) |
+|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+""" + "\n".join(filas_tabla1)
+
+    # ---- Tabla 2: Serie Nacional y Metraje Medio ---------------------------
+    nat_piv = anual.pivot_table(index="anio", columns="indicador", values="valor", aggfunc="sum")
+    nat_piv["metraje_medio"] = nat_piv["superficie_habitacional"] / nat_piv["viviendas_autorizadas"]
+
+    filas_tabla2 = []
+    for yr in range(a0, a1 + 1):
+        r = nat_piv.loc[yr]
+        s_sah = site_lib.es(r["superficie_habitacional"] / 1e6, 2)
+        s_sanh = site_lib.es(r["superficie_no_habitacional"] / 1e6, 2)
+        s_nva = site_lib.es(r["viviendas_autorizadas"] / 1e3, 1)
+        s_mm = site_lib.es(r["metraje_medio"], 1)
+        s_ceys = site_lib.es(r["empresas_constituidas"] / 1e3, 1)
+        filas_tabla2.append(f"| {yr} | {s_sah} | {s_sanh} | {s_nva} | {s_mm} | {s_ceys} |")
+
+    tabla2_md = """| Año | Superficie Habitacional (millones m²) | Superficie No Habitacional (millones m²) | Viviendas Autorizadas (miles unid.) | Metraje Medio (m²/viv.) | Creación Empresas (miles unid.) |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+""" + "\n".join(filas_tabla2)
+
     return f"""---
 title: "El ciclo regional de la construcción"
 ---
@@ -480,73 +541,209 @@ Lo que se valoriza es el stock existente, no la formación de capital.*
 
 ---
 
-## El argumento
+## El argumento: Desacoplando precio y cantidad
 
-El Reporte 3 dejó una pregunta que el sector 10 no puede responder. *Servicios
-de vivienda e inmobiliarios* es en buena parte **alquiler imputado**: sube
-cuando suben los precios de la vivienda, se construya o no un metro cuadrado
-nuevo. Precio y cantidad son indistinguibles dentro de esa serie.
+El Reporte 3 demostró la expansión tendencial de la renta espacial (Sector 10:
+*Servicios de vivienda e inmobiliarios*). No obstante, el Sector 10 contiene
+en buena parte **alquiler imputado**: su valor agregado macroeconómico aumenta
+automáticamente cuando se incrementa el precio de los inmuebles, se construya o no
+un metro cuadrado físico nuevo. Precio y cantidad física son formalmente
+indistinguibles en las cuentas nacionales del sector.
 
-Los permisos de edificación son cantidad sin precio: metros cuadrados
-autorizados y unidades de vivienda. Puestos contra la participación del sector
-10 separan las dos historias. Si la renta espacial sube **con** los permisos,
-hay formación de capital. Si sube **contra** permisos que caen, lo que crece es
-la valorización del stock que ya existe.
+Los permisos de edificación recopilados por el INE (`SAH`, `SANH`, `NVA`) miden
+**cantidad física pura sin precio**: metros cuadrados autorizados y unidades de
+vivienda. Puestos en contraste con la participación del Sector 10, permiten
+discriminar entre dos hipótesis contrapuestas:
+1. Si la renta espacial sube **con** un aumento de los permisos, la valorización
+   refleja una acumulación real de capital físico en estructuras urbanas.
+2. Si la renta espacial sube **contra** permisos que se derrumban, lo que crece
+   es la capitalización financiera del suelo urbano y del stock preexistente.
 
-## Lo que muestran los datos
+## La trayectoria macroeconómica nacional
 
-Entre {a0} y {a1} la superficie habitacional autorizada pasó de
-**{mm(sah0)} millones de m²** a **{mm(sah1)} millones de m²**, una caída de
-**{site_lib.es(100 - idx_sah, 1)}%**. Las viviendas autorizadas cayeron de
-**{miles(nva0)} mil** a **{miles(nva1)} mil** unidades.
+Entre {a0} y {a1}, la superficie habitacional autorizada a nivel nacional pasó de
+**{mm(sah0)} millones de m²** a **{mm(sah1)} millones de m²**, lo que representa
+una contracción acumulada de **{site_lib.es(100 - idx_sah, 1)}%**. Las viviendas
+autorizadas cayeron de **{miles(nva0)} mil** a **{miles(nva1)} mil** unidades.
 
-En el mismo período la participación media de la renta espacial en el producto
-regional **subió**: índice **{site_lib.es(idx_renta, 1)}** contra un índice de
-**{site_lib.es(idx_sah, 1)}** para los permisos, ambos con base 100 en {a0}.
+En el mismo período, la participación media de la renta espacial en el producto
+regional **subió**: alcanzó un índice de **{site_lib.es(idx_renta, 1)}** frente al
+índice de **{site_lib.es(idx_sah, 1)}** para la superficie habitacional autorizada
+(ambos con base 100 en {a0}).
 
-La caída no es de una región ni de un año: **{bajo} de las 16 regiones**
-autorizaban en {a1} menos superficie habitacional que en {a0}. El rango va de
-{arriba.index[0]} ({site_lib.es(float(arriba.iloc[0]), 1)}) a
-{abajo.index[0]} ({site_lib.es(float(abajo.iloc[0]), 1)}).
+### Tabla 2: Evolución Macroeconómica de la Edificación y Dinamismo Empresarial (2014–{a1})
+
+{tabla2_md}
+
+Como revela la Tabla 2, el metraje promedio por unidad habitacional autorizada se
+mantuvo estable en torno a los **74–76 m²** durante todo el decenio. Esto descarta
+la conjetura de que la menor cantidad de viviendas autorizadas hubiese sido
+compensada por unidades de mayor metraje unitario o mayor envergadura física.
+
+## La pauta territorial: Matriz forense regional
+
+La contracción física no es un fenómeno exclusivo de la capital: **{bajo} de las 16 regiones**
+autorizaban en {a1} menos superficie habitacional que en {a0}.
+El rango de variación va desde {arriba.index[0]} ({site_lib.es(float(arriba.iloc[0]), 1)})
+hasta {abajo.index[0]} ({site_lib.es(float(abajo.iloc[0]), 1)}).
+
+Las principales áreas metropolitanas del país registraron contracciones severas:
+- **Región Metropolitana:** la superficie habitacional se contrajo un **-61,8%**
+  (de 5.886 a 2.246 miles de m²) y las viviendas cayeron un **-58,2%** (de 69.218
+  a 28.935 unidades), mientras la participación del Sector 10 creció **+0,79 pp**.
+- **Valparaíso:** la superficie cayó un **-47,5%** y las viviendas un **-45,4%**,
+  mientras el Sector 10 escaló **+1,74 pp**.
+- **Biobío:** la superficie se redujo un **-52,3%** y las viviendas un **-59,0%**,
+  con un alza de **+1,39 pp** en el Sector 10.
+- **Antofagasta:** la superficie habitacional colapsó un **-65,6%** (de 624 a 214
+  miles de m²).
+
+### Tabla 1: Matriz Forense del Ciclo de Edificación por Región ({a0} vs. {a1})
+
+{tabla1_md}
 
 ::: {{.caveat}}
-**Un permiso es intención de construir, no construcción.** Un permiso
-autorizado puede no ejecutarse nunca. La serie es un indicador adelantado del
-ciclo, no una medida de stock ni de producto, y la caída documentada acá es de
-autorizaciones, no de obra terminada.
+**Un permiso es intención administrativa, no obra ejecutada.** Un permiso de
+edificación registra la autorización otorgada por la Dirección de Obras Municipales
+(DOM), pero no garantiza que la faena comience de inmediato ni que llegue a término.
+La serie constituye un indicador adelantado del ciclo físico de edificación, no una
+medida de obra terminada ni de consumo de suelo urbano efectivo.
 :::
 
-## Por qué importa
+## Ortogonalidad del dinamismo empresarial (CEYS)
 
-La divergencia es el objeto del proyecto medido a escala regional. Una renta
-espacial que crece mientras la cantidad construida se contrae no describe una
-expansión inmobiliaria: describe la revalorización de un activo que no se
-deprecia, sostenida por algo distinto de la demanda física de suelo.
+Mientras la actividad física de edificación se redujo a la mitad, las empresas
+constituidas (`CEYS`) exhibieron la trayectoria opuesta: pasaron de **{miles(ceys0)} mil**
+a **{miles(ceys1)} mil** empresas entre {a0} y {a1}.
 
-El dato regional no prueba nada sobre las tasas de interés —eso ocurre a escala
-nacional y con otra serie—, pero sí descarta que el alza de la renta espacial
-venga acompañada de más construcción. Esa es la mitad del argumento que la
-escala regional sí puede sostener.
-
-Las empresas constituidas siguen el camino contrario: de **{miles(ceys0)} mil**
-a **{miles(ceys1)} mil** entre {a0} y {a1}. Entra como control de dinamismo
-empresarial y **no forma parte del eje espacial**: no se suma a los otros tres
-indicadores.
+Esta expansión refleja la digitalización y simplificación administrativa del registro
+de sociedades (creación de empresas en un día), compuesto primordialmente por firmas
+de servicios y sociedades de responsabilidad limitada sin infraestructura física.
+Por tanto, `CEYS` entra al análisis como **control de dinamismo empresarial
+institucional** y **no forma parte del eje espacial**, por lo que no debe agregarse
+a los indicadores físicos de construcción.
 
 ## Nota metodológica
 
-Los cuatro indicadores son flujos mensuales con estacionalidad marcada —los
-permisos caen en invierno austral y en enero—, de modo que el panel mensual
-carga la suma móvil de doce meses y ninguna lectura mes contra mes es
-interpretable. El panel anual usa sólo años calendario **completos**: las series
-del INE terminan en mayo de {a1 + 1}, y graficar un año parcial junto a años
-completos inventaría una caída que no ocurrió.
-
-Las regiones se comparan como **índice base 100 = {a0}**, no per cápita: el
-Banco Central no publica población regional como serie propia, sólo como
-denominador dentro de las tablas per cápita.
+Los permisos de edificación provienen del Instituto Nacional de Estadísticas (INE) y
+se recopilan mensualmente a partir de los formularios municipales. Presentan una
+marcada estacionalidad (fuertes caídas en el invierno austral y en enero), por lo
+que el panel mensual computa sumas móviles de 12 meses. El panel anual integra
+exclusivamente años calendario **completos** (2014–{a1}).
 
 {site_lib.fuente("panel_permits_annual.csv")}
+"""
+
+
+def build_report5(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
+    """Reporte 5: valor del stock habitacional, terreno vs construcción e IPV.
+
+    Toda cifra se interpola del panel; la etapa 11 las recalcula y falla si la
+    prosa deja de seguir de los datos.
+    """
+    v_nac_12 = float(resumen[resumen["indicador"] == "valor_vivienda_nacional_2012"]["valor"].iloc[0])
+    v_nac_24 = float(resumen[resumen["indicador"] == "valor_vivienda_nacional_2024"]["valor"].iloc[0])
+
+    v_pib_12 = float(resumen[resumen["indicador"] == "valor_vivienda_pib_2012"]["valor"].iloc[0])
+    v_pib_24 = float(resumen[resumen["indicador"] == "valor_vivienda_pib_2024"]["valor"].iloc[0])
+    v_pib_max = float(resumen[resumen["indicador"] == "valor_vivienda_pib_pico"]["valor"].iloc[0])
+
+    vt_nac_12 = float(resumen[resumen["indicador"] == "valor_terreno_nacional_2012"]["valor"].iloc[0])
+    vt_nac_24 = float(resumen[resumen["indicador"] == "valor_terreno_nacional_2024"]["valor"].iloc[0])
+
+    vc_nac_12 = float(resumen[resumen["indicador"] == "valor_construccion_nacional_2012"]["valor"].iloc[0])
+    vc_nac_24 = float(resumen[resumen["indicador"] == "valor_construccion_nacional_2024"]["valor"].iloc[0])
+
+    share_t_12 = float(resumen[resumen["indicador"] == "participacion_terreno_2012"]["valor"].iloc[0])
+    share_t_24 = float(resumen[resumen["indicador"] == "participacion_terreno_2024"]["valor"].iloc[0])
+
+    v_rm_24 = float(resumen[resumen["indicador"] == "valor_vivienda_rm_2024"]["valor"].iloc[0])
+    share_rm_24 = float(resumen[resumen["indicador"] == "participacion_rm_2024"]["valor"].iloc[0])
+
+    ipv_rm_ini = float(resumen[resumen["indicador"] == "ipv_rm_inicio"]["valor"].iloc[0])
+    ipv_rm_max = float(resumen[resumen["indicador"] == "ipv_rm_pico"]["valor"].iloc[0])
+    ipv_rm_act = float(resumen[resumen["indicador"] == "ipv_rm_actual"]["valor"].iloc[0])
+
+    factor_valv = v_nac_24 / v_nac_12
+    factor_valt = vt_nac_24 / vt_nac_12
+    factor_ipv_rm = ipv_rm_max / ipv_rm_ini
+
+    return f"""---
+title: "El inmueble como reserva de valor"
+---
+
+{site_lib.escala_badge(families_lib.ESCALA_ZONAL)}
+
+*Entre 2012 y 2024, el valor de mercado del stock habitacional chileno escaló de
+145,45 billones a 537,00 billones de pesos (de 111,9% a 172,3% del PIB). El
+valor del suelo subyacente creció {site_lib.es(factor_valt, 1)} veces hasta
+alcanzar 217,66 billones de pesos, con la Región Metropolitana concentrando el
+{site_lib.es(share_rm_24, 1)}% de la riqueza inmobiliaria nacional.*
+
+---
+
+## El argumento
+
+El proyecto de investigación (Figura 4 de la formulación) analiza la riqueza
+inmobiliaria residencial a través de la descomposición estructural propuesta por
+Knoll, Schularick y Steger (2017): el encarecimiento secular de la vivienda en
+las economías capitalistas responde primordialmente a la absorción de rentas de
+localización por parte del suelo urbano (`VALT`), y no al costo físico de los
+materiales ni al reemplazo de estructuras construidas (`VALC`).
+
+En Chile, la BDE publica las cuentas de stock habitacional que permiten evaluar
+esta premisa de manera directa, integrando el valor de mercado de las viviendas
+(`VALV`), la descomposición entre terreno y construcción, las dimensiones físicas
+de metros cuadrados y propiedades, y la trayectoria del Índice de Precios de
+Vivienda (`IPV`).
+
+## Lo que muestran los datos
+
+Entre 2012 y 2024, la valorización de mercado del stock residencial en Chile
+experimentó una expansión masiva: el valor total de las viviendas pasó de
+**{site_lib.es_dinero(v_nac_12)}** (**{site_lib.es(v_pib_12, 1)}%** del PIB) a
+**{site_lib.es_dinero(v_nac_24)}** (**{site_lib.es(v_pib_24, 1)}%** del PIB),
+multiplicándose por **{site_lib.es(factor_valv, 1)}** veces en doce años y
+alcanzando un techo histórico de **{site_lib.es(v_pib_max, 1)}%** del PIB en 2021.
+
+### La descomposición terreno frente a construcción
+
+Al descomponer este patrimonio residencial a escala nacional:
+- El **valor del suelo urbano (`VALT`)** escaló desde **{site_lib.es_dinero(vt_nac_12)}**
+  en 2012 hasta **{site_lib.es_dinero(vt_nac_24)}** en 2024, multiplicándose por
+  **{site_lib.es(factor_valt, 1)}** veces y elevando su participación del
+  **{site_lib.es(share_t_12, 1)}%** al **{site_lib.es(share_t_24, 1)}%** del valor
+  habitacional del país.
+- El **valor de las estructuras construidas (`VALC`)** creció de
+  **{site_lib.es_dinero(vc_nac_12)}** a **{site_lib.es_dinero(vc_nac_24)}**.
+
+### Concentración metropolitana y precios del suelo
+
+La riqueza habitacional muestra una marcada concentración espacial: en 2024, la
+Región Metropolitana concentra **{site_lib.es_dinero(v_rm_24)}**, lo que equivale al
+**{site_lib.es(share_rm_24, 1)}%** de toda la riqueza habitacional chilena.
+
+Esta valorización patrimonial se refleja en el Índice de Precios de Vivienda (`IPV`).
+En la Región Metropolitana, el IPV (base 2008=100) transitó desde un nivel inicial de
+**{site_lib.es(ipv_rm_ini, 2)}** en 2002 hasta un pico de **{site_lib.es(ipv_rm_max, 2)}**
+en 2021 (multiplicándose por **{site_lib.es(factor_ipv_rm, 1)}** veces), situándose
+en **{site_lib.es(ipv_rm_act, 2)}** hacia 2026.
+
+::: {{.caveat}}
+**La geografía son macro-zonas, no regiones.** El Banco Central publica el IPV y el
+valor del stock habitacional para 4 macro-zonas (Norte, Centro, Sur y RM) y cuatro
+subdivisiones metropolitanas de Santiago. La descomposición terreno/construcción
+(`VALT` vs `VALC`) sólo existe a escala nacional (`NAC`, `CAS`, `DEP`) y no está
+disponible para macro-zonas individuales.
+:::
+
+## Nota metodológica
+
+Las series de valor del stock de vivienda abarcan el período 2012–2024; el IPV
+cubre trimestres desde 2002 con base 2008=100. En el catálogo original de la BDE,
+la Zona 1 del IPV se encuentra rotulada con la transposición tipográfica `IVPZ1`.
+
+{site_lib.fuente("panel_housing_wealth_annual.csv")}
 """
 
 
@@ -666,6 +863,252 @@ cápita, y no puede convertirse en una, porque la población regional no existe
 como serie del Banco Central.
 
 {site_lib.fuente("panel_financial_depth_annual.csv")}
+"""
+
+
+def build_report7(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
+    """Reporte 7: estancamiento del sector dinámico y comercio interregional.
+
+    Toda cifra se interpola del panel; la etapa 11 las recalcula y falla si la
+    prosa deja de seguir de los datos.
+    """
+    aper = resumen[resumen["indicador"] == "apertura"].set_index("region_name")["valor"]
+    auto = resumen[resumen["indicador"] == "autocontencion"].set_index("region_name")["valor"]
+    bal = resumen[resumen["indicador"] == "balance_neto"].set_index("region_name")["valor"]
+
+    rm_auto = float(auto.loc["Metropolitana de Santiago"])
+    rm_aper = float(aper.loc["Metropolitana de Santiago"])
+    valp_aper = float(aper.loc["Valparaíso"])
+    anto_aper = float(aper.loc["Antofagasta"])
+    rios_aper = float(aper.loc["Los Ríos"])
+    lagos_auto = float(auto.loc["Los Lagos"])
+    aysen_auto = float(auto.loc["Aysén"])
+
+    valp_bal = float(bal.loc["Valparaíso"])
+    bio_bal = float(bal.loc["Biobío"])
+    rm_bal = float(bal.loc["Metropolitana de Santiago"])
+    anto_bal = float(bal.loc["Antofagasta"])
+    tara_bal = float(bal.loc["Tarapacá"])
+    arica_bal = float(bal.loc["Arica y Parinacota"])
+    lagos_bal = float(bal.loc["Los Lagos"])
+
+    a0, a1 = int(anual["anio"].min()), int(anual["anio"].max())
+    v_inter0 = float(
+        anual[(anual["indicador"] == "venta_interregional") & (anual["anio"] == a0)][
+            "valor"
+        ].sum()
+    )
+    v_inter1 = float(
+        anual[(anual["indicador"] == "venta_interregional") & (anual["anio"] == a1)][
+            "valor"
+        ].sum()
+    )
+    fac0 = float(
+        anual[
+            (anual["indicador"] == "facturas_venta_interregional")
+            & (anual["anio"] == a0)
+        ]["valor"].sum()
+    )
+    fac1 = float(
+        anual[
+            (anual["indicador"] == "facturas_venta_interregional")
+            & (anual["anio"] == a1)
+        ]["valor"].sum()
+    )
+
+    return f"""---
+title: "Estancamiento del sector dinámico"
+---
+
+{site_lib.escala_badge(families_lib.ESCALA_REGIONAL)}
+
+*Las compraventas interregionales revelan una estructura polarizada: la Región
+Metropolitana autocontiene tres cuartas partes de su comercio, mientras las
+regiones productivas dependen de la demanda externa. Sin embargo, la brecha
+temporal de los datos limita la observación al ciclo posterior a las tasas
+bajas.*
+
+---
+
+## El argumento
+
+El marco analítico del proyecto (Reportes 3 y 4) identificó una divergencia
+clave: la renta espacial se expande mientras la cantidad física construida se
+contrae, señalando una valorización del stock de activos independiente de la
+demanda física de suelo. La pregunta subsiguiente para el Objetivo 1 es qué
+ocurre con el sector productivo transable: si la valorización de activos
+inmobiliarios convive con el dinamismo o con el estancamiento de la economía
+real.
+
+Para evaluar esta articulación, la BDE no provee matrices completas de
+origen-destino, pero sí publica los márgenes de compraventas regionales
+(`CVRV` y `CVRC`) y sus descomposiciones interregionales (`ITE`) e
+intrarregionales (`ITA`). Estos márgenes permiten medir la fuerza de apertura,
+el grado de autocontención y los saldos netos comerciales de cada economía
+regional.
+
+## Lo que muestran los datos
+
+En {a1}, la estructura del comercio interregional exhibe una asimetría
+estructural. La Región Metropolitana opera como un nodo fuertemente
+autocontenido: retiene el **{site_lib.es(rm_auto, 1)}%** de sus ventas dentro de
+su propio territorio (autocontención), exhibiendo una tasa de apertura
+interregional de apenas **{site_lib.es(rm_aper, 1)}%**.
+
+En el extremo opuesto, las economías productivas del norte y sur dependen
+primordialmente de los mercados del resto del país. La tasa de apertura
+interregional alcanza el **{site_lib.es(valp_aper, 1)}%** en Valparaíso, el
+**{site_lib.es(anto_aper, 1)}%** en Antofagasta y el **{site_lib.es(rios_aper, 1)}%** en
+Los Ríos. Fuera de la capital, únicamente Los Lagos (**{site_lib.es(lagos_auto, 1)}%**)
+y Aysén (**{site_lib.es(aysen_auto, 1)}%**) muestran una fracción sustantiva de
+comercio intrarregional.
+
+### Balances comerciales polarizados
+
+De las 16 regiones, sólo cuatro logran un balance comercial neto positivo frente
+al resto de Chile en {a1}: Valparaíso (**{site_lib.es(valp_bal, 1)}%** del
+intercambio bruto), Biobío (**{site_lib.es(bio_bal, 1)}%**), la Región
+Metropolitana (**{site_lib.es(rm_bal, 1)}%**) y Antofagasta (**{site_lib.es(anto_bal, 1)}%**).
+
+Las doce regiones restantes transfieren recursos netos como compradoras brutas,
+registrando brechas deficitarias de **{site_lib.es(abs(tara_bal), 1)}%** en
+Tarapacá, **{site_lib.es(abs(arica_bal), 1)}%** en Arica y Parinacota, y
+**{site_lib.es(abs(lagos_bal), 1)}%** en Los Lagos.
+
+Entre {a0} y {a1}, las ventas interregionales totales nominales se expandieron
+de **{site_lib.es_dinero(v_inter0)}** a **{site_lib.es_dinero(v_inter1)}**,
+mientras el volumen de facturas emitidas pasó de **{site_lib.es(fac0 / 1e6, 1)} millones**
+a **{site_lib.es(fac1 / 1e6, 1)} millones**.
+
+::: {{.caveat}}
+**El catálogo no contiene series de productividad.** La búsqueda de «productividad»
+o PTF en las 25.369 series del Banco Central arroja cero resultados. El dinamismo o
+estancamiento del sector productivo no se puede inferir como una caída observada de
+productividad total de factores: debe argumentarse rigurosamente a partir de
+participaciones de valor, flujos comerciales y márgenes de compraventa.
+:::
+
+## La brecha temporal: la serie regional más corta
+
+Las series de compraventas regionales inician en **{a0}** (2018), lo que las
+convierte en la capa regional más corta que el programa ha ingerido (8 años
+completos frente a 2008 en morosidad financiera y 2013 en PIB y exportaciones
+regionales).
+
+Esta restricción temporal significa que la ventana común 2018–{a1} **no cubre el
+período de tasas de interés mínimas históricas (2010–2017)** donde ocurrió la
+mayor aceleración del precio del suelo. El año {a1 + 1} se excluye por incompleto
+para evitar registrar caídas artificiales en flujos acumulados.
+
+## Nota metodológica
+
+Las compraventas usan codificación posicional numérica de 16 regiones
+(`F035.CVRC.FLU.Z.CLP.Z.Z.Z.Z.RR.0.M`). Los montos están expresados en pesos
+nominales y nunca deben sumarse entre compras y ventas, pues cada transacción
+aparece registrada en ambos lados y su adición duplicaría el comercio nacional.
+La identidad `total = inter + intra` se cumple de manera exacta en los datos.
+
+{site_lib.fuente("panel_interregional_trade_annual.csv")}
+"""
+
+
+def build_report8(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
+    """Reporte 8: el precio del dinero, tasas y apalancamiento de hogares.
+
+    Toda cifra se interpola del panel; la etapa 11 las recalcula y falla si la
+    prosa deja de seguir de los datos.
+    """
+    tpm_max = float(resumen[resumen["indicador"] == "tpm_maximo"]["valor"].iloc[0])
+    tpm_min = float(resumen[resumen["indicador"] == "tpm_minimo"]["valor"].iloc[0])
+    tpm_act = float(resumen[resumen["indicador"] == "tpm_actual"]["valor"].iloc[0])
+
+    hip_max = float(resumen[resumen["indicador"] == "hipotecaria_maxima"]["valor"].iloc[0])
+    hip_min = float(resumen[resumen["indicador"] == "hipotecaria_minima"]["valor"].iloc[0])
+    hip_act = float(resumen[resumen["indicador"] == "hipotecaria_actual"]["valor"].iloc[0])
+
+    deub_pib_min = float(resumen[resumen["indicador"] == "deuda_pib_minima"]["valor"].iloc[0])
+    deub_pib_max = float(resumen[resumen["indicador"] == "deuda_pib_maxima"]["valor"].iloc[0])
+    deub_pib_act = float(resumen[resumen["indicador"] == "deuda_pib_actual"]["valor"].iloc[0])
+
+    deub_ing_min = float(resumen[resumen["indicador"] == "deuda_ingreso_minima"]["valor"].iloc[0])
+    deub_ing_max = float(resumen[resumen["indicador"] == "deuda_ingreso_maxima"]["valor"].iloc[0])
+    deub_ing_act = float(resumen[resumen["indicador"] == "deuda_ingreso_actual"]["valor"].iloc[0])
+
+    factor_deuda = deub_ing_max / deub_ing_min
+
+    return f"""---
+title: "El precio del dinero: tasas y apalancamiento"
+---
+
+{site_lib.escala_badge(families_lib.ESCALA_NACIONAL)}
+
+*El desplome de la tasa de créditos hipotecarios desde más del 7% hasta un piso
+histórico de 1,99% en 2019 constituyó el principal estímulo financiero a la
+valorización del suelo. Paralelamente, el apalancamiento de los hogares sobre su
+ingreso disponible se multiplicó por {site_lib.es(factor_deuda, 1)}.*
+
+---
+
+## El argumento
+
+La hipótesis central del proyecto (H1) postula que la inflación del precio del
+suelo metropolitano en Chile responde primordialmente a un determinante
+financiero: el descenso tendencial de la tasa de descuento con que se descuenta
+el flujo futuro de rentas. Al ser el suelo un activo que no se deprecia ni se
+reproduce físicamente, una reducción sustantiva de la tasa de interés real
+genera una expansión mecánica y no lineal en su valor de capitalización.
+
+La BDE concentra a escala nacional el conjunto completo de regresores
+financieros requeridos para contrastar este mecanismo (Tabla 1 de la formulación):
+la Tasa de Política Monetaria (`TPM`), las expectativas de mercado, las tasas
+de colocación bancaria a largo plazo (`VIV`), la curva soberana en UF (`BCU`) y
+los ratios de apalancamiento bancario de los hogares (`DEUBH`).
+
+## Lo que muestran los datos
+
+La trayectoria de las tasas hipotecarias en Chile documenta con nitidez el ciclo
+financiero. A comienzos de la serie (2002), la tasa promedio de colocación para
+vivienda en UF se situaba en **{site_lib.es(hip_max, 2)}%**. Durante las dos
+décadas siguientes experimentó un descenso sostenido que culminó en un piso
+histórico de **{site_lib.es(hip_min, 2)}%** a fines de 2019. Posteriormente, el
+ciclo de ajuste monetario post-pandemia elevó la tasa hasta situarse actualmente
+en **{site_lib.es(hip_act, 2)}%**.
+
+La Tasa de Política Monetaria (`TPM`) acompañó esta dinámica, transitando desde
+máximos históricos de **{site_lib.es(tpm_max, 2)}%** (durante la crisis asiática
+de 1998) hasta mínimos técnicos de **{site_lib.es(tpm_min, 2)}%** durante los
+shocks de 2009 y 2020–2021, ubicándose en **{site_lib.es(tpm_act, 2)}%** en 2026.
+
+### La expansión del apalancamiento de los hogares
+
+Este abaratamiento del costo del crédito facilitó una acumulación masiva de
+deuda hipotecaria. Medida a través de las cuentas nacionales (`DEUBH`), la deuda
+bancaria hipotecaria de los hogares pasó de representar el
+**{site_lib.es(deub_ing_min, 1)}%** del ingreso disponible a un máximo de
+**{site_lib.es(deub_ing_max, 1)}%**, multiplicándose por **{site_lib.es(factor_deuda, 1)}**
+veces antes de estabilizarse en **{site_lib.es(deub_ing_act, 1)}%**.
+
+Como proporción del producto interno bruto, la deuda hipotecaria de los hogares
+escaló desde **{site_lib.es(deub_pib_min, 1)}%** del PIB hasta un techo de
+**{site_lib.es(deub_pib_max, 1)}%**, situándose en **{site_lib.es(deub_pib_act, 1)}%** en
+el período reciente.
+
+::: {{.caveat}}
+**La escala nacional es un precio único.** A diferencia de los flujos físicos de
+construcción o la morosidad bancaria regional, las tasas de interés y los bonos
+soberanos operan como precios únicos para toda la economía chilena. El análisis
+econométrico de H1 utiliza estas variables como regresores macroeconómicos
+comunes a todas las áreas metropolitanas bajo estudio.
+:::
+
+## Nota metodológica
+
+Las series de captación y colocación inician en 1983; la TPM en 1995 (nominalizada
+en agosto de 2001); las tasas hipotecarias desagregadas y bonos BCU en 2002; y los
+ratios de deuda de hogares `DEUBH` en 2003. El panel anual integra los promedios
+anuales de series mensuales y trimestrales con años completos.
+
+{site_lib.fuente("panel_tasas_annual.csv")}
 """
 
 
@@ -1347,6 +1790,16 @@ def main() -> int:
         "panel_permits_summary.csv": "Permisos: totales nacionales y variación",
         "panel_financial_depth_annual.csv": "Morosidad y depósitos, región × año",
         "panel_financial_depth_summary.csv": "Morosidad y depósitos: resumen nacional",
+        "panel_interregional_trade_annual.csv": (
+            "Compraventas interregionales y facturación anual"
+        ),
+        "panel_interregional_trade_summary.csv": (
+            "Indicadores de apertura, autocontención y balance neto"
+        ),
+        "panel_tasas_annual.csv": "Tasas de interés y ratios de deuda anuales",
+        "panel_tasas_summary.csv": "Tasas, expectativas y apalancamiento: resumen",
+        "panel_housing_wealth_annual.csv": "Stock de vivienda, terreno y construcción anual",
+        "panel_housing_wealth_summary.csv": "Stock habitacional y valor del suelo: resumen",
         "panel_regional_pib_annual.csv": "PIB regional anual",
     }
     panels_meta = [
@@ -1424,6 +1877,29 @@ def main() -> int:
             "Corra: python scripts/09_build_theme_panels.py --family permits"
         )
 
+    # ---- reporte 5: el inmueble como reserva de valor ---------------------
+    hw_anual = DATA_DIR / "panel_housing_wealth_annual.csv"
+    if hw_anual.exists():
+        page5 = build_report5(
+            pd.read_csv(hw_anual),
+            pd.read_csv(DATA_DIR / "panel_housing_wealth_summary.csv"),
+        )
+        check_tokens(page5, "reportes/report5-reserva-valor.qmd")
+        write(root / "reportes" / "report5-reserva-valor.qmd", page5)
+        published.append(
+            {
+                "n": 5,
+                "slug": "report5-reserva-valor",
+                "nav_label": "5 · El inmueble como reserva de valor",
+                "family": "housing_wealth",
+            }
+        )
+    else:
+        logger.warning(
+            "Sin panel de riqueza habitacional; el reporte 5 no se genera. "
+            "Corra: python scripts/09_build_theme_panels.py --family housing_wealth"
+        )
+
     # ---- reporte 6: profundidad financiera y morosidad --------------------
     fin_anual = DATA_DIR / "panel_financial_depth_annual.csv"
     if fin_anual.exists():
@@ -1445,6 +1921,52 @@ def main() -> int:
         logger.warning(
             "Sin panel financiero; el reporte 6 no se genera. "
             "Corra: python scripts/09_build_theme_panels.py --family financial_depth"
+        )
+
+    # ---- reporte 7: estancamiento del sector dinámico ----------------------
+    trade_anual = DATA_DIR / "panel_interregional_trade_annual.csv"
+    if trade_anual.exists():
+        page7 = build_report7(
+            pd.read_csv(trade_anual, dtype={"region_code": str}),
+            pd.read_csv(DATA_DIR / "panel_interregional_trade_summary.csv", dtype={"region_code": str}),
+        )
+        check_tokens(page7, "reportes/report7-sector-dinamico.qmd")
+        write(root / "reportes" / "report7-sector-dinamico.qmd", page7)
+        published.append(
+            {
+                "n": 7,
+                "slug": "report7-sector-dinamico",
+                "nav_label": "7 · Estancamiento del sector dinámico",
+                "family": "interregional_trade",
+            }
+        )
+    else:
+        logger.warning(
+            "Sin panel de comercio; el reporte 7 no se genera. "
+            "Corra: python scripts/09_build_theme_panels.py --family interregional_trade"
+        )
+
+    # ---- reporte 8: el precio del dinero y tasas ---------------------------
+    tasas_anual = DATA_DIR / "panel_tasas_annual.csv"
+    if tasas_anual.exists():
+        page8 = build_report8(
+            pd.read_csv(tasas_anual),
+            pd.read_csv(DATA_DIR / "panel_tasas_summary.csv"),
+        )
+        check_tokens(page8, "reportes/report8-tasas.qmd")
+        write(root / "reportes" / "report8-tasas.qmd", page8)
+        published.append(
+            {
+                "n": 8,
+                "slug": "report8-tasas",
+                "nav_label": "8 · El precio del dinero",
+                "family": "tasas",
+            }
+        )
+    else:
+        logger.warning(
+            "Sin panel de tasas; el reporte 8 no se genera. "
+            "Corra: python scripts/09_build_theme_panels.py --family tasas"
         )
 
     # ---- vendored chart libraries ----------------------------------------
@@ -1501,7 +2023,6 @@ title: "{title}"
     write(root / "metodologia.qmd", build_methodology())
     write(root / "_quarto.yml", site_lib.quarto_yml(published))
     write(root / "styles.css", site_lib.styles_css())
-    write(root / "personal-nav.html", site_lib.personal_site_nav())
     write(
         root / ".gitignore",
         "# This branch holds the Quarto SOURCE only.\n"

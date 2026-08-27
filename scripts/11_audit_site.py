@@ -159,26 +159,39 @@ def audit_report4(root: Path, problems: list[str]) -> None:
         return
 
     anual = pd.read_csv(DATA_DIR / "panel_permits_annual.csv", dtype={"region_id": str})
+    ejes = pd.read_csv(DATA_DIR / "panel_two_axes_annual.csv", dtype={"region_code": str})
     sah = anual[anual["indicador"] == "superficie_habitacional"]
+    nva = anual[anual["indicador"] == "viviendas_autorizadas"]
+    ceys = anual[anual["indicador"] == "empresas_constituidas"]
     a0, a1 = int(anual["anio"].min()), int(anual["anio"].max())
+
     sah0 = float(sah[sah["anio"] == a0]["valor"].sum())
     sah1 = float(sah[sah["anio"] == a1]["valor"].sum())
-    idx = 100 * sah1 / sah0
+    nva0 = float(nva[nva["anio"] == a0]["valor"].sum())
+    nva1 = float(nva[nva["anio"] == a1]["valor"].sum())
+    ceys0 = float(ceys[ceys["anio"] == a0]["valor"].sum())
+    ceys1 = float(ceys[ceys["anio"] == a1]["valor"].sum())
+
+    esp = ejes[ejes["sector_id"] == 10]
+    renta = esp.groupby("year")["share"].mean()
+    renta0, renta1 = float(renta.loc[a0]), float(renta.loc[a1])
+
+    idx_sah = 100 * sah1 / sah0
+    idx_renta = 100 * renta1 / renta0
     bajo = int((sah[sah["anio"] == a1]["indice_base100"] < 100).sum())
 
     esperados = {
         site_lib.es(sah0 / 1e6, 1),
         site_lib.es(sah1 / 1e6, 1),
-        site_lib.es(100 - idx, 1),
-        site_lib.es(idx, 1),
+        site_lib.es(100 - idx_sah, 1),
+        site_lib.es(idx_sah, 1),
+        site_lib.es(idx_renta, 1),
+        f"{int(round(nva0 / 1000)):,}".replace(",", "."),
+        f"{int(round(nva1 / 1000)):,}".replace(",", "."),
+        f"{int(round(ceys0 / 1000)):,}".replace(",", "."),
+        f"{int(round(ceys1 / 1000)):,}".replace(",", "."),
     }
     texto = pagina.read_text(encoding="utf-8")
-    # Los números van dentro del negrita junto a su unidad --«**13,3 millones
-    # de m²**»--, que es mejor prosa que un negrita con la cifra desnuda. Se
-    # extraen de dentro del bloque en vez de exigir que lo ocupen entero.
-    # Dos pasos a propósito: un solo regex lazy captura «13» y descarta el
-    # «,3». Se extraen primero los bloques en negrita y después los números
-    # completos dentro de cada bloque.
     hallados = set()
     for bloque in re.findall(r"\*\*([^*]+)\*\*", texto):
         hallados.update(re.findall(r"\d+(?:,\d+)?", bloque))
@@ -188,13 +201,85 @@ def audit_report4(root: Path, problems: list[str]) -> None:
             problems,
             f"El reporte 4 no reproduce su propio panel; ausentes: {sorted(faltan)}",
         )
-    elif f"**{bajo} de las 16 regiones**" not in texto:
+    elif not re.search(rf"\*\*{bajo}\s+de\s+las\s+16\s+regiones\*\*", texto):
         fail(problems, f"El reporte 4 no declara las {bajo} regiones bajo el nivel de {a0}")
     else:
         logger.info(
             "Reporte 4: %d cifras y el conteo de regiones reproducen del panel",
             len(esperados),
         )
+
+
+def audit_report5(root: Path, problems: list[str]) -> None:
+    """Recalcula las cifras del reporte 5 y las compara con su página."""
+    pagina = root / "reportes" / "report5-reserva-valor.qmd"
+    if not pagina.exists():
+        logger.info("Reporte 5 ausente -- se omite su verificación")
+        return
+
+    resumen = pd.read_csv(DATA_DIR / "panel_housing_wealth_summary.csv")
+
+    v_nac_12 = float(resumen[resumen["indicador"] == "valor_vivienda_nacional_2012"]["valor"].iloc[0])
+    v_nac_24 = float(resumen[resumen["indicador"] == "valor_vivienda_nacional_2024"]["valor"].iloc[0])
+
+    v_pib_12 = float(resumen[resumen["indicador"] == "valor_vivienda_pib_2012"]["valor"].iloc[0])
+    v_pib_24 = float(resumen[resumen["indicador"] == "valor_vivienda_pib_2024"]["valor"].iloc[0])
+    v_pib_max = float(resumen[resumen["indicador"] == "valor_vivienda_pib_pico"]["valor"].iloc[0])
+
+    vt_nac_12 = float(resumen[resumen["indicador"] == "valor_terreno_nacional_2012"]["valor"].iloc[0])
+    vt_nac_24 = float(resumen[resumen["indicador"] == "valor_terreno_nacional_2024"]["valor"].iloc[0])
+
+    vc_nac_12 = float(resumen[resumen["indicador"] == "valor_construccion_nacional_2012"]["valor"].iloc[0])
+    vc_nac_24 = float(resumen[resumen["indicador"] == "valor_construccion_nacional_2024"]["valor"].iloc[0])
+
+    share_t_12 = float(resumen[resumen["indicador"] == "participacion_terreno_2012"]["valor"].iloc[0])
+    share_t_24 = float(resumen[resumen["indicador"] == "participacion_terreno_2024"]["valor"].iloc[0])
+
+    v_rm_24 = float(resumen[resumen["indicador"] == "valor_vivienda_rm_2024"]["valor"].iloc[0])
+    share_rm_24 = float(resumen[resumen["indicador"] == "participacion_rm_2024"]["valor"].iloc[0])
+
+    ipv_rm_ini = float(resumen[resumen["indicador"] == "ipv_rm_inicio"]["valor"].iloc[0])
+    ipv_rm_max = float(resumen[resumen["indicador"] == "ipv_rm_pico"]["valor"].iloc[0])
+    ipv_rm_act = float(resumen[resumen["indicador"] == "ipv_rm_actual"]["valor"].iloc[0])
+
+    factor_valv = v_nac_24 / v_nac_12
+    factor_valt = vt_nac_24 / vt_nac_12
+    factor_ipv_rm = ipv_rm_max / ipv_rm_ini
+
+    esperados = {
+        site_lib.es_dinero(v_nac_12).split(" ")[0],
+        site_lib.es_dinero(v_nac_24).split(" ")[0],
+        site_lib.es(v_pib_12, 1),
+        site_lib.es(v_pib_24, 1),
+        site_lib.es(v_pib_max, 1),
+        site_lib.es_dinero(vt_nac_12).split(" ")[0],
+        site_lib.es_dinero(vt_nac_24).split(" ")[0],
+        site_lib.es_dinero(vc_nac_12).split(" ")[0],
+        site_lib.es_dinero(vc_nac_24).split(" ")[0],
+        site_lib.es(share_t_12, 1),
+        site_lib.es(share_t_24, 1),
+        site_lib.es_dinero(v_rm_24).split(" ")[0],
+        site_lib.es(share_rm_24, 1),
+        site_lib.es(ipv_rm_ini, 2),
+        site_lib.es(ipv_rm_max, 2),
+        site_lib.es(ipv_rm_act, 2),
+        site_lib.es(factor_valv, 1),
+        site_lib.es(factor_valt, 1),
+        site_lib.es(factor_ipv_rm, 1),
+    }
+
+    texto = pagina.read_text(encoding="utf-8")
+    hallados = set()
+    for bloque in re.findall(r"\*\*([^*]+)\*\*", texto):
+        hallados.update(re.findall(r"\d+(?:,\d+)?", bloque))
+    faltan = esperados - hallados
+    if faltan:
+        fail(
+            problems,
+            f"El reporte 5 no reproduce su propio panel; ausentes: {sorted(faltan)}",
+        )
+    else:
+        logger.info("Reporte 5: %d cifras reproducen del panel", len(esperados))
 
 
 def audit_report6(root: Path, problems: list[str]) -> None:
@@ -247,6 +332,141 @@ def audit_report6(root: Path, problems: list[str]) -> None:
         )
     else:
         logger.info("Reporte 6: %d cifras reproducen del panel", len(esperados))
+
+
+def audit_report7(root: Path, problems: list[str]) -> None:
+    """Recalcula las cifras del reporte 7 y las compara con su página."""
+    pagina = root / "reportes" / "report7-sector-dinamico.qmd"
+    if not pagina.exists():
+        logger.info("Reporte 7 ausente -- se omite su verificación")
+        return
+
+    resumen = pd.read_csv(
+        DATA_DIR / "panel_interregional_trade_summary.csv",
+        dtype={"region_code": str},
+    )
+    anual = pd.read_csv(
+        DATA_DIR / "panel_interregional_trade_annual.csv",
+        dtype={"region_code": str},
+    )
+
+    aper = resumen[resumen["indicador"] == "apertura"].set_index("region_name")["valor"]
+    auto = resumen[resumen["indicador"] == "autocontencion"].set_index("region_name")["valor"]
+    bal = resumen[resumen["indicador"] == "balance_neto"].set_index("region_name")["valor"]
+
+    esperados = {
+        site_lib.es(float(auto.loc["Metropolitana de Santiago"]), 1),
+        site_lib.es(float(aper.loc["Metropolitana de Santiago"]), 1),
+        site_lib.es(float(aper.loc["Valparaíso"]), 1),
+        site_lib.es(float(aper.loc["Antofagasta"]), 1),
+        site_lib.es(float(aper.loc["Los Ríos"]), 1),
+        site_lib.es(float(auto.loc["Los Lagos"]), 1),
+        site_lib.es(float(auto.loc["Aysén"]), 1),
+        site_lib.es(float(bal.loc["Valparaíso"]), 1),
+        site_lib.es(float(bal.loc["Biobío"]), 1),
+        site_lib.es(float(bal.loc["Metropolitana de Santiago"]), 1),
+        site_lib.es(float(bal.loc["Antofagasta"]), 1),
+        site_lib.es(abs(float(bal.loc["Tarapacá"])), 1),
+        site_lib.es(abs(float(bal.loc["Arica y Parinacota"])), 1),
+        site_lib.es(abs(float(bal.loc["Los Lagos"])), 1),
+    }
+
+    a0, a1 = int(anual["anio"].min()), int(anual["anio"].max())
+    v_inter0 = float(
+        anual[(anual["indicador"] == "venta_interregional") & (anual["anio"] == a0)][
+            "valor"
+        ].sum()
+    )
+    v_inter1 = float(
+        anual[(anual["indicador"] == "venta_interregional") & (anual["anio"] == a1)][
+            "valor"
+        ].sum()
+    )
+    fac0 = float(
+        anual[
+            (anual["indicador"] == "facturas_venta_interregional")
+            & (anual["anio"] == a0)
+        ]["valor"].sum()
+    )
+    fac1 = float(
+        anual[
+            (anual["indicador"] == "facturas_venta_interregional")
+            & (anual["anio"] == a1)
+        ]["valor"].sum()
+    )
+
+    esperados.add(site_lib.es_dinero(v_inter0).split(" ")[0])
+    esperados.add(site_lib.es_dinero(v_inter1).split(" ")[0])
+    esperados.add(site_lib.es(fac0 / 1e6, 1))
+    esperados.add(site_lib.es(fac1 / 1e6, 1))
+
+    texto = pagina.read_text(encoding="utf-8")
+    hallados = set()
+    for bloque in re.findall(r"\*\*([^*]+)\*\*", texto):
+        hallados.update(re.findall(r"\d+(?:,\d+)?", bloque))
+    faltan = esperados - hallados
+    if faltan:
+        fail(
+            problems,
+            f"El reporte 7 no reproduce su propio panel; ausentes: {sorted(faltan)}",
+        )
+    else:
+        logger.info("Reporte 7: %d cifras reproducen del panel", len(esperados))
+
+
+def audit_report8(root: Path, problems: list[str]) -> None:
+    """Recalcula las cifras del reporte 8 y las compara con su página."""
+    pagina = root / "reportes" / "report8-tasas.qmd"
+    if not pagina.exists():
+        logger.info("Reporte 8 ausente -- se omite su verificación")
+        return
+
+    resumen = pd.read_csv(DATA_DIR / "panel_tasas_summary.csv")
+
+    tpm_max = float(resumen[resumen["indicador"] == "tpm_maximo"]["valor"].iloc[0])
+    tpm_min = float(resumen[resumen["indicador"] == "tpm_minimo"]["valor"].iloc[0])
+    tpm_act = float(resumen[resumen["indicador"] == "tpm_actual"]["valor"].iloc[0])
+
+    hip_max = float(resumen[resumen["indicador"] == "hipotecaria_maxima"]["valor"].iloc[0])
+    hip_min = float(resumen[resumen["indicador"] == "hipotecaria_minima"]["valor"].iloc[0])
+    hip_act = float(resumen[resumen["indicador"] == "hipotecaria_actual"]["valor"].iloc[0])
+
+    deub_pib_min = float(resumen[resumen["indicador"] == "deuda_pib_minima"]["valor"].iloc[0])
+    deub_pib_max = float(resumen[resumen["indicador"] == "deuda_pib_maxima"]["valor"].iloc[0])
+    deub_pib_act = float(resumen[resumen["indicador"] == "deuda_pib_actual"]["valor"].iloc[0])
+
+    deub_ing_min = float(resumen[resumen["indicador"] == "deuda_ingreso_minima"]["valor"].iloc[0])
+    deub_ing_max = float(resumen[resumen["indicador"] == "deuda_ingreso_maxima"]["valor"].iloc[0])
+    deub_ing_act = float(resumen[resumen["indicador"] == "deuda_ingreso_actual"]["valor"].iloc[0])
+
+    esperados = {
+        site_lib.es(tpm_max, 2),
+        site_lib.es(tpm_min, 2),
+        site_lib.es(tpm_act, 2),
+        site_lib.es(hip_max, 2),
+        site_lib.es(hip_min, 2),
+        site_lib.es(hip_act, 2),
+        site_lib.es(deub_pib_min, 1),
+        site_lib.es(deub_pib_max, 1),
+        site_lib.es(deub_pib_act, 1),
+        site_lib.es(deub_ing_min, 1),
+        site_lib.es(deub_ing_max, 1),
+        site_lib.es(deub_ing_act, 1),
+        site_lib.es(deub_ing_max / deub_ing_min, 1),
+    }
+
+    texto = pagina.read_text(encoding="utf-8")
+    hallados = set()
+    for bloque in re.findall(r"\*\*([^*]+)\*\*", texto):
+        hallados.update(re.findall(r"\d+(?:,\d+)?", bloque))
+    faltan = esperados - hallados
+    if faltan:
+        fail(
+            problems,
+            f"El reporte 8 no reproduce su propio panel; ausentes: {sorted(faltan)}",
+        )
+    else:
+        logger.info("Reporte 8: %d cifras reproducen del panel", len(esperados))
 
 
 def audit_panels(root: Path, problems: list[str]) -> None:
@@ -508,7 +728,10 @@ def main() -> int:
     audit_tokens(root, problems)
     audit_report3(root, problems)
     audit_report4(root, problems)
+    audit_report5(root, problems)
     audit_report6(root, problems)
+    audit_report7(root, problems)
+    audit_report8(root, problems)
     audit_conteos(root, problems)
     audit_atribucion(root, problems)
     audit_idioma(root, problems)

@@ -1,0 +1,184 @@
+anio,indicador,unidad,valor,unidad_original,dimension,agregacion
+1995,tpm,%,6.11625,%,tasa,promedio
+1996,tpm,%,7.284166666666667,%,tasa,promedio
+1997,tpm,%,6.8741666666666665,%,tasa,promedio
+1998,tpm,%,9.008452380952384,%,tasa,promedio
+1999,tpm,%,5.866264880952381,%,tasa,promedio
+2000,tpm,%,5.2562660769182505,%,tasa,promedio
+2001,tpm,%,5.066893939393939,%,tasa,promedio
+2001,tpm_expectativa_11m,%,7.125,%,tasa,promedio
+2001,tpm_expectativa_23m,%,7.5,%,tasa,promedio
+2001,tpm_expectativa_siguiente,%,6.5,%,tasa,promedio
+2002,tasa_hipotecaria,%,6.4925,%,tasa,promedio
+2002,tpm,%,4.0525,%,tasa,promedio
+2002,tpm_expectativa_11m,%,4.6066666666666665,%,tasa,promedio
+2002,tpm_expectativa_23m,%,5.5008333333333335,%,tasa,promedio
+2002,tpm_expectativa_siguiente,%,4.104166666666667,%,tasa,promedio
+2003,deuda_hipotecaria_ingreso,%,17.8711,% del ingreso disponible,tasa,promedio
+2003,deuda_hipotecaria_pib,%,11.734525,% del PIB,tasa,promedio
+2003,tasa_hipotecaria,%,5.11,%,tasa,promedio
+2003,tpm,%,2.7308333333333334,%,tasa,promedio
+2003,tpm_expectativa_11m,%,3.4275,%,tasa,promedio
+2003,tpm_expectativa_23m,%,4.416363636363636,%,tasa,promedio
+2003,tpm_expectativa_siguiente,%,2.7708333333333335,%,tasa,promedio
+2004,deuda_hipotecaria_ingreso,%,19.093425,% del ingreso disponible,tasa,promedio
+2004,deuda_hipotecaria_pib,%,12.25505,% del PIB,tasa,promedio
+2004,tasa_hipotecaria,%,3.8874999999999997,%,tasa,promedio
+2004,tpm,%,1.8716666666666668,%,tasa,promedio
+2004,tpm_expectativa_11m,%,2.7866666666666666,%,tasa,promedio
+2004,tpm_expectativa_23m,%,3.7608333333333337,%,tasa,promedio
+2004,tpm_expectativa_siguiente,%,1.9166666666666667,%,tasa,promedio
+2005,deuda_hipotecaria_ingreso,%,21.341324999999998,% del ingreso disponible,tasa,promedio
+2005,deuda_hipotecaria_pib,%,13.040275000000001,% del PIB,tasa,promedio
+2005,tasa_hipotecaria,%,4.395833333333333,%,tasa,promedio
+2005,tpm,%,3.435833333333333,%,tasa,promedio
+2005,tpm_expectativa_11m,%,4.541666666666667,%,tasa,promedio
+2005,tpm_expectativa_23m,%,5.145833333333333,%,tasa,promedio
+2005,tpm_expectativa_siguiente,%,3.5,%,tasa,promedio
+2006,deuda_hipotecaria_ingreso,%,22.7661,% del ingreso disponible,tasa,promedio
+2006,deuda_hipotecaria_pib,%,13.287625,% del PIB,tasa,promedio
+2006,tasa_hipotecaria,%,5.052499999999999,%,tasa,promedio
+2006,tpm,%,5.015,%,tasa,promedio
+2006,tpm_expectativa_11m,%,5.583333333333333,%,tasa,promedio
+2006,tpm_expectativa_23m,%,5.854166666666667,%,tasa,promedio
+2006,tpm_expectativa_siguiente,%,5.0625,%,tasa,promedio
+2007,deuda_hipotecaria_ingreso,%,25.3828,% del ingreso disponible,tasa,promedio
+2007,deuda_hipotecaria_pib,%,14.12065,% del PIB,tasa,promedio
+2007,tasa_hipotecaria,%,4.635833333333333,%,tasa,promedio
+2007,tpm,%,5.305,%,tasa,promedio
+2007,tpm_expectativa_11m,%,5.520833333333333,%,tasa,promedio
+2007,tpm_expectativa_23m,%,5.6883333333333335,%,tasa,promedio
+2007,tpm_expectativa_siguiente,%,5.333333333333333,%,tasa,promedio
+2008,deuda_hipotecaria_ingreso,%,27.851175,% del ingreso disponible,tasa,promedio
+2008,deuda_hipotecaria_pib,%,16.295,% del PIB,tasa,promedio
+2008,tasa_hipotecaria,%,4.993333333333333,%,tasa,promedio
+2008,tpm,%,7.101666666666667,%,tasa,promedio
+2008,tpm_expectativa_11m,%,6.708333333333333,%,tasa,promedio
+2008,tpm_expectativa_23m,%,6.291666666666667,%,tasa,promedio
+2008,tpm_expectativa_siguiente,%,7.166666666666667,%,tasa,promedio
+2009,deuda_hipotecaria_ingreso,%,28.9691,% del ingreso disponible,tasa,promedio
+2009,deuda_hipotecaria_pib,%,17.809575,% del PIB,tasa,promedio
+2009,tasa_hipotecaria,%,4.723089825936415,%,tasa,promedio
+2009,tpm,%,2.0033333333333334,%,tasa,promedio
+2009,tpm_expectativa_11m,%,2.4066666666666667,%,tasa,promedio
+2009,tpm_expectativa_23m,%,4.4525,%,tasa,promedio
+2009,tpm_expectativa_siguiente,%,1.9691666666666665,%,tasa,promedio
+2010,deuda_hipotecaria_ingreso,%,30.3014,% del ingreso disponible,tasa,promedio
+2010,deuda_hipotecaria_pib,%,17.810175,% del PIB,tasa,promedio
+2010,tasa_hipotecaria,%,4.232371381484767,%,tasa,promedio
+2010,tpm,%,1.4258333333333333,%,tasa,promedio
+2010,tpm_expectativa_11m,%,3.9791666666666665,%,tasa,promedio
+2010,tpm_expectativa_23m,%,5.53125,%,tasa,promedio
+2010,tpm_expectativa_siguiente,%,1.5208333333333333,%,tasa,promedio
+2011,deuda_hipotecaria_ingreso,%,29.689625,% del ingreso disponible,tasa,promedio
+2011,deuda_hipotecaria_pib,%,17.616775,% del PIB,tasa,promedio
+2011,tasa_hipotecaria,%,4.222437136363847,%,tasa,promedio
+2011,tpm,%,4.67,%,tasa,promedio
+2011,tpm_expectativa_11m,%,5.375,%,tasa,promedio
+2011,tpm_expectativa_23m,%,5.604166666666667,%,tasa,promedio
+2011,tpm_expectativa_siguiente,%,4.729166666666667,%,tasa,promedio
+2012,deuda_hipotecaria_ingreso,%,29.371274999999997,% del ingreso disponible,tasa,promedio
+2012,deuda_hipotecaria_pib,%,18.440925,% del PIB,tasa,promedio
+2012,tasa_hipotecaria,%,4.329166666666667,%,tasa,promedio
+2012,tpm,%,5.008333333333334,%,tasa,promedio
+2012,tpm_expectativa_11m,%,4.958333333333333,%,tasa,promedio
+2012,tpm_expectativa_23m,%,5.166666666666667,%,tasa,promedio
+2012,tpm_expectativa_siguiente,%,5.020833333333333,%,tasa,promedio
+2013,deuda_hipotecaria_ingreso,%,29.75955,% del ingreso disponible,tasa,promedio
+2013,deuda_hipotecaria_pib,%,19.2433,% del PIB,tasa,promedio
+2013,tasa_hipotecaria,%,4.45,%,tasa,promedio
+2013,tpm,%,4.920833333333333,%,tasa,promedio
+2013,tpm_expectativa_11m,%,4.729166666666667,%,tasa,promedio
+2013,tpm_expectativa_23m,%,4.947916666666667,%,tasa,promedio
+2013,tpm_expectativa_siguiente,%,4.9375,%,tasa,promedio
+2014,deuda_hipotecaria_ingreso,%,31.83305,% del ingreso disponible,tasa,promedio
+2014,deuda_hipotecaria_pib,%,20.6853,% del PIB,tasa,promedio
+2014,tasa_hipotecaria,%,3.9425000000000003,%,tasa,promedio
+2014,tpm,%,3.751666666666667,%,tasa,promedio
+2014,tpm_expectativa_11m,%,3.4375,%,tasa,promedio
+2014,tpm_expectativa_23m,%,4.0,%,tasa,promedio
+2014,tpm_expectativa_siguiente,%,3.6875,%,tasa,promedio
+2015,deuda_hipotecaria_ingreso,%,34.288525,% del ingreso disponible,tasa,promedio
+2015,deuda_hipotecaria_pib,%,22.131925,% del PIB,tasa,promedio
+2015,tasa_hipotecaria,%,3.6750000000000003,%,tasa,promedio
+2015,tpm,%,3.060833333333333,%,tasa,promedio
+2015,tpm_expectativa_11m,%,3.2291666666666665,%,tasa,promedio
+2015,tpm_expectativa_23m,%,3.8125,%,tasa,promedio
+2015,tpm_expectativa_siguiente,%,3.0416666666666665,%,tasa,promedio
+2016,deuda_hipotecaria_ingreso,%,35.921324999999996,% del ingreso disponible,tasa,promedio
+2016,deuda_hipotecaria_pib,%,23.349025,% del PIB,tasa,promedio
+2016,tasa_hipotecaria,%,3.7136645308137166,%,tasa,promedio
+2016,tpm,%,3.5,%,tasa,promedio
+2016,tpm_expectativa_11m,%,3.5416666666666665,%,tasa,promedio
+2016,tpm_expectativa_23m,%,3.8333333333333335,%,tasa,promedio
+2016,tpm_expectativa_siguiente,%,3.5,%,tasa,promedio
+2017,deuda_hipotecaria_ingreso,%,37.4492,% del ingreso disponible,tasa,promedio
+2017,deuda_hipotecaria_pib,%,24.213675,% del PIB,tasa,promedio
+2017,tasa_hipotecaria,%,3.365515582708227,%,tasa,promedio
+2017,tpm,%,2.7424999999999997,%,tasa,promedio
+2017,tpm_expectativa_11m,%,2.6875,%,tasa,promedio
+2017,tpm_expectativa_23m,%,3.2708333333333335,%,tasa,promedio
+2017,tpm_expectativa_siguiente,%,2.7083333333333335,%,tasa,promedio
+2018,deuda_hipotecaria_ingreso,%,38.953075,% del ingreso disponible,tasa,promedio
+2018,deuda_hipotecaria_pib,%,24.81945,% del PIB,tasa,promedio
+2018,tasa_hipotecaria,%,3.3516666666666666,%,tasa,promedio
+2018,tpm,%,2.5500000000000003,%,tasa,promedio
+2018,tpm_expectativa_11m,%,3.0208333333333335,%,tasa,promedio
+2018,tpm_expectativa_23m,%,3.6041666666666665,%,tasa,promedio
+2018,tpm_expectativa_siguiente,%,2.5625,%,tasa,promedio
+2019,deuda_hipotecaria_ingreso,%,40.592425,% del ingreso disponible,tasa,promedio
+2019,deuda_hipotecaria_pib,%,26.370475,% del PIB,tasa,promedio
+2019,tasa_hipotecaria,%,2.6358333333333333,%,tasa,promedio
+2019,tpm,%,2.4908333333333332,%,tasa,promedio
+2019,tpm_expectativa_11m,%,2.5208333333333335,%,tasa,promedio
+2019,tpm_expectativa_23m,%,2.9375,%,tasa,promedio
+2019,tpm_expectativa_siguiente,%,2.4375,%,tasa,promedio
+2020,deuda_hipotecaria_ingreso,%,44.526650000000004,% del ingreso disponible,tasa,promedio
+2020,deuda_hipotecaria_pib,%,28.361175000000003,% del PIB,tasa,promedio
+2020,tasa_hipotecaria,%,2.5775,%,tasa,promedio
+2020,tpm,%,0.7816666666666666,%,tasa,promedio
+2020,tpm_expectativa_11m,%,0.7916666666666666,%,tasa,promedio
+2020,tpm_expectativa_23m,%,1.2708333333333333,%,tasa,promedio
+2020,tpm_expectativa_siguiente,%,0.8125,%,tasa,promedio
+2021,deuda_hipotecaria_ingreso,%,45.300925,% del ingreso disponible,tasa,promedio
+2021,deuda_hipotecaria_pib,%,27.94045,% del PIB,tasa,promedio
+2021,tasa_hipotecaria,%,2.910833333333333,%,tasa,promedio
+2021,tpm,%,1.195,%,tasa,promedio
+2021,tpm_expectativa_11m,%,2.0833333333333335,%,tasa,promedio
+2021,tpm_expectativa_23m,%,2.6666666666666665,%,tasa,promedio
+2021,tpm_expectativa_siguiente,%,1.375,%,tasa,promedio
+2022,deuda_hipotecaria_ingreso,%,45.363225,% del ingreso disponible,tasa,promedio
+2022,deuda_hipotecaria_pib,%,27.84615,% del PIB,tasa,promedio
+2022,tasa_hipotecaria,%,4.3825,%,tasa,promedio
+2022,tpm,%,8.539166666666667,%,tasa,promedio
+2022,tpm_expectativa_11m,%,7.625,%,tasa,promedio
+2022,tpm_expectativa_23m,%,5.083333333333333,%,tasa,promedio
+2022,tpm_expectativa_siguiente,%,9.166666666666666,%,tasa,promedio
+2023,deuda_hipotecaria_ingreso,%,45.944575,% del ingreso disponible,tasa,promedio
+2023,deuda_hipotecaria_pib,%,28.3084,% del PIB,tasa,promedio
+2023,tasa_hipotecaria,%,4.463333333333334,%,tasa,promedio
+2023,tpm,%,10.478333333333333,%,tasa,promedio
+2023,tpm_expectativa_11m,%,6.166666666666667,%,tasa,promedio
+2023,tpm_expectativa_23m,%,4.375,%,tasa,promedio
+2023,tpm_expectativa_siguiente,%,10.125,%,tasa,promedio
+2024,deuda_hipotecaria_ingreso,%,45.447525,% del ingreso disponible,tasa,promedio
+2024,deuda_hipotecaria_pib,%,27.904075,% del PIB,tasa,promedio
+2024,tasa_hipotecaria,%,4.820833333333334,%,tasa,promedio
+2024,tpm,%,6.201666666666667,%,tasa,promedio
+2024,tpm_expectativa_11m,%,4.458333333333333,%,tasa,promedio
+2024,tpm_expectativa_23m,%,4.083333333333333,%,tasa,promedio
+2024,tpm_expectativa_siguiente,%,5.791666666666667,%,tasa,promedio
+2025,deuda_hipotecaria_ingreso,%,44.9525,% del ingreso disponible,tasa,promedio
+2025,deuda_hipotecaria_pib,%,26.837675,% del PIB,tasa,promedio
+2025,tasa_hipotecaria,%,4.308333333333334,%,tasa,promedio
+2025,tpm,%,4.885,%,tasa,promedio
+2025,tpm_expectativa_11m,%,4.333333333333333,%,tasa,promedio
+2025,tpm_expectativa_23m,%,4.208333333333333,%,tasa,promedio
+2025,tpm_expectativa_siguiente,%,4.833333333333333,%,tasa,promedio
+2026,deuda_hipotecaria_ingreso,%,44.103,% del ingreso disponible,tasa,promedio
+2026,deuda_hipotecaria_pib,%,25.9832,% del PIB,tasa,promedio
+2026,tasa_hipotecaria,%,4.0285714285714285,%,tasa,promedio
+2026,tpm,%,4.5,%,tasa,promedio
+2026,tpm_expectativa_11m,%,4.3125,%,tasa,promedio
+2026,tpm_expectativa_23m,%,4.25,%,tasa,promedio
+2026,tpm_expectativa_siguiente,%,4.46875,%,tasa,promedio

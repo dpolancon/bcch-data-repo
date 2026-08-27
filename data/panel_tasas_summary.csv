@@ -1,0 +1,13 @@
+indicador,valor,unidad,anio,medida,unidad_original,dimension,agregacion
+tpm_minimo,0.5,%,2009,tasa,%,tasa,promedio
+tpm_maximo,12.7619047619048,%,1998,tasa,%,tasa,promedio
+tpm_actual,4.5,%,2026,tasa,%,tasa,promedio
+hipotecaria_minima,1.99,%,2019,tasa,%,tasa,promedio
+hipotecaria_maxima,7.51,%,2002,tasa,%,tasa,promedio
+hipotecaria_actual,4.0,%,2026,tasa,%,tasa,promedio
+deuda_pib_minima,11.5469,%,2003,ratio,% del PIB,tasa,promedio
+deuda_pib_maxima,28.8255,%,2021,ratio,% del PIB,tasa,promedio
+deuda_pib_actual,25.9832,%,2026,ratio,% del PIB,tasa,promedio
+deuda_ingreso_minima,17.8498,%,2004,ratio,% del ingreso disponible,tasa,promedio
+deuda_ingreso_maxima,47.8159,%,2022,ratio,% del ingreso disponible,tasa,promedio
+deuda_ingreso_actual,44.103,%,2026,ratio,% del ingreso disponible,tasa,promedio
