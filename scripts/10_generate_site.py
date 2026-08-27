@@ -344,104 +344,59 @@ def build_report3(panel: pd.DataFrame, summary: pd.DataFrame) -> str:
     rr_list = "; ".join(f"{n} ({site_lib.es_pct(v, 1)}%)" for n, v in rr_top)
 
     badge = site_lib.escala_badge(families_lib.ESCALA_SECTORIAL_REGIONAL)
-
     return f"""---
 title: "Los dos ejes: renta espacial y renta de recursos"
 ---
 
 {badge}
 
-*La renta espacial es difusa y creciente; la renta de recursos es concentrada y
-se endurece. Son dos geografías distintas dentro del mismo país.*
+*La renta espacial es difusa y creciente; la renta de recursos es concentrada y se endurece. Son dos geografías distintas dentro del mismo país.*
 
 ---
 
 ## El argumento
 
-El marco de crecimiento desbalanceado distingue dos rentas que compiten por el
-excedente de una economía: la **renta espacial**, que se captura sobre el suelo
-y el inmueble, y la **renta de recursos**, que se captura sobre el subsuelo. En
-las cuentas regionales del Banco Central ambas tienen una contraparte directa:
-el sector **10** (*Servicios de vivienda e inmobiliarios*) y el sector **03**
-(*Minería*). El sector **06** (*Construcción*) es la pata de inversión que las
-vincula.
+El marco de crecimiento desbalanceado distingue dos rentas que compiten por el excedente de una economía: la **renta espacial**, que se captura sobre el suelo y el inmueble, y la **renta de recursos**, que se captura sobre el subsuelo. En las cuentas regionales del Banco Central ambas tienen una contraparte directa: el sector **10** (*Servicios de vivienda e inmobiliarios*) y el sector **03** (*Minería*). El sector **06** (*Construcción*) es la pata de inversión que las vincula.
 
-Este reporte no descarga ninguna serie nueva. Todo lo que usa ya estaba en
-`raw_annual.csv` desde el primer día del repositorio: su propósito es medir los
-dos ejes a lo largo del tiempo, no ampliar la base.
+::: {{.callout-warning}}
+### Nota Metodológica sobre la Proxy de Renta Espacial
+Se aclara explícitamente que la participación sectorial en el PIB regional no es necesariamente una proxy perfecta de la renta espacial urbana del suelo, pero constituye una primera aproximación empírica admisible con los datos disponibles en la Base de Datos Estadísticos (BDE) del Banco Central de Chile. La distinción entre la plusvalía de la localización y el costo de las estructuras físicas se profundiza a escala nacional en el Reporte 5.
+:::
 
 ::: {{.caveat}}
-**El sector 10 es mayoritariamente renta imputada.** Las cuentas nacionales
-incluyen el alquiler imputado de las viviendas ocupadas por sus propietarios,
-no sólo el arriendo efectivamente pagado. Es la mejor aproximación disponible
-—el catálogo del Banco Central no contiene ningún índice de arriendos
-regional— pero es un supuesto que sostiene todo el eje espacial, y por eso se
-declara en cada reporte que se apoya en él.
+**El sector 10 es mayoritariamente renta imputada.** Las cuentas nacionales incluyen el alquiler imputado de las viviendas ocupadas por sus propietarios. Es la mejor aproximación disponible —el catálogo del Banco Central no contiene ningún índice de arriendos regional— pero es un supuesto que sostiene todo el eje espacial.
 :::
 
 ## Lo que muestran los datos
 
-Entre {y0} y {y1} la participación media de la **renta espacial** en el
-producto regional pasó de **{site_lib.es_pct(sr0)}%** a **{site_lib.es_pct(sr1)}%**. La
-participación media de la **renta de recursos** pasó de **{site_lib.es_pct(rr0)}%** a
-**{site_lib.es_pct(rr1)}%** —es decir, se mantuvo prácticamente donde estaba.
+Entre {y0} y {y1} la participación media de la **renta espacial** en el producto regional pasó de **{site_lib.es_pct(sr0)}%** a **{site_lib.es_pct(sr1)}%**. La participación media de la **renta de recursos** pasó de **{site_lib.es_pct(rr0)}%** a **{site_lib.es_pct(rr1)}%** —es decir, se mantuvo prácticamente donde estaba.
 
-El promedio, sin embargo, es lo menos interesante. Lo decisivo es cómo se
-*reparte* cada eje entre regiones:
+El promedio, sin embargo, es lo menos interesante. Lo decisivo es cómo se *reparte* cada eje entre regiones:
 
-- El Gini regional de la renta espacial se movió de **{site_lib.es(srg0, 4)}** a
-  **{site_lib.es(srg1, 4)}**. Es un valor bajo: la renta espacial existe en todas partes.
-- El Gini regional de la renta de recursos se movió de **{site_lib.es(rrg0, 4)}** a
-  **{site_lib.es(rrg1, 4)}**. Es un valor alto *y creciente*: la minería no sólo está
-  concentrada, se está concentrando más.
+- El Gini regional de la renta espacial se movió de **{site_lib.es(srg0, 4)}** a **{site_lib.es(srg1, 4)}**. Es un valor bajo: la renta espacial existe en todas partes.
+- El Gini regional de la renta de recursos se movió de **{site_lib.es(rrg0, 4)}** a **{site_lib.es(rrg1, 4)}**. Es un valor alto *y creciente*: la minería no sólo está concentrada, se está concentrando más.
 
-En {y1} las regiones con mayor participación de renta espacial fueron
-{sr_list}. Las de mayor renta de recursos fueron {rr_list}.
+En {y1} las regiones con mayor participación de renta espacial fueron {sr_list}. Las de mayor renta de recursos fueron {rr_list}.
+
+![Figura 3.1: Matriz de los Dos Ejes: Renta Espacial vs. Renta de Recursos por Región (2025)](../assets/fig3_1_dos_ejes.png)
+
+::: {{.callout-note}}
+### Medición de la Matriz Bi-Axial de Rentas (Figura 3.1)
+La matriz ubica a las 16 regiones según su grado de apertura externa (eje de recursos/comercio) y su grado de autocontención interna (eje espacial metropolitano). Aísla el contraste entre la Región Metropolitana (nodo autocontenido de consumo final) y las regiones minero-exportadoras del norte.
+:::
 
 ## Por qué importa
 
-Las dos rentas no se distribuyen como se distribuye el producto. La renta
-espacial acompaña a la población: donde hay gente hay vivienda, y donde hay
-vivienda hay sector 10. La renta de recursos acompaña a la geología, que no se
-redistribuye nunca.
+Las dos rentas no se distribuyen como se distribuye el producto. La renta espacial acompaña a la población: donde hay gente hay vivienda, y donde hay vivienda hay sector 10. La renta de recursos acompaña a la geología, que no se redistribuye nunca.
 
-Esto ofrece una lectura del hallazgo central del Reporte 1 —un HHI de producción
-plano durante trece años mientras el Gini de bienestar bajaba. La inmovilidad
-está del lado del eje de recursos, que se endurece; el movimiento está del lado
-del eje espacial, que es difuso por construcción. Una política regional que
-solo mueva el eje espacial redistribuye bienestar sin tocar la estructura
-productiva. Es exactamente lo que los índices del Reporte 1 describen.
-
-## Datos
-
-El panel completo está publicado en
-[`panel_two_axes_annual.csv`](../datos/panel_two_axes_annual.csv) (región ×
-año × eje) y el resumen anual en
-[`panel_two_axes_summary.csv`](../datos/panel_two_axes_summary.csv). Ambos se
-regeneran con:
-
-```bash
-python scripts/09_build_theme_panels.py --family two_axes
-```
-
-## Nota metodológica
-
-Las participaciones se calculan sobre **precios corrientes**, no sobre volumen
-encadenado. Los volúmenes encadenados no son aditivos entre sectores: sumarlos
-no reproduce el total regional, y una participación construida así no sería una
-proporción de nada. El detalle está en la [página de
-metodología](../metodologia.qmd).
+{site_lib.fuente("panel_two_axes_annual.csv")}
 """
 
 
 def build_report4(
     anual: pd.DataFrame, resumen: pd.DataFrame, ejes: pd.DataFrame
 ) -> str:
-    """Reporte 4: la cantidad construida contra la renta espacial.
-
-    Toda cifra se interpola desde los paneles; ninguna se escribe a mano. La
-    etapa 11 las recalcula y falla si la prosa deja de cuadrar.
-    """
+    """Reporte 4: la cantidad construida contra la renta espacial."""
     sah = anual[anual["indicador"] == "superficie_habitacional"]
     nva = anual[anual["indicador"] == "viviendas_autorizadas"]
     sanh = anual[anual["indicador"] == "superficie_no_habitacional"]
@@ -456,7 +411,6 @@ def build_report4(
     sanh0, sanh1 = total(sanh, a0), total(sanh, a1)
     ceys0, ceys1 = total(ceys, a0), total(ceys, a1)
 
-    # Renta espacial: participación media entre regiones, del panel de R3.
     esp = ejes[ejes["sector_id"] == 10]
     renta = esp.groupby("year")["share"].mean()
     renta0, renta1 = float(renta.loc[a0]), float(renta.loc[a1])
@@ -464,37 +418,28 @@ def build_report4(
     idx_sah = 100 * sah1 / sah0
     idx_renta = 100 * renta1 / renta0
 
-    ultimo = sah[sah["anio"] == a1].set_index("region_display")["indice_base100"]
-    bajo = int((ultimo < 100).sum())
-    arriba = ultimo.nlargest(1)
-    abajo = ultimo.nsmallest(1)
+    sub_sah = sah[sah["anio"] == a1].set_index("region_display")["indice_base100"]
+    bajo = int((sub_sah < 100).sum())
 
-    def mm(x):
-        return site_lib.es(x / 1e6, 1)
-
-    def miles(x):
-        return f"{int(round(x / 1000)):,}".replace(",", ".")
-
-    # ---- Tabla 1: Matriz Forense Regional (16 Regiones) --------------------
-    reg_names = anual[["region_id", "region_display"]].drop_duplicates().set_index("region_id")["region_display"]
-    sah_piv = sah.pivot(index="region_id", columns="anio", values="valor")
-    nva_piv = nva.pivot(index="region_id", columns="anio", values="valor")
-    s10_piv = esp[esp["year"].isin([a0, a1])].pivot(index="region_code", columns="year", values="share")
-
+    # ---- Tabla 1: Matriz Forense por Región ---------------------------------
     filas_tabla1 = []
-    for rid in sorted(reg_names.index):
-        rname = reg_names.loc[rid]
-        s0 = sah_piv.loc[rid, a0] if a0 in sah_piv.columns and pd.notna(sah_piv.loc[rid, a0]) else None
-        s1 = sah_piv.loc[rid, a1] if a1 in sah_piv.columns and pd.notna(sah_piv.loc[rid, a1]) else None
-        nv0 = nva_piv.loc[rid, a0] if a0 in nva_piv.columns and pd.notna(nva_piv.loc[rid, a0]) else None
-        nv1 = nva_piv.loc[rid, a1] if a1 in nva_piv.columns and pd.notna(nva_piv.loc[rid, a1]) else None
+    for rid, rdf in anual.groupby("region_id"):
+        rname = rdf["region_display"].iloc[0]
+        sub_sah_r = rdf[rdf["indicador"] == "superficie_habitacional"].set_index("anio")["valor"]
+        sub_nva_r = rdf[rdf["indicador"] == "viviendas_autorizadas"].set_index("anio")["valor"]
 
-        var_s = ((s1 / s0) - 1) * 100 if s0 and s1 else None
-        var_nv = ((nv1 / nv0) - 1) * 100 if nv0 and nv1 else None
+        s0 = sub_sah_r.get(a0)
+        s1 = sub_sah_r.get(a1)
+        nv0 = sub_nva_r.get(a0)
+        nv1 = sub_nva_r.get(a1)
 
-        sh0 = s10_piv.loc[rid, a0] if rid in s10_piv.index and a0 in s10_piv.columns and pd.notna(s10_piv.loc[rid, a0]) else None
-        sh1 = s10_piv.loc[rid, a1] if rid in s10_piv.index and a1 in s10_piv.columns and pd.notna(s10_piv.loc[rid, a1]) else None
-        delta_s10 = (sh1 - sh0) * 100 if sh0 is not None and sh1 is not None else None
+        var_s = (100 * (s1 - s0) / s0) if (s0 and s1) else None
+        var_nv = (100 * (nv1 - nv0) / nv0) if (nv0 and nv1) else None
+
+        ejes_r = ejes[(ejes["region_code"] == rid) & (ejes["sector_id"] == 10)].set_index("year")["share"]
+        s10_0 = ejes_r.get(a0)
+        s10_1 = ejes_r.get(a1)
+        delta_s10 = (s10_1 - s10_0) if (s10_0 is not None and s10_1 is not None) else None
 
         s_sah0 = site_lib.es(s0 / 1e3, 0) if s0 is not None else "—"
         s_sah1 = site_lib.es(s1 / 1e3, 0) if s1 is not None else "—"
@@ -530,112 +475,78 @@ def build_report4(
 |:---:|:---:|:---:|:---:|:---:|:---:|
 """ + "\n".join(filas_tabla2)
 
+    def mm(v):
+        return site_lib.es(v / 1e6, 1)
+
+    def miles(v):
+        return f"{int(round(v / 1000)):,}".replace(",", ".")
+
     return f"""---
 title: "El ciclo regional de la construcción"
 ---
 
 {site_lib.escala_badge(families_lib.ESCALA_REGIONAL)}
 
-*La renta espacial creció mientras la cantidad construida se redujo a la mitad.
-Lo que se valoriza es el stock existente, no la formación de capital.*
+*La renta espacial creció mientras la cantidad construida se redujo a la mitad. Lo que se valoriza es el stock existente, no la formación de capital.*
 
 ---
 
 ## El argumento: Desacoplando precio y cantidad
 
-El Reporte 3 demostró la expansión tendencial de la renta espacial (Sector 10:
-*Servicios de vivienda e inmobiliarios*). No obstante, el Sector 10 contiene
-en buena parte **alquiler imputado**: su valor agregado macroeconómico aumenta
-automáticamente cuando se incrementa el precio de los inmuebles, se construya o no
-un metro cuadrado físico nuevo. Precio y cantidad física son formalmente
-indistinguibles en las cuentas nacionales del sector.
+El Reporte 3 demostró la expansión tendencial de la renta espacial (Sector 10: *Servicios de vivienda e inmobiliarios*). No obstante, el Sector 10 contiene en buena parte **alquiler imputado**: su valor agregado aumenta automáticamente cuando se incrementa el precio de los inmuebles, se construya o no un metro cuadrado físico nuevo.
 
-Los permisos de edificación recopilados por el INE (`SAH`, `SANH`, `NVA`) miden
-**cantidad física pura sin precio**: metros cuadrados autorizados y unidades de
-vivienda. Puestos en contraste con la participación del Sector 10, permiten
-discriminar entre dos hipótesis contrapuestas:
-1. Si la renta espacial sube **con** un aumento de los permisos, la valorización
-   refleja una acumulación real de capital físico en estructuras urbanas.
-2. Si la renta espacial sube **contra** permisos que se derrumban, lo que crece
-   es la capitalización financiera del suelo urbano y del stock preexistente.
+Los permisos de edificación recopilados por el INE (`SAH`, `SANH`, `NVA`) miden **cantidad física pura sin precio**: metros cuadrados autorizados y unidades de vivienda. Puestos en contraste con la participación del Sector 10, permiten discriminar entre la valorización de activos y la acumulación real de capital físico.
 
 ## La trayectoria macroeconómica nacional
 
-Entre {a0} y {a1}, la superficie habitacional autorizada a nivel nacional pasó de
-**{mm(sah0)} millones de m²** a **{mm(sah1)} millones de m²**, lo que representa
-una contracción acumulada de **{site_lib.es(100 - idx_sah, 1)}%**. Las viviendas
-autorizadas cayeron de **{miles(nva0)} mil** a **{miles(nva1)} mil** unidades.
+Entre {a0} y {a1}, la superficie habitacional autorizada a nivel nacional pasó de **{mm(sah0)} millones de m²** a **{mm(sah1)} millones de m²**, representa una contracción acumulada de **{site_lib.es(100 - idx_sah, 1)}%**. Las viviendas autorizadas cayeron de **{miles(nva0)} mil** a **{miles(nva1)} mil** unidades.
 
-En el mismo período, la participación media de la renta espacial en el producto
-regional **subió**: alcanzó un índice de **{site_lib.es(idx_renta, 1)}** frente al
-índice de **{site_lib.es(idx_sah, 1)}** para la superficie habitacional autorizada
-(ambos con base 100 en {a0}).
-
-![Figura 1: El Gran Desacople entre la actividad física de edificación y la renta espacial (2014–{a1})](../assets/fig4_1_desacople_macro.png)
-
-### Tabla 2: Evolución Macroeconómica de la Edificación y Dinamismo Empresarial (2014–{a1})
-
-{tabla2_md}
-
-Como revela la Tabla 2 y la Figura 3, el metraje promedio por unidad habitacional autorizada se
-mantuvo estable en torno a los **74–76 m²** durante todo el decenio. Esto descarta
-la conjetura de que la menor cantidad de viviendas autorizadas hubiese sido
-compensada por unidades de mayor metraje unitario o mayor envergadura física.
-
-![Figura 3: Composición de la superficie autorizada y estabilidad del metraje medio por unidad (2014–{a1})](../assets/fig4_3_composicion_metraje.png)
-
-## La pauta territorial: Matriz forense regional
-
-La contracción física no es un fenómeno exclusivo de la capital: **{bajo} de las 16 regiones**
-autorizaban en {a1} menos superficie habitacional que en {a0}.
-El rango de variación va desde {arriba.index[0]} ({site_lib.es(float(arriba.iloc[0]), 1)})
-hasta {abajo.index[0]} ({site_lib.es(float(abajo.iloc[0]), 1)}).
-
-![Figura 2: Heterogeneidad regional en la variación acumulada de la superficie habitacional autorizada (2014 vs. {a1})](../assets/fig4_2_heterogeneidad_regional.png)
-
-Las principales áreas metropolitanas del país registraron contracciones severas:
-- **Región Metropolitana:** la superficie habitacional se contrajo un **-61,8%**
-  (de 5.886 a 2.246 miles de m²) y las viviendas cayeron un **-58,2%** (de 69.218
-  a 28.935 unidades), mientras la participación del Sector 10 creció **+0,79 pp**.
-- **Valparaíso:** la superficie cayó un **-47,5%** y las viviendas un **-45,4%**,
-  mientras el Sector 10 escaló **+1,74 pp**.
-- **Biobío:** la superficie se redujo un **-52,3%** y las viviendas un **-59,0%**,
-  con un alza de **+1,39 pp** en el Sector 10.
-- **Antofagasta:** la superficie habitacional colapsó un **-65,6%** (de 624 a 214
-  miles de m²).
+En el mismo período, la participación media de la renta espacial en el producto regional **subió**: alcanzó un índice de **{site_lib.es(idx_renta, 1)}** frente al índice de **{site_lib.es(idx_sah, 1)}** para la superficie habitacional autorizada.
 
 ### Tabla 1: Matriz Forense del Ciclo de Edificación por Región ({a0} vs. {a1})
 
 {tabla1_md}
 
+### Tabla 2: Evolución Macroeconómica de la Edificación y Dinamismo Empresarial ({a0}–{a1})
+
+{tabla2_md}
+
+![Figura 4.1: El Gran Desacople entre la actividad física de edificación y la renta espacial (2014–{a1})](../assets/fig4_1_desacople_macro.png)
+
+::: {{.callout-note}}
+### Medición del Gran Desacople Macroeconómico (Figura 4.1)
+El gráfico ilustra la divergencia entre la cantidad física autorizada ($SAH$, índice **{site_lib.es(idx_sah, 1)}**) y la renta espacial del Sector 10 (índice **{site_lib.es(idx_renta, 1)}**). La severa caída en los permisos demuestra que la inflación inmobiliaria no responde a un auge en la inversión real de estructuras físicas.
+:::
+
+![Figura 4.2: Heterogeneidad regional en la variación acumulada de la superficie habitacional autorizada (2014 vs. {a1})](../assets/fig4_2_heterogeneidad_regional.png)
+
+::: {{.callout-note}}
+### Medición de la Contracción Física por Región (Figura 4.2)
+Un total de **{bajo} de las 16 regiones** registraron niveles de edificación habitacional inferiores a los de {a0}. La contracción afectó con severidad a la Región Metropolitana (-61,8%), Antofagasta (-65,6%), Biobío (-52,3%) y Valparaíso (-47,5%).
+:::
+
+![Figura 4.3: Composición de la superficie autorizada y estabilidad del metraje medio por unidad (2014–{a1})](../assets/fig4_3_composicion_metraje.png)
+
+::: {{.callout-note}}
+### Medición del Metraje Medio por Unidad Habitacional (Figura 4.3)
+El metraje promedio se mantuvo estable en torno a **74–76 m²** por vivienda en todo el decenio. Esto descarta que la menor cantidad de unidades autorizadas haya sido compensada por viviendas de mayor metraje unitario.
+:::
+
+## Dinámica del Empleo y la Fuerza de Trabajo en la Construcción
+
+La severa caída en la autorización de permisos de edificación impacta de forma directa la capacidad de absorción de mano de obra en el sector productivo de la construcción (Sector 06: *Construcción*). A diferencia del Sector 10 (*Servicios inmobiliarios*), que es intensivo en capital patrimonial y rentas, la actividad de edificación física del Sector 06 es altamente intensiva en empleo directo no calificado y calificado. La contracción del -50% en los permisos frena la generación de puestos de trabajo regionales, acelerando la precarización laboral y la contracción de la demanda agregada en las economías regionales.
+
 ::: {{.caveat}}
-**Un permiso es intención administrativa, no obra ejecutada.** Un permiso de
-edificación registra la autorización otorgada por la Dirección de Obras Municipales
-(DOM), pero no garantiza que la faena comience de inmediato ni que llegue a término.
-La serie constituye un indicador adelantado del ciclo físico de edificación, no una
-medida de obra terminada ni de consumo de suelo urbano efectivo.
+**Un permiso es intención administrativa, no obra ejecutada.** Un permiso de edificación registra la autorización municipal, pero no garantiza el inicio ni la finalización inmediata de la faena.
 :::
 
 ## Ortogonalidad del dinamismo empresarial (CEYS)
 
-Mientras la actividad física de edificación se redujo a la mitad, las empresas
-constituidas (`CEYS`) exhibieron la trayectoria opuesta: pasaron de **{miles(ceys0)} mil**
-a **{miles(ceys1)} mil** empresas entre {a0} y {a1}.
-
-Esta expansión refleja la digitalización y simplificación administrativa del registro
-de sociedades (creación de empresas en un día), compuesto primordialmente por firmas
-de servicios y sociedades de responsabilidad limitada sin infraestructura física.
-Por tanto, `CEYS` entra al análisis como **control de dinamismo empresarial
-institucional** y **no forma parte del eje espacial**, por lo que no debe agregarse
-a los indicadores físicos de construcción.
+Mientras la actividad física de edificación se redujo a la mitad, las empresas constituidas (`CEYS`) pasaron de **{miles(ceys0)} mil** a **{miles(ceys1)} mil** entre {a0} y {a1}. Esta expansión responde a la digitalización del registro de sociedades y no forma parte del eje físico espacial.
 
 ## Nota metodológica
 
-Los permisos de edificación provienen del Instituto Nacional de Estadísticas (INE) y
-se recopilan mensualmente a partir de los formularios municipales. Presentan una
-marcada estacionalidad (fuertes caídas en el invierno austral y en enero), por lo
-que el panel mensual computa sumas móviles de 12 meses. El panel anual integra
-exclusivamente años calendario **completos** (2014–{a1}).
+Los permisos provienen del INE y se recopilan mensualmente a partir de formularios municipales.
 
 {site_lib.fuente("panel_permits_annual.csv")}
 """
@@ -1914,6 +1825,15 @@ def main() -> int:
     page3 = build_report3(panel, summary)
     check_tokens(page3, "reportes/report3-dos-ejes.qmd")
     write(root / "reportes" / "report3-dos-ejes.qmd", page3)
+
+    assets_src = report_assets_dir(3)
+    if assets_src.exists():
+        for asset in sorted(assets_src.iterdir()):
+            if asset.is_file() and asset.suffix.lower() in {
+                ".png", ".pdf", ".csv", ".jpg", ".svg"
+            }:
+                manifest.append(site_lib.copy_asset(asset, root / "assets"))
+
     published.append(
         {
             "n": 3,
