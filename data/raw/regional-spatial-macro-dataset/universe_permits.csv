@@ -15,8 +15,6 @@ F034.CEYSCO.FLU.MEFT.Z.0.M,Región de Coquimbo,04,Coquimbo,M,Regionales,Número 
 F034.NVACO.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",04,Coquimbo,M,Regionales,"Indicadores Económicos, Región de Coquimbo",,,glued_mnemonic
 F034.SAHCO.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",04,Coquimbo,M,Regionales,"Indicadores Económicos, Región de Coquimbo",,,glued_mnemonic
 F034.SANHCO.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",04,Coquimbo,M,Regionales,"Indicadores Económicos, Región de Coquimbo",,,glued_mnemonic
-F022.CCPNVA.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,05,Valparaíso,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Valparaíso",,,glued_mnemonic
-F022.SCCPNVA.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),05,Valparaíso,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Valparaíso",,,glued_mnemonic
 F034.CEYSVA.FLU.MEFT.Z.0.M,Región de Valparaíso,05,Valparaíso,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
 F034.NVAVA.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",05,Valparaíso,M,Regionales,"Indicadores Económicos, Región de Valparaíso",,,glued_mnemonic
 F034.SAHVA.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",05,Valparaíso,M,Regionales,"Indicadores Económicos, Región de Valparaíso",,,glued_mnemonic

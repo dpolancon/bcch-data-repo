@@ -128,8 +128,33 @@ class SeriesFamily:
     absent: tuple[str, ...] = field(default_factory=tuple)
 
     def pattern(self) -> str:
-        """Regex alternation matching any code in this family."""
+        """Regex alternation matching any code in this family.
+
+        Kept for logging and diagnostics. Prefer `matches()` for selection:
+        this pattern is unanchored and will hit a token that merely appears
+        inside another mnemonic.
+        """
         return "|".join(self.tokens)
+
+    def matches(self, code: str) -> bool:
+        """True when `code` belongs to this family.
+
+        Anchored on the mnemonic -- the second dot-token -- rather than on the
+        code as a whole. An unanchored search matches a token wherever it
+        appears, and the mnemonics collide: `F022.CCPNVA` (current accounts,
+        Valparaiso) contains "NVA" and was being pulled into the building
+        permits family, which owns `F034.NVA{RR}`. The mnemonic carries an
+        optional two-letter region suffix, so the test is a prefix test, not
+        equality. `SANH` and `SAH` stay distinct under it: "SANHAP" does not
+        start with "SAH".
+        """
+        if not isinstance(code, str):
+            return False
+        parts = code.strip().split(".")
+        if len(parts) < 2:
+            return False
+        mnemonic = parts[1].upper()
+        return any(mnemonic.startswith(t.upper()) for t in self.tokens)
 
 
 # --------------------------------------------------------------------------

@@ -150,7 +150,7 @@ def build_zone_universe(df: pd.DataFrame, family: str) -> pd.DataFrame:
         df[COL_CODE], df[COL_NAME], df[COL_TABLE], df[COL_CHAPTER]
     ):
         code_s = str(code).strip()
-        if not re.search(fam.pattern(), code_s):
+        if not fam.matches(code_s):
             continue
 
         frequency = codes_lib.parse_frequency(code_s)
@@ -237,7 +237,7 @@ def build_universe(
 
     if family:
         fam = families_lib.get(family)
-        keep = universe["series_code"].str.contains(fam.pattern(), regex=True, na=False)
+        keep = universe["series_code"].map(fam.matches)
         if fam.frequencies:
             keep &= universe["frequency"].isin(fam.frequencies)
         logger.info(
@@ -469,12 +469,50 @@ def fetch_series(
     return observations, manifest_df
 
 
-def write_outputs(observations: pd.DataFrame, out_dir: pathlib.Path) -> None:
-    """Split strictly by native frequency and write one CSV per frequency."""
+def write_outputs(
+    observations: pd.DataFrame, out_dir: pathlib.Path, merge: bool = False
+) -> None:
+    """Split strictly by native frequency and write one CSV per frequency.
+
+    A scoped run (--family / --sht-only) fetched only part of the universe, so
+    it must MERGE into the raw layer rather than replace it: writing its subset
+    straight out would truncate raw_monthly.csv from the full catalogue to the
+    handful of series that run happened to touch, discarding tens of thousands
+    of rows that cost real API calls to obtain. Series present in this run are
+    replaced wholesale (they are freshly fetched); every other series is left
+    exactly as it was. A full run replaces, so stale series that no longer
+    resolve do not linger.
+    """
     for letter, slug in codes_lib.FREQ_SLUG.items():
-        subset = observations[observations["frequency"] == letter]
+        subset = observations[observations["frequency"] == letter][OUTPUT_COLUMNS]
         path = out_dir / f"raw_{slug}.csv"
-        subset[OUTPUT_COLUMNS].to_csv(path, index=False, encoding="utf-8-sig")
+
+        if merge and path.exists():
+            # Read every column as text. CSV carries no dtypes, and region_id
+            # and sector_id are zero-padded: inferred as integers they come
+            # back as 1 and 3 instead of "01" and "03", are written back
+            # unpadded, and every downstream join fails silently. dtype=str
+            # cannot be narrowed to a list of columns here -- naming the wrong
+            # one is exactly how this went wrong the first time.
+            existing = pd.read_csv(path, dtype=str, low_memory=False)
+            before = len(existing)
+            kept = existing[~existing["series_code"].isin(set(subset["series_code"]))]
+            combined = pd.concat([kept, subset], ignore_index=True)
+            combined = combined.sort_values(["series_code", "date"]).reset_index(
+                drop=True
+            )
+            combined[OUTPUT_COLUMNS].to_csv(path, index=False, encoding="utf-8-sig")
+            logger.info(
+                "Merged %-22s %7d -> %7d rows | %5d series refreshed, %5d preserved",
+                path.name,
+                before,
+                len(combined),
+                subset["series_code"].nunique(),
+                kept["series_code"].nunique(),
+            )
+            continue
+
+        subset.to_csv(path, index=False, encoding="utf-8-sig")
         logger.info(
             "Wrote %-22s %7d rows | %5d series",
             path.name,
@@ -578,7 +616,10 @@ def main() -> int:
     cache = LocalCacheManager(catalog_manager=catalog)
     observations, manifest = fetch_series(universe, cache, start, end, refresh=args.refresh, workers=args.workers)
 
-    write_outputs(observations, out_dir)
+    # Scoped runs merge; only a full run may replace the raw layer.
+    write_outputs(
+        observations, out_dir, merge=bool(args.family or args.sht_only)
+    )
     # A scoped fetch gets its own manifest. This file is the evidence that a
     # family was actually ingested -- a --dry-run writes a universe but never a
     # manifest, which is what lets the absorption gate tell "resolved" from
