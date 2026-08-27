@@ -4,42 +4,42 @@ title: "El ciclo regional de la construcción"
 
 <span class="escala esc-reg">REGIONAL &middot; 16 regiones</span>
 
-*La renta espacial creció mientras la cantidad construida se redujo a la mitad.
-Lo que se valoriza es el stock existente, no la formación de capital.*
+*La renta espacial creció mientras la cantidad construida se redujo a la mitad. Lo que se valoriza es el stock existente, no la formación de capital.*
 
 ---
 
 ## El argumento: Desacoplando precio y cantidad
 
-El Reporte 3 demostró la expansión tendencial de la renta espacial (Sector 10:
-*Servicios de vivienda e inmobiliarios*). No obstante, el Sector 10 contiene
-en buena parte **alquiler imputado**: su valor agregado macroeconómico aumenta
-automáticamente cuando se incrementa el precio de los inmuebles, se construya o no
-un metro cuadrado físico nuevo. Precio y cantidad física son formalmente
-indistinguibles en las cuentas nacionales del sector.
+El Reporte 3 demostró la expansión tendencial de la renta espacial (Sector 10: *Servicios de vivienda e inmobiliarios*). No obstante, el Sector 10 contiene en buena parte **alquiler imputado**: su valor agregado aumenta automáticamente cuando se incrementa el precio de los inmuebles, se construya o no un metro cuadrado físico nuevo.
 
-Los permisos de edificación recopilados por el INE (`SAH`, `SANH`, `NVA`) miden
-**cantidad física pura sin precio**: metros cuadrados autorizados y unidades de
-vivienda. Puestos en contraste con la participación del Sector 10, permiten
-discriminar entre dos hipótesis contrapuestas:
-1. Si la renta espacial sube **con** un aumento de los permisos, la valorización
-   refleja una acumulación real de capital físico en estructuras urbanas.
-2. Si la renta espacial sube **contra** permisos que se derrumban, lo que crece
-   es la capitalización financiera del suelo urbano y del stock preexistente.
+Los permisos de edificación recopilados por el INE (`SAH`, `SANH`, `NVA`) miden **cantidad física pura sin precio**: metros cuadrados autorizados y unidades de vivienda. Puestos en contraste con la participación del Sector 10, permiten discriminar entre la valorización de activos y la acumulación real de capital físico.
 
 ## La trayectoria macroeconómica nacional
 
-Entre 2014 y 2025, la superficie habitacional autorizada a nivel nacional pasó de
-**13,3 millones de m²** a **7,2 millones de m²**, lo que representa
-una contracción acumulada de **46,1%**. Las viviendas
-autorizadas cayeron de **176 mil** a **90 mil** unidades.
+Entre 2014 y 2025, la superficie habitacional autorizada a nivel nacional pasó de **13,3 millones de m²** a **7,2 millones de m²**, representa una contracción acumulada de **46,1%**. Las viviendas autorizadas cayeron de **176 mil** a **90 mil** unidades.
 
-En el mismo período, la participación media de la renta espacial en el producto
-regional **subió**: alcanzó un índice de **109,9** frente al
-índice de **53,9** para la superficie habitacional autorizada
-(ambos con base 100 en 2014).
+En el mismo período, la participación media de la renta espacial en el producto regional **subió**: alcanzó un índice de **109,9** frente al índice de **53,9** para la superficie habitacional autorizada.
 
-![Figura 1: El Gran Desacople entre la actividad física de edificación y la renta espacial (2014–2025)](../assets/fig4_1_desacople_macro.png)
+### Tabla 1: Matriz Forense del Ciclo de Edificación por Región (2014 vs. 2025)
+
+| Código | Región | Superficie Hab. 2014 (miles m²) | Superficie Hab. 2025 (miles m²) | Δ Superficie (%) | Viviendas 2014 (unid.) | Viviendas 2025 (unid.) | Δ Viviendas (%) | Δ Sector 10 (pp) |
+|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `01` | Tarapacá | 238 | 148 | **-38,0%** | 2 762 | 1 850 | **-33,0%** | -0,00 pp |
+| `02` | Antofagasta | 624 | 212 | **-66,0%** | 5 985 | 2 368 | **-60,4%** | -0,00 pp |
+| `03` | Atacama | 118 | 75 | **-36,0%** | 1 738 | 983 | **-43,4%** | -0,01 pp |
+| `04` | Coquimbo | 637 | 270 | **-57,6%** | 8 957 | 3 835 | **-57,2%** | +0,01 pp |
+| `05` | Valparaíso | 1 424 | 760 | **-46,6%** | 16 647 | 8 068 | **-51,5%** | +0,01 pp |
+| `06` | O'Higgins | 620 | 548 | **-11,6%** | 8 991 | 6 465 | **-28,1%** | +0,01 pp |
+| `07` | Maule | 739 | 594 | **-19,7%** | 13 066 | 7 668 | **-41,3%** | +0,02 pp |
+| `08` | Biobío | 1 532 | 480 | **-68,6%** | 24 803 | 6 591 | **-73,4%** | +0,02 pp |
+| `09` | La Araucanía | 611 | 609 | **-0,2%** | 10 401 | 8 681 | **-16,5%** | +0,02 pp |
+| `10` | Los Lagos | 466 | 536 | **+15,0%** | 6 884 | 6 374 | **-7,4%** | +0,01 pp |
+| `11` | Aysén | 69 | 60 | **-12,1%** | 1 047 | 904 | **-13,7%** | +0,02 pp |
+| `12` | Magallanes | 79 | 40 | **-50,1%** | 1 300 | 518 | **-60,2%** | +0,00 pp |
+| `13` | Metropolitana de Santiago | 5 886 | 2 076 | **-64,7%** | 69 218 | 25 154 | **-63,7%** | +0,01 pp |
+| `14` | Los Ríos | 200 | 183 | **-8,3%** | 2 817 | 2 135 | **-24,2%** | +0,01 pp |
+| `15` | Arica y Parinacota | 81 | 150 | **+85,3%** | 1 206 | 1 933 | **+60,3%** | -0,00 pp |
+| `16` | Ñuble | — | 435 | **—** | — | 6 298 | **—** | +0,01 pp |
 
 ### Tabla 2: Evolución Macroeconómica de la Edificación y Dinamismo Empresarial (2014–2025)
 
@@ -58,82 +58,42 @@ regional **subió**: alcanzó un índice de **109,9** frente al
 | 2024 | 7,58 | 3,96 | 102,0 | 74,4 | 165,3 |
 | 2025 | 7,18 | 4,48 | 89,8 | 79,9 | 202,4 |
 
-Como revela la Tabla 2 y la Figura 3, el metraje promedio por unidad habitacional autorizada se
-mantuvo estable en torno a los **74–76 m²** durante todo el decenio. Esto descarta
-la conjetura de que la menor cantidad de viviendas autorizadas hubiese sido
-compensada por unidades de mayor metraje unitario o mayor envergadura física.
+![Figura 4.1: El Gran Desacople entre la actividad física de edificación y la renta espacial (2014–2025)](../assets/fig4_1_desacople_macro.png)
 
-![Figura 3: Composición de la superficie autorizada y estabilidad del metraje medio por unidad (2014–2025)](../assets/fig4_3_composicion_metraje.png)
+::: {.callout-note}
+### Medición del Gran Desacople Macroeconómico (Figura 4.1)
+El gráfico ilustra la divergencia entre la cantidad física autorizada ($SAH$, índice **53,9**) y la renta espacial del Sector 10 (índice **109,9**). La severa caída en los permisos demuestra que la inflación inmobiliaria no responde a un auge en la inversión real de estructuras físicas.
+:::
 
-## La pauta territorial: Matriz forense regional
+![Figura 4.2: Heterogeneidad regional en la variación acumulada de la superficie habitacional autorizada (2014 vs. 2025)](../assets/fig4_2_heterogeneidad_regional.png)
 
-La contracción física no es un fenómeno exclusivo de la capital: **13 de las 16 regiones**
-autorizaban en 2025 menos superficie habitacional que en 2014.
-El rango de variación va desde Arica y Parinacota (185,3)
-hasta Biobío (31,4).
+::: {.callout-note}
+### Medición de la Contracción Física por Región (Figura 4.2)
+Un total de **13 de las 16 regiones** registraron niveles de edificación habitacional inferiores a los de 2014. La contracción afectó con severidad a la Región Metropolitana (-61,8%), Antofagasta (-65,6%), Biobío (-52,3%) y Valparaíso (-47,5%).
+:::
 
-![Figura 2: Heterogeneidad regional en la variación acumulada de la superficie habitacional autorizada (2014 vs. 2025)](../assets/fig4_2_heterogeneidad_regional.png)
+![Figura 4.3: Composición de la superficie autorizada y estabilidad del metraje medio por unidad (2014–2025)](../assets/fig4_3_composicion_metraje.png)
 
-Las principales áreas metropolitanas del país registraron contracciones severas:
-- **Región Metropolitana:** la superficie habitacional se contrajo un **-61,8%**
-  (de 5.886 a 2.246 miles de m²) y las viviendas cayeron un **-58,2%** (de 69.218
-  a 28.935 unidades), mientras la participación del Sector 10 creció **+0,79 pp**.
-- **Valparaíso:** la superficie cayó un **-47,5%** y las viviendas un **-45,4%**,
-  mientras el Sector 10 escaló **+1,74 pp**.
-- **Biobío:** la superficie se redujo un **-52,3%** y las viviendas un **-59,0%**,
-  con un alza de **+1,39 pp** en el Sector 10.
-- **Antofagasta:** la superficie habitacional colapsó un **-65,6%** (de 624 a 214
-  miles de m²).
+::: {.callout-note}
+### Medición del Metraje Medio por Unidad Habitacional (Figura 4.3)
+El metraje promedio se mantuvo estable en torno a **74–76 m²** por vivienda en todo el decenio. Esto descarta que la menor cantidad de unidades autorizadas haya sido compensada por viviendas de mayor metraje unitario.
+:::
 
-### Tabla 1: Matriz Forense del Ciclo de Edificación por Región (2014 vs. 2025)
+## Dinámica del Empleo y la Fuerza de Trabajo en la Construcción
 
-| Código | Región | Superficie Hab. 2014 (miles m²) | Superficie Hab. 2025 (miles m²) | Δ Superficie (%) | Viviendas 2014 (unid.) | Viviendas 2025 (unid.) | Δ Viviendas (%) | Δ Sector 10 (pp) |
-|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `01` | Tarapacá | 238 | 148 | **-38,0%** | 2 762 | 1 850 | **-33,0%** | -0,30 pp |
-| `02` | Antofagasta | 624 | 212 | **-66,0%** | 5 985 | 2 368 | **-60,4%** | -0,44 pp |
-| `03` | Atacama | 118 | 75 | **-36,0%** | 1 738 | 983 | **-43,4%** | -1,15 pp |
-| `04` | Coquimbo | 637 | 270 | **-57,6%** | 8 957 | 3 835 | **-57,2%** | +1,16 pp |
-| `05` | Valparaíso | 1 424 | 760 | **-46,6%** | 16 647 | 8 068 | **-51,5%** | +1,33 pp |
-| `06` | O'Higgins | 620 | 548 | **-11,6%** | 8 991 | 6 465 | **-28,1%** | +1,03 pp |
-| `07` | Maule | 739 | 594 | **-19,7%** | 13 066 | 7 668 | **-41,3%** | +1,92 pp |
-| `08` | Biobío | 1 532 | 480 | **-68,6%** | 24 803 | 6 591 | **-73,4%** | +1,54 pp |
-| `09` | La Araucanía | 611 | 609 | **-0,2%** | 10 401 | 8 681 | **-16,5%** | +1,51 pp |
-| `10` | Los Lagos | 466 | 536 | **+15,0%** | 6 884 | 6 374 | **-7,4%** | +1,08 pp |
-| `11` | Aysén | 69 | 60 | **-12,1%** | 1 047 | 904 | **-13,7%** | +1,63 pp |
-| `12` | Magallanes | 79 | 40 | **-50,1%** | 1 300 | 518 | **-60,2%** | +0,02 pp |
-| `13` | Metropolitana de Santiago | 5 886 | 2 076 | **-64,7%** | 69 218 | 25 154 | **-63,7%** | +0,71 pp |
-| `14` | Los Ríos | 200 | 183 | **-8,3%** | 2 817 | 2 135 | **-24,2%** | +1,41 pp |
-| `15` | Arica y Parinacota | 81 | 150 | **+85,3%** | 1 206 | 1 933 | **+60,3%** | -0,15 pp |
-| `16` | Ñuble | — | 435 | **—** | — | 6 298 | **—** | +1,17 pp |
+La severa caída en la autorización de permisos de edificación impacta de forma directa la capacidad de absorción de mano de obra en el sector productivo de la construcción (Sector 06: *Construcción*). A diferencia del Sector 10 (*Servicios inmobiliarios*), que es intensivo en capital patrimonial y rentas, la actividad de edificación física del Sector 06 es altamente intensiva en empleo directo no calificado y calificado. La contracción del -50% en los permisos frena la generación de puestos de trabajo regionales, acelerando la precarización laboral y la contracción de la demanda agregada en las economías regionales.
 
 ::: {.caveat}
-**Un permiso es intención administrativa, no obra ejecutada.** Un permiso de
-edificación registra la autorización otorgada por la Dirección de Obras Municipales
-(DOM), pero no garantiza que la faena comience de inmediato ni que llegue a término.
-La serie constituye un indicador adelantado del ciclo físico de edificación, no una
-medida de obra terminada ni de consumo de suelo urbano efectivo.
+**Un permiso es intención administrativa, no obra ejecutada.** Un permiso de edificación registra la autorización municipal, pero no garantiza el inicio ni la finalización inmediata de la faena.
 :::
 
 ## Ortogonalidad del dinamismo empresarial (CEYS)
 
-Mientras la actividad física de edificación se redujo a la mitad, las empresas
-constituidas (`CEYS`) exhibieron la trayectoria opuesta: pasaron de **52 mil**
-a **202 mil** empresas entre 2014 y 2025.
-
-Esta expansión refleja la digitalización y simplificación administrativa del registro
-de sociedades (creación de empresas en un día), compuesto primordialmente por firmas
-de servicios y sociedades de responsabilidad limitada sin infraestructura física.
-Por tanto, `CEYS` entra al análisis como **control de dinamismo empresarial
-institucional** y **no forma parte del eje espacial**, por lo que no debe agregarse
-a los indicadores físicos de construcción.
+Mientras la actividad física de edificación se redujo a la mitad, las empresas constituidas (`CEYS`) pasaron de **52 mil** a **202 mil** entre 2014 y 2025. Esta expansión responde a la digitalización del registro de sociedades y no forma parte del eje físico espacial.
 
 ## Nota metodológica
 
-Los permisos de edificación provienen del Instituto Nacional de Estadísticas (INE) y
-se recopilan mensualmente a partir de los formularios municipales. Presentan una
-marcada estacionalidad (fuertes caídas en el invierno austral y en enero), por lo
-que el panel mensual computa sumas móviles de 12 meses. El panel anual integra
-exclusivamente años calendario **completos** (2014–2025).
+Los permisos provienen del INE y se recopilan mensualmente a partir de formularios municipales.
 
 ::: {.fuente}
 **Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`panel_permits_annual.csv`](../datos/panel_permits_annual.csv).
