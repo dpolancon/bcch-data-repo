@@ -2,8 +2,184 @@
 title: "Explorar"
 ---
 
-Los dos ejes, región por región. Los datos son los mismos CSV que publican los
-reportes: si un gráfico y una tabla no coinciden, el CSV manda.
+Dos instrumentos autónomos sobre las mismas bases que publican los reportes: si
+un gráfico y una tabla no coinciden, el CSV manda.
+
+```{=html}
+<!-- Las librerías se cargan una vez acá, antes de cualquier módulo: cada
+     módulo trae su propio script y ninguno puede asumir que otro ya las
+     cargó. Estaban al pie del módulo de los dos ejes, de modo que el módulo
+     del censo corría con d3 sin definir. -->
+<script src="libs/d3.min.js"></script>
+<script src="libs/plot.umd.min.js"></script>
+```
+
+## El censo del catálogo
+
+Qué publica el Banco Central sobre un tema, y en qué escala lo publica. La
+búsqueda recorre nombre y código de las 25.369 series del catálogo.
+
+```{=html}
+<div class="explorer">
+<div class="ctl">
+<span class="ctl-label">Buscar</span>
+<input type="search" id="q-censo" placeholder="vivienda, suelo, tasa, hipotecario..." autocomplete="off">
+</div>
+<div class="ctl">
+<span class="ctl-label">Escala</span>
+<div class="ctl-group" id="ctl-escala"></div>
+</div>
+<div class="ctl">
+<span class="ctl-label">Frecuencia</span>
+<div class="ctl-group" id="ctl-frec"></div>
+</div>
+</div>
+
+<p class="plotnote" id="censo-resumen">Cargando el censo…</p>
+<div id="censo-barras" class="plotbox"></div>
+<div id="censo-tabla" class="tablabox"></div>
+```
+
+```{=html}
+<script>
+(function () {
+  "use strict";
+
+  var ESCALAS = ["nacional", "sectorial-regional", "regional", "macro-zona"];
+  var FRECS = {A: "anual", T: "trimestral", M: "mensual", D: "diaria"};
+  var MAX_FILAS = 40;
+  var datos = [];
+
+  function chk(host, valor, texto, marcado) {
+    var l = document.createElement("label");
+    var i = document.createElement("input");
+    i.type = "checkbox"; i.value = valor; i.checked = marcado;
+    l.appendChild(i);
+    l.appendChild(document.createTextNode(" " + texto));
+    host.appendChild(l);
+    return i;
+  }
+
+  function seleccion(host) {
+    return Array.prototype.slice
+      .call(host.querySelectorAll("input:checked"))
+      .map(function (i) { return i.value; });
+  }
+
+  function normaliza(s) {
+    return (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  }
+
+  function pinta() {
+    var q = normaliza(document.getElementById("q-censo").value.trim());
+    var esc = seleccion(document.getElementById("ctl-escala"));
+    var fre = seleccion(document.getElementById("ctl-frec"));
+
+    var hit = datos.filter(function (d) {
+      if (esc.indexOf(d.escala) === -1) return false;
+      if (fre.indexOf(d.frecuencia) === -1) return false;
+      if (!q) return true;
+      return d._n.indexOf(q) !== -1 || d._c.indexOf(q) !== -1;
+    });
+
+    var resumen = document.getElementById("censo-resumen");
+    var porEscala = {};
+    hit.forEach(function (d) { porEscala[d.escala] = (porEscala[d.escala] || 0) + 1; });
+    var detalle = ESCALAS.filter(function (e) { return porEscala[e]; })
+      .map(function (e) { return porEscala[e].toLocaleString("es-CL") + " " + e; })
+      .join(" · ");
+    resumen.textContent = hit.length.toLocaleString("es-CL") + " de " +
+      datos.length.toLocaleString("es-CL") + " series" +
+      (detalle ? " — " + detalle : "");
+
+    // Barras por capítulo: dónde vive lo que se buscó.
+    var host = document.getElementById("censo-barras");
+    host.innerHTML = "";
+    if (!hit.length) {
+      host.innerHTML = '<p class="ploterr">Ninguna serie coincide. Pruebe otro término o amplíe los filtros.</p>';
+      document.getElementById("censo-tabla").innerHTML = "";
+      return;
+    }
+    var conteo = d3.rollups(hit, function (v) { return v.length; },
+                            function (d) { return d.capitulo; })
+      .map(function (r) { return {capitulo: r[0], series: r[1]}; })
+      .sort(function (a, b) { return b.series - a.series; })
+      .slice(0, 12);
+
+    host.appendChild(Plot.plot({
+      marginLeft: 240, marginRight: 46,
+      height: Math.max(150, 26 * conteo.length + 42),
+      width: 860,
+      style: {fontSize: "12px", background: "transparent"},
+      x: {label: "Series", grid: true},
+      y: {label: null},
+      marks: [
+        Plot.barX(conteo, {x: "series", y: "capitulo", sort: {y: "-x"}, fill: "#0f766e"}),
+        Plot.text(conteo, {x: "series", y: "capitulo", text: function (d) {
+          return d.series.toLocaleString("es-CL");
+        }, dx: 6, textAnchor: "start", fontSize: 11}),
+        Plot.ruleX([0])
+      ]
+    }));
+
+    // Tabla de coincidencias, acotada: es una muestra para reconocer códigos,
+    // no un reemplazo del CSV completo.
+    var filas = hit.slice(0, MAX_FILAS).map(function (d) {
+      return "<tr><td><code>" + d.codigo + "</code></td><td>" + d.nombre +
+        "</td><td>" + d.escala + "</td><td>" + (FRECS[d.frecuencia] || "—") + "</td></tr>";
+    }).join("");
+    var pie = hit.length > MAX_FILAS
+      ? '<p class="plotnote">Se muestran ' + MAX_FILAS + ' de ' +
+        hit.length.toLocaleString("es-CL") +
+        '. La lista completa está en <code>censo_bde_series.csv</code>.</p>'
+      : "";
+    document.getElementById("censo-tabla").innerHTML =
+      '<table class="censo"><thead><tr><th>Código</th><th>Serie</th>' +
+      '<th>Escala</th><th>Frecuencia</th></tr></thead><tbody>' +
+      filas + '</tbody></table>' + pie;
+  }
+
+  var he = document.getElementById("ctl-escala");
+  var hf = document.getElementById("ctl-frec");
+  // Una escala en el hash preselecciona el filtro: cada página de escala
+  // enlaza acá ya filtrada por la suya.
+  var pedida = decodeURIComponent((location.hash || "").replace("#escala=", ""));
+  ESCALAS.forEach(function (e) {
+    chk(he, e, e, !pedida || pedida === e);
+  });
+  // El navegador restaura el texto de búsqueda anterior al volver a la misma
+  // URL. Quien llega por el enlace de una escala pide ver esa escala, y una
+  // búsqueda heredada le mostraría cero resultados sin explicación.
+  if (pedida) { document.getElementById("q-censo").value = ""; }
+  Object.keys(FRECS).forEach(function (f) { chk(hf, f, FRECS[f], true); });
+
+  he.addEventListener("change", pinta);
+  hf.addEventListener("change", pinta);
+  document.getElementById("q-censo").addEventListener("input", pinta);
+
+  d3.csv("datos/censo_explorador.csv").then(function (rows) {
+    datos = rows.map(function (d) {
+      d._n = normaliza(d.nombre); d._c = normaliza(d.codigo);
+      return d;
+    });
+    pinta();
+  }).catch(function (e) {
+    document.getElementById("censo-resumen").innerHTML =
+      '<span class="ploterr">No se pudo cargar el censo: ' + e.message + "</span>";
+  });
+})();
+</script>
+```
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`censo_bde_series.csv`](datos/censo_bde_series.csv).
+:::
+
+
+## Los dos ejes, región por región
+
+Renta espacial y renta de recursos como participación en el producto de cada
+región.
 
 ```{=html}
 <div class="explorer">
@@ -43,8 +219,6 @@ renta de recursos no.
 - [`panel_two_axes_summary.csv`](datos/panel_two_axes_summary.csv) — resumen anual
 - [`panel_regional_pib_annual.csv`](datos/panel_regional_pib_annual.csv) — PIB regional
 
-<script src="libs/d3.min.js"></script>
-<script src="libs/plot.umd.min.js"></script>
 <script>
 (function () {
   "use strict";

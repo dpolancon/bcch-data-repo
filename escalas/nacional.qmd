@@ -29,6 +29,8 @@ La BDE publica **21.287 series** en esta escala. 83.9% de los 25.369 códigos ú
 :::
 
 
+[Explorar el censo filtrado por esta escala](../explorar.qmd#escala=nacional)
+
 ## Qué usa el proyecto
 
 ### El precio del dinero: tasas y apalancamiento

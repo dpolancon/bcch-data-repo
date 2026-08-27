@@ -9,6 +9,7 @@ juntas.
 | Base | Contenido | Tamaño |
 |---|---|---:|
 | [`censo_bde_series.csv`](datos/censo_bde_series.csv) | Cada serie del catálogo, clasificada por escala | 4.8 MB |
+| [`censo_explorador.csv`](datos/censo_explorador.csv) | — | 2.2 MB |
 | [`censo_bde_resumen.csv`](datos/censo_bde_resumen.csv) | Series por escala, capítulo y frecuencia | 3 KB |
 | [`panel_two_axes_annual.csv`](datos/panel_two_axes_annual.csv) | Renta espacial y de recursos, región × año | 72 KB |
 | [`panel_two_axes_summary.csv`](datos/panel_two_axes_summary.csv) | Resumen anual de los dos ejes | 3 KB |

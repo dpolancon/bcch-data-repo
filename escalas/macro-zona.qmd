@@ -22,6 +22,8 @@ La BDE publica **56 series** en esta escala. 0.2% de los 25.369 códigos únicos
 :::
 
 
+[Explorar el censo filtrado por esta escala](../explorar.qmd#escala=macro-zona)
+
 ## Qué usa el proyecto
 
 ### El inmueble como reserva de valor

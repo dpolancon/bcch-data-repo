@@ -21,6 +21,8 @@ La BDE publica **2.331 series** en esta escala. 9.2% de los 25.369 códigos úni
 :::
 
 
+[Explorar el censo filtrado por esta escala](../explorar.qmd#escala=sectorial-regional)
+
 ## Qué usa el proyecto
 
 ### Los dos ejes: renta espacial y renta de recursos
