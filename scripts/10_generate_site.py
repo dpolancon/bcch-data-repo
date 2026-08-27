@@ -571,14 +571,18 @@ regional **subió**: alcanzó un índice de **{site_lib.es(idx_renta, 1)}** fren
 índice de **{site_lib.es(idx_sah, 1)}** para la superficie habitacional autorizada
 (ambos con base 100 en {a0}).
 
+![Figura 1: El Gran Desacople entre la actividad física de edificación y la renta espacial (2014–{a1})](../assets/fig4_1_desacople_macro.png)
+
 ### Tabla 2: Evolución Macroeconómica de la Edificación y Dinamismo Empresarial (2014–{a1})
 
 {tabla2_md}
 
-Como revela la Tabla 2, el metraje promedio por unidad habitacional autorizada se
+Como revela la Tabla 2 y la Figura 3, el metraje promedio por unidad habitacional autorizada se
 mantuvo estable en torno a los **74–76 m²** durante todo el decenio. Esto descarta
 la conjetura de que la menor cantidad de viviendas autorizadas hubiese sido
 compensada por unidades de mayor metraje unitario o mayor envergadura física.
+
+![Figura 3: Composición de la superficie autorizada y estabilidad del metraje medio por unidad (2014–{a1})](../assets/fig4_3_composicion_metraje.png)
 
 ## La pauta territorial: Matriz forense regional
 
@@ -586,6 +590,8 @@ La contracción física no es un fenómeno exclusivo de la capital: **{bajo} de 
 autorizaban en {a1} menos superficie habitacional que en {a0}.
 El rango de variación va desde {arriba.index[0]} ({site_lib.es(float(arriba.iloc[0]), 1)})
 hasta {abajo.index[0]} ({site_lib.es(float(abajo.iloc[0]), 1)}).
+
+![Figura 2: Heterogeneidad regional en la variación acumulada de la superficie habitacional autorizada (2014 vs. {a1})](../assets/fig4_2_heterogeneidad_regional.png)
 
 Las principales áreas metropolitanas del país registraron contracciones severas:
 - **Región Metropolitana:** la superficie habitacional se contrajo un **-61,8%**
@@ -1863,6 +1869,15 @@ def main() -> int:
         )
         check_tokens(page4, "reportes/report4-construccion.qmd")
         write(root / "reportes" / "report4-construccion.qmd", page4)
+
+        assets_src = report_assets_dir(4)
+        if assets_src.exists():
+            for asset in sorted(assets_src.iterdir()):
+                if asset.is_file() and asset.suffix.lower() in {
+                    ".png", ".pdf", ".csv", ".jpg", ".svg"
+                }:
+                    manifest.append(site_lib.copy_asset(asset, root / "assets"))
+
         published.append(
             {
                 "n": 4,

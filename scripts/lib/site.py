@@ -58,6 +58,9 @@ def quarto_yml(published: list[dict]) -> str:
 project:
   type: website
   output-dir: docs
+  resources:
+    - assets/
+    - datos/
 
 website:
   title: "{SITE_TITLE}"
