@@ -949,11 +949,7 @@ como serie del Banco Central.
 
 
 def build_report7(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
-    """Reporte 7: estancamiento del sector dinámico y comercio interregional.
-
-    Toda cifra se interpola del panel; la etapa 11 las recalcula y falla si la
-    prosa deja de seguir de los datos.
-    """
+    """Reporte 7: estancamiento del sector dinámico y comercio interregional."""
     aper = resumen[resumen["indicador"] == "apertura"].set_index("region_name")["valor"]
     auto = resumen[resumen["indicador"] == "autocontencion"].set_index("region_name")["valor"]
     bal = resumen[resumen["indicador"] == "balance_neto"].set_index("region_name")["valor"]
@@ -998,108 +994,98 @@ def build_report7(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
         ]["valor"].sum()
     )
 
+    # TABLA 1: Apertura Comercial e Integración Regional (2025)
+    filas_t1 = []
+    for reg in sorted(aper.index.tolist()):
+        ap_v = float(aper.loc[reg])
+        au_v = float(auto.loc[reg])
+        bl_v = float(bal.loc[reg])
+        filas_t1.append(
+            f"| **{reg}** | {site_lib.es(ap_v, 1)}% | {site_lib.es(au_v, 1)}% | {site_lib.es(bl_v, 1)}% |"
+        )
+    tabla1_md = "\n".join(filas_t1)
+
+    # TABLA 2: Volumen de Comercio Interregional (2018 vs 2025)
+    anual_25 = anual[anual["anio"] == a1].pivot_table(index="region_name", columns="indicador", values="valor")
+    filas_t2 = []
+    for reg in sorted(anual_25.index.tolist()):
+        v_inter = float(anual_25.loc[reg, "venta_interregional"])
+        c_inter = float(anual_25.loc[reg, "compra_interregional"])
+        neto = v_inter - c_inter
+        filas_t2.append(
+            f"| **{reg}** | {site_lib.es_dinero(v_inter)} | {site_lib.es_dinero(c_inter)} | {site_lib.es_dinero(neto)} |"
+        )
+    tabla2_md = "\n".join(filas_t2)
+
     return f"""---
 title: "Estancamiento del sector dinámico"
 ---
 
 {site_lib.escala_badge(families_lib.ESCALA_REGIONAL)}
 
-*Las compraventas interregionales revelan una estructura polarizada: la Región
-Metropolitana autocontiene tres cuartas partes de su comercio, mientras las
-regiones productivas dependen de la demanda externa. Sin embargo, la brecha
-temporal de los datos limita la observación al ciclo posterior a las tasas
-bajas.*
+*Las compraventas interregionales revelan una estructura polarizada: la Región Metropolitana autocontiene el **{site_lib.es(rm_auto, 1)}%** de sus ventas, mientras las economías productivas regionales dependen de la demanda externa.*
 
 ---
 
 ## El argumento
 
-El marco analítico del proyecto (Reportes 3 y 4) identificó una divergencia
-clave: la renta espacial se expande mientras la cantidad física construida se
-contrae, señalando una valorización del stock de activos independiente de la
-demanda física de suelo. La pregunta subsiguiente para el Objetivo 1 es qué
-ocurre con el sector productivo transable: si la valorización de activos
-inmobiliarios convive con el dinamismo o con el estancamiento de la economía
-real.
+El análisis de compraventas interregionales evalúa si la valorización de activos inmobiliarios convive con la articulación o el estancamiento del sector productivo transable. Las series del Banco Central desagregan los márgenes de ventas interregionales (`ITE`) e intrarregionales (`ITA`), permitiendo evaluar la apertura comercial externa y la autocontención interna de cada región.
 
-Para evaluar esta articulación, la BDE no provee matrices completas de
-origen-destino, pero sí publica los márgenes de compraventas regionales
-(`CVRV` y `CVRC`) y sus descomposiciones interregionales (`ITE`) e
-intrarregionales (`ITA`). Estos márgenes permiten medir la fuerza de apertura,
-el grado de autocontención y los saldos netos comerciales de cada economía
-regional.
+Entre {a0} y {a1}, las ventas interregionales nominales pasaron de **{site_lib.es_dinero(v_inter0)}** a **{site_lib.es_dinero(v_inter1)}**, mientras el volumen de facturas emitidas pasó de **{site_lib.es(fac0 / 1e6, 1)} millones** a **{site_lib.es(fac1 / 1e6, 1)} millones**.
 
 ## Lo que muestran los datos
 
-En {a1}, la estructura del comercio interregional exhibe una asimetría
-estructural. La Región Metropolitana opera como un nodo fuertemente
-autocontenido: retiene el **{site_lib.es(rm_auto, 1)}%** de sus ventas dentro de
-su propio territorio (autocontención), exhibiendo una tasa de apertura
-interregional de apenas **{site_lib.es(rm_aper, 1)}%**.
+La estructura del comercio interregional exhibe una asimetría marcada. La Región Metropolitana opera como un nodo fuertemente autocontenido: retiene el **{site_lib.es(rm_auto, 1)}%** de sus ventas dentro de su territorio, registrando una tasa de apertura interregional de solo **{site_lib.es(rm_aper, 1)}%**.
 
-En el extremo opuesto, las economías productivas del norte y sur dependen
-primordialmente de los mercados del resto del país. La tasa de apertura
-interregional alcanza el **{site_lib.es(valp_aper, 1)}%** en Valparaíso, el
-**{site_lib.es(anto_aper, 1)}%** en Antofagasta y el **{site_lib.es(rios_aper, 1)}%** en
-Los Ríos. Fuera de la capital, únicamente Los Lagos (**{site_lib.es(lagos_auto, 1)}%**)
-y Aysén (**{site_lib.es(aysen_auto, 1)}%**) muestran una fracción sustantiva de
-comercio intrarregional.
+En contraste, las regiones productivas dependen de la demanda externa: la tasa de apertura alcanza el **{site_lib.es(valp_aper, 1)}%** en Valparaíso, el **{site_lib.es(anto_aper, 1)}%** en Antofagasta y el **{site_lib.es(rios_aper, 1)}%** en Los Ríos. Fuera de Santiago, únicamente Los Lagos (**{site_lib.es(lagos_auto, 1)}%**) y Aysén (**{site_lib.es(aysen_auto, 1)}%**) exhiben una fracción relevante de autocontención interna.
 
-### Balances comerciales polarizados
+### Tabla 1: Matriz de Apertura Comercial y Autocontención por Región ({a1})
 
-De las 16 regiones, sólo cuatro logran un balance comercial neto positivo frente
-al resto de Chile en {a1}: Valparaíso (**{site_lib.es(valp_bal, 1)}%** del
-intercambio bruto), Biobío (**{site_lib.es(bio_bal, 1)}%**), la Región
-Metropolitana (**{site_lib.es(rm_bal, 1)}%**) y Antofagasta (**{site_lib.es(anto_bal, 1)}%**).
+| Región | Tasa de Apertura (%) | Tasa de Autocontención (%) | Balance Neto (% Intercambio) |
+|:---|:---:|:---:|:---:|
+{tabla1_md}
 
-Las doce regiones restantes transfieren recursos netos como compradoras brutas,
-registrando brechas deficitarias de **{site_lib.es(abs(tara_bal), 1)}%** en
-Tarapacá, **{site_lib.es(abs(arica_bal), 1)}%** en Arica y Parinacota, y
-**{site_lib.es(abs(lagos_bal), 1)}%** en Los Lagos.
+### Tabla 2: Matriz de Flujos Comerciales Interregionales ({a1})
 
-Entre {a0} y {a1}, las ventas interregionales totales nominales se expandieron
-de **{site_lib.es_dinero(v_inter0)}** a **{site_lib.es_dinero(v_inter1)}**,
-mientras el volumen de facturas emitidas pasó de **{site_lib.es(fac0 / 1e6, 1)} millones**
-a **{site_lib.es(fac1 / 1e6, 1)} millones**.
+| Región | Ventas a Otras Regiones | Compras a Otras Regiones | Saldo Neto Interregional |
+|:---|:---:|:---:|:---:|
+{tabla2_md}
 
-::: {{.caveat}}
-**El catálogo no contiene series de productividad.** La búsqueda de «productividad»
-o PTF en las 25.369 series del Banco Central arroja cero resultados. El dinamismo o
-estancamiento del sector productivo no se puede inferir como una caída observada de
-productividad total de factores: debe argumentarse rigurosamente a partir de
-participaciones de valor, flujos comerciales y márgenes de compraventa.
+![Figura 7.1: Grado de Apertura Comercial Interregional vs. Autocontención por Región (2025)](../assets/fig7_1_autocontencion_vs_apertura.png)
+
+::: {{.callout-note}}
+### Medición de Apertura y Autocontención (Figura 7.1)
+La tasa de apertura interregional ($AP_{{r,t}} = V_{{inter,r,t}} / V_{{total,r,t}}$) aísla la fracción de ventas regionales orientadas al resto del país, mientras la autocontención ($AC_{{r,t}} = V_{{intra,r,t}} / V_{{total,r,t}}$) mide la densidad del mercado interno regional. La alta autocontención de la RM (**{site_lib.es(rm_auto, 1)}%**) refleja su rol como centro de consumo final.
 :::
 
-## La brecha temporal: la serie regional más corta
+![Figura 7.2: Balance Comercial Neto Interregional por Región (2025)](../assets/fig7_2_balance_comercial_neto.png)
 
-Las series de compraventas regionales inician en **{a0}** (2018), lo que las
-convierte en la capa regional más corta que el programa ha ingerido (8 años
-completos frente a 2008 en morosidad financiera y 2013 en PIB y exportaciones
-regionales).
+::: {{.callout-note}}
+### Medición del Balance Neto Interregional (Figura 7.2)
+De las 16 regiones, solo cuatro registran un balance neto positivo frente al resto del país: Valparaíso (**{site_lib.es(valp_bal, 1)}%** del intercambio bruto), Biobío (**{site_lib.es(bio_bal, 1)}%**), la Región Metropolitana (**{site_lib.es(rm_bal, 1)}%**) y Antofagasta (**{site_lib.es(anto_bal, 1)}%**). Las doce regiones restantes son deficitarias netas, destacando brechas de **{site_lib.es(abs(tara_bal), 1)}%** en Tarapacá, **{site_lib.es(abs(arica_bal), 1)}%** en Arica y Parinacota, y **{site_lib.es(abs(lagos_bal), 1)}%** en Los Lagos.
+:::
 
-Esta restricción temporal significa que la ventana común 2018–{a1} **no cubre el
-período de tasas de interés mínimas históricas (2010–2017)** donde ocurrió la
-mayor aceleración del precio del suelo. El año {a1 + 1} se excluye por incompleto
-para evitar registrar caídas artificiales en flujos acumulados.
+![Figura 7.3: Volumen Total de Comercio por Región y Destino (2025)](../assets/fig7_3_volumen_comercio.png)
+
+::: {{.callout-note}}
+### Medición de la Masa de Comercio Interregional (Figura 7.3)
+La masa comercial combina el volumen de ventas intrarregionales e interregionales. Muestra que la Región Metropolitana absorbe el mayor volumen absoluto de facturas del país, actuando como el principal mercado de destino para la producción regional.
+:::
+
+::: {{.caveat}}
+**El catálogo no contiene series de productividad.** La búsqueda de «productividad» en las series del Banco Central arroja cero resultados. El dinamismo o estancamiento del sector productivo debe argumentarse a partir de participaciones de valor y flujos comerciales.
+:::
 
 ## Nota metodológica
 
-Las compraventas usan codificación posicional numérica de 16 regiones
-(`F035.CVRC.FLU.Z.CLP.Z.Z.Z.Z.RR.0.M`). Los montos están expresados en pesos
-nominales y nunca deben sumarse entre compras y ventas, pues cada transacción
-aparece registrada en ambos lados y su adición duplicaría el comercio nacional.
-La identidad `total = inter + intra` se cumple de manera exacta en los datos.
+Las compraventas inician en **{a0}** (2018), constituyendo la capa regional más corta del sistema. Los montos están en pesos nominales y la identidad `total = inter + intra` se cumple de forma exacta.
 
 {site_lib.fuente("panel_interregional_trade_annual.csv")}
 """
 
 
 def build_report8(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
-    """Reporte 8: el precio del dinero, tasas y apalancamiento de hogares.
-
-    Toda cifra se interpola del panel; la etapa 11 las recalcula y falla si la
-    prosa deja de seguir de los datos.
-    """
+    """Reporte 8: el precio del dinero, tasas y apalancamiento de hogares."""
     tpm_max = float(resumen[resumen["indicador"] == "tpm_maximo"]["valor"].iloc[0])
     tpm_min = float(resumen[resumen["indicador"] == "tpm_minimo"]["valor"].iloc[0])
     tpm_act = float(resumen[resumen["indicador"] == "tpm_actual"]["valor"].iloc[0])
@@ -1118,16 +1104,26 @@ def build_report8(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
 
     factor_deuda = deub_ing_max / deub_ing_min
 
+    # TABLA 1: Matriz de Tasas de Interés
+    tabla1_md = f"""| Indicador de Tasa | Mínimo Histórico | Máximo Histórico | Nivel Actual (2026) |
+|:---|:---:|:---:|:---:|
+| **Tasa de Política Monetaria (TPM)** | **{site_lib.es(tpm_min, 2)}%** | **{site_lib.es(tpm_max, 2)}%** | **{site_lib.es(tpm_act, 2)}%** |
+| **Tasa Hipotecaria (Vivienda)** | **{site_lib.es(hip_min, 2)}%** | **{site_lib.es(hip_max, 2)}%** | **{site_lib.es(hip_act, 2)}%** |
+"""
+
+    # TABLA 2: Apalancamiento y Deuda de los Hogares
+    tabla2_md = f"""| Métrica de Deuda de Hogares | Mínimo Histórico | Máximo Histórico | Nivel Actual (2026) |
+|:---|:---:|:---:|:---:|
+| **Deuda / PIB (%)** | **{site_lib.es(deub_pib_min, 1)}%** | **{site_lib.es(deub_pib_max, 1)}%** | **{site_lib.es(deub_pib_act, 1)}%** |
+| **Deuda / Ingreso Disponible (%)** | **{site_lib.es(deub_ing_min, 1)}%** | **{site_lib.es(deub_ing_max, 1)}%** | **{site_lib.es(deub_ing_act, 1)}%** |
+| **Apalancamiento Relativo** | 1,0x | **{site_lib.es(factor_deuda, 1)}** veces | -- |
+"""
+
     return f"""---
-title: "El precio del dinero: tasas y apalancamiento"
+title: "El precio del dinero"
 ---
 
 {site_lib.escala_badge(families_lib.ESCALA_NACIONAL)}
-
-*El desplome de la tasa de créditos hipotecarios desde más del 7% hasta un piso
-histórico de 1,99% en 2019 constituyó el principal estímulo financiero a la
-valorización del suelo. Paralelamente, el apalancamiento de los hogares sobre su
-ingreso disponible se multiplicó por {site_lib.es(factor_deuda, 1)}.*
 
 ---
 
