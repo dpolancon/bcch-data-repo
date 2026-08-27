@@ -1,0 +1,116 @@
+# Nota de familia — `two_axes` (Reporte 3)
+
+**Tier:** B (16 regiones) · **Frecuencia:** anual, con un subconjunto trimestral
+**Fuente:** `data/raw/regional-spatial-macro-dataset/raw_annual.csv`
+**Panel derivado:** `data/panel_two_axes_annual.csv`, `data/panel_two_axes_summary.csv`
+
+Esta nota existe para que la próxima persona no tenga que reconstruir lo que ya
+se aprendió aquí. No resume el reporte: describe los datos.
+
+## Qué contiene la familia
+
+Los dos ejes del marco de crecimiento desbalanceado tienen contraparte directa
+en las cuentas regionales del Banco Central:
+
+| Eje | Sector | Nombre BCCh |
+|-----|--------|-------------|
+| Renta espacial | `10` | Servicios de vivienda e inmobiliarios |
+| Renta de recursos | `03` | Minería |
+| Pata de inversión | `06` | Construcción |
+
+Los tres viajan dentro de la familia `F035.PIB.*`, que ya estaba descargada
+desde el primer día del repositorio. **Esta familia no requiere ninguna llamada
+a la API.** Ese es su propósito dentro del programa: probar la cadena completa
+—panel, tabla, prosa interpolada, página, auditoría— sin riesgo de red.
+
+## Cómo se leen los códigos
+
+Un código F035 tiene doce tokens separados por punto:
+
+```
+F035 . PIB . FLU . R . CLP . 2018 . 03 . Z . Z . 02 . 0 . A
+  0     1     2    3    4      5     6    7   8    9   10  11
+```
+
+- token **6** es el sector (`03`, `06`, `10`, o `Z` para el total regional)
+- token **9** es la región, en codificación posicional
+- token **11** es la frecuencia
+
+### La trampa del token 7
+
+El token 7 es un código de sub-actividad. Es `Z` para la mayoría de los pares
+región/sector, **pero minería (`03`) y construcción (`06`) usan `21` en algunas
+regiones, Tarapacá entre ellas.** Un selector escrito a mano como
+`...03\.Z\.Z\.` descarta esas regiones **en silencio**: sin error, sin celda
+vacía, sólo una fila que no aparece. La participación minera de 34% de Tarapacá
+simplemente desaparece del panel.
+
+Use siempre `lib.codes.f035_pattern()`, que comodinea ese slot. No escriba el
+patrón a mano.
+
+## Precios corrientes, no volumen encadenado
+
+`compute_sector_shares()` usa `valuation="N"` por defecto y el panel lo pasa de
+forma explícita. La razón es que **los volúmenes encadenados no son aditivos
+entre sectores**: su suma no reproduce el total regional. Una participación
+construida sobre volúmenes encadenados no sería una proporción del producto
+regional; sería un cociente cuyo denominador no significa nada.
+
+## El sector 10 es renta imputada
+
+Este es el supuesto que sostiene todo el eje espacial y debe declararse en cada
+reporte que lo use. Las cuentas nacionales incluyen en el sector 10 el
+**alquiler imputado** de las viviendas ocupadas por sus propietarios, no sólo el
+arriendo efectivamente pagado. Es la mejor aproximación disponible —el catálogo
+del Banco Central no contiene ningún índice de arriendos regional, y sólo un
+componente de arriendo efectivo en el IPC nacional— pero es una aproximación,
+no una medición.
+
+## Ausencias que no son errores
+
+Doce series trimestrales devuelven cero observaciones: minería (`03`) para
+Maule, Biobío, La Araucanía, Los Lagos, Los Ríos y Ñuble. **No es una falla de
+descarga.** El Banco Central no publica esas series porque no hay minería
+relevante que reportar en esas regiones. La versión anual sí existe.
+
+Están declaradas en `lib.families.KNOWN_ABSENT_QUARTERLY_MINING`. Cualquier
+nota de datos debe distinguir «ausente» de «falló».
+
+## Sin sector 07
+
+La base de referencia 2018 **no tiene un sector `07` combinado**: comercio se
+separa en `COM` (Comercio) y `RH` (Restaurantes y hoteles). Suponer que existe
+un `07` descarta alrededor del 13% del producto de cada región. La lista
+correcta es `lib.sectors.SECTOR_BREAKDOWN_IDS`, que tiene **13** actividades
+mutuamente excluyentes, no 12.
+
+Este error ya ocurrió una vez: la Tabla 2 del Reporte 1 imprimía trece valores
+bajo doce encabezados, de modo que el cociente minero de Antofagasta (4,46)
+aparecía bajo la columna «Trade». El encabezado ahora se deriva de los datos
+mediante `lib.codes.short_labels()`.
+
+## Cobertura
+
+- **Regiones:** 16 de 16
+- **Años:** 2013–2025 (anual)
+- **Filas del panel:** 624 = 16 regiones × 13 años × 3 ejes
+
+El panel anterior a 2013 requiere empalme entre bases de referencia (1986,
+1996, 2003, 2008, 2013, 2018), y sólo las cosechas 2013 y 2018 están
+etiquetadas como empalmadas. El Reporte 3 no cruza ese límite.
+
+## Reproducir
+
+```bash
+python scripts/09_build_theme_panels.py --family two_axes
+python scripts/10_generate_site.py
+python scripts/11_audit_site.py
+```
+
+## Qué mirar después
+
+La pregunta que esta familia deja abierta es si la huella regional de la renta
+espacial se mueve con la *cantidad* construida o sólo con el *precio*. El sector
+10 no lo distingue. La familia `permits` (Reporte 4) aporta el lado de la
+cantidad —superficie autorizada y viviendas autorizadas, mensual, 16 regiones—
+y es el siguiente paso natural.

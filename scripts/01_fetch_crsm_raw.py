@@ -9,7 +9,7 @@ Outputs:  data/raw/regional-spatial-macro-dataset/raw_{daily,monthly,quarterly,a
           data/raw/regional-spatial-macro-dataset/crsm_series_universe.csv
           data/raw/regional-spatial-macro-dataset/fetch_manifest.csv
 Created:  2026-08-21
-Updated:  2026-08-22
+Updated:  2026-08-26
 Owner:    dpolancon
 Run:      python scripts/01_fetch_crsm_raw.py [--dry-run] [--limit N] [--sht-only] [--refresh]
 
@@ -26,6 +26,7 @@ a regional match in an unexpected chapter is flagged for review.
 import argparse
 import logging
 import os
+import re
 import pathlib
 import sys
 import threading
@@ -41,8 +42,9 @@ from lib import codes as codes_lib
 from lib import config as config_lib
 from lib.catalog import CatalogManager
 from lib.client import BCChAPIClient, BCChAPIError
+from lib import families as families_lib
 from lib.paths import CRSM_RAW_DIR, ensure_dir
-from lib.regions import PARSE_CUADRO, parse_region
+from lib.regions import PARSE_CUADRO, REGIONS, parse_region
 from lib.storage import LocalCacheManager
 
 logging.basicConfig(
@@ -130,7 +132,70 @@ def load_catalog(catalog: CatalogManager) -> pd.DataFrame:
     return df
 
 
-def build_universe(df: pd.DataFrame, sht_only: bool = False) -> pd.DataFrame:
+def build_zone_universe(df: pd.DataFrame, family: str) -> pd.DataFrame:
+    """Resolve a TIER A family, whose geography is zones rather than regions.
+
+    build_universe() drops every series that does not parse to one of the 16
+    regions -- which is correct for the regional panel and fatal for the rent
+    axis, because BCCh publishes housing wealth and the price index only for
+    coarse zones. This is the deliberate second door, and it is only ever
+    opened for a family declared TIER_NATIONAL.
+    """
+    fam = families_lib.get(family)
+    if fam.tier != families_lib.TIER_NATIONAL:
+        raise ValueError(f"{family} is Tier {fam.tier}; use build_universe()")
+
+    rows = []
+    for code, name, table, chapter in zip(
+        df[COL_CODE], df[COL_NAME], df[COL_TABLE], df[COL_CHAPTER]
+    ):
+        code_s = str(code).strip()
+        if not re.search(fam.pattern(), code_s):
+            continue
+
+        frequency = codes_lib.parse_frequency(code_s)
+        if frequency is None or (fam.frequencies and frequency not in fam.frequencies):
+            continue
+
+        zone = families_lib.parse_zone(code_s)
+        if zone is None:
+            continue  # national-total variants without a zone token
+
+        rows.append(
+            {
+                "series_code": code_s,
+                "series_name": str(name).strip(),
+                "region_id": None,
+                "region_name": None,
+                "zone": zone,
+                "is_zone_subset": zone in families_lib.ZONE_SUBSETS,
+                "frequency": frequency,
+                "chapter": str(chapter).strip(),
+                "table_name": str(table).strip(),
+                "sector_id": None,
+                "sector_name": None,
+                "region_parse_method": "zone",
+            }
+        )
+
+    universe = pd.DataFrame(rows)
+    if universe.empty:
+        return universe
+
+    universe = universe.drop_duplicates(subset=["series_code"])
+    logger.info(
+        "--family %s (report %d, TIER A): %d series across %d zones",
+        fam.name, fam.report, len(universe), universe["zone"].nunique(),
+    )
+    logger.info("By zone: %s", universe["zone"].value_counts().to_dict())
+    return universe.sort_values(["frequency", "zone", "series_code"]).reset_index(
+        drop=True
+    )
+
+
+def build_universe(
+    df: pd.DataFrame, sht_only: bool = False, family: str | None = None
+) -> pd.DataFrame:
     """Resolve region, frequency and sector for every catalog row.
 
     Returns only rows that resolve to one of the 16 regions -- national and
@@ -170,7 +235,28 @@ def build_universe(df: pd.DataFrame, sht_only: bool = False) -> pd.DataFrame:
     if universe.empty:
         return universe
 
-    if sht_only:
+    if family:
+        fam = families_lib.get(family)
+        keep = universe["series_code"].str.contains(fam.pattern(), regex=True, na=False)
+        if fam.frequencies:
+            keep &= universe["frequency"].isin(fam.frequencies)
+        logger.info(
+            "--family %s (report %d, tier %s): %d of %d series retained",
+            fam.name, fam.report, fam.tier, keep.sum(), len(universe),
+        )
+        universe = universe[keep].reset_index(drop=True)
+        n_regions = universe["region_id"].nunique()
+        if fam.expected_regions and n_regions < fam.expected_regions:
+            missing = sorted(
+                {r.id for r in REGIONS} - set(universe["region_id"].unique())
+            )
+            unexplained = [m for m in missing if m not in fam.absent]
+            level = logger.warning if unexplained else logger.info
+            level(
+                "Family %s resolved %d of %d regions; missing=%s (declared absent: %s)",
+                fam.name, n_regions, fam.expected_regions, missing, list(fam.absent),
+            )
+    elif sht_only:
         pattern = "|".join(SHT_CORE_TOKENS)
         keep = universe["series_code"].str.contains(pattern, regex=True, na=False)
         logger.info("--sht-only: %d of %d series retained", keep.sum(), len(universe))
@@ -433,6 +519,13 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true", help="resolve the universe only; no API calls")
     parser.add_argument("--limit", type=int, default=None, help="fetch at most N series (smoke test)")
     parser.add_argument("--sht-only", action="store_true", help="restrict to the SHT core variable set")
+    parser.add_argument(
+        "--family",
+        type=str,
+        default=None,
+        choices=sorted(families_lib.FAMILIES),
+        help="restrict to one publication's series family (see lib/families.py)",
+    )
     parser.add_argument("--start", type=str, default=None, help="start date, YYYY-MM-DD")
     parser.add_argument("--end", type=str, default=None, help="end date, YYYY-MM-DD")
     parser.add_argument("--workers", type=int, default=DEFAULT_WORKERS, help="concurrent requests during cold load")
@@ -442,13 +535,29 @@ def main() -> int:
     out_dir = ensure_dir(CRSM_RAW_DIR)
     catalog = CatalogManager()
 
-    universe = build_universe(load_catalog(catalog), sht_only=args.sht_only)
+    catalog_df = load_catalog(catalog)
+    if args.family and families_lib.get(args.family).tier == families_lib.TIER_NATIONAL:
+        universe = build_zone_universe(catalog_df, args.family)
+    else:
+        universe = build_universe(
+            catalog_df, sht_only=args.sht_only, family=args.family
+        )
     if universe.empty:
         logger.error("No regional series resolved -- aborting.")
         return 1
 
-    report_universe(universe)
-    universe_path = out_dir / "crsm_series_universe.csv"
+    if "zone" not in universe.columns:
+        report_universe(universe)
+    # A scoped run must never overwrite the global universe record: that file
+    # documents what a FULL fetch selected, and a --family or --sht-only run
+    # would silently shrink it to a fraction of the catalog.
+    if args.family:
+        universe_name = f"universe_{args.family}.csv"
+    elif args.sht_only:
+        universe_name = "universe_sht.csv"
+    else:
+        universe_name = "crsm_series_universe.csv"
+    universe_path = out_dir / universe_name
     universe.to_csv(universe_path, index=False, encoding="utf-8-sig")
     logger.info("Wrote %s (%d rows)", universe_path.name, len(universe))
 
@@ -470,11 +579,18 @@ def main() -> int:
     observations, manifest = fetch_series(universe, cache, start, end, refresh=args.refresh, workers=args.workers)
 
     write_outputs(observations, out_dir)
-    manifest.to_csv(out_dir / "fetch_manifest.csv", index=False, encoding="utf-8-sig")
+    # A scoped fetch gets its own manifest. This file is the evidence that a
+    # family was actually ingested -- a --dry-run writes a universe but never a
+    # manifest, which is what lets the absorption gate tell "resolved" from
+    # "fetched".
+    manifest_name = (
+        f"manifest_{args.family}.csv" if args.family else "fetch_manifest.csv"
+    )
+    manifest.to_csv(out_dir / manifest_name, index=False, encoding="utf-8-sig")
     (out_dir / "last_fetch.txt").write_text(
         f"{manifest.attrs.get('run_started_utc', '')}\n", encoding="utf-8"
     )
-    logger.info("Wrote fetch_manifest.csv (%d rows)", len(manifest))
+    logger.info("Wrote %s (%d rows)", manifest_name, len(manifest))
 
     summarize(observations)
     return 0

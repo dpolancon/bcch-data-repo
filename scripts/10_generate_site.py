@@ -1,0 +1,858 @@
+"""
+Stage:    10 -- Generate the Quarto publication site
+Purpose:  Emit the whole site into the git worktree checked out on the `site`
+          branch: project config, programme index, one page per published
+          report, the interactive explorer, and the methodology page carrying
+          the standing caveats. Everything here is generated; nothing in the
+          worktree is hand-edited.
+Task:     Publication programme -- BCCh regional data
+Inputs:   bcch-data-repo-vault/report*/  (markdown + assets)
+          data/panel_two_axes_annual.csv, data/panel_two_axes_summary.csv
+          data/panel_regional_pib_annual.csv
+Outputs:  <site worktree>/_quarto.yml, index.qmd, explorar.qmd,
+          metodologia.qmd, reportes/*.qmd, datos/*.csv, assets/*,
+          asset_manifest.csv
+Created:  2026-08-26
+Updated:  2026-08-26
+Owner:    dpolancon
+Run:      python scripts/10_generate_site.py [--worktree PATH]
+"""
+
+from __future__ import annotations
+
+import argparse
+import logging
+import os
+import re
+import shutil
+import sys
+from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import pandas as pd
+
+from lib import families as families_lib
+from lib import site as site_lib
+from lib.paths import (
+    BRIEFINGS_DIR,
+    DATA_DIR,
+    SITE_WORKTREE_DEFAULT,
+    report_assets_dir,
+    report_dir,
+    site_worktree,
+)
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s | %(levelname)-7s | %(message)s"
+)
+logger = logging.getLogger(__name__)
+
+TOKEN_RE = re.compile(r"@@[A-Z0-9_]+@@")
+
+# Panels the site publishes as raw CSV. The explorer reads these directly, so
+# a reader can check any chart against the same file the chart was drawn from.
+# Chart libraries vendored into the site worktree, kept out of
+# GENERATED_DIRS so a regeneration does not delete them.
+VENDORED_LIBS = ["d3.min.js", "plot.umd.min.js"]
+
+PUBLISHED_PANELS = [
+    "panel_two_axes_annual.csv",
+    "panel_two_axes_summary.csv",
+    "panel_regional_pib_annual.csv",
+]
+
+# Reports that exist as finished markdown in the vault today. Report 3 is
+# generated below from the two-axis panel; 4-8 are declared in lib.families but
+# not yet written, and the index renders them as forthcoming rather than
+# linking to pages that do not exist.
+VAULT_REPORTS = [
+    {
+        "n": 1,
+        "slug": "report1-disparidades",
+        "nav_label": "1 · Disparidades regionales",
+        "title": "Disparidades económicas regionales en Chile",
+        "source": "report_REG_ECON_DEV_ES.md",
+        "tier": families_lib.TIER_REGIONAL,
+        "lead": (
+            "La geografía productiva de Chile está estructuralmente fijada, "
+            "mientras que la desigualdad de bienestar apenas oscila con los "
+            "ciclos de commodities."
+        ),
+    },
+    {
+        "n": 2,
+        "slug": "report2-cobertura",
+        "nav_label": "2 · Cobertura de datos",
+        "title": "Reporte de cobertura de datos regionales",
+        "source": "data_coverage_report_ES.md",
+        "tier": families_lib.TIER_REGIONAL,
+        "lead": (
+            "Qué publica efectivamente el Banco Central a nivel regional, "
+            "por dominio temático, frecuencia y región."
+        ),
+    },
+]
+
+
+def strip_front_matter(text: str) -> str:
+    """Remove a YAML block if the vault markdown carries one."""
+    if text.startswith("---"):
+        end = text.find("\n---", 3)
+        if end != -1:
+            return text[end + 4 :].lstrip("\n")
+    return text
+
+
+def rewrite_asset_links(text: str) -> str:
+    """Point `assets/...` references at the site's shared assets directory."""
+    return re.sub(r"\((?:\./)?assets/", "(../assets/", text)
+
+
+def demote_headings(text: str) -> str:
+    """Drop the vault's H1 so the Quarto title is the only top-level heading."""
+    lines = text.split("\n")
+    out, seen_h1 = [], False
+    for line in lines:
+        if not seen_h1 and line.startswith("# "):
+            seen_h1 = True
+            continue
+        out.append(line)
+    return "\n".join(out)
+
+
+def check_tokens(text: str, where: str) -> None:
+    """Fail on any unresolved @@TOKEN@@ -- the same rule as stages 05 and 06."""
+    leftover = TOKEN_RE.findall(text)
+    if leftover:
+        raise SystemExit(
+            f"Unresolved narrative tokens in {where}: {sorted(set(leftover))}"
+        )
+
+
+def write(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+    logger.info("Wrote %s", path.relative_to(path.parents[len(path.parts) - 2]) if False else path.name)
+
+
+# --------------------------------------------------------------------------
+# Page builders
+# --------------------------------------------------------------------------
+
+def build_index(published: list[dict], briefs: list[dict] | None = None) -> str:
+    """The programme page: the thesis, the roadmap, and the absorption model."""
+    rows = []
+    for fam in families_lib.ordered():
+        done = any(p.get("family") == fam.name for p in published)
+        status = "publicado" if done else "en preparación"
+        link = ""
+        for p in published:
+            if p.get("family") == fam.name:
+                link = f"[{fam.title_es}](reportes/{p['slug']}.qmd)"
+        label = link or fam.title_es
+        rows.append(
+            f"| {fam.report} | {label} | Tier {fam.tier} | "
+            f"`{fam.name}` | {', '.join(fam.frequencies)} | {status} |"
+        )
+    roadmap = "\n".join(rows)
+
+    if briefs:
+        links = "\n".join(
+            f"- [{b['title']}](briefings/{b['slug']}.qmd)" for b in briefs
+        )
+        notes_section = (
+            "## Notas de familia\n\n"
+            "Cada familia de series ingerida deja una nota: qué significan "
+            "los códigos, cómo se codifican las regiones, dónde están las "
+            "trampas. Es lo que abre la compuerta del reporte siguiente.\n\n"
+            + links + "\n"
+        )
+    else:
+        notes_section = ""
+
+    return f"""---
+title: "El programa"
+subtitle: "{site_lib.SITE_SUBTITLE}"
+---
+
+## La tesis, en dos registros
+
+Este programa sostiene un solo argumento, medido en dos niveles distintos
+porque el Banco Central publica los datos en dos niveles distintos.
+
+**Tier A — nacional y por zonas.** El inmueble en Chile funciona como reserva
+de valor. La riqueza habitacional como proporción del PIB, la descomposición
+entre valor del *suelo* y valor de la *construcción*, y el apalancamiento
+hipotecario de los hogares miden la financiarización del espacio de forma
+directa.
+
+**Tier B — las 16 regiones.** Ese proceso nacional deja una huella regional que
+sí es medible: permisos de edificación, participación del sector 10 en el
+producto regional, morosidad hipotecaria y profundidad de cuentas corrientes.
+Esa huella corre contra la inmovilidad estructural que documentó el Reporte 1
+—un HHI plano en 0,236–0,244 durante trece años.
+
+::: {{.caveat}}
+**Los dos tiers no se cruzan libremente.** El índice de precios de vivienda
+existe para siete zonas, no para dieciséis regiones. Cualquier comparación
+entre tiers declara explícitamente la pérdida por agregación, o se restringe a
+Norte / Centro / Sur / RM. No se ofrece una tabla de equivalencia región-zona
+porque no existe una que sea honesta.
+:::
+
+## Hoja de ruta
+
+Cada reporte abre exactamente **una** familia de series nueva, y las familias
+están ordenadas por costo de ingesta creciente. El equipo nunca enfrenta dos
+estructuras de datos desconocidas al mismo tiempo. El orden *es* el diseño de
+absorción.
+
+| # | Reporte | Tier | Familia | Frec. | Estado |
+|---|---------|------|---------|-------|--------|
+{roadmap}
+
+## Cómo avanza el programa
+
+El ritmo lo fija la comprensión, no el calendario. Corren dos vías en paralelo.
+
+**Vía lenta — los reportes.** Un ciclo no se cierra en una fecha: se cierra
+cuando existen tres artefactos.
+
+1. el reporte publicado,
+2. una **nota de familia** que explica qué significan los códigos, cómo se
+   codifican las regiones y dónde están las trampas —lo que necesita leer la
+   *próxima* persona, no la que ya hizo el trabajo,
+3. una respuesta escrita del equipo, enlazada desde la página del reporte.
+
+**Vía rápida — las notas de datos.** Una nota breve cada vez que aterriza una
+familia nueva en `data/raw/`, *antes* del reporte que la usa. Se genera desde
+el manifiesto de descarga: cuántas series, qué regiones, qué rango de fechas,
+qué falta. Barata y mecánica; mantiene la ingesta en movimiento entre reportes.
+
+**La compuerta.** La descarga del reporte N+1 no corre hasta que existe la nota
+de familia del reporte N. Ese es el mecanismo de autorregulación, y es
+verificable de forma automática.
+
+{notes_section}
+## Procedencia
+
+Todo número de este sitio proviene de un CSV en `data/`, y todo CSV proviene de
+la API del Banco Central de Chile. No hay datos sintéticos, estimados ni
+interpolados en ninguna etapa —la ausencia se reporta como ausencia. Los
+paneles publicados están [disponibles para descarga](explorar.qmd).
+"""
+
+
+def build_report_page(meta: dict, body: str) -> str:
+    """Wrap a vault report's markdown as a Quarto page."""
+    badge = site_lib.tier_badge(meta["tier"])
+    return f"""---
+title: "{meta['title']}"
+---
+
+{badge}
+
+*{meta['lead']}*
+
+---
+
+{body}
+"""
+
+
+def build_report3(panel: pd.DataFrame, summary: pd.DataFrame) -> str:
+    """Report 3, written directly from the two-axis panel.
+
+    Every statistic below is interpolated from `summary`; none is typed in by
+    hand. That is the whole point of the exercise -- a hand-copied figure is
+    correct exactly once.
+    """
+    first, last = summary.iloc[0], summary.iloc[-1]
+    y0, y1 = int(first["year"]), int(last["year"])
+
+    sr0, sr1 = first["spatial_rent_mean"], last["spatial_rent_mean"]
+    rr0, rr1 = first["resource_rent_mean"], last["resource_rent_mean"]
+    srg0, srg1 = first["spatial_rent_gini"], last["spatial_rent_gini"]
+    rrg0, rrg1 = first["resource_rent_gini"], last["resource_rent_gini"]
+
+    latest = panel[panel["year"] == y1]
+    sr_top = (
+        latest[latest["axis"] == "spatial_rent"]
+        .nlargest(3, "share")[["region_display", "share"]]
+        .values.tolist()
+    )
+    rr_top = (
+        latest[latest["axis"] == "resource_rent"]
+        .nlargest(3, "share")[["region_display", "share"]]
+        .values.tolist()
+    )
+    sr_list = "; ".join(f"{n} ({site_lib.es_pct(v, 1)}%)" for n, v in sr_top)
+    rr_list = "; ".join(f"{n} ({site_lib.es_pct(v, 1)}%)" for n, v in rr_top)
+
+    badge = site_lib.tier_badge(families_lib.TIER_REGIONAL)
+
+    return f"""---
+title: "Los dos ejes: renta espacial y renta de recursos"
+---
+
+{badge}
+
+*La renta espacial es difusa y creciente; la renta de recursos es concentrada y
+se endurece. Son dos geografías distintas dentro del mismo país.*
+
+---
+
+## El argumento
+
+El marco de crecimiento desbalanceado distingue dos rentas que compiten por el
+excedente de una economía: la **renta espacial**, que se captura sobre el suelo
+y el inmueble, y la **renta de recursos**, que se captura sobre el subsuelo. En
+las cuentas regionales del Banco Central ambas tienen una contraparte directa:
+el sector **10** (*Servicios de vivienda e inmobiliarios*) y el sector **03**
+(*Minería*). El sector **06** (*Construcción*) es la pata de inversión que las
+vincula.
+
+Este reporte no descarga ninguna serie nueva. Todo lo que usa ya estaba en
+`raw_annual.csv` desde el primer día del repositorio: su propósito es medir los
+dos ejes a lo largo del tiempo, no ampliar la base.
+
+::: {{.caveat}}
+**El sector 10 es mayoritariamente renta imputada.** Las cuentas nacionales
+incluyen el alquiler imputado de las viviendas ocupadas por sus propietarios,
+no sólo el arriendo efectivamente pagado. Es la mejor aproximación disponible
+—el catálogo del Banco Central no contiene ningún índice de arriendos
+regional— pero es un supuesto que sostiene todo el eje espacial, y por eso se
+declara en cada reporte que se apoya en él.
+:::
+
+## Lo que muestran los datos
+
+Entre {y0} y {y1} la participación media de la **renta espacial** en el
+producto regional pasó de **{site_lib.es_pct(sr0)}%** a **{site_lib.es_pct(sr1)}%**. La
+participación media de la **renta de recursos** pasó de **{site_lib.es_pct(rr0)}%** a
+**{site_lib.es_pct(rr1)}%** —es decir, se mantuvo prácticamente donde estaba.
+
+El promedio, sin embargo, es lo menos interesante. Lo decisivo es cómo se
+*reparte* cada eje entre regiones:
+
+- El Gini regional de la renta espacial se movió de **{site_lib.es(srg0, 4)}** a
+  **{site_lib.es(srg1, 4)}**. Es un valor bajo: la renta espacial existe en todas partes.
+- El Gini regional de la renta de recursos se movió de **{site_lib.es(rrg0, 4)}** a
+  **{site_lib.es(rrg1, 4)}**. Es un valor alto *y creciente*: la minería no sólo está
+  concentrada, se está concentrando más.
+
+En {y1} las regiones con mayor participación de renta espacial fueron
+{sr_list}. Las de mayor renta de recursos fueron {rr_list}.
+
+## Por qué importa
+
+Las dos rentas no se distribuyen como se distribuye el producto. La renta
+espacial acompaña a la población: donde hay gente hay vivienda, y donde hay
+vivienda hay sector 10. La renta de recursos acompaña a la geología, que no se
+redistribuye nunca.
+
+Esto ofrece una lectura del hallazgo central del Reporte 1 —un HHI de producción
+plano durante trece años mientras el Gini de bienestar bajaba. La inmovilidad
+está del lado del eje de recursos, que se endurece; el movimiento está del lado
+del eje espacial, que es difuso por construcción. Una política regional que
+solo mueva el eje espacial redistribuye bienestar sin tocar la estructura
+productiva. Es exactamente lo que los índices del Reporte 1 describen.
+
+## Datos
+
+El panel completo está publicado en
+[`panel_two_axes_annual.csv`](../datos/panel_two_axes_annual.csv) (región ×
+año × eje) y el resumen anual en
+[`panel_two_axes_summary.csv`](../datos/panel_two_axes_summary.csv). Ambos se
+regeneran con:
+
+```bash
+python scripts/09_build_theme_panels.py --family two_axes
+```
+
+## Nota metodológica
+
+Las participaciones se calculan sobre **precios corrientes**, no sobre volumen
+encadenado. Los volúmenes encadenados no son aditivos entre sectores: sumarlos
+no reproduce el total regional, y una participación construida así no sería una
+proporción de nada. El detalle está en la [página de
+metodología](../metodologia.qmd).
+"""
+
+
+def build_explorer() -> str:
+    """Interactive explorer, built on vendored Observable Plot and plain JS.
+
+    Deliberately NOT Quarto's OJS. The OJS bootstrap
+    (`interpretFromScriptTags`) failed on every cell of a minimal test page
+    under Quarto 1.10.18 -- including `a = 40 + 2` -- swallowing the original
+    import error inside its own null-dereferencing handler. Direct calls to
+    `runtime.interpret()` worked, so the runtime is healthy and the automatic
+    bootstrap is not. Rather than ship an explorer whose failure mode is a
+    silently blank page, the charts run on the same Plot library loaded as an
+    ordinary script, vendored into libs/ so there is no CDN dependency either.
+    """
+    return """---
+title: "Explorar"
+---
+
+Los dos ejes, región por región. Los datos son los mismos CSV que publican los
+reportes: si un gráfico y una tabla no coinciden, el CSV manda.
+
+```{=html}
+<div class="explorer">
+<div class="ctl">
+<span class="ctl-label">Eje</span>
+<div class="ctl-group" id="ctl-eje" role="radiogroup" aria-label="Eje">
+<label><input type="radio" name="eje" value="spatial_rent" checked> Renta espacial (sector 10)</label>
+<label><input type="radio" name="eje" value="resource_rent"> Renta de recursos (sector 03)</label>
+<label><input type="radio" name="eje" value="construction"> Construcción (sector 06)</label>
+</div>
+</div>
+<div class="ctl">
+<span class="ctl-label">Regiones</span>
+<div class="ctl-group ctl-regions" id="ctl-regiones" aria-label="Regiones"></div>
+<div class="ctl-actions">
+<button type="button" id="sel-all">Todas</button>
+<button type="button" id="sel-none">Ninguna</button>
+</div>
+</div>
+</div>
+```
+
+<div id="chart-shares" class="plotbox" aria-live="polite"></div>
+<p class="plotnote" id="note-shares"></p>
+
+## Dispersión entre regiones
+
+Un Gini alto significa que el eje está concentrado en pocas regiones. Nótese
+que los dos ejes viven en mundos distintos: la renta espacial se reparte, la
+renta de recursos no.
+
+<div id="chart-gini" class="plotbox"></div>
+
+## Descargar
+
+- [`panel_two_axes_annual.csv`](datos/panel_two_axes_annual.csv) — región × año × eje
+- [`panel_two_axes_summary.csv`](datos/panel_two_axes_summary.csv) — resumen anual
+- [`panel_regional_pib_annual.csv`](datos/panel_regional_pib_annual.csv) — PIB regional
+
+<script src="libs/d3.min.js"></script>
+<script src="libs/plot.umd.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var AXIS_LABEL = {
+    spatial_rent: "Renta espacial",
+    resource_rent: "Renta de recursos",
+    construction: "Construcción"
+  };
+  var DEFAULT_REGIONS = [
+    "Antofagasta", "Metropolitana de Santiago", "Biobío", "Aysén"
+  ];
+
+  function fail(id, err) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.innerHTML = '<p class="ploterr">No se pudieron cargar los datos: ' +
+        String(err && err.message ? err.message : err) + "</p>";
+    }
+  }
+
+  function render(panel, summary) {
+    var regions = Array.from(new Set(panel.map(function (d) {
+      return d.region_display;
+    }))).sort(function (a, b) { return a.localeCompare(b, "es"); });
+
+    // Region checkboxes, built from the data rather than hardcoded, so a
+    // renamed or added region cannot fall out of the control silently.
+    var box = document.getElementById("ctl-regiones");
+    regions.forEach(function (r) {
+      var id = "rg-" + r.replace(/[^a-zA-Z0-9]/g, "");
+      var label = document.createElement("label");
+      var input = document.createElement("input");
+      input.type = "checkbox";
+      input.value = r;
+      input.id = id;
+      input.checked = DEFAULT_REGIONS.indexOf(r) !== -1;
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(" " + r));
+      box.appendChild(label);
+    });
+
+    function selectedRegions() {
+      return Array.prototype.slice
+        .call(box.querySelectorAll("input:checked"))
+        .map(function (i) { return i.value; });
+    }
+    function selectedAxis() {
+      var el = document.querySelector('input[name="eje"]:checked');
+      return el ? el.value : "spatial_rent";
+    }
+
+    function drawShares() {
+      var axis = selectedAxis();
+      var picked = selectedRegions();
+      var rows = panel.filter(function (d) {
+        return d.axis === axis && picked.indexOf(d.region_display) !== -1;
+      });
+      var host = document.getElementById("chart-shares");
+      host.innerHTML = "";
+
+      var note = document.getElementById("note-shares");
+      if (!rows.length) {
+        host.innerHTML = '<p class="ploterr">Seleccione al menos una región.</p>';
+        note.textContent = "";
+        return;
+      }
+
+      var maxYear = d3.max(rows, function (d) { return d.year; });
+      var last = rows.filter(function (d) { return d.year === maxYear; });
+
+      host.appendChild(Plot.plot({
+        marginLeft: 62,
+        marginRight: 150,
+        height: 430,
+        width: 860,
+        style: { fontSize: "12px", background: "transparent" },
+        x: { label: "Año", tickFormat: "d" },
+        y: {
+          label: "Participación en el PIB regional",
+          percent: true,
+          grid: true,
+          zero: true
+        },
+        marks: [
+          Plot.ruleY([0]),
+          Plot.line(rows, {
+            x: "year", y: "share", stroke: "region_display", strokeWidth: 2
+          }),
+          Plot.dot(last, { x: "year", y: "share", fill: "region_display", r: 3 }),
+          Plot.text(last, {
+            x: "year", y: "share", text: "region_display",
+            dx: 8, textAnchor: "start", fontSize: 11
+          })
+        ]
+      }));
+
+      var vals = last.map(function (d) { return d.share; });
+      note.textContent = AXIS_LABEL[axis] + " · " + picked.length +
+        " región(es) · " + maxYear + ": entre " +
+        (d3.min(vals) * 100).toFixed(1).replace(".", ",") + "% y " +
+        (d3.max(vals) * 100).toFixed(1).replace(".", ",") + "%.";
+    }
+
+    function drawGini() {
+      var series = [];
+      ["spatial_rent", "resource_rent", "construction"].forEach(function (a) {
+        summary.forEach(function (d) {
+          series.push({
+            year: d.year, gini: d[a + "_gini"], eje: AXIS_LABEL[a]
+          });
+        });
+      });
+      var host = document.getElementById("chart-gini");
+      host.innerHTML = "";
+      host.appendChild(Plot.plot({
+        marginLeft: 62,
+        marginRight: 150,
+        height: 380,
+        width: 860,
+        style: { fontSize: "12px", background: "transparent" },
+        x: { label: "Año", tickFormat: "d" },
+        y: { label: "Gini entre regiones", grid: true, domain: [0, 0.8] },
+        marks: [
+          Plot.ruleY([0]),
+          Plot.line(series, {
+            x: "year", y: "gini", stroke: "eje", strokeWidth: 2.5
+          }),
+          Plot.text(
+            series.filter(function (d) {
+              return d.year === d3.max(series, function (x) { return x.year; });
+            }),
+            {
+              x: "year", y: "gini", text: "eje",
+              dx: 8, textAnchor: "start", fontSize: 11
+            }
+          )
+        ]
+      }));
+    }
+
+    document.getElementById("ctl-eje")
+      .addEventListener("change", drawShares);
+    box.addEventListener("change", drawShares);
+    document.getElementById("sel-all").addEventListener("click", function () {
+      box.querySelectorAll("input").forEach(function (i) { i.checked = true; });
+      drawShares();
+    });
+    document.getElementById("sel-none").addEventListener("click", function () {
+      box.querySelectorAll("input").forEach(function (i) { i.checked = false; });
+      drawShares();
+    });
+
+    drawShares();
+    drawGini();
+  }
+
+  Promise.all([
+    d3.csv("datos/panel_two_axes_annual.csv", d3.autoType),
+    d3.csv("datos/panel_two_axes_summary.csv", d3.autoType)
+  ]).then(function (r) {
+    render(r[0], r[1]);
+  }).catch(function (e) {
+    fail("chart-shares", e);
+    fail("chart-gini", e);
+  });
+})();
+</script>
+"""
+
+
+
+def build_methodology() -> str:
+    """The standing caveats. This page is the site's conscience."""
+    fam_notes = "\n\n".join(
+        f"### `{f.name}` — Reporte {f.report} (Tier {f.tier})\n\n{f.notes}"
+        for f in families_lib.ordered()
+        if f.notes
+    )
+    return f"""---
+title: "Metodología y límites"
+---
+
+Esta página existe para que ningún lector infiera de este sitio algo que los
+datos no sostienen. Los límites de abajo no son notas al pie: son restricciones
+que cambian qué preguntas se pueden responder.
+
+## Lo que no existe en el catálogo
+
+Cuatro ausencias condicionan todo el programa. Ninguna se rellena con
+estimaciones.
+
+**No hay índice de arriendos.** Fuera de un único componente del IPC nacional,
+el Banco Central no publica precios de arriendo, y menos aún por región. El eje
+de renta espacial se mide con el sector 10 de las cuentas regionales, que es
+mayoritariamente **alquiler imputado**.
+
+**No hay productividad total de factores.** El catálogo no contiene ninguna
+serie de PTF. Por lo tanto el «estancamiento» del sector dinámico se argumenta
+con participaciones de producto y descomposición *shift-share*, nunca como una
+caída de productividad medida.
+
+**No hay uso de suelo urbano.** No existen series de zonificación ni de huella
+urbana. Las únicas cantidades vinculadas al suelo son los metros cuadrados del
+stock habitacional y la valorización del terreno, ambas nacionales o por zona.
+
+**No hay población regional como serie propia.** Aparece sólo como denominador
+dentro de las tablas per cápita. Cualquier cálculo per cápita fuera de ese
+conjunto requiere ir al INE.
+
+## Precios corrientes, no volumen encadenado
+
+Las participaciones sectoriales se calculan sobre precios corrientes. Los
+volúmenes encadenados **no son aditivos** entre sectores: la suma de los
+sectores no reproduce el total regional, de modo que una participación
+construida sobre volúmenes no sería una proporción del producto regional sino
+un cociente sin denominador interpretable.
+
+## Empalme de años de referencia
+
+El PIB regional existe con años base 1986, 1996, 2003, 2008, 2013 y 2018, pero
+sólo las cosechas 2013 y 2018 están etiquetadas como empalmadas. Los reportes
+que abarcan 2013 en adelante no enfrentan el problema. Cualquier afirmación de
+largo plazo que cruce hacia atrás debe declarar el empalme explícitamente.
+
+## Alcance descriptivo
+
+Este programa es **descriptivo**. Documenta co-movimientos, participaciones y
+dispersión; no identifica efectos causales. Donde el texto dice «acompaña»,
+«corre contra» o «coincide con», debe leerse literalmente y no como una
+afirmación de causalidad.
+
+## Zonas y regiones no son lo mismo
+
+El índice de precios de vivienda se publica para siete zonas
+—Norte, Centro, Sur y cuatro subzonas de la Región Metropolitana— y el producto
+se publica para dieciséis regiones. La correspondencia es de uno a muchos en
+todos los casos salvo la RM. La única dirección de agregación honesta es
+**subir** el dato regional hasta la zona, nunca **bajar** el dato zonal hasta
+la región.
+
+## Trampas por familia de series
+
+{fam_notes}
+
+## Reproducir
+
+```bash
+python scripts/01_fetch_crsm_raw.py --family <familia>
+python scripts/09_build_theme_panels.py --family <familia>
+python scripts/10_generate_site.py
+python scripts/11_audit_site.py
+```
+"""
+
+
+# --------------------------------------------------------------------------
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Generate the Quarto publication site.")
+    parser.add_argument(
+        "--worktree",
+        type=str,
+        default=None,
+        help="path to the site worktree (default: resolved from lib.paths)",
+    )
+    args = parser.parse_args()
+
+    root = Path(args.worktree).resolve() if args.worktree else site_worktree()
+    if root is None:
+        raise SystemExit(
+            "No site worktree found. Create it with:\n"
+            f"    git worktree add --orphan -b site {SITE_WORKTREE_DEFAULT}"
+        )
+    logger.info("Site worktree: %s", root)
+
+    # Wipe the generated directories so a removed report cannot linger as a
+    # stale page that still resolves in the navbar.
+    for d in site_lib.GENERATED_DIRS:
+        target = root / d
+        if target.exists():
+            shutil.rmtree(target)
+    (root / "reportes").mkdir(parents=True, exist_ok=True)
+
+    # ---- data ------------------------------------------------------------
+    datos = root / "datos"
+    datos.mkdir(parents=True, exist_ok=True)
+    manifest = []
+    for name in PUBLISHED_PANELS:
+        src = DATA_DIR / name
+        if not src.exists():
+            raise SystemExit(f"Missing panel {src}. Run stage 09 first.")
+        manifest.append(site_lib.copy_asset(src, datos))
+
+    # ---- vault reports ---------------------------------------------------
+    published = []
+    for meta in VAULT_REPORTS:
+        src = report_dir(meta["n"]) / meta["source"]
+        if not src.exists():
+            logger.warning("Skipping report %d: %s not found", meta["n"], src)
+            continue
+        body = src.read_text(encoding="utf-8")
+        body = demote_headings(rewrite_asset_links(strip_front_matter(body)))
+        page = build_report_page(meta, body)
+        check_tokens(page, f"reportes/{meta['slug']}.qmd")
+        write(root / "reportes" / f"{meta['slug']}.qmd", page)
+
+        assets_src = report_assets_dir(meta["n"])
+        if assets_src.exists():
+            for asset in sorted(assets_src.iterdir()):
+                if asset.is_file() and asset.suffix.lower() in {
+                    ".png", ".pdf", ".csv", ".jpg", ".svg"
+                }:
+                    manifest.append(site_lib.copy_asset(asset, root / "assets"))
+        published.append({**meta, "family": None})
+
+    # ---- report 3, generated from the panel -------------------------------
+    panel_path = DATA_DIR / "panel_two_axes_annual.csv"
+    summary_path = DATA_DIR / "panel_two_axes_summary.csv"
+    panel = pd.read_csv(panel_path, dtype={"region_code": str})
+    summary = pd.read_csv(summary_path)
+    page3 = build_report3(panel, summary)
+    check_tokens(page3, "reportes/report3-dos-ejes.qmd")
+    write(root / "reportes" / "report3-dos-ejes.qmd", page3)
+    published.append(
+        {
+            "n": 3,
+            "slug": "report3-dos-ejes",
+            "nav_label": "3 · Los dos ejes",
+            "family": "two_axes",
+        }
+    )
+
+    # ---- vendored chart libraries ----------------------------------------
+    # Observable Plot and d3 ship with the site rather than loading from a CDN:
+    # the published page then has no third-party runtime dependency, and works
+    # from a local checkout as well as from Pages.
+    libs = root / "libs"
+    missing = [n for n in VENDORED_LIBS if not (libs / n).exists()]
+    if missing:
+        raise SystemExit(
+            f"Missing vendored libraries in {libs}: {missing}\n"
+            "Fetch them once with:\n"
+            "    curl -sSL -o libs/d3.min.js "
+            "https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js\n"
+            "    curl -sSL -o libs/plot.umd.min.js "
+            "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6/dist/plot.umd.min.js"
+        )
+    for name in VENDORED_LIBS:
+        manifest.append(site_lib.record_asset(libs / name))
+
+    # ---- briefing notes ---------------------------------------------------
+    # The notes are the artifact that gates the next report. Publishing them
+    # is the point: a note that only its author reads has not been written.
+    briefs = []
+    if BRIEFINGS_DIR.exists():
+        for note in sorted(BRIEFINGS_DIR.glob("*.md")):
+            fam = next(
+                (f for f in families_lib.ordered() if f.briefing_note == note.name),
+                None,
+            )
+            body = demote_headings(strip_front_matter(note.read_text(encoding="utf-8")))
+            title = (
+                f"Nota de familia: {fam.title_es}" if fam else f"Nota: {note.stem}"
+            )
+            badge = site_lib.tier_badge(fam.tier) if fam else ""
+            page = f'''---
+title: "{title}"
+---
+
+{badge}
+
+{body}
+'''
+            check_tokens(page, f"briefings/{note.stem}.qmd")
+            write(root / "briefings" / f"{note.stem}.qmd", page)
+            briefs.append({"slug": note.stem, "title": title})
+    logger.info("Published %d briefing note(s)", len(briefs))
+
+    # ---- shell pages ------------------------------------------------------
+    index = build_index(published, briefs)
+    check_tokens(index, "index.qmd")
+    write(root / "index.qmd", index)
+    write(root / "explorar.qmd", build_explorer())
+    write(root / "metodologia.qmd", build_methodology())
+    write(root / "_quarto.yml", site_lib.quarto_yml(published))
+    write(root / "styles.css", site_lib.styles_css())
+    write(root / "personal-nav.html", site_lib.personal_site_nav())
+    write(
+        root / ".gitignore",
+        "# This branch holds the Quarto SOURCE only.\n"
+        "#\n"
+        "# Publishing goes through the personal site: stage 12 mirrors docs/\n"
+        "# into dpolancon.github.io/bcch/, which GitHub Pages builds. The local\n"
+        "# render is therefore a preview, not a deliverable, and committing it\n"
+        "# would put an 8 MB build artifact in this branch's history for no\n"
+        "# reader's benefit.\n"
+        "docs/\n"
+        "\n"
+        "# Quarto build state.\n"
+        ".quarto/\n"
+        "**/*.quarto_ipynb\n",
+    )
+
+    pd.DataFrame(manifest).to_csv(
+        root / "asset_manifest.csv", index=False, encoding="utf-8"
+    )
+    logger.info("Published %d assets (manifest: asset_manifest.csv)", len(manifest))
+    logger.info("Site generated: %d report pages", len(published))
+    logger.info("Render with:  cd %s && quarto render", root)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

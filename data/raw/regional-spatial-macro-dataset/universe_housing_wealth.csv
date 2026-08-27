@@ -1,0 +1,78 @@
+﻿series_code,series_name,region_id,region_name,zone,is_zone_subset,frequency,chapter,table_name,sector_id,sector_name,region_parse_method
+F034.MCC.FLU.BCCH.Z.NAC.A,Nivel nacional,,,Nacional,False,A,Estadísticas Experimentales,Metros Cuadrados Construidos: General y Zonas (millones de metros cuadrados),,,zone
+F034.MCT.FLU.BCCH.Z.NAC.A,Nivel nacional,,,Nacional,False,A,Estadísticas Experimentales,Metros Cuadrados de Terreno: General y Zonas (millones de metros cuadrados),,,zone
+F034.NUMP.FLU.BCCH.Z.NAC.A,Nivel nacional,,,Nacional,False,A,Estadísticas Experimentales,Número de Propiedades: General y Zonas,,,zone
+F034.VALC.FLU.BCCH.Z.NAC.A,Nivel nacional,,,Nacional,False,A,Estadísticas Experimentales,Valorización de Mercado Construcción: General y Zonas(miles de millones de pesos),,,zone
+F034.VALT.FLU.BCCH.Z.NAC.A,Nivel nacional,,,Nacional,False,A,Estadísticas Experimentales,Valorización de Mercado Terreno: General y Zonas (miles de millones de pesos),,,zone
+F034.VALV.FLU.BCCH.Z.NAC.A,Nivel nacional,,,Nacional,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (miles de millones de pesos),,,zone
+F034.VALV.PPB.BCCH.Z.NAC.A,Nivel nacional,,,Nacional,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (% del PIB),,,zone
+F034.MCC.FLU.BCCH.Z.CAS.A,Casas,,,Nacional -- casas,True,A,Estadísticas Experimentales,Metros Cuadrados Construidos: General y Zonas (millones de metros cuadrados),,,zone
+F034.MCT.FLU.BCCH.Z.CAS.A,Casas,,,Nacional -- casas,True,A,Estadísticas Experimentales,Metros Cuadrados de Terreno: General y Zonas (millones de metros cuadrados),,,zone
+F034.NUMP.FLU.BCCH.Z.CAS.A,Casas,,,Nacional -- casas,True,A,Estadísticas Experimentales,Número de Propiedades: General y Zonas,,,zone
+F034.VALC.FLU.BCCH.Z.CAS.A,Casas,,,Nacional -- casas,True,A,Estadísticas Experimentales,Valorización de Mercado Construcción: General y Zonas(miles de millones de pesos),,,zone
+F034.VALT.FLU.BCCH.Z.CAS.A,Casas,,,Nacional -- casas,True,A,Estadísticas Experimentales,Valorización de Mercado Terreno: General y Zonas (miles de millones de pesos),,,zone
+F034.VALV.FLU.BCCH.Z.CAS.A,Casas,,,Nacional -- casas,True,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (miles de millones de pesos),,,zone
+F034.VALV.PPB.BCCH.Z.CAS.A,Casas,,,Nacional -- casas,True,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (% del PIB),,,zone
+F034.MCC.FLU.BCCH.Z.DEP.A,Departamentos,,,Nacional -- departamentos,True,A,Estadísticas Experimentales,Metros Cuadrados Construidos: General y Zonas (millones de metros cuadrados),,,zone
+F034.MCT.FLU.BCCH.Z.DEP.A,Departamentos,,,Nacional -- departamentos,True,A,Estadísticas Experimentales,Metros Cuadrados de Terreno: General y Zonas (millones de metros cuadrados),,,zone
+F034.NUMP.FLU.BCCH.Z.DEP.A,Departamentos,,,Nacional -- departamentos,True,A,Estadísticas Experimentales,Número de Propiedades: General y Zonas,,,zone
+F034.VALC.FLU.BCCH.Z.DEP.A,Departamentos,,,Nacional -- departamentos,True,A,Estadísticas Experimentales,Valorización de Mercado Construcción: General y Zonas(miles de millones de pesos),,,zone
+F034.VALT.FLU.BCCH.Z.DEP.A,Departamentos,,,Nacional -- departamentos,True,A,Estadísticas Experimentales,Valorización de Mercado Terreno: General y Zonas (miles de millones de pesos),,,zone
+F034.VALV.FLU.BCCH.Z.DEP.A,Departamentos,,,Nacional -- departamentos,True,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (miles de millones de pesos),,,zone
+F034.VALV.PPB.BCCH.Z.DEP.A,Departamentos,,,Nacional -- departamentos,True,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (% del PIB),,,zone
+F034.MCC.FLU.BCCH.Z.RM.A,Región Metropolitana de Santiago,,,Región Metropolitana,False,A,Estadísticas Experimentales,Metros Cuadrados Construidos: General y Zonas (millones de metros cuadrados),,,zone
+F034.MCT.FLU.BCCH.Z.RM.A,Región Metropolitana de Santiago,,,Región Metropolitana,False,A,Estadísticas Experimentales,Metros Cuadrados de Terreno: General y Zonas (millones de metros cuadrados),,,zone
+F034.NUMP.FLU.BCCH.Z.RM.A,Región Metropolitana de Santiago,,,Región Metropolitana,False,A,Estadísticas Experimentales,Número de Propiedades: General y Zonas,,,zone
+F034.VALV.FLU.BCCH.Z.RM.A,Región Metropolitana de Santiago,,,Región Metropolitana,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (miles de millones de pesos),,,zone
+F034.VALV.PPB.BCCH.Z.RM.A,Región Metropolitana de Santiago,,,Región Metropolitana,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (% del PIB),,,zone
+F034.MCC.FLU.BCCH.Z.ZC.A,Zona Centro,,,Zona Centro,False,A,Estadísticas Experimentales,Metros Cuadrados Construidos: General y Zonas (millones de metros cuadrados),,,zone
+F034.MCT.FLU.BCCH.Z.ZC.A,Zona Centro,,,Zona Centro,False,A,Estadísticas Experimentales,Metros Cuadrados de Terreno: General y Zonas (millones de metros cuadrados),,,zone
+F034.NUMP.FLU.BCCH.Z.ZC.A,Zona Centro,,,Zona Centro,False,A,Estadísticas Experimentales,Número de Propiedades: General y Zonas,,,zone
+F034.VALV.FLU.BCCH.Z.ZC.A,Zona Centro,,,Zona Centro,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (miles de millones de pesos),,,zone
+F034.VALV.PPB.BCCH.Z.ZC.A,Zona Centro,,,Zona Centro,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (% del PIB),,,zone
+F034.MCC.FLU.BCCH.Z.ZN.A,Zona Norte,,,Zona Norte,False,A,Estadísticas Experimentales,Metros Cuadrados Construidos: General y Zonas (millones de metros cuadrados),,,zone
+F034.MCT.FLU.BCCH.Z.ZN.A,Zona Norte,,,Zona Norte,False,A,Estadísticas Experimentales,Metros Cuadrados de Terreno: General y Zonas (millones de metros cuadrados),,,zone
+F034.NUMP.FLU.BCCH.Z.ZN.A,Zona Norte,,,Zona Norte,False,A,Estadísticas Experimentales,Número de Propiedades: General y Zonas,,,zone
+F034.VALV.FLU.BCCH.Z.ZN.A,Zona Norte,,,Zona Norte,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (miles de millones de pesos),,,zone
+F034.VALV.PPB.BCCH.Z.ZN.A,Zona Norte,,,Zona Norte,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (% del PIB),,,zone
+F034.MCC.FLU.BCCH.Z.ZS.A,Zona Sur,,,Zona Sur,False,A,Estadísticas Experimentales,Metros Cuadrados Construidos: General y Zonas (millones de metros cuadrados),,,zone
+F034.MCT.FLU.BCCH.Z.ZS.A,Zona Sur,,,Zona Sur,False,A,Estadísticas Experimentales,Metros Cuadrados de Terreno: General y Zonas (millones de metros cuadrados),,,zone
+F034.NUMP.FLU.BCCH.Z.ZS.A,Zona Sur,,,Zona Sur,False,A,Estadísticas Experimentales,Número de Propiedades: General y Zonas,,,zone
+F034.VALV.FLU.BCCH.Z.ZS.A,Zona Sur,,,Zona Sur,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (miles de millones de pesos),,,zone
+F034.VALV.PPB.BCCH.Z.ZS.A,Zona Sur,,,Zona Sur,False,A,Estadísticas Experimentales,Valor de mercado de la vivienda: General y por zonas (% del PIB),,,zone
+F034.IPVZ41.FLU.BCCH.2002.0.T,RM Centro,,,RM Centro,True,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IPVZ41.FLU.BCCH.2008.0.T,RM Centro,,,RM Centro,True,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IPVZ41.INC.BCCH.2002.0.T,RM Centro,,,RM Centro,True,T,Indicadores Sectoriales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ41.INC.BCCH.2008.0.T,RM Centro,,,RM Centro,True,T,Estadísticas Experimentales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ42.FLU.BCCH.2002.0.T,RM Oriente,,,RM Oriente,True,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IPVZ42.FLU.BCCH.2008.0.T,RM Oriente,,,RM Oriente,True,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IPVZ42.INC.BCCH.2002.0.T,RM Oriente,,,RM Oriente,True,T,Indicadores Sectoriales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ42.INC.BCCH.2008.0.T,RM Oriente,,,RM Oriente,True,T,Estadísticas Experimentales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ42C.FLU.BCCH.2002.0.T,RM Oriente Casas,,,RM Oriente -- casas,True,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IPVZ42C.FLU.BCCH.2008.0.T,RM Oriente Casas,,,RM Oriente -- casas,True,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IPVZ42D.FLU.BCCH.2002.0.T,RM Oriente Dptos.,,,RM Oriente -- departamentos,True,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IPVZ42D.FLU.BCCH.2008.0.T,RM Oriente Dptos.,,,RM Oriente -- departamentos,True,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IPVZ43.FLU.BCCH.2002.0.T,RM Poniente,,,RM Poniente,True,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IPVZ43.FLU.BCCH.2008.0.T,RM Poniente,,,RM Poniente,True,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IPVZ43.INC.BCCH.2002.0.T,RM Poniente,,,RM Poniente,True,T,Indicadores Sectoriales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ43.INC.BCCH.2008.0.T,RM Poniente,,,RM Poniente,True,T,Estadísticas Experimentales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ44.FLU.BCCH.2002.0.T,RM Sur,,,RM Sur,True,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IPVZ44.FLU.BCCH.2008.0.T,RM Sur,,,RM Sur,True,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IPVZ44.INC.BCCH.2002.0.T,RM Sur,,,RM Sur,True,T,Indicadores Sectoriales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ44.INC.BCCH.2008.0.T,RM Sur,,,RM Sur,True,T,Estadísticas Experimentales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ4.FLU.BCCH.2002.0.T,Región Metropolitana,,,Región Metropolitana,False,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IPVZ4.FLU.BCCH.2008.0.T,Región Metropolitana,,,Región Metropolitana,False,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IPVZ4.INC.BCCH.2002.0.T,Región Metropolitana,,,Región Metropolitana,False,T,Indicadores Sectoriales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ4.INC.BCCH.2008.0.T,Región Metropolitana,,,Región Metropolitana,False,T,Estadísticas Experimentales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ2.FLU.BCCH.2002.0.T,Zona Centro,,,Zona Centro,False,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IPVZ2.FLU.BCCH.2008.0.T,Zona Centro,,,Zona Centro,False,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IPVZ2.INC.BCCH.2002.0.T,Zona Centro,,,Zona Centro,False,T,Indicadores Sectoriales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ2.INC.BCCH.2008.0.T,Zona Centro,,,Zona Centro,False,T,Estadísticas Experimentales,Contribución IPV por zonas geográficas,,,zone
+F034.IVPZ1.FLU.BCCH.2002.0.T,Zona Norte,,,Zona Norte,False,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IVPZ1.FLU.BCCH.2008.0.T,Zona Norte,,,Zona Norte,False,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IVPZ1.INC.BCCH.2002.0.T,Zona Norte,,,Zona Norte,False,T,Indicadores Sectoriales,Contribución IPV por zonas geográficas,,,zone
+F034.IVPZ1.INC.BCCH.2008.0.T,Zona Norte,,,Zona Norte,False,T,Estadísticas Experimentales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ3.FLU.BCCH.2002.0.T,Zona Sur,,,Zona Sur,False,T,Indicadores Sectoriales,IPV por zonas geográficas,,,zone
+F034.IPVZ3.FLU.BCCH.2008.0.T,Zona Sur,,,Zona Sur,False,T,Estadísticas Experimentales,IPV por zonas geográficas,,,zone
+F034.IPVZ3.INC.BCCH.2002.0.T,Zona Sur,,,Zona Sur,False,T,Indicadores Sectoriales,Contribución IPV por zonas geográficas,,,zone
+F034.IPVZ3.INC.BCCH.2008.0.T,Zona Sur,,,Zona Sur,False,T,Estadísticas Experimentales,Contribución IPV por zonas geográficas,,,zone

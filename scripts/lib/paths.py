@@ -6,10 +6,11 @@ Task:     Repository infrastructure
 Inputs:   n/a (derives everything from __file__)
 Outputs:  n/a
 Created:  2026-08-21
-Updated:  2026-08-21
+Updated:  2026-08-26
 Owner:    dpolancon
 """
 
+import os
 from pathlib import Path
 
 # scripts/lib/paths.py -> scripts/lib -> scripts -> <repo root>
@@ -48,6 +49,93 @@ REPORT1_TEX_DIR = REPORT1_DIR / "tex_es"
 REPORT2_DIR = VAULT_DIR / "report2_REG_ECON_DEV"
 REPORT2_ASSETS_DIR = REPORT2_DIR / "assets"
 REPORT2_TEX_DIR = REPORT2_DIR / "tex"
+
+
+# Reports 3-8 are the publication programme declared in lib.families. Each
+# owns its assets directory, exactly as reports 1 and 2 do -- one copy of every
+# generated artifact, no shared directory to drift out of sync.
+REPORT_DIRS = {n: VAULT_DIR / f"report{n}_REG_ECON_DEV" for n in range(3, 9)}
+REPORT3_DIR = REPORT_DIRS[3]
+REPORT4_DIR = REPORT_DIRS[4]
+REPORT5_DIR = REPORT_DIRS[5]
+REPORT6_DIR = REPORT_DIRS[6]
+REPORT7_DIR = REPORT_DIRS[7]
+REPORT8_DIR = REPORT_DIRS[8]
+
+
+def report_dir(n: int) -> Path:
+    """Vault directory for report `n`, covering the hand-built 1 and 2 too."""
+    if n == 1:
+        return REPORT1_DIR
+    if n == 2:
+        return REPORT2_DIR
+    return REPORT_DIRS[n]
+
+
+def report_assets_dir(n: int) -> Path:
+    """Assets directory for report `n`."""
+    return report_dir(n) / "assets"
+
+
+# Series-family briefing notes: the artifact that gates the next report in the
+# programme. Kept at vault level rather than inside a report, because a note
+# outlives the report that prompted it -- it is what the next person reads.
+BRIEFINGS_DIR = VAULT_DIR / "briefings"
+
+# Short data notes published between reports (the fast track).
+DATA_NOTES_DIR = VAULT_DIR / "data_notes"
+
+# The Quarto site is developed in a git worktree OUTSIDE this repo directory,
+# so that no rendered HTML is ever tracked on main. Resolved from git rather
+# than hardcoded; None when the worktree has not been created yet.
+SITE_BRANCH = "site"
+SITE_WORKTREE_DEFAULT = REPO_ROOT.parent / "bcch-site"
+
+
+def site_worktree() -> Path | None:
+    """Locate the site worktree, or None if it does not exist yet.
+
+    Honours BCCH_SITE_WORKTREE so a collaborator can put it elsewhere, then
+    falls back to the sibling directory `git worktree add` would create.
+    """
+    override = os.environ.get("BCCH_SITE_WORKTREE")
+    if override:
+        candidate = Path(override).expanduser().resolve()
+        return candidate if candidate.exists() else None
+    return SITE_WORKTREE_DEFAULT if SITE_WORKTREE_DEFAULT.exists() else None
+
+
+# The publication target is a section of the author's existing personal site,
+# an academicpages Jekyll build served from its master branch root. The site is
+# a separate repository, so deployment is an explicit stage (12) rather than a
+# Quarto output-dir: a render must never be able to clobber another repo.
+PERSONAL_SITE_DEFAULT = REPO_ROOT.parent / "dpolancon.github.io"
+
+# Directory within the personal site that the programme owns outright.
+# Everything under it is generated; nothing there is hand-edited.
+SITE_SECTION = "bcch"
+
+# Public URL the section is served at, used for the Quarto sitemap and search
+# index -- both of which need an absolute base to resolve under a subpath.
+SITE_BASE_URL = "https://dpolancon.github.io/bcch/"
+
+
+def personal_site() -> Path | None:
+    """Locate the personal-site repo, or None if it is not present.
+
+    Honours BCCH_PERSONAL_SITE so a collaborator can keep it elsewhere.
+    """
+    override = os.environ.get("BCCH_PERSONAL_SITE")
+    if override:
+        candidate = Path(override).expanduser().resolve()
+        return candidate if candidate.exists() else None
+    return PERSONAL_SITE_DEFAULT if PERSONAL_SITE_DEFAULT.exists() else None
+
+
+def site_section_dir() -> Path | None:
+    """The `bcch/` directory inside the personal site, or None if unavailable."""
+    root = personal_site()
+    return (root / SITE_SECTION) if root else None
 
 
 def ensure_dir(path: Path) -> Path:

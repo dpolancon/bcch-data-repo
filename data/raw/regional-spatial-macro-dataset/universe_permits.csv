@@ -1,0 +1,67 @@
+﻿series_code,series_name,region_id,region_name,frequency,chapter,table_name,sector_id,sector_name,region_parse_method
+F034.CEYSTA.FLU.MEFT.Z.0.M,Región de Tarapacá,01,Tarapacá,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVATA.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",01,Tarapacá,M,Regionales,"Indicadores Económicos, Región de Tarapacá",,,glued_mnemonic
+F034.SAHTA.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",01,Tarapacá,M,Regionales,"Indicadores Económicos, Región de Tarapacá",,,glued_mnemonic
+F034.SANHTA.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",01,Tarapacá,M,Regionales,"Indicadores Económicos, Región de Tarapacá",,,glued_mnemonic
+F034.CEYSAN.FLU.MEFT.Z.0.M,Región de Antofagasta,02,Antofagasta,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVAAN.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",02,Antofagasta,M,Regionales,"Indicadores Económicos, Región de Antofagasta",,,glued_mnemonic
+F034.SAHAN.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",02,Antofagasta,M,Regionales,"Indicadores Económicos, Región de Antofagasta",,,glued_mnemonic
+F034.SANHAN.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",02,Antofagasta,M,Regionales,"Indicadores Económicos, Región de Antofagasta",,,glued_mnemonic
+F034.CEYSAT.FLU.MEFT.Z.0.M,Región de Atacama,03,Atacama,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVAAT.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",03,Atacama,M,Regionales,"Indicadores Económicos, Región de Atacama",,,glued_mnemonic
+F034.SAHAT.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",03,Atacama,M,Regionales,"Indicadores Económicos, Región de Atacama",,,glued_mnemonic
+F034.SANHAT.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",03,Atacama,M,Regionales,"Indicadores Económicos, Región de Atacama",,,glued_mnemonic
+F034.CEYSCO.FLU.MEFT.Z.0.M,Región de Coquimbo,04,Coquimbo,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVACO.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",04,Coquimbo,M,Regionales,"Indicadores Económicos, Región de Coquimbo",,,glued_mnemonic
+F034.SAHCO.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",04,Coquimbo,M,Regionales,"Indicadores Económicos, Región de Coquimbo",,,glued_mnemonic
+F034.SANHCO.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",04,Coquimbo,M,Regionales,"Indicadores Económicos, Región de Coquimbo",,,glued_mnemonic
+F022.CCPNVA.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,05,Valparaíso,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Valparaíso",,,glued_mnemonic
+F022.SCCPNVA.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),05,Valparaíso,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Valparaíso",,,glued_mnemonic
+F034.CEYSVA.FLU.MEFT.Z.0.M,Región de Valparaíso,05,Valparaíso,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVAVA.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",05,Valparaíso,M,Regionales,"Indicadores Económicos, Región de Valparaíso",,,glued_mnemonic
+F034.SAHVA.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",05,Valparaíso,M,Regionales,"Indicadores Económicos, Región de Valparaíso",,,glued_mnemonic
+F034.SANHVA.FLU.INE.Z.0.M,"Superficie autorizada no Habitacional, m2",05,Valparaíso,M,Regionales,"Indicadores Económicos, Región de Valparaíso",,,glued_mnemonic
+F034.CEYSLI.FLU.MEFT.Z.0.M,Región del Libertador General Bernardo O'Higgins,06,O'Higgins,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVALI.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",06,O'Higgins,M,Regionales,"Indicadores Económicos, Región del Libertador General Bernardo O'Higgins",,,glued_mnemonic
+F034.SAHLI.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",06,O'Higgins,M,Regionales,"Indicadores Económicos, Región del Libertador General Bernardo O'Higgins",,,glued_mnemonic
+F034.SANHLI.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",06,O'Higgins,M,Regionales,"Indicadores Económicos, Región del Libertador General Bernardo O'Higgins",,,glued_mnemonic
+F034.CEYSML.FLU.MEFT.Z.0.M,Región del Maule,07,Maule,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVAML.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",07,Maule,M,Regionales,"Indicadores Económicos, Región del Maule",,,glued_mnemonic
+F034.SAHML.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",07,Maule,M,Regionales,"Indicadores Económicos, Región del Maule",,,glued_mnemonic
+F034.SANHML.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",07,Maule,M,Regionales,"Indicadores Económicos, Región del Maule",,,glued_mnemonic
+F034.CEYSBI.FLU.MEFT.Z.0.M,Región del Biobío,08,Biobío,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVABI.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",08,Biobío,M,Regionales,"Indicadores Económicos, Región del Biobío",,,glued_mnemonic
+F034.SAHBI.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",08,Biobío,M,Regionales,"Indicadores Económicos, Región del Biobío",,,glued_mnemonic
+F034.SANHBI.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",08,Biobío,M,Regionales,"Indicadores Económicos, Región del Biobío",,,glued_mnemonic
+F034.CEYSAR.FLU.MEFT.Z.0.M,Región de La Araucanía,09,La Araucanía,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVAAR.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",09,La Araucanía,M,Regionales,"Indicadores Económicos, Región de La Araucanía",,,glued_mnemonic
+F034.SAHAR.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",09,La Araucanía,M,Regionales,"Indicadores Económicos, Región de La Araucanía",,,glued_mnemonic
+F034.SANHAR.FLU.INE.Z.0.M,"Superficie autorizada no Habitacional, m2",09,La Araucanía,M,Regionales,"Indicadores Económicos, Región de La Araucanía",,,glued_mnemonic
+F034.CEYSLL.FLU.MEFT.Z.0.M,Región de Los Lagos,10,Los Lagos,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVALL.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",10,Los Lagos,M,Regionales,"Indicadores Económicos, Región de Los Lagos",,,glued_mnemonic
+F034.SAHLL.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",10,Los Lagos,M,Regionales,"Indicadores Económicos, Región de Los Lagos",,,glued_mnemonic
+F034.SANHLL.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",10,Los Lagos,M,Regionales,"Indicadores Económicos, Región de Los Lagos",,,glued_mnemonic
+F034.CEYSAI.FLU.MEFT.Z.0.M,Región de Aysén del General Carlos Ibáñez del Campo,11,Aysén,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVAAI.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",11,Aysén,M,Regionales,"Indicadores Económicos, Región de Aysén del General Carlos Ibáñez del Campo",,,glued_mnemonic
+F034.SAHAI.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",11,Aysén,M,Regionales,"Indicadores Económicos, Región de Aysén del General Carlos Ibáñez del Campo",,,glued_mnemonic
+F034.SANHAI.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",11,Aysén,M,Regionales,"Indicadores Económicos, Región de Aysén del General Carlos Ibáñez del Campo",,,glued_mnemonic
+F034.CEYSMA.FLU.MEFT.Z.0.M,Región de Magallanes y de la Antártica Chilena,12,Magallanes,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVAMA.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",12,Magallanes,M,Regionales,"Indicadores Económicos, Región de Magallanes y de la Antártica Chilena",,,glued_mnemonic
+F034.SAHMA.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",12,Magallanes,M,Regionales,"Indicadores Económicos, Región de Magallanes y de la Antártica Chilena",,,glued_mnemonic
+F034.SANHMA.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",12,Magallanes,M,Regionales,"Indicadores Económicos, Región de Magallanes y de la Antártica Chilena",,,glued_mnemonic
+F034.CEYSRM.FLU.MEFT.Z.0.M,Región Metropolitana de Santiago,13,Metropolitana de Santiago,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVARM.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",13,Metropolitana de Santiago,M,Regionales,"Indicadores Económicos, Región Metropolitana de Santiago",,,glued_mnemonic
+F034.SAHRM.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",13,Metropolitana de Santiago,M,Regionales,"Indicadores Económicos, Región Metropolitana de Santiago",,,glued_mnemonic
+F034.SANHRM.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",13,Metropolitana de Santiago,M,Regionales,"Indicadores Económicos, Región Metropolitana de Santiago",,,glued_mnemonic
+F034.CEYSLR.FLU.MEFT.Z.0.M,Región de Los Ríos,14,Los Ríos,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVALR.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",14,Los Ríos,M,Regionales,"Indicadores Económicos, Región de Los Ríos",,,glued_mnemonic
+F034.SAHLR.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",14,Los Ríos,M,Regionales,"Indicadores Económicos, Región de Los Ríos",,,glued_mnemonic
+F034.SANHLR.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",14,Los Ríos,M,Regionales,"Indicadores Económicos, Región de Los Ríos",,,glued_mnemonic
+F034.CEYSAP.FLU.MEFT.Z.0.M,Región de Arica y Parinacota,15,Arica y Parinacota,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVAAP.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",15,Arica y Parinacota,M,Regionales,"Indicadores Económicos, Región de Arica y Parinacota",,,glued_mnemonic
+F034.SAHAP.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",15,Arica y Parinacota,M,Regionales,"Indicadores Económicos, Región de Arica y Parinacota",,,glued_mnemonic
+F034.SANHAP.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",15,Arica y Parinacota,M,Regionales,"Indicadores Económicos, Región de Arica y Parinacota",,,glued_mnemonic
+F034.CEYSNB.FLU.MEFT.Z.0.M,Región de Ñuble,16,Ñuble,M,Regionales,Número de constituciones en registro de empresas y sociedades a nivel regional (Cantidad),,,glued_mnemonic
+F034.NVANB.FLU.INE.Z.0.M,"Número de viviendas autorizadas, unidades",16,Ñuble,M,Regionales,"Indicadores Económicos, Región de Ñuble",,,glued_mnemonic
+F034.SAHNB.FLU.INE.Z.0.M,"Superficie autorizada habitacional, m2",16,Ñuble,M,Regionales,"Indicadores Económicos, Región de Ñuble",,,glued_mnemonic
+F034.SANHNB.FLU.INE.Z.0.M,"Superficie autorizada no habitacional, m2",16,Ñuble,M,Regionales,"Indicadores Económicos, Región de Ñuble",,,glued_mnemonic

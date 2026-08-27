@@ -1,0 +1,97 @@
+﻿series_code,series_name,region_id,region_name,frequency,chapter,table_name,sector_id,sector_name,region_parse_method
+F022.CCPNTA.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,01,Tarapacá,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Tarapacá",,,glued_mnemonic
+F022.DCM90TA.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,01,Tarapacá,M,Regionales,"Porcentaje de deuda por cartera, Región de Tarapacá",,,glued_mnemonic
+F022.DCS90TA.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,01,Tarapacá,M,Regionales,"Porcentaje de deuda por cartera, Región de Tarapacá",,,glued_mnemonic
+F022.DV90TA.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,01,Tarapacá,M,Regionales,"Porcentaje de deuda por cartera, Región de Tarapacá",,,glued_mnemonic
+F022.SCCPNTA.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),01,Tarapacá,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Tarapacá",,,glued_mnemonic
+F022.SDVTA.STO.Z.Z.CLP.M,Saldo de cuentas a la vista  (en millones de pesos),01,Tarapacá,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Tarapacá",,,glued_mnemonic
+F022.CCPNAN.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,02,Antofagasta,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Antofagasta",,,glued_mnemonic
+F022.DCM90AN.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,02,Antofagasta,M,Regionales,"Porcentaje de deuda por cartera, Región de Antofagasta",,,glued_mnemonic
+F022.DCS90AN.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,02,Antofagasta,M,Regionales,"Porcentaje de deuda por cartera, Región de Antofagasta",,,glued_mnemonic
+F022.DV90AN.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,02,Antofagasta,M,Regionales,"Porcentaje de deuda por cartera, Región de Antofagasta",,,glued_mnemonic
+F022.SCCPNAN.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),02,Antofagasta,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Antofagasta",,,glued_mnemonic
+F022.SDVAN.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),02,Antofagasta,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Antofagasta",,,glued_mnemonic
+F022.CCPNAT.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,03,Atacama,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Atacama",,,glued_mnemonic
+F022.DCM90AT.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,03,Atacama,M,Regionales,"Porcentaje de deuda por cartera, Región de Atacama",,,glued_mnemonic
+F022.DCS90AT.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,03,Atacama,M,Regionales,"Porcentaje de deuda por cartera, Región de Atacama",,,glued_mnemonic
+F022.DV90AT.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,03,Atacama,M,Regionales,"Porcentaje de deuda por cartera, Región de Atacama",,,glued_mnemonic
+F022.SCCPNAT.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),03,Atacama,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Atacama",,,glued_mnemonic
+F022.SDVAT.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (millones de pesos),03,Atacama,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Atacama",,,glued_mnemonic
+F022.CCPNCO.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,04,Coquimbo,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Coquimbo",,,glued_mnemonic
+F022.DCM90CO.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,04,Coquimbo,M,Regionales,"Porcentaje de deuda por cartera, Región de Coquimbo",,,glued_mnemonic
+F022.DCS90CO.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,04,Coquimbo,M,Regionales,"Porcentaje de deuda por cartera, Región de Coquimbo",,,glued_mnemonic
+F022.DV90CO.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,04,Coquimbo,M,Regionales,"Porcentaje de deuda por cartera, Región de Coquimbo",,,glued_mnemonic
+F022.SCCPNCO.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),04,Coquimbo,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Coquimbo",,,glued_mnemonic
+F022.SDVCO.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),04,Coquimbo,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Coquimbo",,,glued_mnemonic
+F022.CCPNVA.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,05,Valparaíso,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Valparaíso",,,glued_mnemonic
+F022.DCM90VA.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,05,Valparaíso,M,Regionales,"Porcentaje de deuda por cartera, Región de Valparaíso",,,glued_mnemonic
+F022.DCS90VA.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,05,Valparaíso,M,Regionales,"Porcentaje de deuda por cartera, Región de Valparaíso",,,glued_mnemonic
+F022.DV90VA.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,05,Valparaíso,M,Regionales,"Porcentaje de deuda por cartera, Región de Valparaíso",,,glued_mnemonic
+F022.SCCPNVA.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),05,Valparaíso,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Valparaíso",,,glued_mnemonic
+F022.SDVVA.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),05,Valparaíso,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Valparaíso",,,glued_mnemonic
+F022.CCPNLI.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,06,O'Higgins,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región del Libertador General Bernardo O'Higgins",,,glued_mnemonic
+F022.DCM90LI.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,06,O'Higgins,M,Regionales,"Porcentaje de deuda por cartera, Región del Libertador General Bernardo O'Higgins",,,glued_mnemonic
+F022.DCS90LI.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,06,O'Higgins,M,Regionales,"Porcentaje de deuda por cartera, Región del Libertador General Bernardo O'Higgins",,,glued_mnemonic
+F022.DV90LI.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,06,O'Higgins,M,Regionales,"Porcentaje de deuda por cartera, Región del Libertador General Bernardo O'Higgins",,,glued_mnemonic
+F022.SCCPNLI.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),06,O'Higgins,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región del Libertador General Bernardo O'Higgins",,,glued_mnemonic
+F022.SDVLI.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),06,O'Higgins,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región del Libertador General Bernardo O'Higgins",,,glued_mnemonic
+F022.CCPNML.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,07,Maule,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región del Maule",,,glued_mnemonic
+F022.DCM90ML.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,07,Maule,M,Regionales,"Porcentaje de deuda por cartera, Región del Maule",,,glued_mnemonic
+F022.DCS90ML.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,07,Maule,M,Regionales,"Porcentaje de deuda por cartera, Región del Maule",,,glued_mnemonic
+F022.DV90ML.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,07,Maule,M,Regionales,"Porcentaje de deuda por cartera, Región del Maule",,,glued_mnemonic
+F022.SCCPNML.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),07,Maule,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región del Maule",,,glued_mnemonic
+F022.SDVML.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),07,Maule,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región del Maule",,,glued_mnemonic
+F022.CCPNBI.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,08,Biobío,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región del Biobío",,,glued_mnemonic
+F022.DCM90BI.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,08,Biobío,M,Regionales,"Porcentaje de deuda por cartera, Región del Biobío",,,glued_mnemonic
+F022.DCS90BI.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,08,Biobío,M,Regionales,"Porcentaje de deuda por cartera, Región del Biobío",,,glued_mnemonic
+F022.DV90BI.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,08,Biobío,M,Regionales,"Porcentaje de deuda por cartera, Región del Biobío",,,glued_mnemonic
+F022.SCCPNBI.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),08,Biobío,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región del Biobío",,,glued_mnemonic
+F022.SDVBI.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),08,Biobío,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región del Biobío",,,glued_mnemonic
+F022.CCPNAR.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,09,La Araucanía,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de La Araucanía",,,glued_mnemonic
+F022.DCM90AR.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,09,La Araucanía,M,Regionales,"Porcentaje de deuda por cartera, Región de La Araucanía",,,glued_mnemonic
+F022.DCS90AR.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,09,La Araucanía,M,Regionales,"Porcentaje de deuda por cartera, Región de La Araucanía",,,glued_mnemonic
+F022.DV90AR.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,09,La Araucanía,M,Regionales,"Porcentaje de deuda por cartera, Región de La Araucanía",,,glued_mnemonic
+F022.SCCPNAR.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),09,La Araucanía,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de La Araucanía",,,glued_mnemonic
+F022.SDVAR.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),09,La Araucanía,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de La Araucanía",,,glued_mnemonic
+F022.CCPNLL.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,10,Los Lagos,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Los Lagos",,,glued_mnemonic
+F022.DCM90LL.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,10,Los Lagos,M,Regionales,"Porcentaje de deuda por cartera, Región de Los Lagos",,,glued_mnemonic
+F022.DCS90LL.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,10,Los Lagos,M,Regionales,"Porcentaje de deuda por cartera, Región de Los Lagos",,,glued_mnemonic
+F022.DV90LL.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,10,Los Lagos,M,Regionales,"Porcentaje de deuda por cartera, Región de Los Lagos",,,glued_mnemonic
+F022.SCCPNLL.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),10,Los Lagos,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Los Lagos",,,glued_mnemonic
+F022.SDVLL.STO.Z.Z.CLP.M,Saldo de cuentas a la vista por región (en millones de pesos),10,Los Lagos,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Los Lagos",,,glued_mnemonic
+F022.CCPNAI.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,11,Aysén,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Aysén del General Carlos Ibáñez del Campo",,,glued_mnemonic
+F022.DCM90AI.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,11,Aysén,M,Regionales,"Porcentaje de deuda por cartera, Región de Aysén del General Carlos Ibáñez del Campo",,,glued_mnemonic
+F022.DCS90AI.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,11,Aysén,M,Regionales,"Porcentaje de deuda por cartera, Región de Aysén del General Carlos Ibáñez del Campo",,,glued_mnemonic
+F022.DV90AI.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,11,Aysén,M,Regionales,"Porcentaje de deuda por cartera, Región de Aysén del General Carlos Ibáñez del Campo",,,glued_mnemonic
+F022.SCCPNAI.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),11,Aysén,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Aysén del General Carlos Ibáñez del Campo",,,glued_mnemonic
+F022.SDVAI.STO.Z.Z.CLP.M,Saldo de cuentas a la vista por región (en millones de pesos),11,Aysén,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Aysén del General Carlos Ibáñez del Campo",,,glued_mnemonic
+F022.CCPNMA.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,12,Magallanes,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Magallanes y de la Antártica Chilena",,,glued_mnemonic
+F022.DCM90MA.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,12,Magallanes,M,Regionales,"Porcentaje de deuda por cartera, Región de Magallanes y de la Antártica Chilena",,,glued_mnemonic
+F022.DCS90MA.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,12,Magallanes,M,Regionales,"Porcentaje de deuda por cartera, Región de Magallanes y de la Antártica Chilena",,,glued_mnemonic
+F022.DV90MA.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,12,Magallanes,M,Regionales,"Porcentaje de deuda por cartera, Región de Magallanes y de la Antártica Chilena",,,glued_mnemonic
+F022.SCCPNMA.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),12,Magallanes,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Magallanes y de la Antártica Chilena",,,glued_mnemonic
+F022.SDVMA.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),12,Magallanes,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Magallanes y de la Antártica Chilena",,,glued_mnemonic
+F022.CCPNRM.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,13,Metropolitana de Santiago,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región Metropolitana de Santiago",,,glued_mnemonic
+F022.DCM90RM.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,13,Metropolitana de Santiago,M,Regionales,"Porcentaje de deuda por cartera, Región Metropolitana de Santiago",,,glued_mnemonic
+F022.DCS90RM.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,13,Metropolitana de Santiago,M,Regionales,"Porcentaje de deuda por cartera, Región Metropolitana de Santiago",,,glued_mnemonic
+F022.DV90RM.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,13,Metropolitana de Santiago,M,Regionales,"Porcentaje de deuda por cartera, Región Metropolitana de Santiago",,,glued_mnemonic
+F022.SCCPNRM.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),13,Metropolitana de Santiago,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región Metropolitana de Santiago",,,glued_mnemonic
+F022.SDVRM.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),13,Metropolitana de Santiago,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región Metropolitana de Santiago",,,glued_mnemonic
+F022.CCPNLR.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,14,Los Ríos,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Los Ríos",,,glued_mnemonic
+F022.DCM90LR.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,14,Los Ríos,M,Regionales,"Porcentaje de deuda por cartera, Región de Los Ríos",,,glued_mnemonic
+F022.DCS90LR.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,14,Los Ríos,M,Regionales,"Porcentaje de deuda por cartera, Región de Los Ríos",,,glued_mnemonic
+F022.DV90LR.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,14,Los Ríos,M,Regionales,"Porcentaje de deuda por cartera, Región de Los Ríos",,,glued_mnemonic
+F022.SCCPNLR.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),14,Los Ríos,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Los Ríos",,,glued_mnemonic
+F022.SDVLR.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),14,Los Ríos,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Los Ríos",,,glued_mnemonic
+F022.CCPNAP.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,15,Arica y Parinacota,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Arica y Parinacota",,,glued_mnemonic
+F022.DCM90AP.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,15,Arica y Parinacota,M,Regionales,"Porcentaje de deuda por cartera, Región de Arica y Parinacota",,,glued_mnemonic
+F022.DCS90AP.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,15,Arica y Parinacota,M,Regionales,"Porcentaje de deuda por cartera, Región de Arica y Parinacota",,,glued_mnemonic
+F022.DV90AP.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,15,Arica y Parinacota,M,Regionales,"Porcentaje de deuda por cartera, Región de Arica y Parinacota",,,glued_mnemonic
+F022.SCCPNAP.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),15,Arica y Parinacota,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Arica y Parinacota",,,glued_mnemonic
+F022.SDVAP.STO.Z.Z.CLP.M,Saldo de cuentas a la vista (en millones de pesos),15,Arica y Parinacota,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Arica y Parinacota",,,glued_mnemonic
+F022.CCPNNB.STO.Z.Z.Z.M,Número de cuentas corrientes de personas naturales en moneda nacional,16,Ñuble,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Ñuble",,,glued_mnemonic
+F022.DCM90NB.TAS.Z.Z.Z.M,Deuda comercial con mora de 90 días o más,16,Ñuble,M,Regionales,"Porcentaje de deuda por cartera, Región de Ñuble",,,glued_mnemonic
+F022.DCS90NB.TAS.Z.Z.Z.M,Deuda consumo con mora de 90 días o más,16,Ñuble,M,Regionales,"Porcentaje de deuda por cartera, Región de Ñuble",,,glued_mnemonic
+F022.DV90NB.TAS.Z.Z.Z.M,Deuda vivienda con mora de 90 días o más,16,Ñuble,M,Regionales,"Porcentaje de deuda por cartera, Región de Ñuble",,,glued_mnemonic
+F022.SCCPNNB.STO.Z.Z.CLP.M,Saldo promedio de cuentas corrientes de personas naturales en moneda nacional (en pesos),16,Ñuble,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Ñuble",,,glued_mnemonic
+F022.SDVNB.STO.Z.Z.CLP.M,Saldo de cuentas a la vista por región (en millones de pesos),16,Ñuble,M,Regionales,"Tenencia y saldos en cuentas corrientes y vista, Región de Ñuble",,,glued_mnemonic
