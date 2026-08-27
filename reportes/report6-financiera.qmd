@@ -1,0 +1,85 @@
+---
+title: "Profundidad financiera y morosidad por región"
+---
+
+<span class="escala esc-reg">REGIONAL &middot; 16 regiones</span>
+
+*La mora hipotecaria se desplomó durante los años de tasas bajas y repunta
+desde que las tasas subieron. Es la huella regional del ciclo financiero sobre
+el deudor, no sobre el crédito.*
+
+---
+
+## El argumento
+
+De las tres carteras que el Banco Central desagrega por región, la de vivienda
+es la que menos morosos produce y la que más se movió. Entre 2011 y
+2023 la mora hipotecaria cayó de **2,22%** a
+**0,32%** de la cartera: una reducción de
+**86%**. En 2025 está en **0,55%**,
+todavía muy por debajo del inicio de la serie pero claramente por encima del
+piso.
+
+El contraste con las otras dos carteras es lo que da sentido a la cifra. En
+2025 la mora comercial va en **2,74%** y la de consumo en
+**1,43%**: entre cinco y tres veces la hipotecaria. El
+inmueble es, en los datos del propio Banco Central, la deuda que menos se deja
+de pagar.
+
+::: {.caveat}
+**Un porcentaje de cartera sube por dos motivos distintos.** Estas series son
+mora sobre el saldo de cada cartera, no montos: una alza puede venir de más
+deudores en problemas *o* de una cartera que se contrae. Distinguirlo exige el
+volumen de crédito por región, y el Banco Central **no lo publica**: los montos
+hipotecarios, las tasas y el LTV son nacionales. Esta familia dice cómo le va
+al deudor en cada región, nunca cuánto crédito entró en cada región.
+:::
+
+## Lo que muestran los datos
+
+La trayectoria de la mora hipotecaria acompaña el ciclo de tasas: cae de forma
+sostenida durante los años de política monetaria expansiva y se quiebra al alza
+después. El proyecto no puede leer causalidad en eso —la tasa es nacional y
+esta serie es regional—, pero sí registrar que el período de valorización del
+suelo coincidió con deudores hipotecarios sin estrés visible.
+
+La dispersión entre regiones se mantiene: en 2025 la mora hipotecaria va de
+**0,34%** en Tarapacá a
+**0,86%** en Coquimbo.
+
+### La profundidad financiera se concentró
+
+En el mismo período las cuentas corrientes de personas naturales pasaron de
+**2,02 millones** a
+**12,04 millones**, y los depósitos a la vista de
+**0,46** a **7,66 billones de
+pesos**. Pero el crecimiento no se repartió: la participación de la Región
+Metropolitana en las cuentas del país subió de **57,6%** en
+2009 a **80,5%** en 2025.
+
+Esa concentración corre en la misma dirección que la inmovilidad productiva que
+documentó el Reporte 1. La bancarización creció seis veces y se volvió más
+metropolitana, no menos.
+
+## Nota metodológica
+
+Ninguno de los seis indicadores es un flujo. Las tres tasas de mora son
+porcentajes de carteras **distintas**, con denominadores distintos: sumarlas no
+significa nada, y ponderarlas exigiría el tamaño de cada cartera regional, que
+esta familia no trae. Los tres saldos son stocks. Todo se promedia sobre los
+doce meses del año; nada se acumula.
+
+Los saldos están en **pesos nominales**, sin deflactar. La multiplicación por
+16,5 de los depósitos a la vista mezcla inflación con
+profundización financiera, y separarlas exige un índice de precios que es
+nacional.
+
+`CCPN` cuenta **cuentas**, no personas: una persona puede tener varias y una
+cuenta puede ser de una empresa. No es una medida de inclusión financiera per
+cápita, y no puede convertirse en una, porque la población regional no existe
+como serie del Banco Central.
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`panel_financial_depth_annual.csv`](../datos/panel_financial_depth_annual.csv).
+:::
+

@@ -36,6 +36,8 @@ website:
             href: reportes/report3-dos-ejes.qmd
           - text: "4 · El ciclo de la construcción"
             href: reportes/report4-construccion.qmd
+          - text: "6 · Profundidad financiera"
+            href: reportes/report6-financiera.qmd
       - text: "Explorar"
         href: explorar.qmd
       - text: "Datos"
