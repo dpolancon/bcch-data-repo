@@ -29,6 +29,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pandas as pd
 
 from lib import families as families_lib
+from lib import trade as trade_lib
 from lib.codes import SECTOR_CONSTRUCTION, SECTOR_MINING, SECTOR_REAL_ESTATE
 from lib.paths import CRSM_RAW_DIR, DATA_DIR
 from lib.regions import REGIONS
@@ -399,10 +400,101 @@ def build_financial_depth() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     return mensual, anual, resumen
 
 
+
+# Las seis series de compraventas, en monto y en facturas. Todas son FLUJOS
+# mensuales, asi que sumar meses si tiene sentido -- al reves que la familia
+# financiera, donde ninguno de los seis indicadores era acumulable.
+COMPRAVENTAS = {
+    "CVRVITE": ("venta_interregional", "miles de millones de pesos"),
+    "CVRVITA": ("venta_intrarregional", "miles de millones de pesos"),
+    "CVRCITE": ("compra_interregional", "miles de millones de pesos"),
+    "CVRCITA": ("compra_intrarregional", "miles de millones de pesos"),
+    "NFRVITE": ("facturas_venta_interregional", "miles de unidades"),
+    "NFRCITE": ("facturas_compra_interregional", "miles de unidades"),
+}
+
+
+def build_interregional_trade() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Panel de comercio interregional: mensual, anual y resumen.
+
+    Lo que el Banco Central publica son MARGENES, no la matriz origen-destino:
+    cuanto vende cada region al resto del pais y cuanto le compra. Para 16
+    regiones eso son 32 numeros por mes contra 240 flujos bilaterales que no se
+    publican. Los margenes cuadran exactamente entre si --las ventas
+    interregionales agregadas igualan a las compras--, lo que muestra que son
+    las filas y columnas de una misma matriz cerrada que el Banco calcula y no
+    difunde.
+
+    Por eso este panel publica la secuencia de grados de la red (apertura,
+    autocontencion, balance neto), que es lo medible, y no centralidad ni
+    comunidades, que exigirian inventar primero la topologia. Ver
+    lib.trade.independence_baseline.
+    """
+    margenes = trade_lib.load_trade_margins()
+
+    # Los margenes solo sirven si las identidades publicadas se sostienen.
+    desvios = trade_lib.check_identities(margenes)
+    excedidas = desvios[desvios > trade_lib.IDENTITY_TOL]
+    if not excedidas.empty:
+        raise SystemExit(
+            f"Las identidades de compraventas dejaron de cumplirse: {excedidas.to_dict()}"
+        )
+
+    crudo = trade_lib._require_raw_monthly()
+    crudo = crudo[crudo["series_code"].str.contains("CVR|NFR", na=False)].copy()
+    crudo["familia"] = crudo["series_code"].str.split(".").str[1]
+    crudo = crudo[crudo["familia"].isin(COMPRAVENTAS)]
+
+    crudo["indicador"] = crudo["familia"].map(lambda f: COMPRAVENTAS[f][0])
+    crudo["unidad"] = crudo["familia"].map(lambda f: COMPRAVENTAS[f][1])
+    crudo["anio"] = crudo["date"].dt.year
+
+    mensual = crudo.rename(columns={"region_id": "region_code", "value": "valor"})[
+        ["date", "anio", "region_code", "region_name", "indicador", "unidad", "valor"]
+    ].sort_values(["date", "region_code", "indicador"])
+
+    # Solo anios completos: un anio a medias sumado contra anios enteros parece
+    # un derrumbe.
+    meses = mensual.groupby("anio")["date"].nunique()
+    mensual = mensual[mensual["anio"].isin(meses[meses == 12].index)]
+
+    anual = (
+        mensual.groupby(["anio", "region_code", "region_name", "indicador", "unidad"],
+                        as_index=False)["valor"].sum()
+    )
+
+    # Resumen: la secuencia de grados de la red, en el ultimo anio completo.
+    ultimo = int(anual["anio"].max())
+    ind = trade_lib.compute_indicators(margenes, year=ultimo)
+    resumen = ind.melt(
+        id_vars=["region_code", "region_name"],
+        value_vars=["openness", "self_containment", "net_balance_pct"],
+        var_name="indicador", value_name="valor",
+    )
+    resumen["indicador"] = resumen["indicador"].map({
+        "openness": "apertura",
+        "self_containment": "autocontencion",
+        "net_balance_pct": "balance_neto",
+    })
+    # Apertura y balance no comparten denominador; la unidad lo dice.
+    resumen["unidad"] = resumen["indicador"].map({
+        "apertura": "% de las ventas de la región",
+        "autocontencion": "% de las ventas de la región",
+        "balance_neto": "% del intercambio interregional bruto",
+    })
+    resumen["anio"] = ultimo
+
+    mensual = unidades_lib.normalizar(mensual.drop(columns=["anio"]))
+    anual = unidades_lib.normalizar(anual)
+    resumen = unidades_lib.normalizar(resumen)
+    return mensual, anual, resumen
+
+
 BUILDERS = {
     "two_axes": build_two_axes,
     "permits": build_permits,
     "financial_depth": build_financial_depth,
+    "interregional_trade": build_interregional_trade,
 }
 
 

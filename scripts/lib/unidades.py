@@ -54,6 +54,14 @@ UNIDADES = {
     "miles de millones de pesos encadenados 2018": (
         DINERO, 1e9, TOTAL, "volumen encadenado, referencia 2018; no aditivo entre sectores",
     ),
+    # Las compraventas se publican en miles de millones NOMINALES, distinto de
+    # los encadenados del PIB: mismo prefijo, deflactor distinto. Sumarlos con
+    # el PIB real seria mezclar un flujo nominal con un volumen encadenado.
+    "miles de millones de pesos": (
+        DINERO, 1e9, TOTAL, "nominal, sin deflactar; no comparable con encadenados",
+    ),
+    # Las facturas vienen en miles de unidades, no en unidades.
+    "miles de unidades": (CONTEO, 1e3, TOTAL, "facturas, no operaciones ni empresas"),
     "m2": (SUPERFICIE, 1.0, TOTAL, ""),
     "unidades": (CONTEO, 1.0, TOTAL, ""),
     "número de cuentas de personas naturales": (
@@ -63,6 +71,13 @@ UNIDADES = {
     "% de la cartera de consumo": (TASA, 1.0, PROMEDIO, "porcentaje de la cartera de consumo"),
     "% de la cartera comercial": (TASA, 1.0, PROMEDIO, "porcentaje de la cartera comercial"),
     "% de las cuentas del país": (TASA, 1.0, PROMEDIO, "participación en el total nacional"),
+    # Las tres tasas de la red de compraventas. El denominador va en el nombre
+    # porque apertura y balance NO comparten base: una se mide sobre las ventas
+    # de la región, la otra sobre el intercambio bruto.
+    "% de las ventas de la región": (TASA, 1.0, PROMEDIO, "sobre las ventas totales de la región"),
+    "% del intercambio interregional bruto": (
+        TASA, 1.0, PROMEDIO, "sobre ventas más compras interregionales",
+    ),
     "fracción del producto regional": (TASA, 100.0, PROMEDIO, "participación sectorial"),
 }
 
