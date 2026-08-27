@@ -1125,66 +1125,58 @@ title: "El precio del dinero"
 
 {site_lib.escala_badge(families_lib.ESCALA_NACIONAL)}
 
+*El desplome de la tasa de créditos hipotecarios desde más del **{site_lib.es(hip_max, 2)}%** hasta un piso histórico de **{site_lib.es(hip_min, 2)}%** en 2019 constituyó el principal estímulo financiero a la valorización del suelo. Paralelamente, el apalancamiento de los hogares sobre su ingreso disponible se multiplicó por **{site_lib.es(factor_deuda, 1)}** veces.*
+
 ---
 
 ## El argumento
 
-La hipótesis central del proyecto (H1) postula que la inflación del precio del
-suelo metropolitano en Chile responde primordialmente a un determinante
-financiero: el descenso tendencial de la tasa de descuento con que se descuenta
-el flujo futuro de rentas. Al ser el suelo un activo que no se deprecia ni se
-reproduce físicamente, una reducción sustantiva de la tasa de interés real
-genera una expansión mecánica y no lineal en su valor de capitalización.
+La hipótesis central del proyecto (H1) postula que la inflación del precio del suelo metropolitano en Chile responde primordialmente a un determinante financiero: el descenso tendencial de la tasa de descuento con que se descuenta el flujo futuro de rentas. Al ser el suelo un activo que no se deprecia ni se reproduce físicamente, una reducción sustantiva de la tasa de interés real genera una expansión mecánica y no lineal en su valor de capitalización.
 
-La BDE concentra a escala nacional el conjunto completo de regresores
-financieros requeridos para contrastar este mecanismo (Tabla 1 de la formulación):
-la Tasa de Política Monetaria (`TPM`), las expectativas de mercado, las tasas
-de colocación bancaria a largo plazo (`VIV`), la curva soberana en UF (`BCU`) y
-los ratios de apalancamiento bancario de los hogares (`DEUBH`).
+La BDE concentra a escala nacional el conjunto completo de regresores financieros requeridos para contrastar este mecanismo (Tabla 1 de la formulación): la Tasa de Política Monetaria (`TPM`), las expectativas de mercado, las tasas de colocación bancaria a largo plazo (`VIV`), la curva soberana en UF (`BCU`) y los ratios de apalancamiento bancario de los hogares (`DEUBH`).
 
 ## Lo que muestran los datos
 
-La trayectoria de las tasas hipotecarias en Chile documenta con nitidez el ciclo
-financiero. A comienzos de la serie (2002), la tasa promedio de colocación para
-vivienda en UF se situaba en **{site_lib.es(hip_max, 2)}%**. Durante las dos
-décadas siguientes experimentó un descenso sostenido que culminó en un piso
-histórico de **{site_lib.es(hip_min, 2)}%** a fines de 2019. Posteriormente, el
-ciclo de ajuste monetario post-pandemia elevó la tasa hasta situarse actualmente
-en **{site_lib.es(hip_act, 2)}%**.
+La trayectoria de las tasas hipotecarias en Chile documenta con nitidez el ciclo financiero. A comienzos de la serie (2002), la tasa promedio de colocación para vivienda en UF se situaba en **{site_lib.es(hip_max, 2)}%**. Durante las dos décadas siguientes experimentó un descenso sostenido que culminó en un piso histórico de **{site_lib.es(hip_min, 2)}%** a fines de 2019. Posteriormente, el ciclo de ajuste monetario post-pandemia elevó la tasa hasta situarse actualmente en **{site_lib.es(hip_act, 2)}%**.
 
-La Tasa de Política Monetaria (`TPM`) acompañó esta dinámica, transitando desde
-máximos históricos de **{site_lib.es(tpm_max, 2)}%** (durante la crisis asiática
-de 1998) hasta mínimos técnicos de **{site_lib.es(tpm_min, 2)}%** durante los
-shocks de 2009 y 2020–2021, ubicándose en **{site_lib.es(tpm_act, 2)}%** en 2026.
+La Tasa de Política Monetaria (`TPM`) acompañó esta dinámica, transitando desde máximos históricos de **{site_lib.es(tpm_max, 2)}%** (durante la crisis asiática de 1998) hasta mínimos técnicos de **{site_lib.es(tpm_min, 2)}%** durante los shocks de 2009 y 2020–2021, ubicándose en **{site_lib.es(tpm_act, 2)}%** en 2026.
 
-### La expansión del apalancamiento de los hogares
+### Tabla 1: Matriz de Tasas de Interés y Política Monetaria (1995–2026)
 
-Este abaratamiento del costo del crédito facilitó una acumulación masiva de
-deuda hipotecaria. Medida a través de las cuentas nacionales (`DEUBH`), la deuda
-bancaria hipotecaria de los hogares pasó de representar el
-**{site_lib.es(deub_ing_min, 1)}%** del ingreso disponible a un máximo de
-**{site_lib.es(deub_ing_max, 1)}%**, multiplicándose por **{site_lib.es(factor_deuda, 1)}**
-veces antes de estabilizarse en **{site_lib.es(deub_ing_act, 1)}%**.
+{tabla1_md}
 
-Como proporción del producto interno bruto, la deuda hipotecaria de los hogares
-escaló desde **{site_lib.es(deub_pib_min, 1)}%** del PIB hasta un techo de
-**{site_lib.es(deub_pib_max, 1)}%**, situándose en **{site_lib.es(deub_pib_act, 1)}%** en
-el período reciente.
+### Tabla 2: Matriz de Apalancamiento y Deuda de los Hogares
+
+{tabla2_md}
+
+![Figura 8.1: Evolución Histórica de la Tasa de Política Monetaria en Chile (1995–2026)](../assets/fig8_1_ciclo_tpm.png)
+
+::: {{.callout-note}}
+### Medición de la Tasa de Política Monetaria (Figura 8.1)
+La TPM es la tasa objetivo fijada por el Banco Central para las operaciones interbancarias. Su reducción al piso histórico de **{site_lib.es(tpm_min, 2)}%** estimuló la expansión del crédito hipotecario, mientras su alza acelerada contuvo la liquidez pos-pandemia.
+:::
+
+![Figura 8.2: Estructura de Tasas de Interés por Tipo de Colocación Bancaria (2002–2026)](../assets/fig8_2_estructura_tasas.png)
+
+::: {{.callout-note}}
+### Medición de la Estructura de Tasas por Colocación (Figura 8.2)
+La tasa de interés hipotecaria a largo plazo alcanzó su piso de **{site_lib.es(hip_min, 2)}%** en 2019. Su trayectoria evidencia una menor volatilidad que las tasas de consumo y comerciales, pero su repunte actual al **{site_lib.es(hip_act, 2)}%** encarece el dividendo mensual de las nuevas colocaciones.
+:::
+
+![Figura 8.3: Margen de Intermediación y Transmisión Monetaria (Spreads sobre TPM)](../assets/fig8_3_diferencial_tasas.png)
+
+::: {{.callout-note}}
+### Medición del Apalancamiento y Deuda de Hogares (Figura 8.3)
+Este abaratamiento del costo del crédito facilitó una acumulación masiva de deuda hipotecaria. Medida a través de las cuentas nacionales (`DEUBH`), la deuda bancaria hipotecaria de los hogares pasó de representar el **{site_lib.es(deub_ing_min, 1)}%** del ingreso disponible a un máximo de **{site_lib.es(deub_ing_max, 1)}%**, multiplicándose por **{site_lib.es(factor_deuda, 1)}** veces antes de estabilizarse en **{site_lib.es(deub_ing_act, 1)}%**. Como proporción del PIB, la deuda escaló desde **{site_lib.es(deub_pib_min, 1)}%** hasta un techo de **{site_lib.es(deub_pib_max, 1)}%**, situándose en **{site_lib.es(deub_pib_act, 1)}%**.
+:::
 
 ::: {{.caveat}}
-**La escala nacional es un precio único.** A diferencia de los flujos físicos de
-construcción o la morosidad bancaria regional, las tasas de interés y los bonos
-soberanos operan como precios únicos para toda la economía chilena. El análisis
-econométrico de H1 utiliza estas variables como regresores macroeconómicos
-comunes a todas las áreas metropolitanas bajo estudio.
+**La escala nacional es un precio único.** A diferencia de los flujos físicos de construcción o la morosidad bancaria regional, las tasas de interés y los bonos soberanos operan como precios únicos para toda la economía chilena. El análisis econométrico de H1 utiliza estas variables como regresores macroeconómicos comunes a todas las áreas metropolitanas bajo estudio.
 :::
 
 ## Nota metodológica
 
-Las series de captación y colocación inician en 1983; la TPM en 1995 (nominalizada
-en agosto de 2001); las tasas hipotecarias desagregadas y bonos BCU en 2002; y los
-ratios de deuda de hogares `DEUBH` en 2003. El panel anual integra los promedios
-anuales de series mensuales y trimestrales con años completos.
+Las series de captación y colocación inician en 1983; la TPM en 1995 (nominalizada en agosto de 2001); las tasas hipotecarias desagregadas y bonos BCU en 2002; y los ratios de deuda de hogares `DEUBH` en 2003. El panel anual integra los promedios anuales de series mensuales y trimestrales con años completos.
 
 {site_lib.fuente("panel_tasas_annual.csv")}
 """
@@ -2037,6 +2029,15 @@ def main() -> int:
         )
         check_tokens(page7, "reportes/report7-sector-dinamico.qmd")
         write(root / "reportes" / "report7-sector-dinamico.qmd", page7)
+
+        assets_src = report_assets_dir(7)
+        if assets_src.exists():
+            for asset in sorted(assets_src.iterdir()):
+                if asset.is_file() and asset.suffix.lower() in {
+                    ".png", ".pdf", ".csv", ".jpg", ".svg"
+                }:
+                    manifest.append(site_lib.copy_asset(asset, root / "assets"))
+
         published.append(
             {
                 "n": 7,
@@ -2060,6 +2061,15 @@ def main() -> int:
         )
         check_tokens(page8, "reportes/report8-tasas.qmd")
         write(root / "reportes" / "report8-tasas.qmd", page8)
+
+        assets_src = report_assets_dir(8)
+        if assets_src.exists():
+            for asset in sorted(assets_src.iterdir()):
+                if asset.is_file() and asset.suffix.lower() in {
+                    ".png", ".pdf", ".csv", ".jpg", ".svg"
+                }:
+                    manifest.append(site_lib.copy_asset(asset, root / "assets"))
+
         published.append(
             {
                 "n": 8,
