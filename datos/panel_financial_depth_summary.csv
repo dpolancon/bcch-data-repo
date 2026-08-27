@@ -1,120 +1,120 @@
-anio,indicador,medida,unidad,valor
-2009,concentracion_rm_cuentas,tasa,% de las cuentas del país,57.638505735317146
-2010,concentracion_rm_cuentas,tasa,% de las cuentas del país,58.293357726310866
-2011,concentracion_rm_cuentas,tasa,% de las cuentas del país,59.70677431882402
-2012,concentracion_rm_cuentas,tasa,% de las cuentas del país,60.05479662226114
-2013,concentracion_rm_cuentas,tasa,% de las cuentas del país,59.83381384439919
-2014,concentracion_rm_cuentas,tasa,% de las cuentas del país,59.84351746873493
-2015,concentracion_rm_cuentas,tasa,% de las cuentas del país,59.94834561396665
-2016,concentracion_rm_cuentas,tasa,% de las cuentas del país,60.3428431146391
-2017,concentracion_rm_cuentas,tasa,% de las cuentas del país,60.612555940898915
-2018,concentracion_rm_cuentas,tasa,% de las cuentas del país,60.3726217749167
-2019,concentracion_rm_cuentas,tasa,% de las cuentas del país,61.12013314205368
-2020,concentracion_rm_cuentas,tasa,% de las cuentas del país,61.717146296342165
-2021,concentracion_rm_cuentas,tasa,% de las cuentas del país,66.09702095931418
-2022,concentracion_rm_cuentas,tasa,% de las cuentas del país,72.38038399450906
-2023,concentracion_rm_cuentas,tasa,% de las cuentas del país,75.97402080212943
-2024,concentracion_rm_cuentas,tasa,% de las cuentas del país,78.56247912776847
-2025,concentracion_rm_cuentas,tasa,% de las cuentas del país,80.52792000773006
-2009,cuentas_corrientes,stock,número de cuentas de personas naturales,2015588.9166666665
-2010,cuentas_corrientes,stock,número de cuentas de personas naturales,2132672.0833333335
-2011,cuentas_corrientes,stock,número de cuentas de personas naturales,2348799.5
-2012,cuentas_corrientes,stock,número de cuentas de personas naturales,2554993.25
-2013,cuentas_corrientes,stock,número de cuentas de personas naturales,2752104.5
-2014,cuentas_corrientes,stock,número de cuentas de personas naturales,2962471.25
-2015,cuentas_corrientes,stock,número de cuentas de personas naturales,3195727.3333333335
-2016,cuentas_corrientes,stock,número de cuentas de personas naturales,3454262.1666666665
-2017,cuentas_corrientes,stock,número de cuentas de personas naturales,3698769.6666666665
-2018,cuentas_corrientes,stock,número de cuentas de personas naturales,4008197.4999999995
-2019,cuentas_corrientes,stock,número de cuentas de personas naturales,4295862.833333334
-2020,cuentas_corrientes,stock,número de cuentas de personas naturales,4550339.333333333
-2021,cuentas_corrientes,stock,número de cuentas de personas naturales,5402276.0
-2022,cuentas_corrientes,stock,número de cuentas de personas naturales,6704861.5
-2023,cuentas_corrientes,stock,número de cuentas de personas naturales,8328394.166666667
-2024,cuentas_corrientes,stock,número de cuentas de personas naturales,10306506.583333332
-2025,cuentas_corrientes,stock,número de cuentas de personas naturales,12043030.333333334
-2009,depositos_vista,stock,millones de pesos nominales,462635.33668458334
-2010,depositos_vista,stock,millones de pesos nominales,629466.6306995833
-2011,depositos_vista,stock,millones de pesos nominales,742117.5545695
-2012,depositos_vista,stock,millones de pesos nominales,938728.0220505
-2013,depositos_vista,stock,millones de pesos nominales,1165613.2929663332
-2014,depositos_vista,stock,millones de pesos nominales,1410297.5688266668
-2015,depositos_vista,stock,millones de pesos nominales,1689275.6477387499
-2016,depositos_vista,stock,millones de pesos nominales,1992888.7636807498
-2017,depositos_vista,stock,millones de pesos nominales,2364780.2498498335
-2018,depositos_vista,stock,millones de pesos nominales,2959150.2827424165
-2019,depositos_vista,stock,millones de pesos nominales,3437453.1668995
-2020,depositos_vista,stock,millones de pesos nominales,6469057.8174215825
-2021,depositos_vista,stock,millones de pesos nominales,11387962.496595167
-2022,depositos_vista,stock,millones de pesos nominales,8760166.551179
-2023,depositos_vista,stock,millones de pesos nominales,7135107.147101416
-2024,depositos_vista,stock,millones de pesos nominales,7265902.579614917
-2025,depositos_vista,stock,millones de pesos nominales,7655059.969924167
-2009,mora_comercial,tasa,% de la cartera comercial,3.0331340623150314
-2010,mora_comercial,tasa,% de la cartera comercial,3.3091301927772663
-2011,mora_comercial,tasa,% de la cartera comercial,3.054220217398864
-2012,mora_comercial,tasa,% de la cartera comercial,2.964988810350794
-2013,mora_comercial,tasa,% de la cartera comercial,3.041267612785307
-2014,mora_comercial,tasa,% de la cartera comercial,2.93931000631869
-2015,mora_comercial,tasa,% de la cartera comercial,2.7549232984884053
-2016,mora_comercial,tasa,% de la cartera comercial,2.455658382077189
-2017,mora_comercial,tasa,% de la cartera comercial,2.6702664746710583
-2018,mora_comercial,tasa,% de la cartera comercial,2.8662741771160887
-2019,mora_comercial,tasa,% de la cartera comercial,2.905072253187265
-2020,mora_comercial,tasa,% de la cartera comercial,2.657103134847232
-2021,mora_comercial,tasa,% de la cartera comercial,1.9540077942724043
-2022,mora_comercial,tasa,% de la cartera comercial,1.7399280907687742
-2023,mora_comercial,tasa,% de la cartera comercial,2.503248931542695
-2024,mora_comercial,tasa,% de la cartera comercial,3.01643604801125
-2025,mora_comercial,tasa,% de la cartera comercial,2.738822004871698
-2009,mora_consumo,tasa,% de la cartera de consumo,1.4607073187142554
-2010,mora_consumo,tasa,% de la cartera de consumo,1.6932592797846542
-2011,mora_consumo,tasa,% de la cartera de consumo,1.565207837646469
-2012,mora_consumo,tasa,% de la cartera de consumo,1.4575122214311025
-2013,mora_consumo,tasa,% de la cartera de consumo,1.4190048136356959
-2014,mora_consumo,tasa,% de la cartera de consumo,1.4004467592959409
-2015,mora_consumo,tasa,% de la cartera de consumo,1.3135861684712613
-2016,mora_consumo,tasa,% de la cartera de consumo,1.2713861226723528
-2017,mora_consumo,tasa,% de la cartera de consumo,1.42716280391291
-2018,mora_consumo,tasa,% de la cartera de consumo,1.4378850842465636
-2019,mora_consumo,tasa,% de la cartera de consumo,1.6838089179749696
-2020,mora_consumo,tasa,% de la cartera de consumo,2.1579450717192756
-2021,mora_consumo,tasa,% de la cartera de consumo,1.7012415009340536
-2022,mora_consumo,tasa,% de la cartera de consumo,1.2909234679315391
-2023,mora_consumo,tasa,% de la cartera de consumo,1.5724305555432132
-2024,mora_consumo,tasa,% de la cartera de consumo,1.8304674287333413
-2025,mora_consumo,tasa,% de la cartera de consumo,1.430054459306204
-2009,mora_vivienda,tasa,% de la cartera de vivienda,1.7883255413957388
-2010,mora_vivienda,tasa,% de la cartera de vivienda,2.0509999548639533
-2011,mora_vivienda,tasa,% de la cartera de vivienda,2.216900415978965
-2012,mora_vivienda,tasa,% de la cartera de vivienda,1.842183033003446
-2013,mora_vivienda,tasa,% de la cartera de vivienda,1.330291368408954
-2014,mora_vivienda,tasa,% de la cartera de vivienda,1.0283539242660233
-2015,mora_vivienda,tasa,% de la cartera de vivienda,0.7790481738003376
-2016,mora_vivienda,tasa,% de la cartera de vivienda,0.6252049485532016
-2017,mora_vivienda,tasa,% de la cartera de vivienda,0.5536661099865235
-2018,mora_vivienda,tasa,% de la cartera de vivienda,0.6088891526638529
-2019,mora_vivienda,tasa,% de la cartera de vivienda,0.6052160153633652
-2020,mora_vivienda,tasa,% de la cartera de vivienda,0.6082856882629473
-2021,mora_vivienda,tasa,% de la cartera de vivienda,0.4902729631767384
-2022,mora_vivienda,tasa,% de la cartera de vivienda,0.3311484588645529
-2023,mora_vivienda,tasa,% de la cartera de vivienda,0.3180445797880873
-2024,mora_vivienda,tasa,% de la cartera de vivienda,0.4132428041328022
-2025,mora_vivienda,tasa,% de la cartera de vivienda,0.548201406458637
-2009,saldo_medio_cuenta,stock,pesos nominales por cuenta,20522689.407425586
-2010,saldo_medio_cuenta,stock,pesos nominales por cuenta,25091217.199574493
-2011,saldo_medio_cuenta,stock,pesos nominales por cuenta,26038132.019247796
-2012,saldo_medio_cuenta,stock,pesos nominales por cuenta,26485019.883476615
-2013,saldo_medio_cuenta,stock,pesos nominales por cuenta,27612088.30506539
-2014,saldo_medio_cuenta,stock,pesos nominales por cuenta,28345862.81122054
-2015,saldo_medio_cuenta,stock,pesos nominales por cuenta,30228464.248050403
-2016,saldo_medio_cuenta,stock,pesos nominales por cuenta,30635275.359880153
-2017,saldo_medio_cuenta,stock,pesos nominales por cuenta,30413437.056602567
-2018,saldo_medio_cuenta,stock,pesos nominales por cuenta,32822919.871723257
-2019,saldo_medio_cuenta,stock,pesos nominales por cuenta,33397291.420845244
-2020,saldo_medio_cuenta,stock,pesos nominales por cuenta,45678014.29373468
-2021,saldo_medio_cuenta,stock,pesos nominales por cuenta,63646106.50085138
-2022,saldo_medio_cuenta,stock,pesos nominales por cuenta,51872616.92466926
-2023,saldo_medio_cuenta,stock,pesos nominales por cuenta,36870382.85019222
-2024,saldo_medio_cuenta,stock,pesos nominales por cuenta,34220768.57897621
-2025,saldo_medio_cuenta,stock,pesos nominales por cuenta,32840247.837615076
+anio,indicador,medida,unidad,valor,unidad_original,dimension,agregacion
+2009,concentracion_rm_cuentas,tasa,%,57.638505735317146,% de las cuentas del país,tasa,promedio
+2010,concentracion_rm_cuentas,tasa,%,58.293357726310866,% de las cuentas del país,tasa,promedio
+2011,concentracion_rm_cuentas,tasa,%,59.70677431882402,% de las cuentas del país,tasa,promedio
+2012,concentracion_rm_cuentas,tasa,%,60.05479662226114,% de las cuentas del país,tasa,promedio
+2013,concentracion_rm_cuentas,tasa,%,59.83381384439919,% de las cuentas del país,tasa,promedio
+2014,concentracion_rm_cuentas,tasa,%,59.84351746873493,% de las cuentas del país,tasa,promedio
+2015,concentracion_rm_cuentas,tasa,%,59.94834561396665,% de las cuentas del país,tasa,promedio
+2016,concentracion_rm_cuentas,tasa,%,60.3428431146391,% de las cuentas del país,tasa,promedio
+2017,concentracion_rm_cuentas,tasa,%,60.612555940898915,% de las cuentas del país,tasa,promedio
+2018,concentracion_rm_cuentas,tasa,%,60.3726217749167,% de las cuentas del país,tasa,promedio
+2019,concentracion_rm_cuentas,tasa,%,61.12013314205368,% de las cuentas del país,tasa,promedio
+2020,concentracion_rm_cuentas,tasa,%,61.717146296342165,% de las cuentas del país,tasa,promedio
+2021,concentracion_rm_cuentas,tasa,%,66.09702095931418,% de las cuentas del país,tasa,promedio
+2022,concentracion_rm_cuentas,tasa,%,72.38038399450906,% de las cuentas del país,tasa,promedio
+2023,concentracion_rm_cuentas,tasa,%,75.97402080212943,% de las cuentas del país,tasa,promedio
+2024,concentracion_rm_cuentas,tasa,%,78.56247912776847,% de las cuentas del país,tasa,promedio
+2025,concentracion_rm_cuentas,tasa,%,80.52792000773006,% de las cuentas del país,tasa,promedio
+2009,cuentas_corrientes,stock,unidades,2015588.9166666665,número de cuentas de personas naturales,conteo,total
+2010,cuentas_corrientes,stock,unidades,2132672.0833333335,número de cuentas de personas naturales,conteo,total
+2011,cuentas_corrientes,stock,unidades,2348799.5,número de cuentas de personas naturales,conteo,total
+2012,cuentas_corrientes,stock,unidades,2554993.25,número de cuentas de personas naturales,conteo,total
+2013,cuentas_corrientes,stock,unidades,2752104.5,número de cuentas de personas naturales,conteo,total
+2014,cuentas_corrientes,stock,unidades,2962471.25,número de cuentas de personas naturales,conteo,total
+2015,cuentas_corrientes,stock,unidades,3195727.3333333335,número de cuentas de personas naturales,conteo,total
+2016,cuentas_corrientes,stock,unidades,3454262.1666666665,número de cuentas de personas naturales,conteo,total
+2017,cuentas_corrientes,stock,unidades,3698769.6666666665,número de cuentas de personas naturales,conteo,total
+2018,cuentas_corrientes,stock,unidades,4008197.4999999995,número de cuentas de personas naturales,conteo,total
+2019,cuentas_corrientes,stock,unidades,4295862.833333334,número de cuentas de personas naturales,conteo,total
+2020,cuentas_corrientes,stock,unidades,4550339.333333333,número de cuentas de personas naturales,conteo,total
+2021,cuentas_corrientes,stock,unidades,5402276.0,número de cuentas de personas naturales,conteo,total
+2022,cuentas_corrientes,stock,unidades,6704861.5,número de cuentas de personas naturales,conteo,total
+2023,cuentas_corrientes,stock,unidades,8328394.166666667,número de cuentas de personas naturales,conteo,total
+2024,cuentas_corrientes,stock,unidades,10306506.583333332,número de cuentas de personas naturales,conteo,total
+2025,cuentas_corrientes,stock,unidades,12043030.333333334,número de cuentas de personas naturales,conteo,total
+2009,depositos_vista,stock,pesos,462635336684.5833,millones de pesos nominales,dinero,total
+2010,depositos_vista,stock,pesos,629466630699.5834,millones de pesos nominales,dinero,total
+2011,depositos_vista,stock,pesos,742117554569.5,millones de pesos nominales,dinero,total
+2012,depositos_vista,stock,pesos,938728022050.5,millones de pesos nominales,dinero,total
+2013,depositos_vista,stock,pesos,1165613292966.3333,millones de pesos nominales,dinero,total
+2014,depositos_vista,stock,pesos,1410297568826.6667,millones de pesos nominales,dinero,total
+2015,depositos_vista,stock,pesos,1689275647738.7498,millones de pesos nominales,dinero,total
+2016,depositos_vista,stock,pesos,1992888763680.7498,millones de pesos nominales,dinero,total
+2017,depositos_vista,stock,pesos,2364780249849.8335,millones de pesos nominales,dinero,total
+2018,depositos_vista,stock,pesos,2959150282742.4165,millones de pesos nominales,dinero,total
+2019,depositos_vista,stock,pesos,3437453166899.5,millones de pesos nominales,dinero,total
+2020,depositos_vista,stock,pesos,6469057817421.583,millones de pesos nominales,dinero,total
+2021,depositos_vista,stock,pesos,11387962496595.166,millones de pesos nominales,dinero,total
+2022,depositos_vista,stock,pesos,8760166551178.999,millones de pesos nominales,dinero,total
+2023,depositos_vista,stock,pesos,7135107147101.416,millones de pesos nominales,dinero,total
+2024,depositos_vista,stock,pesos,7265902579614.917,millones de pesos nominales,dinero,total
+2025,depositos_vista,stock,pesos,7655059969924.167,millones de pesos nominales,dinero,total
+2009,mora_comercial,tasa,%,3.0331340623150314,% de la cartera comercial,tasa,promedio
+2010,mora_comercial,tasa,%,3.3091301927772663,% de la cartera comercial,tasa,promedio
+2011,mora_comercial,tasa,%,3.054220217398864,% de la cartera comercial,tasa,promedio
+2012,mora_comercial,tasa,%,2.964988810350794,% de la cartera comercial,tasa,promedio
+2013,mora_comercial,tasa,%,3.041267612785307,% de la cartera comercial,tasa,promedio
+2014,mora_comercial,tasa,%,2.93931000631869,% de la cartera comercial,tasa,promedio
+2015,mora_comercial,tasa,%,2.7549232984884053,% de la cartera comercial,tasa,promedio
+2016,mora_comercial,tasa,%,2.455658382077189,% de la cartera comercial,tasa,promedio
+2017,mora_comercial,tasa,%,2.6702664746710583,% de la cartera comercial,tasa,promedio
+2018,mora_comercial,tasa,%,2.8662741771160887,% de la cartera comercial,tasa,promedio
+2019,mora_comercial,tasa,%,2.905072253187265,% de la cartera comercial,tasa,promedio
+2020,mora_comercial,tasa,%,2.657103134847232,% de la cartera comercial,tasa,promedio
+2021,mora_comercial,tasa,%,1.9540077942724043,% de la cartera comercial,tasa,promedio
+2022,mora_comercial,tasa,%,1.7399280907687742,% de la cartera comercial,tasa,promedio
+2023,mora_comercial,tasa,%,2.503248931542695,% de la cartera comercial,tasa,promedio
+2024,mora_comercial,tasa,%,3.01643604801125,% de la cartera comercial,tasa,promedio
+2025,mora_comercial,tasa,%,2.738822004871698,% de la cartera comercial,tasa,promedio
+2009,mora_consumo,tasa,%,1.4607073187142554,% de la cartera de consumo,tasa,promedio
+2010,mora_consumo,tasa,%,1.6932592797846542,% de la cartera de consumo,tasa,promedio
+2011,mora_consumo,tasa,%,1.565207837646469,% de la cartera de consumo,tasa,promedio
+2012,mora_consumo,tasa,%,1.4575122214311025,% de la cartera de consumo,tasa,promedio
+2013,mora_consumo,tasa,%,1.4190048136356959,% de la cartera de consumo,tasa,promedio
+2014,mora_consumo,tasa,%,1.4004467592959409,% de la cartera de consumo,tasa,promedio
+2015,mora_consumo,tasa,%,1.3135861684712613,% de la cartera de consumo,tasa,promedio
+2016,mora_consumo,tasa,%,1.2713861226723528,% de la cartera de consumo,tasa,promedio
+2017,mora_consumo,tasa,%,1.42716280391291,% de la cartera de consumo,tasa,promedio
+2018,mora_consumo,tasa,%,1.4378850842465636,% de la cartera de consumo,tasa,promedio
+2019,mora_consumo,tasa,%,1.6838089179749696,% de la cartera de consumo,tasa,promedio
+2020,mora_consumo,tasa,%,2.1579450717192756,% de la cartera de consumo,tasa,promedio
+2021,mora_consumo,tasa,%,1.7012415009340536,% de la cartera de consumo,tasa,promedio
+2022,mora_consumo,tasa,%,1.2909234679315391,% de la cartera de consumo,tasa,promedio
+2023,mora_consumo,tasa,%,1.5724305555432132,% de la cartera de consumo,tasa,promedio
+2024,mora_consumo,tasa,%,1.8304674287333413,% de la cartera de consumo,tasa,promedio
+2025,mora_consumo,tasa,%,1.430054459306204,% de la cartera de consumo,tasa,promedio
+2009,mora_vivienda,tasa,%,1.7883255413957388,% de la cartera de vivienda,tasa,promedio
+2010,mora_vivienda,tasa,%,2.0509999548639533,% de la cartera de vivienda,tasa,promedio
+2011,mora_vivienda,tasa,%,2.216900415978965,% de la cartera de vivienda,tasa,promedio
+2012,mora_vivienda,tasa,%,1.842183033003446,% de la cartera de vivienda,tasa,promedio
+2013,mora_vivienda,tasa,%,1.330291368408954,% de la cartera de vivienda,tasa,promedio
+2014,mora_vivienda,tasa,%,1.0283539242660233,% de la cartera de vivienda,tasa,promedio
+2015,mora_vivienda,tasa,%,0.7790481738003376,% de la cartera de vivienda,tasa,promedio
+2016,mora_vivienda,tasa,%,0.6252049485532016,% de la cartera de vivienda,tasa,promedio
+2017,mora_vivienda,tasa,%,0.5536661099865235,% de la cartera de vivienda,tasa,promedio
+2018,mora_vivienda,tasa,%,0.6088891526638529,% de la cartera de vivienda,tasa,promedio
+2019,mora_vivienda,tasa,%,0.6052160153633652,% de la cartera de vivienda,tasa,promedio
+2020,mora_vivienda,tasa,%,0.6082856882629473,% de la cartera de vivienda,tasa,promedio
+2021,mora_vivienda,tasa,%,0.4902729631767384,% de la cartera de vivienda,tasa,promedio
+2022,mora_vivienda,tasa,%,0.3311484588645529,% de la cartera de vivienda,tasa,promedio
+2023,mora_vivienda,tasa,%,0.3180445797880873,% de la cartera de vivienda,tasa,promedio
+2024,mora_vivienda,tasa,%,0.4132428041328022,% de la cartera de vivienda,tasa,promedio
+2025,mora_vivienda,tasa,%,0.548201406458637,% de la cartera de vivienda,tasa,promedio
+2009,saldo_medio_cuenta,stock,pesos,1368179.2938283724,pesos nominales por cuenta,dinero,promedio
+2010,saldo_medio_cuenta,stock,pesos,1672747.813304966,pesos nominales por cuenta,dinero,promedio
+2011,saldo_medio_cuenta,stock,pesos,1735875.467949853,pesos nominales por cuenta,dinero,promedio
+2012,saldo_medio_cuenta,stock,pesos,1765667.9922317744,pesos nominales por cuenta,dinero,promedio
+2013,saldo_medio_cuenta,stock,pesos,1840805.8870043594,pesos nominales por cuenta,dinero,promedio
+2014,saldo_medio_cuenta,stock,pesos,1889724.1874147027,pesos nominales por cuenta,dinero,promedio
+2015,saldo_medio_cuenta,stock,pesos,2015230.949870027,pesos nominales por cuenta,dinero,promedio
+2016,saldo_medio_cuenta,stock,pesos,2042351.690658677,pesos nominales por cuenta,dinero,promedio
+2017,saldo_medio_cuenta,stock,pesos,2027562.4704401712,pesos nominales por cuenta,dinero,promedio
+2018,saldo_medio_cuenta,stock,pesos,2051432.4919827036,pesos nominales por cuenta,dinero,promedio
+2019,saldo_medio_cuenta,stock,pesos,2087330.7138028278,pesos nominales por cuenta,dinero,promedio
+2020,saldo_medio_cuenta,stock,pesos,2854875.8933584173,pesos nominales por cuenta,dinero,promedio
+2021,saldo_medio_cuenta,stock,pesos,3977881.656303211,pesos nominales por cuenta,dinero,promedio
+2022,saldo_medio_cuenta,stock,pesos,3242038.5577918286,pesos nominales por cuenta,dinero,promedio
+2023,saldo_medio_cuenta,stock,pesos,2304398.9281370137,pesos nominales por cuenta,dinero,promedio
+2024,saldo_medio_cuenta,stock,pesos,2138798.036186013,pesos nominales por cuenta,dinero,promedio
+2025,saldo_medio_cuenta,stock,pesos,2052515.4898509423,pesos nominales por cuenta,dinero,promedio

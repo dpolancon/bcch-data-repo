@@ -1,753 +1,753 @@
-anio,region_id,region_display,indicador,unidad,eje_espacial,valor,indice_base100
-2014,01,Tarapacá,empresas_constituidas,unidades,False,898.0,100.0
-2015,01,Tarapacá,empresas_constituidas,unidades,False,1188.0,132.29398663697106
-2016,01,Tarapacá,empresas_constituidas,unidades,False,1544.0,171.93763919821825
-2017,01,Tarapacá,empresas_constituidas,unidades,False,1920.0,213.8084632516704
-2018,01,Tarapacá,empresas_constituidas,unidades,False,2168.0,241.42538975501114
-2019,01,Tarapacá,empresas_constituidas,unidades,False,2238.0,249.22048997772828
-2020,01,Tarapacá,empresas_constituidas,unidades,False,2562.0,285.30066815144767
-2021,01,Tarapacá,empresas_constituidas,unidades,False,3155.0,351.33630289532294
-2022,01,Tarapacá,empresas_constituidas,unidades,False,2855.0,317.92873051224944
-2023,01,Tarapacá,empresas_constituidas,unidades,False,2923.0,325.5011135857461
-2024,01,Tarapacá,empresas_constituidas,unidades,False,3166.0,352.5612472160356
-2025,01,Tarapacá,empresas_constituidas,unidades,False,3877.0,431.73719376391983
-2014,02,Antofagasta,empresas_constituidas,unidades,False,1864.0,100.0
-2015,02,Antofagasta,empresas_constituidas,unidades,False,2445.0,131.1695278969957
-2016,02,Antofagasta,empresas_constituidas,unidades,False,3049.0,163.57296137339057
-2017,02,Antofagasta,empresas_constituidas,unidades,False,3560.0,190.9871244635193
-2018,02,Antofagasta,empresas_constituidas,unidades,False,3710.0,199.0343347639485
-2019,02,Antofagasta,empresas_constituidas,unidades,False,3858.0,206.97424892703862
-2020,02,Antofagasta,empresas_constituidas,unidades,False,4723.0,253.37982832618025
-2021,02,Antofagasta,empresas_constituidas,unidades,False,5598.0,300.3218884120172
-2022,02,Antofagasta,empresas_constituidas,unidades,False,4758.0,255.25751072961373
-2023,02,Antofagasta,empresas_constituidas,unidades,False,4852.0,260.30042918454933
-2024,02,Antofagasta,empresas_constituidas,unidades,False,5314.0,285.08583690987126
-2025,02,Antofagasta,empresas_constituidas,unidades,False,6439.0,345.4399141630901
-2014,03,Atacama,empresas_constituidas,unidades,False,858.0,100.0
-2015,03,Atacama,empresas_constituidas,unidades,False,870.0,101.3986013986014
-2016,03,Atacama,empresas_constituidas,unidades,False,1031.0,120.16317016317016
-2017,03,Atacama,empresas_constituidas,unidades,False,1014.0,118.18181818181819
-2018,03,Atacama,empresas_constituidas,unidades,False,1306.0,152.21445221445222
-2019,03,Atacama,empresas_constituidas,unidades,False,1343.0,156.52680652680652
-2020,03,Atacama,empresas_constituidas,unidades,False,1616.0,188.34498834498834
-2021,03,Atacama,empresas_constituidas,unidades,False,2108.0,245.6876456876457
-2022,03,Atacama,empresas_constituidas,unidades,False,1768.0,206.06060606060606
-2023,03,Atacama,empresas_constituidas,unidades,False,1882.0,219.34731934731934
-2024,03,Atacama,empresas_constituidas,unidades,False,1934.0,225.4079254079254
-2025,03,Atacama,empresas_constituidas,unidades,False,2544.0,296.5034965034965
-2014,04,Coquimbo,empresas_constituidas,unidades,False,2139.0,100.0
-2015,04,Coquimbo,empresas_constituidas,unidades,False,2460.0,115.0070126227209
-2016,04,Coquimbo,empresas_constituidas,unidades,False,3129.0,146.28330995792427
-2017,04,Coquimbo,empresas_constituidas,unidades,False,3550.0,165.9654043945769
-2018,04,Coquimbo,empresas_constituidas,unidades,False,4039.0,188.82655446470312
-2019,04,Coquimbo,empresas_constituidas,unidades,False,4413.0,206.31136044880785
-2020,04,Coquimbo,empresas_constituidas,unidades,False,5149.0,240.71996259934548
-2021,04,Coquimbo,empresas_constituidas,unidades,False,6951.0,324.9649368863955
-2022,04,Coquimbo,empresas_constituidas,unidades,False,5673.0,265.2173913043478
-2023,04,Coquimbo,empresas_constituidas,unidades,False,5956.0,278.44787283777464
-2024,04,Coquimbo,empresas_constituidas,unidades,False,6653.0,311.0331930808789
-2025,04,Coquimbo,empresas_constituidas,unidades,False,8010.0,374.47405329593266
-2014,05,Valparaíso,empresas_constituidas,unidades,False,5252.0,100.0
-2015,05,Valparaíso,empresas_constituidas,unidades,False,6540.0,124.52399086062452
-2016,05,Valparaíso,empresas_constituidas,unidades,False,7641.0,145.4874333587205
-2017,05,Valparaíso,empresas_constituidas,unidades,False,8591.0,163.57578065498856
-2018,05,Valparaíso,empresas_constituidas,unidades,False,10204.0,194.2878903274943
-2019,05,Valparaíso,empresas_constituidas,unidades,False,11026.0,209.93907083015995
-2020,05,Valparaíso,empresas_constituidas,unidades,False,13296.0,253.16070068545315
-2021,05,Valparaíso,empresas_constituidas,unidades,False,17716.0,337.3191165270373
-2022,05,Valparaíso,empresas_constituidas,unidades,False,14680.0,279.51256664127953
-2023,05,Valparaíso,empresas_constituidas,unidades,False,14531.0,276.6755521706017
-2024,05,Valparaíso,empresas_constituidas,unidades,False,16491.0,313.994668697639
-2025,05,Valparaíso,empresas_constituidas,unidades,False,20400.0,388.4234577303884
-2014,06,O'Higgins,empresas_constituidas,unidades,False,2142.0,100.0
-2015,06,O'Higgins,empresas_constituidas,unidades,False,2733.0,127.59103641456582
-2016,06,O'Higgins,empresas_constituidas,unidades,False,3521.0,164.37908496732027
-2017,06,O'Higgins,empresas_constituidas,unidades,False,4512.0,210.64425770308122
-2018,06,O'Higgins,empresas_constituidas,unidades,False,4871.0,227.40429505135387
-2019,06,O'Higgins,empresas_constituidas,unidades,False,4968.0,231.9327731092437
-2020,06,O'Higgins,empresas_constituidas,unidades,False,6173.0,288.1886087768441
-2021,06,O'Higgins,empresas_constituidas,unidades,False,8413.0,392.7637721755369
-2022,06,O'Higgins,empresas_constituidas,unidades,False,7190.0,335.66760037348274
-2023,06,O'Higgins,empresas_constituidas,unidades,False,7163.0,334.40709617180204
-2024,06,O'Higgins,empresas_constituidas,unidades,False,8379.0,391.1764705882353
-2025,06,O'Higgins,empresas_constituidas,unidades,False,10314.0,481.5126050420168
-2014,07,Maule,empresas_constituidas,unidades,False,2026.0,100.0
-2015,07,Maule,empresas_constituidas,unidades,False,2610.0,128.8252714708786
-2016,07,Maule,empresas_constituidas,unidades,False,3412.0,168.4106614017769
-2017,07,Maule,empresas_constituidas,unidades,False,4036.0,199.2102665350444
-2018,07,Maule,empresas_constituidas,unidades,False,4713.0,232.6258637709773
-2019,07,Maule,empresas_constituidas,unidades,False,5434.0,268.213228035538
-2020,07,Maule,empresas_constituidas,unidades,False,6751.0,333.21816386969397
-2021,07,Maule,empresas_constituidas,unidades,False,9279.0,457.9960513326752
-2022,07,Maule,empresas_constituidas,unidades,False,8052.0,397.4333662388944
-2023,07,Maule,empresas_constituidas,unidades,False,7875.0,388.6969397828233
-2024,07,Maule,empresas_constituidas,unidades,False,9283.0,458.1934846989141
-2025,07,Maule,empresas_constituidas,unidades,False,11317.0,558.5883514313919
-2014,08,Biobío,empresas_constituidas,unidades,False,4343.0,100.0
-2015,08,Biobío,empresas_constituidas,unidades,False,5646.0,130.002302555837
-2016,08,Biobío,empresas_constituidas,unidades,False,6641.0,152.9127331337785
-2017,08,Biobío,empresas_constituidas,unidades,False,7921.0,182.3854478471103
-2018,08,Biobío,empresas_constituidas,unidades,False,8636.0,198.8487220815105
-2019,08,Biobío,empresas_constituidas,unidades,False,7913.0,182.20124338015196
-2020,08,Biobío,empresas_constituidas,unidades,False,9457.0,217.75270550310844
-2021,08,Biobío,empresas_constituidas,unidades,False,12664.0,291.59567119502645
-2022,08,Biobío,empresas_constituidas,unidades,False,10632.0,244.80773658761225
-2023,08,Biobío,empresas_constituidas,unidades,False,10898.0,250.9325351139765
-2024,08,Biobío,empresas_constituidas,unidades,False,12363.0,284.66497812571953
-2025,08,Biobío,empresas_constituidas,unidades,False,15004.0,345.4754777803362
-2014,09,La Araucanía,empresas_constituidas,unidades,False,2496.0,100.0
-2015,09,La Araucanía,empresas_constituidas,unidades,False,3047.0,122.07532051282051
-2016,09,La Araucanía,empresas_constituidas,unidades,False,3525.0,141.22596153846155
-2017,09,La Araucanía,empresas_constituidas,unidades,False,4162.0,166.74679487179486
-2018,09,La Araucanía,empresas_constituidas,unidades,False,4738.0,189.82371794871796
-2019,09,La Araucanía,empresas_constituidas,unidades,False,5159.0,206.69070512820514
-2020,09,La Araucanía,empresas_constituidas,unidades,False,6282.0,251.68269230769232
-2021,09,La Araucanía,empresas_constituidas,unidades,False,8048.0,322.43589743589746
-2022,09,La Araucanía,empresas_constituidas,unidades,False,7403.0,296.59455128205127
-2023,09,La Araucanía,empresas_constituidas,unidades,False,7633.0,305.80929487179486
-2024,09,La Araucanía,empresas_constituidas,unidades,False,8392.0,336.21794871794873
-2025,09,La Araucanía,empresas_constituidas,unidades,False,10389.0,416.22596153846155
-2014,10,Los Lagos,empresas_constituidas,unidades,False,2748.0,100.0
-2015,10,Los Lagos,empresas_constituidas,unidades,False,3348.0,121.83406113537117
-2016,10,Los Lagos,empresas_constituidas,unidades,False,3722.0,135.44395924308589
-2017,10,Los Lagos,empresas_constituidas,unidades,False,4209.0,153.16593886462883
-2018,10,Los Lagos,empresas_constituidas,unidades,False,4905.0,178.4934497816594
-2019,10,Los Lagos,empresas_constituidas,unidades,False,5289.0,192.46724890829694
-2020,10,Los Lagos,empresas_constituidas,unidades,False,6725.0,244.72343522561863
-2021,10,Los Lagos,empresas_constituidas,unidades,False,8441.0,307.16885007278023
-2022,10,Los Lagos,empresas_constituidas,unidades,False,7441.0,270.7787481804949
-2023,10,Los Lagos,empresas_constituidas,unidades,False,7398.0,269.2139737991266
-2024,10,Los Lagos,empresas_constituidas,unidades,False,8281.0,301.3464337700145
-2025,10,Los Lagos,empresas_constituidas,unidades,False,10302.0,374.89082969432314
-2014,11,Aysén,empresas_constituidas,unidades,False,555.0,100.0
-2015,11,Aysén,empresas_constituidas,unidades,False,583.0,105.04504504504504
-2016,11,Aysén,empresas_constituidas,unidades,False,651.0,117.29729729729729
-2017,11,Aysén,empresas_constituidas,unidades,False,681.0,122.70270270270271
-2018,11,Aysén,empresas_constituidas,unidades,False,739.0,133.15315315315314
-2019,11,Aysén,empresas_constituidas,unidades,False,890.0,160.36036036036037
-2020,11,Aysén,empresas_constituidas,unidades,False,895.0,161.26126126126127
-2021,11,Aysén,empresas_constituidas,unidades,False,1252.0,225.5855855855856
-2022,11,Aysén,empresas_constituidas,unidades,False,1209.0,217.83783783783784
-2023,11,Aysén,empresas_constituidas,unidades,False,1140.0,205.40540540540542
-2024,11,Aysén,empresas_constituidas,unidades,False,1426.0,256.93693693693695
-2025,11,Aysén,empresas_constituidas,unidades,False,1433.0,258.1981981981982
-2014,12,Magallanes,empresas_constituidas,unidades,False,649.0,100.0
-2015,12,Magallanes,empresas_constituidas,unidades,False,726.0,111.86440677966101
-2016,12,Magallanes,empresas_constituidas,unidades,False,910.0,140.21571648690292
-2017,12,Magallanes,empresas_constituidas,unidades,False,1028.0,158.3975346687211
-2018,12,Magallanes,empresas_constituidas,unidades,False,1189.0,183.20493066255779
-2019,12,Magallanes,empresas_constituidas,unidades,False,1280.0,197.22650231124808
-2020,12,Magallanes,empresas_constituidas,unidades,False,1502.0,231.43297380585517
-2021,12,Magallanes,empresas_constituidas,unidades,False,2046.0,315.2542372881356
-2022,12,Magallanes,empresas_constituidas,unidades,False,1486.0,228.96764252696457
-2023,12,Magallanes,empresas_constituidas,unidades,False,1478.0,227.73497688751925
-2024,12,Magallanes,empresas_constituidas,unidades,False,1579.0,243.29738058551618
-2025,12,Magallanes,empresas_constituidas,unidades,False,1961.0,302.15716486902926
-2014,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,23878.0,100.0
-2015,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,30515.0,127.79546025630287
-2016,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,35153.0,147.21919758773765
-2017,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,39716.0,166.3288382611609
-2018,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,47089.0,197.2066337214172
-2019,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,50064.0,209.6658011558757
-2020,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,63106.0,264.2851160063657
-2021,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,77479.0,324.4785995477008
-2022,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,64987.0,272.1626601892956
-2023,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,66428.0,278.1975039785577
-2024,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,73653.0,308.45548203367116
-2025,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,89715.0,375.7224223134266
-2014,14,Los Ríos,empresas_constituidas,unidades,False,1088.0,100.0
-2015,14,Los Ríos,empresas_constituidas,unidades,False,1330.0,122.24264705882354
-2016,14,Los Ríos,empresas_constituidas,unidades,False,1404.0,129.0441176470588
-2017,14,Los Ríos,empresas_constituidas,unidades,False,1717.0,157.8125
-2018,14,Los Ríos,empresas_constituidas,unidades,False,2000.0,183.8235294117647
-2019,14,Los Ríos,empresas_constituidas,unidades,False,2092.0,192.27941176470588
-2020,14,Los Ríos,empresas_constituidas,unidades,False,2535.0,232.99632352941177
-2021,14,Los Ríos,empresas_constituidas,unidades,False,3543.0,325.64338235294116
-2022,14,Los Ríos,empresas_constituidas,unidades,False,2906.0,267.09558823529414
-2023,14,Los Ríos,empresas_constituidas,unidades,False,3025.0,278.03308823529414
-2024,14,Los Ríos,empresas_constituidas,unidades,False,3346.0,307.5367647058824
-2025,14,Los Ríos,empresas_constituidas,unidades,False,4310.0,396.1397058823529
-2014,15,Arica y Parinacota,empresas_constituidas,unidades,False,611.0,100.0
-2015,15,Arica y Parinacota,empresas_constituidas,unidades,False,740.0,121.11292962356792
-2016,15,Arica y Parinacota,empresas_constituidas,unidades,False,841.0,137.64320785597383
-2017,15,Arica y Parinacota,empresas_constituidas,unidades,False,937.0,153.35515548281506
-2018,15,Arica y Parinacota,empresas_constituidas,unidades,False,1053.0,172.3404255319149
-2019,15,Arica y Parinacota,empresas_constituidas,unidades,False,1129.0,184.77905073649754
-2020,15,Arica y Parinacota,empresas_constituidas,unidades,False,1379.0,225.69558101472995
-2021,15,Arica y Parinacota,empresas_constituidas,unidades,False,1796.0,293.94435351882163
-2022,15,Arica y Parinacota,empresas_constituidas,unidades,False,1490.0,243.86252045826515
-2023,15,Arica y Parinacota,empresas_constituidas,unidades,False,1465.0,239.7708674304419
-2024,15,Arica y Parinacota,empresas_constituidas,unidades,False,1463.0,239.44353518821603
-2025,15,Arica y Parinacota,empresas_constituidas,unidades,False,1873.0,306.5466448445172
-2018,16,Ñuble,empresas_constituidas,unidades,False,638.0,
-2019,16,Ñuble,empresas_constituidas,unidades,False,2326.0,
-2020,16,Ñuble,empresas_constituidas,unidades,False,2618.0,
-2021,16,Ñuble,empresas_constituidas,unidades,False,3575.0,
-2022,16,Ñuble,empresas_constituidas,unidades,False,3075.0,
-2023,16,Ñuble,empresas_constituidas,unidades,False,3141.0,
-2024,16,Ñuble,empresas_constituidas,unidades,False,3535.0,
-2025,16,Ñuble,empresas_constituidas,unidades,False,4518.0,
-2014,01,Tarapacá,superficie_habitacional,m2,True,237885.0,100.0
-2015,01,Tarapacá,superficie_habitacional,m2,True,398140.0,167.36658469428505
-2016,01,Tarapacá,superficie_habitacional,m2,True,249084.0,104.7077369317107
-2017,01,Tarapacá,superficie_habitacional,m2,True,120624.0,50.70685415221641
-2018,01,Tarapacá,superficie_habitacional,m2,True,172771.0,72.62795048027408
-2019,01,Tarapacá,superficie_habitacional,m2,True,143572.0,60.35353216890514
-2020,01,Tarapacá,superficie_habitacional,m2,True,241527.0,101.53099186581751
-2021,01,Tarapacá,superficie_habitacional,m2,True,246854.0,103.77030918300859
-2022,01,Tarapacá,superficie_habitacional,m2,True,162646.0,68.37169220421632
-2023,01,Tarapacá,superficie_habitacional,m2,True,127130.0,53.4417890997751
-2024,01,Tarapacá,superficie_habitacional,m2,True,203562.0,85.57159972255502
-2025,01,Tarapacá,superficie_habitacional,m2,True,147531.0,62.0177817012422
-2014,02,Antofagasta,superficie_habitacional,m2,True,623781.0,100.0
-2015,02,Antofagasta,superficie_habitacional,m2,True,363851.0,58.32992668901425
-2016,02,Antofagasta,superficie_habitacional,m2,True,170642.0,27.356075289244142
-2017,02,Antofagasta,superficie_habitacional,m2,True,245445.0,39.347944230427025
-2018,02,Antofagasta,superficie_habitacional,m2,True,241427.0,38.7038079069417
-2019,02,Antofagasta,superficie_habitacional,m2,True,542482.0,86.96673992955861
-2020,02,Antofagasta,superficie_habitacional,m2,True,177272.0,28.41894831679708
-2021,02,Antofagasta,superficie_habitacional,m2,True,462425.0,74.13258820002532
-2022,02,Antofagasta,superficie_habitacional,m2,True,361645.0,57.976276930525295
-2023,02,Antofagasta,superficie_habitacional,m2,True,225749.0,36.19042580649298
-2024,02,Antofagasta,superficie_habitacional,m2,True,214467.0,34.381778220240754
-2025,02,Antofagasta,superficie_habitacional,m2,True,211805.0,33.955025882481195
-2014,03,Atacama,superficie_habitacional,m2,True,117729.0,100.0
-2015,03,Atacama,superficie_habitacional,m2,True,204607.0,173.79490185086087
-2016,03,Atacama,superficie_habitacional,m2,True,57577.0,48.90638670166229
-2017,03,Atacama,superficie_habitacional,m2,True,156733.0,133.13032472882637
-2018,03,Atacama,superficie_habitacional,m2,True,114604.0,97.34559879044245
-2019,03,Atacama,superficie_habitacional,m2,True,96846.0,82.26180465305914
-2020,03,Atacama,superficie_habitacional,m2,True,120450.0,102.31124022118594
-2021,03,Atacama,superficie_habitacional,m2,True,159992.0,135.89854666224974
-2022,03,Atacama,superficie_habitacional,m2,True,123573.0,104.96394261396937
-2023,03,Atacama,superficie_habitacional,m2,True,100291.0,85.18801654647538
-2024,03,Atacama,superficie_habitacional,m2,True,160103.0,135.99283099321323
-2025,03,Atacama,superficie_habitacional,m2,True,75334.0,63.989331430658545
-2014,04,Coquimbo,superficie_habitacional,m2,True,636665.0,100.0
-2015,04,Coquimbo,superficie_habitacional,m2,True,618939.0,97.215804229854
-2016,04,Coquimbo,superficie_habitacional,m2,True,486473.0,76.40957175280563
-2017,04,Coquimbo,superficie_habitacional,m2,True,617447.0,96.98145806664415
-2018,04,Coquimbo,superficie_habitacional,m2,True,510507.0,80.18455545695146
-2019,04,Coquimbo,superficie_habitacional,m2,True,611152.0,95.99271202280634
-2020,04,Coquimbo,superficie_habitacional,m2,True,474412.0,74.51516888787667
-2021,04,Coquimbo,superficie_habitacional,m2,True,499511.0,78.45743051683381
-2022,04,Coquimbo,superficie_habitacional,m2,True,500402.0,78.59737852716891
-2023,04,Coquimbo,superficie_habitacional,m2,True,443365.0,69.63866397556015
-2024,04,Coquimbo,superficie_habitacional,m2,True,410153.0,64.42210581703094
-2025,04,Coquimbo,superficie_habitacional,m2,True,269897.0,42.3923099275129
-2014,05,Valparaíso,superficie_habitacional,m2,True,1424300.0,100.0
-2015,05,Valparaíso,superficie_habitacional,m2,True,1986249.0,139.4543986519694
-2016,05,Valparaíso,superficie_habitacional,m2,True,1311923.0,92.11001895668048
-2017,05,Valparaíso,superficie_habitacional,m2,True,1379382.0,96.84631046830022
-2018,05,Valparaíso,superficie_habitacional,m2,True,1658666.0,116.4548199115355
-2019,05,Valparaíso,superficie_habitacional,m2,True,1285123.0,90.22839289475532
-2020,05,Valparaíso,superficie_habitacional,m2,True,1037584.0,72.84869760584147
-2021,05,Valparaíso,superficie_habitacional,m2,True,955953.0,67.11739099908728
-2022,05,Valparaíso,superficie_habitacional,m2,True,747513.0,52.482833672681316
-2023,05,Valparaíso,superficie_habitacional,m2,True,723510.0,50.797584778487675
-2024,05,Valparaíso,superficie_habitacional,m2,True,747722.0,52.497507547567224
-2025,05,Valparaíso,superficie_habitacional,m2,True,760359.0,53.38475040370709
-2014,06,O'Higgins,superficie_habitacional,m2,True,620467.0,100.0
-2015,06,O'Higgins,superficie_habitacional,m2,True,654231.0,105.44170761700461
-2016,06,O'Higgins,superficie_habitacional,m2,True,370528.0,59.71759980788664
-2017,06,O'Higgins,superficie_habitacional,m2,True,606366.0,97.72735697466585
-2018,06,O'Higgins,superficie_habitacional,m2,True,537208.0,86.58123639129882
-2019,06,O'Higgins,superficie_habitacional,m2,True,626614.0,100.99070538803836
-2020,06,O'Higgins,superficie_habitacional,m2,True,473538.0,76.3196108737451
-2021,06,O'Higgins,superficie_habitacional,m2,True,535383.0,86.28710310137365
-2022,06,O'Higgins,superficie_habitacional,m2,True,474424.0,76.46240654216905
-2023,06,O'Higgins,superficie_habitacional,m2,True,451204.0,72.72006408076497
-2024,06,O'Higgins,superficie_habitacional,m2,True,517388.0,83.38686827824849
-2025,06,O'Higgins,superficie_habitacional,m2,True,548225.0,88.35683444889092
-2014,07,Maule,superficie_habitacional,m2,True,739259.0,100.0
-2015,07,Maule,superficie_habitacional,m2,True,764748.0,103.44791203083088
-2016,07,Maule,superficie_habitacional,m2,True,577202.0,78.07845423593085
-2017,07,Maule,superficie_habitacional,m2,True,629493.0,85.15188858032165
-2018,07,Maule,superficie_habitacional,m2,True,911585.0,123.31063943759901
-2019,07,Maule,superficie_habitacional,m2,True,994115.0,134.47452110829897
-2020,07,Maule,superficie_habitacional,m2,True,835521.0,113.02141739228065
-2021,07,Maule,superficie_habitacional,m2,True,632104.0,85.50508008695193
-2022,07,Maule,superficie_habitacional,m2,True,601839.0,81.41111572534119
-2023,07,Maule,superficie_habitacional,m2,True,699646.0,94.64152617688794
-2024,07,Maule,superficie_habitacional,m2,True,533487.0,72.16510045870257
-2025,07,Maule,superficie_habitacional,m2,True,593549.0,80.28972254649588
-2014,08,Biobío,superficie_habitacional,m2,True,1531512.0,100.0
-2015,08,Biobío,superficie_habitacional,m2,True,1685638.0,110.06364951760091
-2016,08,Biobío,superficie_habitacional,m2,True,1127826.0,73.64134267312303
-2017,08,Biobío,superficie_habitacional,m2,True,1419656.0,92.69636803368175
-2018,08,Biobío,superficie_habitacional,m2,True,1458227.0,95.21485956362079
-2019,08,Biobío,superficie_habitacional,m2,True,1235470.0,80.66995230856827
-2020,08,Biobío,superficie_habitacional,m2,True,949388.0,61.990242322619736
-2021,08,Biobío,superficie_habitacional,m2,True,1038723.0,67.82336671211195
-2022,08,Biobío,superficie_habitacional,m2,True,1131704.0,73.89455649057925
-2023,08,Biobío,superficie_habitacional,m2,True,675661.0,44.117251448242
-2024,08,Biobío,superficie_habitacional,m2,True,730768.0,47.715460277164006
-2025,08,Biobío,superficie_habitacional,m2,True,480392.0,31.367171788402572
-2014,09,La Araucanía,superficie_habitacional,m2,True,610611.0,100.0
-2015,09,La Araucanía,superficie_habitacional,m2,True,828672.0,135.71193443943852
-2016,09,La Araucanía,superficie_habitacional,m2,True,539900.0,88.4196321389559
-2017,09,La Araucanía,superficie_habitacional,m2,True,780347.0,127.79773046997188
-2018,09,La Araucanía,superficie_habitacional,m2,True,953581.0,156.16832975495038
-2019,09,La Araucanía,superficie_habitacional,m2,True,960864.0,157.36106948613767
-2020,09,La Araucanía,superficie_habitacional,m2,True,638593.0,104.58262297927813
-2021,09,La Araucanía,superficie_habitacional,m2,True,668282.0,109.4448020097902
-2022,09,La Araucanía,superficie_habitacional,m2,True,521303.0,85.37399424510859
-2023,09,La Araucanía,superficie_habitacional,m2,True,729797.0,119.51913738861566
-2024,09,La Araucanía,superficie_habitacional,m2,True,439674.0,72.00558129480143
-2025,09,La Araucanía,superficie_habitacional,m2,True,609386.0,99.79938127547653
-2014,10,Los Lagos,superficie_habitacional,m2,True,465780.0,100.0
-2015,10,Los Lagos,superficie_habitacional,m2,True,503261.0,108.04693202799605
-2016,10,Los Lagos,superficie_habitacional,m2,True,373425.0,80.17196959938168
-2017,10,Los Lagos,superficie_habitacional,m2,True,501144.0,107.59242560865644
-2018,10,Los Lagos,superficie_habitacional,m2,True,512981.0,110.13375413285242
-2019,10,Los Lagos,superficie_habitacional,m2,True,592350.0,127.17377302589205
-2020,10,Los Lagos,superficie_habitacional,m2,True,292887.0,62.8809738503156
-2021,10,Los Lagos,superficie_habitacional,m2,True,454509.0,97.58018807162179
-2022,10,Los Lagos,superficie_habitacional,m2,True,311401.0,66.8558117566233
-2023,10,Los Lagos,superficie_habitacional,m2,True,573378.0,123.10060543604277
-2024,10,Los Lagos,superficie_habitacional,m2,True,508063.0,109.0778908497574
-2025,10,Los Lagos,superficie_habitacional,m2,True,535616.0,114.9933444974022
-2014,11,Aysén,superficie_habitacional,m2,True,68782.0,100.0
-2015,11,Aysén,superficie_habitacional,m2,True,51248.0,74.50786542990899
-2016,11,Aysén,superficie_habitacional,m2,True,52125.0,75.78290831903696
-2017,11,Aysén,superficie_habitacional,m2,True,70581.0,102.61550987176878
-2018,11,Aysén,superficie_habitacional,m2,True,54683.0,79.5019045680556
-2019,11,Aysén,superficie_habitacional,m2,True,51523.0,74.90767933470966
-2020,11,Aysén,superficie_habitacional,m2,True,69544.0,101.10784798348405
-2021,11,Aysén,superficie_habitacional,m2,True,32175.0,46.77822686167893
-2022,11,Aysén,superficie_habitacional,m2,True,67251.0,97.77412695181879
-2023,11,Aysén,superficie_habitacional,m2,True,36360.0,52.86266755837283
-2024,11,Aysén,superficie_habitacional,m2,True,90551.0,131.6492687040214
-2025,11,Aysén,superficie_habitacional,m2,True,60426.0,87.85147276903841
-2014,12,Magallanes,superficie_habitacional,m2,True,79366.0,100.0
-2015,12,Magallanes,superficie_habitacional,m2,True,71228.0,89.74623894362826
-2016,12,Magallanes,superficie_habitacional,m2,True,74733.0,94.1624877151425
-2017,12,Magallanes,superficie_habitacional,m2,True,108767.0,137.04483027996875
-2018,12,Magallanes,superficie_habitacional,m2,True,175054.0,220.56548144041528
-2019,12,Magallanes,superficie_habitacional,m2,True,98371.0,123.94602222614218
-2020,12,Magallanes,superficie_habitacional,m2,True,47327.0,59.631328276591994
-2021,12,Magallanes,superficie_habitacional,m2,True,64382.0,81.12037900360356
-2022,12,Magallanes,superficie_habitacional,m2,True,59122.0,74.49285588287177
-2023,12,Magallanes,superficie_habitacional,m2,True,38243.0,48.18562104679586
-2024,12,Magallanes,superficie_habitacional,m2,True,62635.0,78.91918453745937
-2025,12,Magallanes,superficie_habitacional,m2,True,39579.0,49.86896152004637
-2014,13,Metropolitana de Santiago,superficie_habitacional,m2,True,5885811.0,100.0
-2015,13,Metropolitana de Santiago,superficie_habitacional,m2,True,6954614.0,118.15897588284776
-2016,13,Metropolitana de Santiago,superficie_habitacional,m2,True,5175368.0,87.92956484671356
-2017,13,Metropolitana de Santiago,superficie_habitacional,m2,True,4602894.0,78.20322467031306
-2018,13,Metropolitana de Santiago,superficie_habitacional,m2,True,5554321.0,94.36798089507121
-2019,13,Metropolitana de Santiago,superficie_habitacional,m2,True,6080516.0,103.30804030234746
-2020,13,Metropolitana de Santiago,superficie_habitacional,m2,True,4340576.0,73.74643868109254
-2021,13,Metropolitana de Santiago,superficie_habitacional,m2,True,5853338.0,99.44828333767428
-2022,13,Metropolitana de Santiago,superficie_habitacional,m2,True,4501108.0,76.47387930057558
-2023,13,Metropolitana de Santiago,superficie_habitacional,m2,True,2529253.0,42.972039027416955
-2024,13,Metropolitana de Santiago,superficie_habitacional,m2,True,2246081.0,38.1609433262468
-2025,13,Metropolitana de Santiago,superficie_habitacional,m2,True,2076461.0,35.279097476966214
-2014,14,Los Ríos,superficie_habitacional,m2,True,199901.0,100.0
-2015,14,Los Ríos,superficie_habitacional,m2,True,218238.0,109.17304065512428
-2016,14,Los Ríos,superficie_habitacional,m2,True,244193.0,122.156967699011
-2017,14,Los Ríos,superficie_habitacional,m2,True,301262.0,150.70559927163947
-2018,14,Los Ríos,superficie_habitacional,m2,True,387758.0,193.9750176337287
-2019,14,Los Ríos,superficie_habitacional,m2,True,246591.0,123.35656149794148
-2020,14,Los Ríos,superficie_habitacional,m2,True,181532.0,90.81095142095337
-2021,14,Los Ríos,superficie_habitacional,m2,True,229776.0,114.94489772437356
-2022,14,Los Ríos,superficie_habitacional,m2,True,173101.0,86.59336371503895
-2023,14,Los Ríos,superficie_habitacional,m2,True,113624.0,56.84013586725429
-2024,14,Los Ríos,superficie_habitacional,m2,True,122038.0,61.049219363584974
-2025,14,Los Ríos,superficie_habitacional,m2,True,183324.0,91.7073951606045
-2014,15,Arica y Parinacota,superficie_habitacional,m2,True,80726.0,100.0
-2015,15,Arica y Parinacota,superficie_habitacional,m2,True,161808.0,200.44099794366127
-2016,15,Arica y Parinacota,superficie_habitacional,m2,True,117219.0,145.20600550008672
-2017,15,Arica y Parinacota,superficie_habitacional,m2,True,120221.0,148.92475782275847
-2018,15,Arica y Parinacota,superficie_habitacional,m2,True,146407.0,181.36288184723634
-2019,15,Arica y Parinacota,superficie_habitacional,m2,True,137381.0,170.18184971384684
-2020,15,Arica y Parinacota,superficie_habitacional,m2,True,227966.0,282.394767485073
-2021,15,Arica y Parinacota,superficie_habitacional,m2,True,128264.0,158.8880905780046
-2022,15,Arica y Parinacota,superficie_habitacional,m2,True,90296.0,111.85491663156851
-2023,15,Arica y Parinacota,superficie_habitacional,m2,True,53488.0,66.2587022768377
-2024,15,Arica y Parinacota,superficie_habitacional,m2,True,179491.0,222.34596040928574
-2025,15,Arica y Parinacota,superficie_habitacional,m2,True,149562.0,185.27116418502092
-2018,16,Ñuble,superficie_habitacional,m2,True,46567.0,
-2019,16,Ñuble,superficie_habitacional,m2,True,382639.0,
-2020,16,Ñuble,superficie_habitacional,m2,True,273038.0,
-2021,16,Ñuble,superficie_habitacional,m2,True,324226.0,
-2022,16,Ñuble,superficie_habitacional,m2,True,360842.0,
-2023,16,Ñuble,superficie_habitacional,m2,True,359977.0,
-2024,16,Ñuble,superficie_habitacional,m2,True,416632.0,
-2025,16,Ñuble,superficie_habitacional,m2,True,435466.0,
-2014,01,Tarapacá,superficie_no_habitacional,m2,True,136406.0,100.0
-2015,01,Tarapacá,superficie_no_habitacional,m2,True,163373.0,119.76965822617774
-2016,01,Tarapacá,superficie_no_habitacional,m2,True,156895.0,115.02060026685044
-2017,01,Tarapacá,superficie_no_habitacional,m2,True,113641.0,83.31085142882277
-2018,01,Tarapacá,superficie_no_habitacional,m2,True,207507.0,152.12453997624738
-2019,01,Tarapacá,superficie_no_habitacional,m2,True,138016.0,101.1802999868041
-2020,01,Tarapacá,superficie_no_habitacional,m2,True,112062.0,82.15327771505652
-2021,01,Tarapacá,superficie_no_habitacional,m2,True,95248.0,69.82684046156328
-2022,01,Tarapacá,superficie_no_habitacional,m2,True,112429.0,82.4223274636013
-2023,01,Tarapacá,superficie_no_habitacional,m2,True,98261.0,72.03568757972523
-2024,01,Tarapacá,superficie_no_habitacional,m2,True,135626.0,99.4281776461446
-2025,01,Tarapacá,superficie_no_habitacional,m2,True,129980.0,95.28906353092972
-2014,02,Antofagasta,superficie_no_habitacional,m2,True,656823.0,100.0
-2015,02,Antofagasta,superficie_no_habitacional,m2,True,406314.0,61.86050123092522
-2016,02,Antofagasta,superficie_no_habitacional,m2,True,283783.0,43.2053993237143
-2017,02,Antofagasta,superficie_no_habitacional,m2,True,303744.0,46.244422013236445
-2018,02,Antofagasta,superficie_no_habitacional,m2,True,304034.0,46.28857393848875
-2019,02,Antofagasta,superficie_no_habitacional,m2,True,270319.0,41.155532007862085
-2020,02,Antofagasta,superficie_no_habitacional,m2,True,189673.0,28.87733833924817
-2021,02,Antofagasta,superficie_no_habitacional,m2,True,268568.0,40.88894572814898
-2022,02,Antofagasta,superficie_no_habitacional,m2,True,164143.0,24.990446436863508
-2023,02,Antofagasta,superficie_no_habitacional,m2,True,166691.0,25.378374387011416
-2024,02,Antofagasta,superficie_no_habitacional,m2,True,217798.0,33.159313848631975
-2025,02,Antofagasta,superficie_no_habitacional,m2,True,345794.0,52.646451174821834
-2014,03,Atacama,superficie_no_habitacional,m2,True,201256.0,100.0
-2015,03,Atacama,superficie_no_habitacional,m2,True,76976.0,38.247803792185074
-2016,03,Atacama,superficie_no_habitacional,m2,True,89308.0,44.37532297173749
-2017,03,Atacama,superficie_no_habitacional,m2,True,88912.0,44.17855865166753
-2018,03,Atacama,superficie_no_habitacional,m2,True,120595.0,59.92119489605279
-2019,03,Atacama,superficie_no_habitacional,m2,True,121845.0,60.542294391223116
-2020,03,Atacama,superficie_no_habitacional,m2,True,51298.0,25.488929522598085
-2021,03,Atacama,superficie_no_habitacional,m2,True,88230.0,43.8396867671026
-2022,03,Atacama,superficie_no_habitacional,m2,True,71248.0,35.401677465516556
-2023,03,Atacama,superficie_no_habitacional,m2,True,56825.0,28.235183050443215
-2024,03,Atacama,superficie_no_habitacional,m2,True,63484.0,31.5439042811146
-2025,03,Atacama,superficie_no_habitacional,m2,True,54538.0,27.098819414079582
-2014,04,Coquimbo,superficie_no_habitacional,m2,True,373123.0,100.0
-2015,04,Coquimbo,superficie_no_habitacional,m2,True,222139.0,59.53505948440595
-2016,04,Coquimbo,superficie_no_habitacional,m2,True,208704.0,55.934370167478285
-2017,04,Coquimbo,superficie_no_habitacional,m2,True,201713.0,54.06072528361961
-2018,04,Coquimbo,superficie_no_habitacional,m2,True,263174.0,70.53277337499966
-2019,04,Coquimbo,superficie_no_habitacional,m2,True,306086.0,82.03353853823002
-2020,04,Coquimbo,superficie_no_habitacional,m2,True,117147.0,31.396349193161505
-2021,04,Coquimbo,superficie_no_habitacional,m2,True,143883.0,38.5618147366954
-2022,04,Coquimbo,superficie_no_habitacional,m2,True,85926.0,23.028867156406868
-2023,04,Coquimbo,superficie_no_habitacional,m2,True,91029.0,24.396512678124907
-2024,04,Coquimbo,superficie_no_habitacional,m2,True,278737.0,74.70378400688244
-2025,04,Coquimbo,superficie_no_habitacional,m2,True,136235.0,36.51208850700707
-2014,05,Valparaíso,superficie_no_habitacional,m2,True,587764.0,100.0
-2015,05,Valparaíso,superficie_no_habitacional,m2,True,562090.0,95.63192029453998
-2016,05,Valparaíso,superficie_no_habitacional,m2,True,619789.0,105.44861543068306
-2017,05,Valparaíso,superficie_no_habitacional,m2,True,605115.0,102.95203517057867
-2018,05,Valparaíso,superficie_no_habitacional,m2,True,495460.0,84.29573774508135
-2019,05,Valparaíso,superficie_no_habitacional,m2,True,327135.0,55.65754282331004
-2020,05,Valparaíso,superficie_no_habitacional,m2,True,394777.0,67.16590332174138
-2021,05,Valparaíso,superficie_no_habitacional,m2,True,278676.0,47.41290722126568
-2022,05,Valparaíso,superficie_no_habitacional,m2,True,246834.0,41.99542673590081
-2023,05,Valparaíso,superficie_no_habitacional,m2,True,149554.0,25.444566186428567
-2024,05,Valparaíso,superficie_no_habitacional,m2,True,252533.0,42.96503358490823
-2025,05,Valparaíso,superficie_no_habitacional,m2,True,319847.0,54.417589372605335
-2014,06,O'Higgins,superficie_no_habitacional,m2,True,392123.0,100.0
-2015,06,O'Higgins,superficie_no_habitacional,m2,True,318271.0,81.16611369391747
-2016,06,O'Higgins,superficie_no_habitacional,m2,True,313737.0,80.00984385001645
-2017,06,O'Higgins,superficie_no_habitacional,m2,True,450221.0,114.81626938486139
-2018,06,O'Higgins,superficie_no_habitacional,m2,True,340517.0,86.83933357645432
-2019,06,O'Higgins,superficie_no_habitacional,m2,True,294705.0,75.1562647434606
-2020,06,O'Higgins,superficie_no_habitacional,m2,True,473424.0,120.73354534164025
-2021,06,O'Higgins,superficie_no_habitacional,m2,True,185997.0,47.433330868120464
-2022,06,O'Higgins,superficie_no_habitacional,m2,True,315706.0,80.5119822096638
-2023,06,O'Higgins,superficie_no_habitacional,m2,True,175225.0,44.68623365627622
-2024,06,O'Higgins,superficie_no_habitacional,m2,True,215963.0,55.0753207539471
-2025,06,O'Higgins,superficie_no_habitacional,m2,True,278023.0,70.90198738661083
-2014,07,Maule,superficie_no_habitacional,m2,True,392421.0,100.0
-2015,07,Maule,superficie_no_habitacional,m2,True,380652.0,97.0009250269481
-2016,07,Maule,superficie_no_habitacional,m2,True,569496.0,145.12373191037176
-2017,07,Maule,superficie_no_habitacional,m2,True,481355.0,122.66290540006779
-2018,07,Maule,superficie_no_habitacional,m2,True,432047.0,110.09782860754139
-2019,07,Maule,superficie_no_habitacional,m2,True,481262.0,122.6392063625545
-2020,07,Maule,superficie_no_habitacional,m2,True,190695.0,48.594494178446105
-2021,07,Maule,superficie_no_habitacional,m2,True,169318.0,43.14702831907569
-2022,07,Maule,superficie_no_habitacional,m2,True,270522.0,68.93667770073468
-2023,07,Maule,superficie_no_habitacional,m2,True,268730.0,68.48002527897334
-2024,07,Maule,superficie_no_habitacional,m2,True,318248.0,81.0986160271749
-2025,07,Maule,superficie_no_habitacional,m2,True,321661.0,81.96834522107635
-2014,08,Biobío,superficie_no_habitacional,m2,True,800725.0,100.0
-2015,08,Biobío,superficie_no_habitacional,m2,True,636895.0,79.5397920634425
-2016,08,Biobío,superficie_no_habitacional,m2,True,876696.0,109.48777670236348
-2017,08,Biobío,superficie_no_habitacional,m2,True,537577.0,67.13628274376346
-2018,08,Biobío,superficie_no_habitacional,m2,True,442671.0,55.28377407974023
-2019,08,Biobío,superficie_no_habitacional,m2,True,435303.0,54.36360798026788
-2020,08,Biobío,superficie_no_habitacional,m2,True,208899.0,26.088732086546568
-2021,08,Biobío,superficie_no_habitacional,m2,True,301510.0,37.654625495644574
-2022,08,Biobío,superficie_no_habitacional,m2,True,237984.0,29.721065284585844
-2023,08,Biobío,superficie_no_habitacional,m2,True,227307.0,28.38764869337163
-2024,08,Biobío,superficie_no_habitacional,m2,True,332944.0,41.580317836960255
-2025,08,Biobío,superficie_no_habitacional,m2,True,494997.0,61.818601892035346
-2014,09,La Araucanía,superficie_no_habitacional,m2,True,238058.0,100.0
-2015,09,La Araucanía,superficie_no_habitacional,m2,True,268577.0,112.81998504566114
-2016,09,La Araucanía,superficie_no_habitacional,m2,True,324088.0,136.13825202261634
-2017,09,La Araucanía,superficie_no_habitacional,m2,True,344026.0,144.5135219148275
-2018,09,La Araucanía,superficie_no_habitacional,m2,True,340216.0,142.91307160439894
-2019,09,La Araucanía,superficie_no_habitacional,m2,True,330418.0,138.79726789269841
-2020,09,La Araucanía,superficie_no_habitacional,m2,True,235460.0,98.908669315881
-2021,09,La Araucanía,superficie_no_habitacional,m2,True,158448.0,66.55856976031052
-2022,09,La Araucanía,superficie_no_habitacional,m2,True,152354.0,63.99868939502138
-2023,09,La Araucanía,superficie_no_habitacional,m2,True,191747.0,80.54633744717674
-2024,09,La Araucanía,superficie_no_habitacional,m2,True,170638.0,71.67917062228533
-2025,09,La Araucanía,superficie_no_habitacional,m2,True,200981.0,84.42522410505003
-2014,10,Los Lagos,superficie_no_habitacional,m2,True,375206.0,100.0
-2015,10,Los Lagos,superficie_no_habitacional,m2,True,303022.0,80.76150168174283
-2016,10,Los Lagos,superficie_no_habitacional,m2,True,290120.0,77.32285731038417
-2017,10,Los Lagos,superficie_no_habitacional,m2,True,284667.0,75.86952234239324
-2018,10,Los Lagos,superficie_no_habitacional,m2,True,316851.0,84.44721033245737
-2019,10,Los Lagos,superficie_no_habitacional,m2,True,341585.0,91.03932239889554
-2020,10,Los Lagos,superficie_no_habitacional,m2,True,193442.0,51.55621178765798
-2021,10,Los Lagos,superficie_no_habitacional,m2,True,129490.0,34.51170823494294
-2022,10,Los Lagos,superficie_no_habitacional,m2,True,134504.0,35.84804080958194
-2023,10,Los Lagos,superficie_no_habitacional,m2,True,163288.0,43.519559921749654
-2024,10,Los Lagos,superficie_no_habitacional,m2,True,210256.0,56.037483409113925
-2025,10,Los Lagos,superficie_no_habitacional,m2,True,262311.0,69.91119544996616
-2014,11,Aysén,superficie_no_habitacional,m2,True,37403.0,100.0
-2015,11,Aysén,superficie_no_habitacional,m2,True,44600.0,119.24177205037029
-2016,11,Aysén,superficie_no_habitacional,m2,True,36331.0,97.13391973905837
-2017,11,Aysén,superficie_no_habitacional,m2,True,34575.0,92.43910916236665
-2018,11,Aysén,superficie_no_habitacional,m2,True,34468.0,92.15303585273908
-2019,11,Aysén,superficie_no_habitacional,m2,True,28380.0,75.87626660963025
-2020,11,Aysén,superficie_no_habitacional,m2,True,19440.0,51.97444055289682
-2021,11,Aysén,superficie_no_habitacional,m2,True,31901.0,85.28995000401038
-2022,11,Aysén,superficie_no_habitacional,m2,True,39339.0,105.17605539662594
-2023,11,Aysén,superficie_no_habitacional,m2,True,60609.0,162.0431516188541
-2024,11,Aysén,superficie_no_habitacional,m2,True,23045.0,61.612704863246265
-2025,11,Aysén,superficie_no_habitacional,m2,True,28708.0,76.75320161484373
-2014,12,Magallanes,superficie_no_habitacional,m2,True,81501.0,100.0
-2015,12,Magallanes,superficie_no_habitacional,m2,True,71108.0,87.24800922688065
-2016,12,Magallanes,superficie_no_habitacional,m2,True,46410.0,56.94408657562484
-2017,12,Magallanes,superficie_no_habitacional,m2,True,100033.0,122.7383713083275
-2018,12,Magallanes,superficie_no_habitacional,m2,True,89262.0,109.52258254499945
-2019,12,Magallanes,superficie_no_habitacional,m2,True,108466.0,133.085483613698
-2020,12,Magallanes,superficie_no_habitacional,m2,True,24940.0,30.600851523294192
-2021,12,Magallanes,superficie_no_habitacional,m2,True,37571.0,46.098820873363515
-2022,12,Magallanes,superficie_no_habitacional,m2,True,42032.0,51.57237334511233
-2023,12,Magallanes,superficie_no_habitacional,m2,True,25824.0,31.68550079140133
-2024,12,Magallanes,superficie_no_habitacional,m2,True,41233.0,50.59201727586164
-2025,12,Magallanes,superficie_no_habitacional,m2,True,23852.0,29.26589857793156
-2014,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,3598558.0,100.0
-2015,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,3091605.0,85.91232932746951
-2016,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2683347.0,74.56728500693889
-2017,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2262405.0,62.869766167448184
-2018,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2082570.0,57.872347757073804
-2019,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2286785.0,63.547259763494154
-2020,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1813627.0,50.3987152631693
-2021,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1985414.0,55.17248853568568
-2022,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2130321.0,59.19929594020716
-2023,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1508863.0,41.92965626787174
-2024,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1417144.0,39.38088534351815
-2025,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1505541.0,41.837341512906
-2014,14,Los Ríos,superficie_no_habitacional,m2,True,226822.0,100.0
-2015,14,Los Ríos,superficie_no_habitacional,m2,True,112943.0,49.79367080794632
-2016,14,Los Ríos,superficie_no_habitacional,m2,True,122070.0,53.81753092733509
-2017,14,Los Ríos,superficie_no_habitacional,m2,True,120088.0,52.94371798150091
-2018,14,Los Ríos,superficie_no_habitacional,m2,True,159649.0,70.38514782516687
-2019,14,Los Ríos,superficie_no_habitacional,m2,True,138716.0,61.156325224184606
-2020,14,Los Ríos,superficie_no_habitacional,m2,True,55781.0,24.59241167082558
-2021,14,Los Ríos,superficie_no_habitacional,m2,True,62975.0,27.764061687137932
-2022,14,Los Ríos,superficie_no_habitacional,m2,True,97583.0,43.021840914902434
-2023,14,Los Ríos,superficie_no_habitacional,m2,True,83746.0,36.921462644717
-2024,14,Los Ríos,superficie_no_habitacional,m2,True,119999.0,52.904480165063354
-2025,14,Los Ríos,superficie_no_habitacional,m2,True,155998.0,68.77551560254297
-2014,15,Arica y Parinacota,superficie_no_habitacional,m2,True,91788.0,100.0
-2015,15,Arica y Parinacota,superficie_no_habitacional,m2,True,89659.0,97.68052468732296
-2016,15,Arica y Parinacota,superficie_no_habitacional,m2,True,73948.0,80.5639081361398
-2017,15,Arica y Parinacota,superficie_no_habitacional,m2,True,28605.0,31.164204471172702
-2018,15,Arica y Parinacota,superficie_no_habitacional,m2,True,121629.0,132.510785723624
-2019,15,Arica y Parinacota,superficie_no_habitacional,m2,True,40612.0,44.24543513313287
-2020,15,Arica y Parinacota,superficie_no_habitacional,m2,True,27092.0,29.51584085065586
-2021,15,Arica y Parinacota,superficie_no_habitacional,m2,True,56816.0,61.899158931450735
-2022,15,Arica y Parinacota,superficie_no_habitacional,m2,True,51235.0,55.81884342179806
-2023,15,Arica y Parinacota,superficie_no_habitacional,m2,True,25627.0,27.91977164770994
-2024,15,Arica y Parinacota,superficie_no_habitacional,m2,True,47084.0,51.29646576894583
-2025,15,Arica y Parinacota,superficie_no_habitacional,m2,True,20912.0,22.782934588399353
-2018,16,Ñuble,superficie_no_habitacional,m2,True,32257.0,
-2019,16,Ñuble,superficie_no_habitacional,m2,True,292439.0,
-2020,16,Ñuble,superficie_no_habitacional,m2,True,129037.0,
-2021,16,Ñuble,superficie_no_habitacional,m2,True,116795.0,
-2022,16,Ñuble,superficie_no_habitacional,m2,True,69335.0,
-2023,16,Ñuble,superficie_no_habitacional,m2,True,78381.0,
-2024,16,Ñuble,superficie_no_habitacional,m2,True,118608.0,
-2025,16,Ñuble,superficie_no_habitacional,m2,True,195662.0,
-2014,01,Tarapacá,viviendas_autorizadas,unidades,True,2762.0,100.0
-2015,01,Tarapacá,viviendas_autorizadas,unidades,True,4021.0,145.5829109341057
-2016,01,Tarapacá,viviendas_autorizadas,unidades,True,3333.0,120.67342505430847
-2017,01,Tarapacá,viviendas_autorizadas,unidades,True,1768.0,64.01158580738596
-2018,01,Tarapacá,viviendas_autorizadas,unidades,True,2124.0,76.90079652425779
-2019,01,Tarapacá,viviendas_autorizadas,unidades,True,1502.0,54.38088341781318
-2020,01,Tarapacá,viviendas_autorizadas,unidades,True,3476.0,125.85083272990586
-2021,01,Tarapacá,viviendas_autorizadas,unidades,True,3105.0,112.41853729181753
-2022,01,Tarapacá,viviendas_autorizadas,unidades,True,1965.0,71.14409847936278
-2023,01,Tarapacá,viviendas_autorizadas,unidades,True,1924.0,69.65966690803765
-2024,01,Tarapacá,viviendas_autorizadas,unidades,True,2769.0,100.25343953656771
-2025,01,Tarapacá,viviendas_autorizadas,unidades,True,1850.0,66.9804489500362
-2014,02,Antofagasta,viviendas_autorizadas,unidades,True,5985.0,100.0
-2015,02,Antofagasta,viviendas_autorizadas,unidades,True,4091.0,68.35421888053467
-2016,02,Antofagasta,viviendas_autorizadas,unidades,True,2331.0,38.94736842105263
-2017,02,Antofagasta,viviendas_autorizadas,unidades,True,3058.0,51.09440267335004
-2018,02,Antofagasta,viviendas_autorizadas,unidades,True,3228.0,53.93483709273183
-2019,02,Antofagasta,viviendas_autorizadas,unidades,True,6339.0,105.91478696741855
-2020,02,Antofagasta,viviendas_autorizadas,unidades,True,2230.0,37.25981620718463
-2021,02,Antofagasta,viviendas_autorizadas,unidades,True,5914.0,98.81370091896407
-2022,02,Antofagasta,viviendas_autorizadas,unidades,True,4306.0,71.94653299916457
-2023,02,Antofagasta,viviendas_autorizadas,unidades,True,2810.0,46.950710108604845
-2024,02,Antofagasta,viviendas_autorizadas,unidades,True,2669.0,44.59482038429407
-2025,02,Antofagasta,viviendas_autorizadas,unidades,True,2368.0,39.565580618212195
-2014,03,Atacama,viviendas_autorizadas,unidades,True,1738.0,100.0
-2015,03,Atacama,viviendas_autorizadas,unidades,True,3044.0,175.14384349827387
-2016,03,Atacama,viviendas_autorizadas,unidades,True,1033.0,59.4361334867664
-2017,03,Atacama,viviendas_autorizadas,unidades,True,2571.0,147.92865362485617
-2018,03,Atacama,viviendas_autorizadas,unidades,True,1793.0,103.16455696202532
-2019,03,Atacama,viviendas_autorizadas,unidades,True,1443.0,83.02646720368239
-2020,03,Atacama,viviendas_autorizadas,unidades,True,1785.0,102.70425776754891
-2021,03,Atacama,viviendas_autorizadas,unidades,True,2462.0,141.6570771001151
-2022,03,Atacama,viviendas_autorizadas,unidades,True,1857.0,106.84695051783659
-2023,03,Atacama,viviendas_autorizadas,unidades,True,1520.0,87.45684695051784
-2024,03,Atacama,viviendas_autorizadas,unidades,True,2549.0,146.66283084004604
-2025,03,Atacama,viviendas_autorizadas,unidades,True,983.0,56.55926352128884
-2014,04,Coquimbo,viviendas_autorizadas,unidades,True,8957.0,100.0
-2015,04,Coquimbo,viviendas_autorizadas,unidades,True,9421.0,105.18030590599531
-2016,04,Coquimbo,viviendas_autorizadas,unidades,True,7236.0,80.78597744780619
-2017,04,Coquimbo,viviendas_autorizadas,unidades,True,9367.0,104.57742547728034
-2018,04,Coquimbo,viviendas_autorizadas,unidades,True,7579.0,84.61538461538461
-2019,04,Coquimbo,viviendas_autorizadas,unidades,True,9446.0,105.45941721558557
-2020,04,Coquimbo,viviendas_autorizadas,unidades,True,6609.0,73.78586580328235
-2021,04,Coquimbo,viviendas_autorizadas,unidades,True,7673.0,85.66484313944402
-2022,04,Coquimbo,viviendas_autorizadas,unidades,True,7210.0,80.49570168583232
-2023,04,Coquimbo,viviendas_autorizadas,unidades,True,6565.0,73.29462989840349
-2024,04,Coquimbo,viviendas_autorizadas,unidades,True,5824.0,65.02177068214804
-2025,04,Coquimbo,viviendas_autorizadas,unidades,True,3835.0,42.81567489114659
-2014,05,Valparaíso,viviendas_autorizadas,unidades,True,16647.0,100.0
-2015,05,Valparaíso,viviendas_autorizadas,unidades,True,24280.0,145.85210548447168
-2016,05,Valparaíso,viviendas_autorizadas,unidades,True,16209.0,97.36889529644981
-2017,05,Valparaíso,viviendas_autorizadas,unidades,True,17617.0,105.82687571334175
-2018,05,Valparaíso,viviendas_autorizadas,unidades,True,22070.0,132.57644019943532
-2019,05,Valparaíso,viviendas_autorizadas,unidades,True,16023.0,96.25157686069562
-2020,05,Valparaíso,viviendas_autorizadas,unidades,True,13541.0,81.34198354057789
-2021,05,Valparaíso,viviendas_autorizadas,unidades,True,11815.0,70.97374902384814
-2022,05,Valparaíso,viviendas_autorizadas,unidades,True,8816.0,52.95849101940289
-2023,05,Valparaíso,viviendas_autorizadas,unidades,True,8202.0,49.270138763741215
-2024,05,Valparaíso,viviendas_autorizadas,unidades,True,9096.0,54.64047576139845
-2025,05,Valparaíso,viviendas_autorizadas,unidades,True,8068.0,48.46518892292906
-2014,06,O'Higgins,viviendas_autorizadas,unidades,True,8991.0,100.0
-2015,06,O'Higgins,viviendas_autorizadas,unidades,True,10098.0,112.31231231231232
-2016,06,O'Higgins,viviendas_autorizadas,unidades,True,5779.0,64.27538649760872
-2017,06,O'Higgins,viviendas_autorizadas,unidades,True,8800.0,97.87565343120899
-2018,06,O'Higgins,viviendas_autorizadas,unidades,True,7213.0,80.22466911355801
-2019,06,O'Higgins,viviendas_autorizadas,unidades,True,8414.0,93.58247136024914
-2020,06,O'Higgins,viviendas_autorizadas,unidades,True,5901.0,65.6322989656323
-2021,06,O'Higgins,viviendas_autorizadas,unidades,True,7187.0,79.93549104660215
-2022,06,O'Higgins,viviendas_autorizadas,unidades,True,5787.0,64.36436436436436
-2023,06,O'Higgins,viviendas_autorizadas,unidades,True,5419.0,60.27138249360472
-2024,06,O'Higgins,viviendas_autorizadas,unidades,True,6156.0,68.46846846846847
-2025,06,O'Higgins,viviendas_autorizadas,unidades,True,6465.0,71.90523857190524
-2014,07,Maule,viviendas_autorizadas,unidades,True,13066.0,100.0
-2015,07,Maule,viviendas_autorizadas,unidades,True,12605.0,96.4717587632022
-2016,07,Maule,viviendas_autorizadas,unidades,True,9518.0,72.8455533445584
-2017,07,Maule,viviendas_autorizadas,unidades,True,10217.0,78.19531608755548
-2018,07,Maule,viviendas_autorizadas,unidades,True,14888.0,113.94458900964335
-2019,07,Maule,viviendas_autorizadas,unidades,True,14716.0,112.62819531608756
-2020,07,Maule,viviendas_autorizadas,unidades,True,11239.0,86.01714373182305
-2021,07,Maule,viviendas_autorizadas,unidades,True,8459.0,64.74054798714221
-2022,07,Maule,viviendas_autorizadas,unidades,True,8332.0,63.76855962038879
-2023,07,Maule,viviendas_autorizadas,unidades,True,9647.0,73.83284861472524
-2024,07,Maule,viviendas_autorizadas,unidades,True,8020.0,61.38068268789224
-2025,07,Maule,viviendas_autorizadas,unidades,True,7668.0,58.68666768712689
-2014,08,Biobío,viviendas_autorizadas,unidades,True,24803.0,100.0
-2015,08,Biobío,viviendas_autorizadas,unidades,True,27365.0,110.32939563762449
-2016,08,Biobío,viviendas_autorizadas,unidades,True,19042.0,76.77297101157119
-2017,08,Biobío,viviendas_autorizadas,unidades,True,23159.0,93.37176954400677
-2018,08,Biobío,viviendas_autorizadas,unidades,True,23354.0,94.15796476232714
-2019,08,Biobío,viviendas_autorizadas,unidades,True,17800.0,71.765512236423
-2020,08,Biobío,viviendas_autorizadas,unidades,True,13197.0,53.20727331371205
-2021,08,Biobío,viviendas_autorizadas,unidades,True,14106.0,56.87215256219006
-2022,08,Biobío,viviendas_autorizadas,unidades,True,15660.0,63.13752368665081
-2023,08,Biobío,viviendas_autorizadas,unidades,True,9307.0,37.52368665080837
-2024,08,Biobío,viviendas_autorizadas,unidades,True,10165.0,40.982945611417975
-2025,08,Biobío,viviendas_autorizadas,unidades,True,6591.0,26.57339837922832
-2014,09,La Araucanía,viviendas_autorizadas,unidades,True,10401.0,100.0
-2015,09,La Araucanía,viviendas_autorizadas,unidades,True,13667.0,131.40082684357273
-2016,09,La Araucanía,viviendas_autorizadas,unidades,True,8890.0,85.47255071627728
-2017,09,La Araucanía,viviendas_autorizadas,unidades,True,14034.0,134.92933371791173
-2018,09,La Araucanía,viviendas_autorizadas,unidades,True,16710.0,160.6576290741275
-2019,09,La Araucanía,viviendas_autorizadas,unidades,True,15925.0,153.11027785789827
-2020,09,La Araucanía,viviendas_autorizadas,unidades,True,9970.0,95.85616767618498
-2021,09,La Araucanía,viviendas_autorizadas,unidades,True,9995.0,96.09652917988655
-2022,09,La Araucanía,viviendas_autorizadas,unidades,True,7896.0,75.91577732910297
-2023,09,La Araucanía,viviendas_autorizadas,unidades,True,10775.0,103.59580809537545
-2024,09,La Araucanía,viviendas_autorizadas,unidades,True,6219.0,59.792327660801845
-2025,09,La Araucanía,viviendas_autorizadas,unidades,True,8681.0,83.46312854533218
-2014,10,Los Lagos,viviendas_autorizadas,unidades,True,6884.0,100.0
-2015,10,Los Lagos,viviendas_autorizadas,unidades,True,7712.0,112.02789076118536
-2016,10,Los Lagos,viviendas_autorizadas,unidades,True,5411.0,78.60255665310866
-2017,10,Los Lagos,viviendas_autorizadas,unidades,True,7935.0,115.26728646135967
-2018,10,Los Lagos,viviendas_autorizadas,unidades,True,7947.0,115.44160371876816
-2019,10,Los Lagos,viviendas_autorizadas,unidades,True,9276.0,134.7472399767577
-2020,10,Los Lagos,viviendas_autorizadas,unidades,True,4168.0,60.54619407321325
-2021,10,Los Lagos,viviendas_autorizadas,unidades,True,6286.0,91.31319000581057
-2022,10,Los Lagos,viviendas_autorizadas,unidades,True,3665.0,53.23939570017432
-2023,10,Los Lagos,viviendas_autorizadas,unidades,True,7390.0,107.35037768739105
-2024,10,Los Lagos,viviendas_autorizadas,unidades,True,6976.0,101.33643230679837
-2025,10,Los Lagos,viviendas_autorizadas,unidades,True,6374.0,92.59151656013945
-2014,11,Aysén,viviendas_autorizadas,unidades,True,1047.0,100.0
-2015,11,Aysén,viviendas_autorizadas,unidades,True,697.0,66.57115568290354
-2016,11,Aysén,viviendas_autorizadas,unidades,True,895.0,85.48233046800382
-2017,11,Aysén,viviendas_autorizadas,unidades,True,1021.0,97.51671442215854
-2018,11,Aysén,viviendas_autorizadas,unidades,True,777.0,74.21203438395415
-2019,11,Aysén,viviendas_autorizadas,unidades,True,724.0,69.14995224450811
-2020,11,Aysén,viviendas_autorizadas,unidades,True,881.0,84.14517669531996
-2021,11,Aysén,viviendas_autorizadas,unidades,True,350.0,33.42884431709646
-2022,11,Aysén,viviendas_autorizadas,unidades,True,741.0,70.77363896848138
-2023,11,Aysén,viviendas_autorizadas,unidades,True,472.0,45.08118433619866
-2024,11,Aysén,viviendas_autorizadas,unidades,True,1322.0,126.26552053486151
-2025,11,Aysén,viviendas_autorizadas,unidades,True,904.0,86.34192932187202
-2014,12,Magallanes,viviendas_autorizadas,unidades,True,1300.0,100.0
-2015,12,Magallanes,viviendas_autorizadas,unidades,True,1043.0,80.23076923076923
-2016,12,Magallanes,viviendas_autorizadas,unidades,True,1139.0,87.61538461538461
-2017,12,Magallanes,viviendas_autorizadas,unidades,True,1513.0,116.38461538461539
-2018,12,Magallanes,viviendas_autorizadas,unidades,True,2368.0,182.15384615384616
-2019,12,Magallanes,viviendas_autorizadas,unidades,True,1373.0,105.61538461538461
-2020,12,Magallanes,viviendas_autorizadas,unidades,True,623.0,47.92307692307692
-2021,12,Magallanes,viviendas_autorizadas,unidades,True,927.0,71.3076923076923
-2022,12,Magallanes,viviendas_autorizadas,unidades,True,803.0,61.76923076923077
-2023,12,Magallanes,viviendas_autorizadas,unidades,True,540.0,41.53846153846154
-2024,12,Magallanes,viviendas_autorizadas,unidades,True,838.0,64.46153846153847
-2025,12,Magallanes,viviendas_autorizadas,unidades,True,518.0,39.84615384615385
-2014,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,69218.0,100.0
-2015,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,80163.0,115.81236094657459
-2016,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,63868.0,92.27079661359762
-2017,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,53339.0,77.05943540697507
-2018,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,64909.0,93.77474067439105
-2019,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,74696.0,107.9141263833107
-2020,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,56340.0,81.39501285792713
-2021,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,74429.0,107.52838856944726
-2022,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,56857.0,82.14192840012713
-2023,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,32268.0,46.61793175185645
-2024,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,28935.0,41.80271027767344
-2025,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,25154.0,36.340258314311306
-2014,14,Los Ríos,viviendas_autorizadas,unidades,True,2817.0,100.0
-2015,14,Los Ríos,viviendas_autorizadas,unidades,True,3545.0,125.84309549165779
-2016,14,Los Ríos,viviendas_autorizadas,unidades,True,3226.0,114.51899183528576
-2017,14,Los Ríos,viviendas_autorizadas,unidades,True,4325.0,153.53212637557687
-2018,14,Los Ríos,viviendas_autorizadas,unidades,True,5887.0,208.98118565850194
-2019,14,Los Ríos,viviendas_autorizadas,unidades,True,3620.0,128.50550230741925
-2020,14,Los Ríos,viviendas_autorizadas,unidades,True,3001.0,106.53177138800142
-2021,14,Los Ríos,viviendas_autorizadas,unidades,True,3384.0,120.12779552715655
-2022,14,Los Ríos,viviendas_autorizadas,unidades,True,2513.0,89.20837770678027
-2023,14,Los Ríos,viviendas_autorizadas,unidades,True,1443.0,51.22470713525026
-2024,14,Los Ríos,viviendas_autorizadas,unidades,True,1509.0,53.56762513312034
-2025,14,Los Ríos,viviendas_autorizadas,unidades,True,2135.0,75.78984735534256
-2014,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1206.0,100.0
-2015,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,2333.0,193.44941956882255
-2016,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1199.0,99.4195688225539
-2017,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1856.0,153.8971807628524
-2018,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1944.0,161.19402985074626
-2019,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1886.0,156.38474295190713
-2020,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,2899.0,240.38142620232173
-2021,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1656.0,137.3134328358209
-2022,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1311.0,108.70646766169155
-2023,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,716.0,59.3698175787728
-2024,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,2357.0,195.43946932006634
-2025,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1933.0,160.28192371475953
-2018,16,Ñuble,viviendas_autorizadas,unidades,True,869.0,
-2019,16,Ñuble,viviendas_autorizadas,unidades,True,5949.0,
-2020,16,Ñuble,viviendas_autorizadas,unidades,True,4714.0,
-2021,16,Ñuble,viviendas_autorizadas,unidades,True,5472.0,
-2022,16,Ñuble,viviendas_autorizadas,unidades,True,6090.0,
-2023,16,Ñuble,viviendas_autorizadas,unidades,True,5657.0,
-2024,16,Ñuble,viviendas_autorizadas,unidades,True,6568.0,
-2025,16,Ñuble,viviendas_autorizadas,unidades,True,6298.0,
+anio,region_id,region_display,indicador,unidad,eje_espacial,valor,indice_base100,unidad_original,dimension,agregacion
+2014,01,Tarapacá,empresas_constituidas,unidades,False,898.0,100.0,unidades,conteo,total
+2015,01,Tarapacá,empresas_constituidas,unidades,False,1188.0,132.29398663697106,unidades,conteo,total
+2016,01,Tarapacá,empresas_constituidas,unidades,False,1544.0,171.93763919821825,unidades,conteo,total
+2017,01,Tarapacá,empresas_constituidas,unidades,False,1920.0,213.8084632516704,unidades,conteo,total
+2018,01,Tarapacá,empresas_constituidas,unidades,False,2168.0,241.42538975501114,unidades,conteo,total
+2019,01,Tarapacá,empresas_constituidas,unidades,False,2238.0,249.22048997772828,unidades,conteo,total
+2020,01,Tarapacá,empresas_constituidas,unidades,False,2562.0,285.30066815144767,unidades,conteo,total
+2021,01,Tarapacá,empresas_constituidas,unidades,False,3155.0,351.33630289532294,unidades,conteo,total
+2022,01,Tarapacá,empresas_constituidas,unidades,False,2855.0,317.92873051224944,unidades,conteo,total
+2023,01,Tarapacá,empresas_constituidas,unidades,False,2923.0,325.5011135857461,unidades,conteo,total
+2024,01,Tarapacá,empresas_constituidas,unidades,False,3166.0,352.5612472160356,unidades,conteo,total
+2025,01,Tarapacá,empresas_constituidas,unidades,False,3877.0,431.73719376391983,unidades,conteo,total
+2014,02,Antofagasta,empresas_constituidas,unidades,False,1864.0,100.0,unidades,conteo,total
+2015,02,Antofagasta,empresas_constituidas,unidades,False,2445.0,131.1695278969957,unidades,conteo,total
+2016,02,Antofagasta,empresas_constituidas,unidades,False,3049.0,163.57296137339057,unidades,conteo,total
+2017,02,Antofagasta,empresas_constituidas,unidades,False,3560.0,190.9871244635193,unidades,conteo,total
+2018,02,Antofagasta,empresas_constituidas,unidades,False,3710.0,199.0343347639485,unidades,conteo,total
+2019,02,Antofagasta,empresas_constituidas,unidades,False,3858.0,206.97424892703862,unidades,conteo,total
+2020,02,Antofagasta,empresas_constituidas,unidades,False,4723.0,253.37982832618025,unidades,conteo,total
+2021,02,Antofagasta,empresas_constituidas,unidades,False,5598.0,300.3218884120172,unidades,conteo,total
+2022,02,Antofagasta,empresas_constituidas,unidades,False,4758.0,255.25751072961373,unidades,conteo,total
+2023,02,Antofagasta,empresas_constituidas,unidades,False,4852.0,260.30042918454933,unidades,conteo,total
+2024,02,Antofagasta,empresas_constituidas,unidades,False,5314.0,285.08583690987126,unidades,conteo,total
+2025,02,Antofagasta,empresas_constituidas,unidades,False,6439.0,345.4399141630901,unidades,conteo,total
+2014,03,Atacama,empresas_constituidas,unidades,False,858.0,100.0,unidades,conteo,total
+2015,03,Atacama,empresas_constituidas,unidades,False,870.0,101.3986013986014,unidades,conteo,total
+2016,03,Atacama,empresas_constituidas,unidades,False,1031.0,120.16317016317016,unidades,conteo,total
+2017,03,Atacama,empresas_constituidas,unidades,False,1014.0,118.18181818181819,unidades,conteo,total
+2018,03,Atacama,empresas_constituidas,unidades,False,1306.0,152.21445221445222,unidades,conteo,total
+2019,03,Atacama,empresas_constituidas,unidades,False,1343.0,156.52680652680652,unidades,conteo,total
+2020,03,Atacama,empresas_constituidas,unidades,False,1616.0,188.34498834498834,unidades,conteo,total
+2021,03,Atacama,empresas_constituidas,unidades,False,2108.0,245.6876456876457,unidades,conteo,total
+2022,03,Atacama,empresas_constituidas,unidades,False,1768.0,206.06060606060606,unidades,conteo,total
+2023,03,Atacama,empresas_constituidas,unidades,False,1882.0,219.34731934731934,unidades,conteo,total
+2024,03,Atacama,empresas_constituidas,unidades,False,1934.0,225.4079254079254,unidades,conteo,total
+2025,03,Atacama,empresas_constituidas,unidades,False,2544.0,296.5034965034965,unidades,conteo,total
+2014,04,Coquimbo,empresas_constituidas,unidades,False,2139.0,100.0,unidades,conteo,total
+2015,04,Coquimbo,empresas_constituidas,unidades,False,2460.0,115.0070126227209,unidades,conteo,total
+2016,04,Coquimbo,empresas_constituidas,unidades,False,3129.0,146.28330995792427,unidades,conteo,total
+2017,04,Coquimbo,empresas_constituidas,unidades,False,3550.0,165.9654043945769,unidades,conteo,total
+2018,04,Coquimbo,empresas_constituidas,unidades,False,4039.0,188.82655446470312,unidades,conteo,total
+2019,04,Coquimbo,empresas_constituidas,unidades,False,4413.0,206.31136044880785,unidades,conteo,total
+2020,04,Coquimbo,empresas_constituidas,unidades,False,5149.0,240.71996259934548,unidades,conteo,total
+2021,04,Coquimbo,empresas_constituidas,unidades,False,6951.0,324.9649368863955,unidades,conteo,total
+2022,04,Coquimbo,empresas_constituidas,unidades,False,5673.0,265.2173913043478,unidades,conteo,total
+2023,04,Coquimbo,empresas_constituidas,unidades,False,5956.0,278.44787283777464,unidades,conteo,total
+2024,04,Coquimbo,empresas_constituidas,unidades,False,6653.0,311.0331930808789,unidades,conteo,total
+2025,04,Coquimbo,empresas_constituidas,unidades,False,8010.0,374.47405329593266,unidades,conteo,total
+2014,05,Valparaíso,empresas_constituidas,unidades,False,5252.0,100.0,unidades,conteo,total
+2015,05,Valparaíso,empresas_constituidas,unidades,False,6540.0,124.52399086062452,unidades,conteo,total
+2016,05,Valparaíso,empresas_constituidas,unidades,False,7641.0,145.4874333587205,unidades,conteo,total
+2017,05,Valparaíso,empresas_constituidas,unidades,False,8591.0,163.57578065498856,unidades,conteo,total
+2018,05,Valparaíso,empresas_constituidas,unidades,False,10204.0,194.2878903274943,unidades,conteo,total
+2019,05,Valparaíso,empresas_constituidas,unidades,False,11026.0,209.93907083015995,unidades,conteo,total
+2020,05,Valparaíso,empresas_constituidas,unidades,False,13296.0,253.16070068545315,unidades,conteo,total
+2021,05,Valparaíso,empresas_constituidas,unidades,False,17716.0,337.3191165270373,unidades,conteo,total
+2022,05,Valparaíso,empresas_constituidas,unidades,False,14680.0,279.51256664127953,unidades,conteo,total
+2023,05,Valparaíso,empresas_constituidas,unidades,False,14531.0,276.6755521706017,unidades,conteo,total
+2024,05,Valparaíso,empresas_constituidas,unidades,False,16491.0,313.994668697639,unidades,conteo,total
+2025,05,Valparaíso,empresas_constituidas,unidades,False,20400.0,388.4234577303884,unidades,conteo,total
+2014,06,O'Higgins,empresas_constituidas,unidades,False,2142.0,100.0,unidades,conteo,total
+2015,06,O'Higgins,empresas_constituidas,unidades,False,2733.0,127.59103641456582,unidades,conteo,total
+2016,06,O'Higgins,empresas_constituidas,unidades,False,3521.0,164.37908496732027,unidades,conteo,total
+2017,06,O'Higgins,empresas_constituidas,unidades,False,4512.0,210.64425770308122,unidades,conteo,total
+2018,06,O'Higgins,empresas_constituidas,unidades,False,4871.0,227.40429505135387,unidades,conteo,total
+2019,06,O'Higgins,empresas_constituidas,unidades,False,4968.0,231.9327731092437,unidades,conteo,total
+2020,06,O'Higgins,empresas_constituidas,unidades,False,6173.0,288.1886087768441,unidades,conteo,total
+2021,06,O'Higgins,empresas_constituidas,unidades,False,8413.0,392.7637721755369,unidades,conteo,total
+2022,06,O'Higgins,empresas_constituidas,unidades,False,7190.0,335.66760037348274,unidades,conteo,total
+2023,06,O'Higgins,empresas_constituidas,unidades,False,7163.0,334.40709617180204,unidades,conteo,total
+2024,06,O'Higgins,empresas_constituidas,unidades,False,8379.0,391.1764705882353,unidades,conteo,total
+2025,06,O'Higgins,empresas_constituidas,unidades,False,10314.0,481.5126050420168,unidades,conteo,total
+2014,07,Maule,empresas_constituidas,unidades,False,2026.0,100.0,unidades,conteo,total
+2015,07,Maule,empresas_constituidas,unidades,False,2610.0,128.8252714708786,unidades,conteo,total
+2016,07,Maule,empresas_constituidas,unidades,False,3412.0,168.4106614017769,unidades,conteo,total
+2017,07,Maule,empresas_constituidas,unidades,False,4036.0,199.2102665350444,unidades,conteo,total
+2018,07,Maule,empresas_constituidas,unidades,False,4713.0,232.6258637709773,unidades,conteo,total
+2019,07,Maule,empresas_constituidas,unidades,False,5434.0,268.213228035538,unidades,conteo,total
+2020,07,Maule,empresas_constituidas,unidades,False,6751.0,333.21816386969397,unidades,conteo,total
+2021,07,Maule,empresas_constituidas,unidades,False,9279.0,457.9960513326752,unidades,conteo,total
+2022,07,Maule,empresas_constituidas,unidades,False,8052.0,397.4333662388944,unidades,conteo,total
+2023,07,Maule,empresas_constituidas,unidades,False,7875.0,388.6969397828233,unidades,conteo,total
+2024,07,Maule,empresas_constituidas,unidades,False,9283.0,458.1934846989141,unidades,conteo,total
+2025,07,Maule,empresas_constituidas,unidades,False,11317.0,558.5883514313919,unidades,conteo,total
+2014,08,Biobío,empresas_constituidas,unidades,False,4343.0,100.0,unidades,conteo,total
+2015,08,Biobío,empresas_constituidas,unidades,False,5646.0,130.002302555837,unidades,conteo,total
+2016,08,Biobío,empresas_constituidas,unidades,False,6641.0,152.9127331337785,unidades,conteo,total
+2017,08,Biobío,empresas_constituidas,unidades,False,7921.0,182.3854478471103,unidades,conteo,total
+2018,08,Biobío,empresas_constituidas,unidades,False,8636.0,198.8487220815105,unidades,conteo,total
+2019,08,Biobío,empresas_constituidas,unidades,False,7913.0,182.20124338015196,unidades,conteo,total
+2020,08,Biobío,empresas_constituidas,unidades,False,9457.0,217.75270550310844,unidades,conteo,total
+2021,08,Biobío,empresas_constituidas,unidades,False,12664.0,291.59567119502645,unidades,conteo,total
+2022,08,Biobío,empresas_constituidas,unidades,False,10632.0,244.80773658761225,unidades,conteo,total
+2023,08,Biobío,empresas_constituidas,unidades,False,10898.0,250.9325351139765,unidades,conteo,total
+2024,08,Biobío,empresas_constituidas,unidades,False,12363.0,284.66497812571953,unidades,conteo,total
+2025,08,Biobío,empresas_constituidas,unidades,False,15004.0,345.4754777803362,unidades,conteo,total
+2014,09,La Araucanía,empresas_constituidas,unidades,False,2496.0,100.0,unidades,conteo,total
+2015,09,La Araucanía,empresas_constituidas,unidades,False,3047.0,122.07532051282051,unidades,conteo,total
+2016,09,La Araucanía,empresas_constituidas,unidades,False,3525.0,141.22596153846155,unidades,conteo,total
+2017,09,La Araucanía,empresas_constituidas,unidades,False,4162.0,166.74679487179486,unidades,conteo,total
+2018,09,La Araucanía,empresas_constituidas,unidades,False,4738.0,189.82371794871796,unidades,conteo,total
+2019,09,La Araucanía,empresas_constituidas,unidades,False,5159.0,206.69070512820514,unidades,conteo,total
+2020,09,La Araucanía,empresas_constituidas,unidades,False,6282.0,251.68269230769232,unidades,conteo,total
+2021,09,La Araucanía,empresas_constituidas,unidades,False,8048.0,322.43589743589746,unidades,conteo,total
+2022,09,La Araucanía,empresas_constituidas,unidades,False,7403.0,296.59455128205127,unidades,conteo,total
+2023,09,La Araucanía,empresas_constituidas,unidades,False,7633.0,305.80929487179486,unidades,conteo,total
+2024,09,La Araucanía,empresas_constituidas,unidades,False,8392.0,336.21794871794873,unidades,conteo,total
+2025,09,La Araucanía,empresas_constituidas,unidades,False,10389.0,416.22596153846155,unidades,conteo,total
+2014,10,Los Lagos,empresas_constituidas,unidades,False,2748.0,100.0,unidades,conteo,total
+2015,10,Los Lagos,empresas_constituidas,unidades,False,3348.0,121.83406113537117,unidades,conteo,total
+2016,10,Los Lagos,empresas_constituidas,unidades,False,3722.0,135.44395924308589,unidades,conteo,total
+2017,10,Los Lagos,empresas_constituidas,unidades,False,4209.0,153.16593886462883,unidades,conteo,total
+2018,10,Los Lagos,empresas_constituidas,unidades,False,4905.0,178.4934497816594,unidades,conteo,total
+2019,10,Los Lagos,empresas_constituidas,unidades,False,5289.0,192.46724890829694,unidades,conteo,total
+2020,10,Los Lagos,empresas_constituidas,unidades,False,6725.0,244.72343522561863,unidades,conteo,total
+2021,10,Los Lagos,empresas_constituidas,unidades,False,8441.0,307.16885007278023,unidades,conteo,total
+2022,10,Los Lagos,empresas_constituidas,unidades,False,7441.0,270.7787481804949,unidades,conteo,total
+2023,10,Los Lagos,empresas_constituidas,unidades,False,7398.0,269.2139737991266,unidades,conteo,total
+2024,10,Los Lagos,empresas_constituidas,unidades,False,8281.0,301.3464337700145,unidades,conteo,total
+2025,10,Los Lagos,empresas_constituidas,unidades,False,10302.0,374.89082969432314,unidades,conteo,total
+2014,11,Aysén,empresas_constituidas,unidades,False,555.0,100.0,unidades,conteo,total
+2015,11,Aysén,empresas_constituidas,unidades,False,583.0,105.04504504504504,unidades,conteo,total
+2016,11,Aysén,empresas_constituidas,unidades,False,651.0,117.29729729729729,unidades,conteo,total
+2017,11,Aysén,empresas_constituidas,unidades,False,681.0,122.70270270270271,unidades,conteo,total
+2018,11,Aysén,empresas_constituidas,unidades,False,739.0,133.15315315315314,unidades,conteo,total
+2019,11,Aysén,empresas_constituidas,unidades,False,890.0,160.36036036036037,unidades,conteo,total
+2020,11,Aysén,empresas_constituidas,unidades,False,895.0,161.26126126126127,unidades,conteo,total
+2021,11,Aysén,empresas_constituidas,unidades,False,1252.0,225.5855855855856,unidades,conteo,total
+2022,11,Aysén,empresas_constituidas,unidades,False,1209.0,217.83783783783784,unidades,conteo,total
+2023,11,Aysén,empresas_constituidas,unidades,False,1140.0,205.40540540540542,unidades,conteo,total
+2024,11,Aysén,empresas_constituidas,unidades,False,1426.0,256.93693693693695,unidades,conteo,total
+2025,11,Aysén,empresas_constituidas,unidades,False,1433.0,258.1981981981982,unidades,conteo,total
+2014,12,Magallanes,empresas_constituidas,unidades,False,649.0,100.0,unidades,conteo,total
+2015,12,Magallanes,empresas_constituidas,unidades,False,726.0,111.86440677966101,unidades,conteo,total
+2016,12,Magallanes,empresas_constituidas,unidades,False,910.0,140.21571648690292,unidades,conteo,total
+2017,12,Magallanes,empresas_constituidas,unidades,False,1028.0,158.3975346687211,unidades,conteo,total
+2018,12,Magallanes,empresas_constituidas,unidades,False,1189.0,183.20493066255779,unidades,conteo,total
+2019,12,Magallanes,empresas_constituidas,unidades,False,1280.0,197.22650231124808,unidades,conteo,total
+2020,12,Magallanes,empresas_constituidas,unidades,False,1502.0,231.43297380585517,unidades,conteo,total
+2021,12,Magallanes,empresas_constituidas,unidades,False,2046.0,315.2542372881356,unidades,conteo,total
+2022,12,Magallanes,empresas_constituidas,unidades,False,1486.0,228.96764252696457,unidades,conteo,total
+2023,12,Magallanes,empresas_constituidas,unidades,False,1478.0,227.73497688751925,unidades,conteo,total
+2024,12,Magallanes,empresas_constituidas,unidades,False,1579.0,243.29738058551618,unidades,conteo,total
+2025,12,Magallanes,empresas_constituidas,unidades,False,1961.0,302.15716486902926,unidades,conteo,total
+2014,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,23878.0,100.0,unidades,conteo,total
+2015,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,30515.0,127.79546025630287,unidades,conteo,total
+2016,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,35153.0,147.21919758773765,unidades,conteo,total
+2017,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,39716.0,166.3288382611609,unidades,conteo,total
+2018,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,47089.0,197.2066337214172,unidades,conteo,total
+2019,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,50064.0,209.6658011558757,unidades,conteo,total
+2020,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,63106.0,264.2851160063657,unidades,conteo,total
+2021,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,77479.0,324.4785995477008,unidades,conteo,total
+2022,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,64987.0,272.1626601892956,unidades,conteo,total
+2023,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,66428.0,278.1975039785577,unidades,conteo,total
+2024,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,73653.0,308.45548203367116,unidades,conteo,total
+2025,13,Metropolitana de Santiago,empresas_constituidas,unidades,False,89715.0,375.7224223134266,unidades,conteo,total
+2014,14,Los Ríos,empresas_constituidas,unidades,False,1088.0,100.0,unidades,conteo,total
+2015,14,Los Ríos,empresas_constituidas,unidades,False,1330.0,122.24264705882354,unidades,conteo,total
+2016,14,Los Ríos,empresas_constituidas,unidades,False,1404.0,129.0441176470588,unidades,conteo,total
+2017,14,Los Ríos,empresas_constituidas,unidades,False,1717.0,157.8125,unidades,conteo,total
+2018,14,Los Ríos,empresas_constituidas,unidades,False,2000.0,183.8235294117647,unidades,conteo,total
+2019,14,Los Ríos,empresas_constituidas,unidades,False,2092.0,192.27941176470588,unidades,conteo,total
+2020,14,Los Ríos,empresas_constituidas,unidades,False,2535.0,232.99632352941177,unidades,conteo,total
+2021,14,Los Ríos,empresas_constituidas,unidades,False,3543.0,325.64338235294116,unidades,conteo,total
+2022,14,Los Ríos,empresas_constituidas,unidades,False,2906.0,267.09558823529414,unidades,conteo,total
+2023,14,Los Ríos,empresas_constituidas,unidades,False,3025.0,278.03308823529414,unidades,conteo,total
+2024,14,Los Ríos,empresas_constituidas,unidades,False,3346.0,307.5367647058824,unidades,conteo,total
+2025,14,Los Ríos,empresas_constituidas,unidades,False,4310.0,396.1397058823529,unidades,conteo,total
+2014,15,Arica y Parinacota,empresas_constituidas,unidades,False,611.0,100.0,unidades,conteo,total
+2015,15,Arica y Parinacota,empresas_constituidas,unidades,False,740.0,121.11292962356792,unidades,conteo,total
+2016,15,Arica y Parinacota,empresas_constituidas,unidades,False,841.0,137.64320785597383,unidades,conteo,total
+2017,15,Arica y Parinacota,empresas_constituidas,unidades,False,937.0,153.35515548281506,unidades,conteo,total
+2018,15,Arica y Parinacota,empresas_constituidas,unidades,False,1053.0,172.3404255319149,unidades,conteo,total
+2019,15,Arica y Parinacota,empresas_constituidas,unidades,False,1129.0,184.77905073649754,unidades,conteo,total
+2020,15,Arica y Parinacota,empresas_constituidas,unidades,False,1379.0,225.69558101472995,unidades,conteo,total
+2021,15,Arica y Parinacota,empresas_constituidas,unidades,False,1796.0,293.94435351882163,unidades,conteo,total
+2022,15,Arica y Parinacota,empresas_constituidas,unidades,False,1490.0,243.86252045826515,unidades,conteo,total
+2023,15,Arica y Parinacota,empresas_constituidas,unidades,False,1465.0,239.7708674304419,unidades,conteo,total
+2024,15,Arica y Parinacota,empresas_constituidas,unidades,False,1463.0,239.44353518821603,unidades,conteo,total
+2025,15,Arica y Parinacota,empresas_constituidas,unidades,False,1873.0,306.5466448445172,unidades,conteo,total
+2018,16,Ñuble,empresas_constituidas,unidades,False,638.0,,unidades,conteo,total
+2019,16,Ñuble,empresas_constituidas,unidades,False,2326.0,,unidades,conteo,total
+2020,16,Ñuble,empresas_constituidas,unidades,False,2618.0,,unidades,conteo,total
+2021,16,Ñuble,empresas_constituidas,unidades,False,3575.0,,unidades,conteo,total
+2022,16,Ñuble,empresas_constituidas,unidades,False,3075.0,,unidades,conteo,total
+2023,16,Ñuble,empresas_constituidas,unidades,False,3141.0,,unidades,conteo,total
+2024,16,Ñuble,empresas_constituidas,unidades,False,3535.0,,unidades,conteo,total
+2025,16,Ñuble,empresas_constituidas,unidades,False,4518.0,,unidades,conteo,total
+2014,01,Tarapacá,superficie_habitacional,m2,True,237885.0,100.0,m2,superficie,total
+2015,01,Tarapacá,superficie_habitacional,m2,True,398140.0,167.36658469428505,m2,superficie,total
+2016,01,Tarapacá,superficie_habitacional,m2,True,249084.0,104.7077369317107,m2,superficie,total
+2017,01,Tarapacá,superficie_habitacional,m2,True,120624.0,50.70685415221641,m2,superficie,total
+2018,01,Tarapacá,superficie_habitacional,m2,True,172771.0,72.62795048027408,m2,superficie,total
+2019,01,Tarapacá,superficie_habitacional,m2,True,143572.0,60.35353216890514,m2,superficie,total
+2020,01,Tarapacá,superficie_habitacional,m2,True,241527.0,101.53099186581751,m2,superficie,total
+2021,01,Tarapacá,superficie_habitacional,m2,True,246854.0,103.77030918300859,m2,superficie,total
+2022,01,Tarapacá,superficie_habitacional,m2,True,162646.0,68.37169220421632,m2,superficie,total
+2023,01,Tarapacá,superficie_habitacional,m2,True,127130.0,53.4417890997751,m2,superficie,total
+2024,01,Tarapacá,superficie_habitacional,m2,True,203562.0,85.57159972255502,m2,superficie,total
+2025,01,Tarapacá,superficie_habitacional,m2,True,147531.0,62.0177817012422,m2,superficie,total
+2014,02,Antofagasta,superficie_habitacional,m2,True,623781.0,100.0,m2,superficie,total
+2015,02,Antofagasta,superficie_habitacional,m2,True,363851.0,58.32992668901425,m2,superficie,total
+2016,02,Antofagasta,superficie_habitacional,m2,True,170642.0,27.356075289244142,m2,superficie,total
+2017,02,Antofagasta,superficie_habitacional,m2,True,245445.0,39.347944230427025,m2,superficie,total
+2018,02,Antofagasta,superficie_habitacional,m2,True,241427.0,38.7038079069417,m2,superficie,total
+2019,02,Antofagasta,superficie_habitacional,m2,True,542482.0,86.96673992955861,m2,superficie,total
+2020,02,Antofagasta,superficie_habitacional,m2,True,177272.0,28.41894831679708,m2,superficie,total
+2021,02,Antofagasta,superficie_habitacional,m2,True,462425.0,74.13258820002532,m2,superficie,total
+2022,02,Antofagasta,superficie_habitacional,m2,True,361645.0,57.976276930525295,m2,superficie,total
+2023,02,Antofagasta,superficie_habitacional,m2,True,225749.0,36.19042580649298,m2,superficie,total
+2024,02,Antofagasta,superficie_habitacional,m2,True,214467.0,34.381778220240754,m2,superficie,total
+2025,02,Antofagasta,superficie_habitacional,m2,True,211805.0,33.955025882481195,m2,superficie,total
+2014,03,Atacama,superficie_habitacional,m2,True,117729.0,100.0,m2,superficie,total
+2015,03,Atacama,superficie_habitacional,m2,True,204607.0,173.79490185086087,m2,superficie,total
+2016,03,Atacama,superficie_habitacional,m2,True,57577.0,48.90638670166229,m2,superficie,total
+2017,03,Atacama,superficie_habitacional,m2,True,156733.0,133.13032472882637,m2,superficie,total
+2018,03,Atacama,superficie_habitacional,m2,True,114604.0,97.34559879044245,m2,superficie,total
+2019,03,Atacama,superficie_habitacional,m2,True,96846.0,82.26180465305914,m2,superficie,total
+2020,03,Atacama,superficie_habitacional,m2,True,120450.0,102.31124022118594,m2,superficie,total
+2021,03,Atacama,superficie_habitacional,m2,True,159992.0,135.89854666224974,m2,superficie,total
+2022,03,Atacama,superficie_habitacional,m2,True,123573.0,104.96394261396937,m2,superficie,total
+2023,03,Atacama,superficie_habitacional,m2,True,100291.0,85.18801654647538,m2,superficie,total
+2024,03,Atacama,superficie_habitacional,m2,True,160103.0,135.99283099321323,m2,superficie,total
+2025,03,Atacama,superficie_habitacional,m2,True,75334.0,63.989331430658545,m2,superficie,total
+2014,04,Coquimbo,superficie_habitacional,m2,True,636665.0,100.0,m2,superficie,total
+2015,04,Coquimbo,superficie_habitacional,m2,True,618939.0,97.215804229854,m2,superficie,total
+2016,04,Coquimbo,superficie_habitacional,m2,True,486473.0,76.40957175280563,m2,superficie,total
+2017,04,Coquimbo,superficie_habitacional,m2,True,617447.0,96.98145806664415,m2,superficie,total
+2018,04,Coquimbo,superficie_habitacional,m2,True,510507.0,80.18455545695146,m2,superficie,total
+2019,04,Coquimbo,superficie_habitacional,m2,True,611152.0,95.99271202280634,m2,superficie,total
+2020,04,Coquimbo,superficie_habitacional,m2,True,474412.0,74.51516888787667,m2,superficie,total
+2021,04,Coquimbo,superficie_habitacional,m2,True,499511.0,78.45743051683381,m2,superficie,total
+2022,04,Coquimbo,superficie_habitacional,m2,True,500402.0,78.59737852716891,m2,superficie,total
+2023,04,Coquimbo,superficie_habitacional,m2,True,443365.0,69.63866397556015,m2,superficie,total
+2024,04,Coquimbo,superficie_habitacional,m2,True,410153.0,64.42210581703094,m2,superficie,total
+2025,04,Coquimbo,superficie_habitacional,m2,True,269897.0,42.3923099275129,m2,superficie,total
+2014,05,Valparaíso,superficie_habitacional,m2,True,1424300.0,100.0,m2,superficie,total
+2015,05,Valparaíso,superficie_habitacional,m2,True,1986249.0,139.4543986519694,m2,superficie,total
+2016,05,Valparaíso,superficie_habitacional,m2,True,1311923.0,92.11001895668048,m2,superficie,total
+2017,05,Valparaíso,superficie_habitacional,m2,True,1379382.0,96.84631046830022,m2,superficie,total
+2018,05,Valparaíso,superficie_habitacional,m2,True,1658666.0,116.4548199115355,m2,superficie,total
+2019,05,Valparaíso,superficie_habitacional,m2,True,1285123.0,90.22839289475532,m2,superficie,total
+2020,05,Valparaíso,superficie_habitacional,m2,True,1037584.0,72.84869760584147,m2,superficie,total
+2021,05,Valparaíso,superficie_habitacional,m2,True,955953.0,67.11739099908728,m2,superficie,total
+2022,05,Valparaíso,superficie_habitacional,m2,True,747513.0,52.482833672681316,m2,superficie,total
+2023,05,Valparaíso,superficie_habitacional,m2,True,723510.0,50.797584778487675,m2,superficie,total
+2024,05,Valparaíso,superficie_habitacional,m2,True,747722.0,52.497507547567224,m2,superficie,total
+2025,05,Valparaíso,superficie_habitacional,m2,True,760359.0,53.38475040370709,m2,superficie,total
+2014,06,O'Higgins,superficie_habitacional,m2,True,620467.0,100.0,m2,superficie,total
+2015,06,O'Higgins,superficie_habitacional,m2,True,654231.0,105.44170761700461,m2,superficie,total
+2016,06,O'Higgins,superficie_habitacional,m2,True,370528.0,59.71759980788664,m2,superficie,total
+2017,06,O'Higgins,superficie_habitacional,m2,True,606366.0,97.72735697466585,m2,superficie,total
+2018,06,O'Higgins,superficie_habitacional,m2,True,537208.0,86.58123639129882,m2,superficie,total
+2019,06,O'Higgins,superficie_habitacional,m2,True,626614.0,100.99070538803836,m2,superficie,total
+2020,06,O'Higgins,superficie_habitacional,m2,True,473538.0,76.3196108737451,m2,superficie,total
+2021,06,O'Higgins,superficie_habitacional,m2,True,535383.0,86.28710310137365,m2,superficie,total
+2022,06,O'Higgins,superficie_habitacional,m2,True,474424.0,76.46240654216905,m2,superficie,total
+2023,06,O'Higgins,superficie_habitacional,m2,True,451204.0,72.72006408076497,m2,superficie,total
+2024,06,O'Higgins,superficie_habitacional,m2,True,517388.0,83.38686827824849,m2,superficie,total
+2025,06,O'Higgins,superficie_habitacional,m2,True,548225.0,88.35683444889092,m2,superficie,total
+2014,07,Maule,superficie_habitacional,m2,True,739259.0,100.0,m2,superficie,total
+2015,07,Maule,superficie_habitacional,m2,True,764748.0,103.44791203083088,m2,superficie,total
+2016,07,Maule,superficie_habitacional,m2,True,577202.0,78.07845423593085,m2,superficie,total
+2017,07,Maule,superficie_habitacional,m2,True,629493.0,85.15188858032165,m2,superficie,total
+2018,07,Maule,superficie_habitacional,m2,True,911585.0,123.31063943759901,m2,superficie,total
+2019,07,Maule,superficie_habitacional,m2,True,994115.0,134.47452110829897,m2,superficie,total
+2020,07,Maule,superficie_habitacional,m2,True,835521.0,113.02141739228065,m2,superficie,total
+2021,07,Maule,superficie_habitacional,m2,True,632104.0,85.50508008695193,m2,superficie,total
+2022,07,Maule,superficie_habitacional,m2,True,601839.0,81.41111572534119,m2,superficie,total
+2023,07,Maule,superficie_habitacional,m2,True,699646.0,94.64152617688794,m2,superficie,total
+2024,07,Maule,superficie_habitacional,m2,True,533487.0,72.16510045870257,m2,superficie,total
+2025,07,Maule,superficie_habitacional,m2,True,593549.0,80.28972254649588,m2,superficie,total
+2014,08,Biobío,superficie_habitacional,m2,True,1531512.0,100.0,m2,superficie,total
+2015,08,Biobío,superficie_habitacional,m2,True,1685638.0,110.06364951760091,m2,superficie,total
+2016,08,Biobío,superficie_habitacional,m2,True,1127826.0,73.64134267312303,m2,superficie,total
+2017,08,Biobío,superficie_habitacional,m2,True,1419656.0,92.69636803368175,m2,superficie,total
+2018,08,Biobío,superficie_habitacional,m2,True,1458227.0,95.21485956362079,m2,superficie,total
+2019,08,Biobío,superficie_habitacional,m2,True,1235470.0,80.66995230856827,m2,superficie,total
+2020,08,Biobío,superficie_habitacional,m2,True,949388.0,61.990242322619736,m2,superficie,total
+2021,08,Biobío,superficie_habitacional,m2,True,1038723.0,67.82336671211195,m2,superficie,total
+2022,08,Biobío,superficie_habitacional,m2,True,1131704.0,73.89455649057925,m2,superficie,total
+2023,08,Biobío,superficie_habitacional,m2,True,675661.0,44.117251448242,m2,superficie,total
+2024,08,Biobío,superficie_habitacional,m2,True,730768.0,47.715460277164006,m2,superficie,total
+2025,08,Biobío,superficie_habitacional,m2,True,480392.0,31.367171788402572,m2,superficie,total
+2014,09,La Araucanía,superficie_habitacional,m2,True,610611.0,100.0,m2,superficie,total
+2015,09,La Araucanía,superficie_habitacional,m2,True,828672.0,135.71193443943852,m2,superficie,total
+2016,09,La Araucanía,superficie_habitacional,m2,True,539900.0,88.4196321389559,m2,superficie,total
+2017,09,La Araucanía,superficie_habitacional,m2,True,780347.0,127.79773046997188,m2,superficie,total
+2018,09,La Araucanía,superficie_habitacional,m2,True,953581.0,156.16832975495038,m2,superficie,total
+2019,09,La Araucanía,superficie_habitacional,m2,True,960864.0,157.36106948613767,m2,superficie,total
+2020,09,La Araucanía,superficie_habitacional,m2,True,638593.0,104.58262297927813,m2,superficie,total
+2021,09,La Araucanía,superficie_habitacional,m2,True,668282.0,109.4448020097902,m2,superficie,total
+2022,09,La Araucanía,superficie_habitacional,m2,True,521303.0,85.37399424510859,m2,superficie,total
+2023,09,La Araucanía,superficie_habitacional,m2,True,729797.0,119.51913738861566,m2,superficie,total
+2024,09,La Araucanía,superficie_habitacional,m2,True,439674.0,72.00558129480143,m2,superficie,total
+2025,09,La Araucanía,superficie_habitacional,m2,True,609386.0,99.79938127547653,m2,superficie,total
+2014,10,Los Lagos,superficie_habitacional,m2,True,465780.0,100.0,m2,superficie,total
+2015,10,Los Lagos,superficie_habitacional,m2,True,503261.0,108.04693202799605,m2,superficie,total
+2016,10,Los Lagos,superficie_habitacional,m2,True,373425.0,80.17196959938168,m2,superficie,total
+2017,10,Los Lagos,superficie_habitacional,m2,True,501144.0,107.59242560865644,m2,superficie,total
+2018,10,Los Lagos,superficie_habitacional,m2,True,512981.0,110.13375413285242,m2,superficie,total
+2019,10,Los Lagos,superficie_habitacional,m2,True,592350.0,127.17377302589205,m2,superficie,total
+2020,10,Los Lagos,superficie_habitacional,m2,True,292887.0,62.8809738503156,m2,superficie,total
+2021,10,Los Lagos,superficie_habitacional,m2,True,454509.0,97.58018807162179,m2,superficie,total
+2022,10,Los Lagos,superficie_habitacional,m2,True,311401.0,66.8558117566233,m2,superficie,total
+2023,10,Los Lagos,superficie_habitacional,m2,True,573378.0,123.10060543604277,m2,superficie,total
+2024,10,Los Lagos,superficie_habitacional,m2,True,508063.0,109.0778908497574,m2,superficie,total
+2025,10,Los Lagos,superficie_habitacional,m2,True,535616.0,114.9933444974022,m2,superficie,total
+2014,11,Aysén,superficie_habitacional,m2,True,68782.0,100.0,m2,superficie,total
+2015,11,Aysén,superficie_habitacional,m2,True,51248.0,74.50786542990899,m2,superficie,total
+2016,11,Aysén,superficie_habitacional,m2,True,52125.0,75.78290831903696,m2,superficie,total
+2017,11,Aysén,superficie_habitacional,m2,True,70581.0,102.61550987176878,m2,superficie,total
+2018,11,Aysén,superficie_habitacional,m2,True,54683.0,79.5019045680556,m2,superficie,total
+2019,11,Aysén,superficie_habitacional,m2,True,51523.0,74.90767933470966,m2,superficie,total
+2020,11,Aysén,superficie_habitacional,m2,True,69544.0,101.10784798348405,m2,superficie,total
+2021,11,Aysén,superficie_habitacional,m2,True,32175.0,46.77822686167893,m2,superficie,total
+2022,11,Aysén,superficie_habitacional,m2,True,67251.0,97.77412695181879,m2,superficie,total
+2023,11,Aysén,superficie_habitacional,m2,True,36360.0,52.86266755837283,m2,superficie,total
+2024,11,Aysén,superficie_habitacional,m2,True,90551.0,131.6492687040214,m2,superficie,total
+2025,11,Aysén,superficie_habitacional,m2,True,60426.0,87.85147276903841,m2,superficie,total
+2014,12,Magallanes,superficie_habitacional,m2,True,79366.0,100.0,m2,superficie,total
+2015,12,Magallanes,superficie_habitacional,m2,True,71228.0,89.74623894362826,m2,superficie,total
+2016,12,Magallanes,superficie_habitacional,m2,True,74733.0,94.1624877151425,m2,superficie,total
+2017,12,Magallanes,superficie_habitacional,m2,True,108767.0,137.04483027996875,m2,superficie,total
+2018,12,Magallanes,superficie_habitacional,m2,True,175054.0,220.56548144041528,m2,superficie,total
+2019,12,Magallanes,superficie_habitacional,m2,True,98371.0,123.94602222614218,m2,superficie,total
+2020,12,Magallanes,superficie_habitacional,m2,True,47327.0,59.631328276591994,m2,superficie,total
+2021,12,Magallanes,superficie_habitacional,m2,True,64382.0,81.12037900360356,m2,superficie,total
+2022,12,Magallanes,superficie_habitacional,m2,True,59122.0,74.49285588287177,m2,superficie,total
+2023,12,Magallanes,superficie_habitacional,m2,True,38243.0,48.18562104679586,m2,superficie,total
+2024,12,Magallanes,superficie_habitacional,m2,True,62635.0,78.91918453745937,m2,superficie,total
+2025,12,Magallanes,superficie_habitacional,m2,True,39579.0,49.86896152004637,m2,superficie,total
+2014,13,Metropolitana de Santiago,superficie_habitacional,m2,True,5885811.0,100.0,m2,superficie,total
+2015,13,Metropolitana de Santiago,superficie_habitacional,m2,True,6954614.0,118.15897588284776,m2,superficie,total
+2016,13,Metropolitana de Santiago,superficie_habitacional,m2,True,5175368.0,87.92956484671356,m2,superficie,total
+2017,13,Metropolitana de Santiago,superficie_habitacional,m2,True,4602894.0,78.20322467031306,m2,superficie,total
+2018,13,Metropolitana de Santiago,superficie_habitacional,m2,True,5554321.0,94.36798089507121,m2,superficie,total
+2019,13,Metropolitana de Santiago,superficie_habitacional,m2,True,6080516.0,103.30804030234746,m2,superficie,total
+2020,13,Metropolitana de Santiago,superficie_habitacional,m2,True,4340576.0,73.74643868109254,m2,superficie,total
+2021,13,Metropolitana de Santiago,superficie_habitacional,m2,True,5853338.0,99.44828333767428,m2,superficie,total
+2022,13,Metropolitana de Santiago,superficie_habitacional,m2,True,4501108.0,76.47387930057558,m2,superficie,total
+2023,13,Metropolitana de Santiago,superficie_habitacional,m2,True,2529253.0,42.972039027416955,m2,superficie,total
+2024,13,Metropolitana de Santiago,superficie_habitacional,m2,True,2246081.0,38.1609433262468,m2,superficie,total
+2025,13,Metropolitana de Santiago,superficie_habitacional,m2,True,2076461.0,35.279097476966214,m2,superficie,total
+2014,14,Los Ríos,superficie_habitacional,m2,True,199901.0,100.0,m2,superficie,total
+2015,14,Los Ríos,superficie_habitacional,m2,True,218238.0,109.17304065512428,m2,superficie,total
+2016,14,Los Ríos,superficie_habitacional,m2,True,244193.0,122.156967699011,m2,superficie,total
+2017,14,Los Ríos,superficie_habitacional,m2,True,301262.0,150.70559927163947,m2,superficie,total
+2018,14,Los Ríos,superficie_habitacional,m2,True,387758.0,193.9750176337287,m2,superficie,total
+2019,14,Los Ríos,superficie_habitacional,m2,True,246591.0,123.35656149794148,m2,superficie,total
+2020,14,Los Ríos,superficie_habitacional,m2,True,181532.0,90.81095142095337,m2,superficie,total
+2021,14,Los Ríos,superficie_habitacional,m2,True,229776.0,114.94489772437356,m2,superficie,total
+2022,14,Los Ríos,superficie_habitacional,m2,True,173101.0,86.59336371503895,m2,superficie,total
+2023,14,Los Ríos,superficie_habitacional,m2,True,113624.0,56.84013586725429,m2,superficie,total
+2024,14,Los Ríos,superficie_habitacional,m2,True,122038.0,61.049219363584974,m2,superficie,total
+2025,14,Los Ríos,superficie_habitacional,m2,True,183324.0,91.7073951606045,m2,superficie,total
+2014,15,Arica y Parinacota,superficie_habitacional,m2,True,80726.0,100.0,m2,superficie,total
+2015,15,Arica y Parinacota,superficie_habitacional,m2,True,161808.0,200.44099794366127,m2,superficie,total
+2016,15,Arica y Parinacota,superficie_habitacional,m2,True,117219.0,145.20600550008672,m2,superficie,total
+2017,15,Arica y Parinacota,superficie_habitacional,m2,True,120221.0,148.92475782275847,m2,superficie,total
+2018,15,Arica y Parinacota,superficie_habitacional,m2,True,146407.0,181.36288184723634,m2,superficie,total
+2019,15,Arica y Parinacota,superficie_habitacional,m2,True,137381.0,170.18184971384684,m2,superficie,total
+2020,15,Arica y Parinacota,superficie_habitacional,m2,True,227966.0,282.394767485073,m2,superficie,total
+2021,15,Arica y Parinacota,superficie_habitacional,m2,True,128264.0,158.8880905780046,m2,superficie,total
+2022,15,Arica y Parinacota,superficie_habitacional,m2,True,90296.0,111.85491663156851,m2,superficie,total
+2023,15,Arica y Parinacota,superficie_habitacional,m2,True,53488.0,66.2587022768377,m2,superficie,total
+2024,15,Arica y Parinacota,superficie_habitacional,m2,True,179491.0,222.34596040928574,m2,superficie,total
+2025,15,Arica y Parinacota,superficie_habitacional,m2,True,149562.0,185.27116418502092,m2,superficie,total
+2018,16,Ñuble,superficie_habitacional,m2,True,46567.0,,m2,superficie,total
+2019,16,Ñuble,superficie_habitacional,m2,True,382639.0,,m2,superficie,total
+2020,16,Ñuble,superficie_habitacional,m2,True,273038.0,,m2,superficie,total
+2021,16,Ñuble,superficie_habitacional,m2,True,324226.0,,m2,superficie,total
+2022,16,Ñuble,superficie_habitacional,m2,True,360842.0,,m2,superficie,total
+2023,16,Ñuble,superficie_habitacional,m2,True,359977.0,,m2,superficie,total
+2024,16,Ñuble,superficie_habitacional,m2,True,416632.0,,m2,superficie,total
+2025,16,Ñuble,superficie_habitacional,m2,True,435466.0,,m2,superficie,total
+2014,01,Tarapacá,superficie_no_habitacional,m2,True,136406.0,100.0,m2,superficie,total
+2015,01,Tarapacá,superficie_no_habitacional,m2,True,163373.0,119.76965822617774,m2,superficie,total
+2016,01,Tarapacá,superficie_no_habitacional,m2,True,156895.0,115.02060026685044,m2,superficie,total
+2017,01,Tarapacá,superficie_no_habitacional,m2,True,113641.0,83.31085142882277,m2,superficie,total
+2018,01,Tarapacá,superficie_no_habitacional,m2,True,207507.0,152.12453997624738,m2,superficie,total
+2019,01,Tarapacá,superficie_no_habitacional,m2,True,138016.0,101.1802999868041,m2,superficie,total
+2020,01,Tarapacá,superficie_no_habitacional,m2,True,112062.0,82.15327771505652,m2,superficie,total
+2021,01,Tarapacá,superficie_no_habitacional,m2,True,95248.0,69.82684046156328,m2,superficie,total
+2022,01,Tarapacá,superficie_no_habitacional,m2,True,112429.0,82.4223274636013,m2,superficie,total
+2023,01,Tarapacá,superficie_no_habitacional,m2,True,98261.0,72.03568757972523,m2,superficie,total
+2024,01,Tarapacá,superficie_no_habitacional,m2,True,135626.0,99.4281776461446,m2,superficie,total
+2025,01,Tarapacá,superficie_no_habitacional,m2,True,129980.0,95.28906353092972,m2,superficie,total
+2014,02,Antofagasta,superficie_no_habitacional,m2,True,656823.0,100.0,m2,superficie,total
+2015,02,Antofagasta,superficie_no_habitacional,m2,True,406314.0,61.86050123092522,m2,superficie,total
+2016,02,Antofagasta,superficie_no_habitacional,m2,True,283783.0,43.2053993237143,m2,superficie,total
+2017,02,Antofagasta,superficie_no_habitacional,m2,True,303744.0,46.244422013236445,m2,superficie,total
+2018,02,Antofagasta,superficie_no_habitacional,m2,True,304034.0,46.28857393848875,m2,superficie,total
+2019,02,Antofagasta,superficie_no_habitacional,m2,True,270319.0,41.155532007862085,m2,superficie,total
+2020,02,Antofagasta,superficie_no_habitacional,m2,True,189673.0,28.87733833924817,m2,superficie,total
+2021,02,Antofagasta,superficie_no_habitacional,m2,True,268568.0,40.88894572814898,m2,superficie,total
+2022,02,Antofagasta,superficie_no_habitacional,m2,True,164143.0,24.990446436863508,m2,superficie,total
+2023,02,Antofagasta,superficie_no_habitacional,m2,True,166691.0,25.378374387011416,m2,superficie,total
+2024,02,Antofagasta,superficie_no_habitacional,m2,True,217798.0,33.159313848631975,m2,superficie,total
+2025,02,Antofagasta,superficie_no_habitacional,m2,True,345794.0,52.646451174821834,m2,superficie,total
+2014,03,Atacama,superficie_no_habitacional,m2,True,201256.0,100.0,m2,superficie,total
+2015,03,Atacama,superficie_no_habitacional,m2,True,76976.0,38.247803792185074,m2,superficie,total
+2016,03,Atacama,superficie_no_habitacional,m2,True,89308.0,44.37532297173749,m2,superficie,total
+2017,03,Atacama,superficie_no_habitacional,m2,True,88912.0,44.17855865166753,m2,superficie,total
+2018,03,Atacama,superficie_no_habitacional,m2,True,120595.0,59.92119489605279,m2,superficie,total
+2019,03,Atacama,superficie_no_habitacional,m2,True,121845.0,60.542294391223116,m2,superficie,total
+2020,03,Atacama,superficie_no_habitacional,m2,True,51298.0,25.488929522598085,m2,superficie,total
+2021,03,Atacama,superficie_no_habitacional,m2,True,88230.0,43.8396867671026,m2,superficie,total
+2022,03,Atacama,superficie_no_habitacional,m2,True,71248.0,35.401677465516556,m2,superficie,total
+2023,03,Atacama,superficie_no_habitacional,m2,True,56825.0,28.235183050443215,m2,superficie,total
+2024,03,Atacama,superficie_no_habitacional,m2,True,63484.0,31.5439042811146,m2,superficie,total
+2025,03,Atacama,superficie_no_habitacional,m2,True,54538.0,27.098819414079582,m2,superficie,total
+2014,04,Coquimbo,superficie_no_habitacional,m2,True,373123.0,100.0,m2,superficie,total
+2015,04,Coquimbo,superficie_no_habitacional,m2,True,222139.0,59.53505948440595,m2,superficie,total
+2016,04,Coquimbo,superficie_no_habitacional,m2,True,208704.0,55.934370167478285,m2,superficie,total
+2017,04,Coquimbo,superficie_no_habitacional,m2,True,201713.0,54.06072528361961,m2,superficie,total
+2018,04,Coquimbo,superficie_no_habitacional,m2,True,263174.0,70.53277337499966,m2,superficie,total
+2019,04,Coquimbo,superficie_no_habitacional,m2,True,306086.0,82.03353853823002,m2,superficie,total
+2020,04,Coquimbo,superficie_no_habitacional,m2,True,117147.0,31.396349193161505,m2,superficie,total
+2021,04,Coquimbo,superficie_no_habitacional,m2,True,143883.0,38.5618147366954,m2,superficie,total
+2022,04,Coquimbo,superficie_no_habitacional,m2,True,85926.0,23.028867156406868,m2,superficie,total
+2023,04,Coquimbo,superficie_no_habitacional,m2,True,91029.0,24.396512678124907,m2,superficie,total
+2024,04,Coquimbo,superficie_no_habitacional,m2,True,278737.0,74.70378400688244,m2,superficie,total
+2025,04,Coquimbo,superficie_no_habitacional,m2,True,136235.0,36.51208850700707,m2,superficie,total
+2014,05,Valparaíso,superficie_no_habitacional,m2,True,587764.0,100.0,m2,superficie,total
+2015,05,Valparaíso,superficie_no_habitacional,m2,True,562090.0,95.63192029453998,m2,superficie,total
+2016,05,Valparaíso,superficie_no_habitacional,m2,True,619789.0,105.44861543068306,m2,superficie,total
+2017,05,Valparaíso,superficie_no_habitacional,m2,True,605115.0,102.95203517057867,m2,superficie,total
+2018,05,Valparaíso,superficie_no_habitacional,m2,True,495460.0,84.29573774508135,m2,superficie,total
+2019,05,Valparaíso,superficie_no_habitacional,m2,True,327135.0,55.65754282331004,m2,superficie,total
+2020,05,Valparaíso,superficie_no_habitacional,m2,True,394777.0,67.16590332174138,m2,superficie,total
+2021,05,Valparaíso,superficie_no_habitacional,m2,True,278676.0,47.41290722126568,m2,superficie,total
+2022,05,Valparaíso,superficie_no_habitacional,m2,True,246834.0,41.99542673590081,m2,superficie,total
+2023,05,Valparaíso,superficie_no_habitacional,m2,True,149554.0,25.444566186428567,m2,superficie,total
+2024,05,Valparaíso,superficie_no_habitacional,m2,True,252533.0,42.96503358490823,m2,superficie,total
+2025,05,Valparaíso,superficie_no_habitacional,m2,True,319847.0,54.417589372605335,m2,superficie,total
+2014,06,O'Higgins,superficie_no_habitacional,m2,True,392123.0,100.0,m2,superficie,total
+2015,06,O'Higgins,superficie_no_habitacional,m2,True,318271.0,81.16611369391747,m2,superficie,total
+2016,06,O'Higgins,superficie_no_habitacional,m2,True,313737.0,80.00984385001645,m2,superficie,total
+2017,06,O'Higgins,superficie_no_habitacional,m2,True,450221.0,114.81626938486139,m2,superficie,total
+2018,06,O'Higgins,superficie_no_habitacional,m2,True,340517.0,86.83933357645432,m2,superficie,total
+2019,06,O'Higgins,superficie_no_habitacional,m2,True,294705.0,75.1562647434606,m2,superficie,total
+2020,06,O'Higgins,superficie_no_habitacional,m2,True,473424.0,120.73354534164025,m2,superficie,total
+2021,06,O'Higgins,superficie_no_habitacional,m2,True,185997.0,47.433330868120464,m2,superficie,total
+2022,06,O'Higgins,superficie_no_habitacional,m2,True,315706.0,80.5119822096638,m2,superficie,total
+2023,06,O'Higgins,superficie_no_habitacional,m2,True,175225.0,44.68623365627622,m2,superficie,total
+2024,06,O'Higgins,superficie_no_habitacional,m2,True,215963.0,55.0753207539471,m2,superficie,total
+2025,06,O'Higgins,superficie_no_habitacional,m2,True,278023.0,70.90198738661083,m2,superficie,total
+2014,07,Maule,superficie_no_habitacional,m2,True,392421.0,100.0,m2,superficie,total
+2015,07,Maule,superficie_no_habitacional,m2,True,380652.0,97.0009250269481,m2,superficie,total
+2016,07,Maule,superficie_no_habitacional,m2,True,569496.0,145.12373191037176,m2,superficie,total
+2017,07,Maule,superficie_no_habitacional,m2,True,481355.0,122.66290540006779,m2,superficie,total
+2018,07,Maule,superficie_no_habitacional,m2,True,432047.0,110.09782860754139,m2,superficie,total
+2019,07,Maule,superficie_no_habitacional,m2,True,481262.0,122.6392063625545,m2,superficie,total
+2020,07,Maule,superficie_no_habitacional,m2,True,190695.0,48.594494178446105,m2,superficie,total
+2021,07,Maule,superficie_no_habitacional,m2,True,169318.0,43.14702831907569,m2,superficie,total
+2022,07,Maule,superficie_no_habitacional,m2,True,270522.0,68.93667770073468,m2,superficie,total
+2023,07,Maule,superficie_no_habitacional,m2,True,268730.0,68.48002527897334,m2,superficie,total
+2024,07,Maule,superficie_no_habitacional,m2,True,318248.0,81.0986160271749,m2,superficie,total
+2025,07,Maule,superficie_no_habitacional,m2,True,321661.0,81.96834522107635,m2,superficie,total
+2014,08,Biobío,superficie_no_habitacional,m2,True,800725.0,100.0,m2,superficie,total
+2015,08,Biobío,superficie_no_habitacional,m2,True,636895.0,79.5397920634425,m2,superficie,total
+2016,08,Biobío,superficie_no_habitacional,m2,True,876696.0,109.48777670236348,m2,superficie,total
+2017,08,Biobío,superficie_no_habitacional,m2,True,537577.0,67.13628274376346,m2,superficie,total
+2018,08,Biobío,superficie_no_habitacional,m2,True,442671.0,55.28377407974023,m2,superficie,total
+2019,08,Biobío,superficie_no_habitacional,m2,True,435303.0,54.36360798026788,m2,superficie,total
+2020,08,Biobío,superficie_no_habitacional,m2,True,208899.0,26.088732086546568,m2,superficie,total
+2021,08,Biobío,superficie_no_habitacional,m2,True,301510.0,37.654625495644574,m2,superficie,total
+2022,08,Biobío,superficie_no_habitacional,m2,True,237984.0,29.721065284585844,m2,superficie,total
+2023,08,Biobío,superficie_no_habitacional,m2,True,227307.0,28.38764869337163,m2,superficie,total
+2024,08,Biobío,superficie_no_habitacional,m2,True,332944.0,41.580317836960255,m2,superficie,total
+2025,08,Biobío,superficie_no_habitacional,m2,True,494997.0,61.818601892035346,m2,superficie,total
+2014,09,La Araucanía,superficie_no_habitacional,m2,True,238058.0,100.0,m2,superficie,total
+2015,09,La Araucanía,superficie_no_habitacional,m2,True,268577.0,112.81998504566114,m2,superficie,total
+2016,09,La Araucanía,superficie_no_habitacional,m2,True,324088.0,136.13825202261634,m2,superficie,total
+2017,09,La Araucanía,superficie_no_habitacional,m2,True,344026.0,144.5135219148275,m2,superficie,total
+2018,09,La Araucanía,superficie_no_habitacional,m2,True,340216.0,142.91307160439894,m2,superficie,total
+2019,09,La Araucanía,superficie_no_habitacional,m2,True,330418.0,138.79726789269841,m2,superficie,total
+2020,09,La Araucanía,superficie_no_habitacional,m2,True,235460.0,98.908669315881,m2,superficie,total
+2021,09,La Araucanía,superficie_no_habitacional,m2,True,158448.0,66.55856976031052,m2,superficie,total
+2022,09,La Araucanía,superficie_no_habitacional,m2,True,152354.0,63.99868939502138,m2,superficie,total
+2023,09,La Araucanía,superficie_no_habitacional,m2,True,191747.0,80.54633744717674,m2,superficie,total
+2024,09,La Araucanía,superficie_no_habitacional,m2,True,170638.0,71.67917062228533,m2,superficie,total
+2025,09,La Araucanía,superficie_no_habitacional,m2,True,200981.0,84.42522410505003,m2,superficie,total
+2014,10,Los Lagos,superficie_no_habitacional,m2,True,375206.0,100.0,m2,superficie,total
+2015,10,Los Lagos,superficie_no_habitacional,m2,True,303022.0,80.76150168174283,m2,superficie,total
+2016,10,Los Lagos,superficie_no_habitacional,m2,True,290120.0,77.32285731038417,m2,superficie,total
+2017,10,Los Lagos,superficie_no_habitacional,m2,True,284667.0,75.86952234239324,m2,superficie,total
+2018,10,Los Lagos,superficie_no_habitacional,m2,True,316851.0,84.44721033245737,m2,superficie,total
+2019,10,Los Lagos,superficie_no_habitacional,m2,True,341585.0,91.03932239889554,m2,superficie,total
+2020,10,Los Lagos,superficie_no_habitacional,m2,True,193442.0,51.55621178765798,m2,superficie,total
+2021,10,Los Lagos,superficie_no_habitacional,m2,True,129490.0,34.51170823494294,m2,superficie,total
+2022,10,Los Lagos,superficie_no_habitacional,m2,True,134504.0,35.84804080958194,m2,superficie,total
+2023,10,Los Lagos,superficie_no_habitacional,m2,True,163288.0,43.519559921749654,m2,superficie,total
+2024,10,Los Lagos,superficie_no_habitacional,m2,True,210256.0,56.037483409113925,m2,superficie,total
+2025,10,Los Lagos,superficie_no_habitacional,m2,True,262311.0,69.91119544996616,m2,superficie,total
+2014,11,Aysén,superficie_no_habitacional,m2,True,37403.0,100.0,m2,superficie,total
+2015,11,Aysén,superficie_no_habitacional,m2,True,44600.0,119.24177205037029,m2,superficie,total
+2016,11,Aysén,superficie_no_habitacional,m2,True,36331.0,97.13391973905837,m2,superficie,total
+2017,11,Aysén,superficie_no_habitacional,m2,True,34575.0,92.43910916236665,m2,superficie,total
+2018,11,Aysén,superficie_no_habitacional,m2,True,34468.0,92.15303585273908,m2,superficie,total
+2019,11,Aysén,superficie_no_habitacional,m2,True,28380.0,75.87626660963025,m2,superficie,total
+2020,11,Aysén,superficie_no_habitacional,m2,True,19440.0,51.97444055289682,m2,superficie,total
+2021,11,Aysén,superficie_no_habitacional,m2,True,31901.0,85.28995000401038,m2,superficie,total
+2022,11,Aysén,superficie_no_habitacional,m2,True,39339.0,105.17605539662594,m2,superficie,total
+2023,11,Aysén,superficie_no_habitacional,m2,True,60609.0,162.0431516188541,m2,superficie,total
+2024,11,Aysén,superficie_no_habitacional,m2,True,23045.0,61.612704863246265,m2,superficie,total
+2025,11,Aysén,superficie_no_habitacional,m2,True,28708.0,76.75320161484373,m2,superficie,total
+2014,12,Magallanes,superficie_no_habitacional,m2,True,81501.0,100.0,m2,superficie,total
+2015,12,Magallanes,superficie_no_habitacional,m2,True,71108.0,87.24800922688065,m2,superficie,total
+2016,12,Magallanes,superficie_no_habitacional,m2,True,46410.0,56.94408657562484,m2,superficie,total
+2017,12,Magallanes,superficie_no_habitacional,m2,True,100033.0,122.7383713083275,m2,superficie,total
+2018,12,Magallanes,superficie_no_habitacional,m2,True,89262.0,109.52258254499945,m2,superficie,total
+2019,12,Magallanes,superficie_no_habitacional,m2,True,108466.0,133.085483613698,m2,superficie,total
+2020,12,Magallanes,superficie_no_habitacional,m2,True,24940.0,30.600851523294192,m2,superficie,total
+2021,12,Magallanes,superficie_no_habitacional,m2,True,37571.0,46.098820873363515,m2,superficie,total
+2022,12,Magallanes,superficie_no_habitacional,m2,True,42032.0,51.57237334511233,m2,superficie,total
+2023,12,Magallanes,superficie_no_habitacional,m2,True,25824.0,31.68550079140133,m2,superficie,total
+2024,12,Magallanes,superficie_no_habitacional,m2,True,41233.0,50.59201727586164,m2,superficie,total
+2025,12,Magallanes,superficie_no_habitacional,m2,True,23852.0,29.26589857793156,m2,superficie,total
+2014,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,3598558.0,100.0,m2,superficie,total
+2015,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,3091605.0,85.91232932746951,m2,superficie,total
+2016,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2683347.0,74.56728500693889,m2,superficie,total
+2017,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2262405.0,62.869766167448184,m2,superficie,total
+2018,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2082570.0,57.872347757073804,m2,superficie,total
+2019,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2286785.0,63.547259763494154,m2,superficie,total
+2020,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1813627.0,50.3987152631693,m2,superficie,total
+2021,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1985414.0,55.17248853568568,m2,superficie,total
+2022,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,2130321.0,59.19929594020716,m2,superficie,total
+2023,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1508863.0,41.92965626787174,m2,superficie,total
+2024,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1417144.0,39.38088534351815,m2,superficie,total
+2025,13,Metropolitana de Santiago,superficie_no_habitacional,m2,True,1505541.0,41.837341512906,m2,superficie,total
+2014,14,Los Ríos,superficie_no_habitacional,m2,True,226822.0,100.0,m2,superficie,total
+2015,14,Los Ríos,superficie_no_habitacional,m2,True,112943.0,49.79367080794632,m2,superficie,total
+2016,14,Los Ríos,superficie_no_habitacional,m2,True,122070.0,53.81753092733509,m2,superficie,total
+2017,14,Los Ríos,superficie_no_habitacional,m2,True,120088.0,52.94371798150091,m2,superficie,total
+2018,14,Los Ríos,superficie_no_habitacional,m2,True,159649.0,70.38514782516687,m2,superficie,total
+2019,14,Los Ríos,superficie_no_habitacional,m2,True,138716.0,61.156325224184606,m2,superficie,total
+2020,14,Los Ríos,superficie_no_habitacional,m2,True,55781.0,24.59241167082558,m2,superficie,total
+2021,14,Los Ríos,superficie_no_habitacional,m2,True,62975.0,27.764061687137932,m2,superficie,total
+2022,14,Los Ríos,superficie_no_habitacional,m2,True,97583.0,43.021840914902434,m2,superficie,total
+2023,14,Los Ríos,superficie_no_habitacional,m2,True,83746.0,36.921462644717,m2,superficie,total
+2024,14,Los Ríos,superficie_no_habitacional,m2,True,119999.0,52.904480165063354,m2,superficie,total
+2025,14,Los Ríos,superficie_no_habitacional,m2,True,155998.0,68.77551560254297,m2,superficie,total
+2014,15,Arica y Parinacota,superficie_no_habitacional,m2,True,91788.0,100.0,m2,superficie,total
+2015,15,Arica y Parinacota,superficie_no_habitacional,m2,True,89659.0,97.68052468732296,m2,superficie,total
+2016,15,Arica y Parinacota,superficie_no_habitacional,m2,True,73948.0,80.5639081361398,m2,superficie,total
+2017,15,Arica y Parinacota,superficie_no_habitacional,m2,True,28605.0,31.164204471172702,m2,superficie,total
+2018,15,Arica y Parinacota,superficie_no_habitacional,m2,True,121629.0,132.510785723624,m2,superficie,total
+2019,15,Arica y Parinacota,superficie_no_habitacional,m2,True,40612.0,44.24543513313287,m2,superficie,total
+2020,15,Arica y Parinacota,superficie_no_habitacional,m2,True,27092.0,29.51584085065586,m2,superficie,total
+2021,15,Arica y Parinacota,superficie_no_habitacional,m2,True,56816.0,61.899158931450735,m2,superficie,total
+2022,15,Arica y Parinacota,superficie_no_habitacional,m2,True,51235.0,55.81884342179806,m2,superficie,total
+2023,15,Arica y Parinacota,superficie_no_habitacional,m2,True,25627.0,27.91977164770994,m2,superficie,total
+2024,15,Arica y Parinacota,superficie_no_habitacional,m2,True,47084.0,51.29646576894583,m2,superficie,total
+2025,15,Arica y Parinacota,superficie_no_habitacional,m2,True,20912.0,22.782934588399353,m2,superficie,total
+2018,16,Ñuble,superficie_no_habitacional,m2,True,32257.0,,m2,superficie,total
+2019,16,Ñuble,superficie_no_habitacional,m2,True,292439.0,,m2,superficie,total
+2020,16,Ñuble,superficie_no_habitacional,m2,True,129037.0,,m2,superficie,total
+2021,16,Ñuble,superficie_no_habitacional,m2,True,116795.0,,m2,superficie,total
+2022,16,Ñuble,superficie_no_habitacional,m2,True,69335.0,,m2,superficie,total
+2023,16,Ñuble,superficie_no_habitacional,m2,True,78381.0,,m2,superficie,total
+2024,16,Ñuble,superficie_no_habitacional,m2,True,118608.0,,m2,superficie,total
+2025,16,Ñuble,superficie_no_habitacional,m2,True,195662.0,,m2,superficie,total
+2014,01,Tarapacá,viviendas_autorizadas,unidades,True,2762.0,100.0,unidades,conteo,total
+2015,01,Tarapacá,viviendas_autorizadas,unidades,True,4021.0,145.5829109341057,unidades,conteo,total
+2016,01,Tarapacá,viviendas_autorizadas,unidades,True,3333.0,120.67342505430847,unidades,conteo,total
+2017,01,Tarapacá,viviendas_autorizadas,unidades,True,1768.0,64.01158580738596,unidades,conteo,total
+2018,01,Tarapacá,viviendas_autorizadas,unidades,True,2124.0,76.90079652425779,unidades,conteo,total
+2019,01,Tarapacá,viviendas_autorizadas,unidades,True,1502.0,54.38088341781318,unidades,conteo,total
+2020,01,Tarapacá,viviendas_autorizadas,unidades,True,3476.0,125.85083272990586,unidades,conteo,total
+2021,01,Tarapacá,viviendas_autorizadas,unidades,True,3105.0,112.41853729181753,unidades,conteo,total
+2022,01,Tarapacá,viviendas_autorizadas,unidades,True,1965.0,71.14409847936278,unidades,conteo,total
+2023,01,Tarapacá,viviendas_autorizadas,unidades,True,1924.0,69.65966690803765,unidades,conteo,total
+2024,01,Tarapacá,viviendas_autorizadas,unidades,True,2769.0,100.25343953656771,unidades,conteo,total
+2025,01,Tarapacá,viviendas_autorizadas,unidades,True,1850.0,66.9804489500362,unidades,conteo,total
+2014,02,Antofagasta,viviendas_autorizadas,unidades,True,5985.0,100.0,unidades,conteo,total
+2015,02,Antofagasta,viviendas_autorizadas,unidades,True,4091.0,68.35421888053467,unidades,conteo,total
+2016,02,Antofagasta,viviendas_autorizadas,unidades,True,2331.0,38.94736842105263,unidades,conteo,total
+2017,02,Antofagasta,viviendas_autorizadas,unidades,True,3058.0,51.09440267335004,unidades,conteo,total
+2018,02,Antofagasta,viviendas_autorizadas,unidades,True,3228.0,53.93483709273183,unidades,conteo,total
+2019,02,Antofagasta,viviendas_autorizadas,unidades,True,6339.0,105.91478696741855,unidades,conteo,total
+2020,02,Antofagasta,viviendas_autorizadas,unidades,True,2230.0,37.25981620718463,unidades,conteo,total
+2021,02,Antofagasta,viviendas_autorizadas,unidades,True,5914.0,98.81370091896407,unidades,conteo,total
+2022,02,Antofagasta,viviendas_autorizadas,unidades,True,4306.0,71.94653299916457,unidades,conteo,total
+2023,02,Antofagasta,viviendas_autorizadas,unidades,True,2810.0,46.950710108604845,unidades,conteo,total
+2024,02,Antofagasta,viviendas_autorizadas,unidades,True,2669.0,44.59482038429407,unidades,conteo,total
+2025,02,Antofagasta,viviendas_autorizadas,unidades,True,2368.0,39.565580618212195,unidades,conteo,total
+2014,03,Atacama,viviendas_autorizadas,unidades,True,1738.0,100.0,unidades,conteo,total
+2015,03,Atacama,viviendas_autorizadas,unidades,True,3044.0,175.14384349827387,unidades,conteo,total
+2016,03,Atacama,viviendas_autorizadas,unidades,True,1033.0,59.4361334867664,unidades,conteo,total
+2017,03,Atacama,viviendas_autorizadas,unidades,True,2571.0,147.92865362485617,unidades,conteo,total
+2018,03,Atacama,viviendas_autorizadas,unidades,True,1793.0,103.16455696202532,unidades,conteo,total
+2019,03,Atacama,viviendas_autorizadas,unidades,True,1443.0,83.02646720368239,unidades,conteo,total
+2020,03,Atacama,viviendas_autorizadas,unidades,True,1785.0,102.70425776754891,unidades,conteo,total
+2021,03,Atacama,viviendas_autorizadas,unidades,True,2462.0,141.6570771001151,unidades,conteo,total
+2022,03,Atacama,viviendas_autorizadas,unidades,True,1857.0,106.84695051783659,unidades,conteo,total
+2023,03,Atacama,viviendas_autorizadas,unidades,True,1520.0,87.45684695051784,unidades,conteo,total
+2024,03,Atacama,viviendas_autorizadas,unidades,True,2549.0,146.66283084004604,unidades,conteo,total
+2025,03,Atacama,viviendas_autorizadas,unidades,True,983.0,56.55926352128884,unidades,conteo,total
+2014,04,Coquimbo,viviendas_autorizadas,unidades,True,8957.0,100.0,unidades,conteo,total
+2015,04,Coquimbo,viviendas_autorizadas,unidades,True,9421.0,105.18030590599531,unidades,conteo,total
+2016,04,Coquimbo,viviendas_autorizadas,unidades,True,7236.0,80.78597744780619,unidades,conteo,total
+2017,04,Coquimbo,viviendas_autorizadas,unidades,True,9367.0,104.57742547728034,unidades,conteo,total
+2018,04,Coquimbo,viviendas_autorizadas,unidades,True,7579.0,84.61538461538461,unidades,conteo,total
+2019,04,Coquimbo,viviendas_autorizadas,unidades,True,9446.0,105.45941721558557,unidades,conteo,total
+2020,04,Coquimbo,viviendas_autorizadas,unidades,True,6609.0,73.78586580328235,unidades,conteo,total
+2021,04,Coquimbo,viviendas_autorizadas,unidades,True,7673.0,85.66484313944402,unidades,conteo,total
+2022,04,Coquimbo,viviendas_autorizadas,unidades,True,7210.0,80.49570168583232,unidades,conteo,total
+2023,04,Coquimbo,viviendas_autorizadas,unidades,True,6565.0,73.29462989840349,unidades,conteo,total
+2024,04,Coquimbo,viviendas_autorizadas,unidades,True,5824.0,65.02177068214804,unidades,conteo,total
+2025,04,Coquimbo,viviendas_autorizadas,unidades,True,3835.0,42.81567489114659,unidades,conteo,total
+2014,05,Valparaíso,viviendas_autorizadas,unidades,True,16647.0,100.0,unidades,conteo,total
+2015,05,Valparaíso,viviendas_autorizadas,unidades,True,24280.0,145.85210548447168,unidades,conteo,total
+2016,05,Valparaíso,viviendas_autorizadas,unidades,True,16209.0,97.36889529644981,unidades,conteo,total
+2017,05,Valparaíso,viviendas_autorizadas,unidades,True,17617.0,105.82687571334175,unidades,conteo,total
+2018,05,Valparaíso,viviendas_autorizadas,unidades,True,22070.0,132.57644019943532,unidades,conteo,total
+2019,05,Valparaíso,viviendas_autorizadas,unidades,True,16023.0,96.25157686069562,unidades,conteo,total
+2020,05,Valparaíso,viviendas_autorizadas,unidades,True,13541.0,81.34198354057789,unidades,conteo,total
+2021,05,Valparaíso,viviendas_autorizadas,unidades,True,11815.0,70.97374902384814,unidades,conteo,total
+2022,05,Valparaíso,viviendas_autorizadas,unidades,True,8816.0,52.95849101940289,unidades,conteo,total
+2023,05,Valparaíso,viviendas_autorizadas,unidades,True,8202.0,49.270138763741215,unidades,conteo,total
+2024,05,Valparaíso,viviendas_autorizadas,unidades,True,9096.0,54.64047576139845,unidades,conteo,total
+2025,05,Valparaíso,viviendas_autorizadas,unidades,True,8068.0,48.46518892292906,unidades,conteo,total
+2014,06,O'Higgins,viviendas_autorizadas,unidades,True,8991.0,100.0,unidades,conteo,total
+2015,06,O'Higgins,viviendas_autorizadas,unidades,True,10098.0,112.31231231231232,unidades,conteo,total
+2016,06,O'Higgins,viviendas_autorizadas,unidades,True,5779.0,64.27538649760872,unidades,conteo,total
+2017,06,O'Higgins,viviendas_autorizadas,unidades,True,8800.0,97.87565343120899,unidades,conteo,total
+2018,06,O'Higgins,viviendas_autorizadas,unidades,True,7213.0,80.22466911355801,unidades,conteo,total
+2019,06,O'Higgins,viviendas_autorizadas,unidades,True,8414.0,93.58247136024914,unidades,conteo,total
+2020,06,O'Higgins,viviendas_autorizadas,unidades,True,5901.0,65.6322989656323,unidades,conteo,total
+2021,06,O'Higgins,viviendas_autorizadas,unidades,True,7187.0,79.93549104660215,unidades,conteo,total
+2022,06,O'Higgins,viviendas_autorizadas,unidades,True,5787.0,64.36436436436436,unidades,conteo,total
+2023,06,O'Higgins,viviendas_autorizadas,unidades,True,5419.0,60.27138249360472,unidades,conteo,total
+2024,06,O'Higgins,viviendas_autorizadas,unidades,True,6156.0,68.46846846846847,unidades,conteo,total
+2025,06,O'Higgins,viviendas_autorizadas,unidades,True,6465.0,71.90523857190524,unidades,conteo,total
+2014,07,Maule,viviendas_autorizadas,unidades,True,13066.0,100.0,unidades,conteo,total
+2015,07,Maule,viviendas_autorizadas,unidades,True,12605.0,96.4717587632022,unidades,conteo,total
+2016,07,Maule,viviendas_autorizadas,unidades,True,9518.0,72.8455533445584,unidades,conteo,total
+2017,07,Maule,viviendas_autorizadas,unidades,True,10217.0,78.19531608755548,unidades,conteo,total
+2018,07,Maule,viviendas_autorizadas,unidades,True,14888.0,113.94458900964335,unidades,conteo,total
+2019,07,Maule,viviendas_autorizadas,unidades,True,14716.0,112.62819531608756,unidades,conteo,total
+2020,07,Maule,viviendas_autorizadas,unidades,True,11239.0,86.01714373182305,unidades,conteo,total
+2021,07,Maule,viviendas_autorizadas,unidades,True,8459.0,64.74054798714221,unidades,conteo,total
+2022,07,Maule,viviendas_autorizadas,unidades,True,8332.0,63.76855962038879,unidades,conteo,total
+2023,07,Maule,viviendas_autorizadas,unidades,True,9647.0,73.83284861472524,unidades,conteo,total
+2024,07,Maule,viviendas_autorizadas,unidades,True,8020.0,61.38068268789224,unidades,conteo,total
+2025,07,Maule,viviendas_autorizadas,unidades,True,7668.0,58.68666768712689,unidades,conteo,total
+2014,08,Biobío,viviendas_autorizadas,unidades,True,24803.0,100.0,unidades,conteo,total
+2015,08,Biobío,viviendas_autorizadas,unidades,True,27365.0,110.32939563762449,unidades,conteo,total
+2016,08,Biobío,viviendas_autorizadas,unidades,True,19042.0,76.77297101157119,unidades,conteo,total
+2017,08,Biobío,viviendas_autorizadas,unidades,True,23159.0,93.37176954400677,unidades,conteo,total
+2018,08,Biobío,viviendas_autorizadas,unidades,True,23354.0,94.15796476232714,unidades,conteo,total
+2019,08,Biobío,viviendas_autorizadas,unidades,True,17800.0,71.765512236423,unidades,conteo,total
+2020,08,Biobío,viviendas_autorizadas,unidades,True,13197.0,53.20727331371205,unidades,conteo,total
+2021,08,Biobío,viviendas_autorizadas,unidades,True,14106.0,56.87215256219006,unidades,conteo,total
+2022,08,Biobío,viviendas_autorizadas,unidades,True,15660.0,63.13752368665081,unidades,conteo,total
+2023,08,Biobío,viviendas_autorizadas,unidades,True,9307.0,37.52368665080837,unidades,conteo,total
+2024,08,Biobío,viviendas_autorizadas,unidades,True,10165.0,40.982945611417975,unidades,conteo,total
+2025,08,Biobío,viviendas_autorizadas,unidades,True,6591.0,26.57339837922832,unidades,conteo,total
+2014,09,La Araucanía,viviendas_autorizadas,unidades,True,10401.0,100.0,unidades,conteo,total
+2015,09,La Araucanía,viviendas_autorizadas,unidades,True,13667.0,131.40082684357273,unidades,conteo,total
+2016,09,La Araucanía,viviendas_autorizadas,unidades,True,8890.0,85.47255071627728,unidades,conteo,total
+2017,09,La Araucanía,viviendas_autorizadas,unidades,True,14034.0,134.92933371791173,unidades,conteo,total
+2018,09,La Araucanía,viviendas_autorizadas,unidades,True,16710.0,160.6576290741275,unidades,conteo,total
+2019,09,La Araucanía,viviendas_autorizadas,unidades,True,15925.0,153.11027785789827,unidades,conteo,total
+2020,09,La Araucanía,viviendas_autorizadas,unidades,True,9970.0,95.85616767618498,unidades,conteo,total
+2021,09,La Araucanía,viviendas_autorizadas,unidades,True,9995.0,96.09652917988655,unidades,conteo,total
+2022,09,La Araucanía,viviendas_autorizadas,unidades,True,7896.0,75.91577732910297,unidades,conteo,total
+2023,09,La Araucanía,viviendas_autorizadas,unidades,True,10775.0,103.59580809537545,unidades,conteo,total
+2024,09,La Araucanía,viviendas_autorizadas,unidades,True,6219.0,59.792327660801845,unidades,conteo,total
+2025,09,La Araucanía,viviendas_autorizadas,unidades,True,8681.0,83.46312854533218,unidades,conteo,total
+2014,10,Los Lagos,viviendas_autorizadas,unidades,True,6884.0,100.0,unidades,conteo,total
+2015,10,Los Lagos,viviendas_autorizadas,unidades,True,7712.0,112.02789076118536,unidades,conteo,total
+2016,10,Los Lagos,viviendas_autorizadas,unidades,True,5411.0,78.60255665310866,unidades,conteo,total
+2017,10,Los Lagos,viviendas_autorizadas,unidades,True,7935.0,115.26728646135967,unidades,conteo,total
+2018,10,Los Lagos,viviendas_autorizadas,unidades,True,7947.0,115.44160371876816,unidades,conteo,total
+2019,10,Los Lagos,viviendas_autorizadas,unidades,True,9276.0,134.7472399767577,unidades,conteo,total
+2020,10,Los Lagos,viviendas_autorizadas,unidades,True,4168.0,60.54619407321325,unidades,conteo,total
+2021,10,Los Lagos,viviendas_autorizadas,unidades,True,6286.0,91.31319000581057,unidades,conteo,total
+2022,10,Los Lagos,viviendas_autorizadas,unidades,True,3665.0,53.23939570017432,unidades,conteo,total
+2023,10,Los Lagos,viviendas_autorizadas,unidades,True,7390.0,107.35037768739105,unidades,conteo,total
+2024,10,Los Lagos,viviendas_autorizadas,unidades,True,6976.0,101.33643230679837,unidades,conteo,total
+2025,10,Los Lagos,viviendas_autorizadas,unidades,True,6374.0,92.59151656013945,unidades,conteo,total
+2014,11,Aysén,viviendas_autorizadas,unidades,True,1047.0,100.0,unidades,conteo,total
+2015,11,Aysén,viviendas_autorizadas,unidades,True,697.0,66.57115568290354,unidades,conteo,total
+2016,11,Aysén,viviendas_autorizadas,unidades,True,895.0,85.48233046800382,unidades,conteo,total
+2017,11,Aysén,viviendas_autorizadas,unidades,True,1021.0,97.51671442215854,unidades,conteo,total
+2018,11,Aysén,viviendas_autorizadas,unidades,True,777.0,74.21203438395415,unidades,conteo,total
+2019,11,Aysén,viviendas_autorizadas,unidades,True,724.0,69.14995224450811,unidades,conteo,total
+2020,11,Aysén,viviendas_autorizadas,unidades,True,881.0,84.14517669531996,unidades,conteo,total
+2021,11,Aysén,viviendas_autorizadas,unidades,True,350.0,33.42884431709646,unidades,conteo,total
+2022,11,Aysén,viviendas_autorizadas,unidades,True,741.0,70.77363896848138,unidades,conteo,total
+2023,11,Aysén,viviendas_autorizadas,unidades,True,472.0,45.08118433619866,unidades,conteo,total
+2024,11,Aysén,viviendas_autorizadas,unidades,True,1322.0,126.26552053486151,unidades,conteo,total
+2025,11,Aysén,viviendas_autorizadas,unidades,True,904.0,86.34192932187202,unidades,conteo,total
+2014,12,Magallanes,viviendas_autorizadas,unidades,True,1300.0,100.0,unidades,conteo,total
+2015,12,Magallanes,viviendas_autorizadas,unidades,True,1043.0,80.23076923076923,unidades,conteo,total
+2016,12,Magallanes,viviendas_autorizadas,unidades,True,1139.0,87.61538461538461,unidades,conteo,total
+2017,12,Magallanes,viviendas_autorizadas,unidades,True,1513.0,116.38461538461539,unidades,conteo,total
+2018,12,Magallanes,viviendas_autorizadas,unidades,True,2368.0,182.15384615384616,unidades,conteo,total
+2019,12,Magallanes,viviendas_autorizadas,unidades,True,1373.0,105.61538461538461,unidades,conteo,total
+2020,12,Magallanes,viviendas_autorizadas,unidades,True,623.0,47.92307692307692,unidades,conteo,total
+2021,12,Magallanes,viviendas_autorizadas,unidades,True,927.0,71.3076923076923,unidades,conteo,total
+2022,12,Magallanes,viviendas_autorizadas,unidades,True,803.0,61.76923076923077,unidades,conteo,total
+2023,12,Magallanes,viviendas_autorizadas,unidades,True,540.0,41.53846153846154,unidades,conteo,total
+2024,12,Magallanes,viviendas_autorizadas,unidades,True,838.0,64.46153846153847,unidades,conteo,total
+2025,12,Magallanes,viviendas_autorizadas,unidades,True,518.0,39.84615384615385,unidades,conteo,total
+2014,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,69218.0,100.0,unidades,conteo,total
+2015,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,80163.0,115.81236094657459,unidades,conteo,total
+2016,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,63868.0,92.27079661359762,unidades,conteo,total
+2017,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,53339.0,77.05943540697507,unidades,conteo,total
+2018,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,64909.0,93.77474067439105,unidades,conteo,total
+2019,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,74696.0,107.9141263833107,unidades,conteo,total
+2020,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,56340.0,81.39501285792713,unidades,conteo,total
+2021,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,74429.0,107.52838856944726,unidades,conteo,total
+2022,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,56857.0,82.14192840012713,unidades,conteo,total
+2023,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,32268.0,46.61793175185645,unidades,conteo,total
+2024,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,28935.0,41.80271027767344,unidades,conteo,total
+2025,13,Metropolitana de Santiago,viviendas_autorizadas,unidades,True,25154.0,36.340258314311306,unidades,conteo,total
+2014,14,Los Ríos,viviendas_autorizadas,unidades,True,2817.0,100.0,unidades,conteo,total
+2015,14,Los Ríos,viviendas_autorizadas,unidades,True,3545.0,125.84309549165779,unidades,conteo,total
+2016,14,Los Ríos,viviendas_autorizadas,unidades,True,3226.0,114.51899183528576,unidades,conteo,total
+2017,14,Los Ríos,viviendas_autorizadas,unidades,True,4325.0,153.53212637557687,unidades,conteo,total
+2018,14,Los Ríos,viviendas_autorizadas,unidades,True,5887.0,208.98118565850194,unidades,conteo,total
+2019,14,Los Ríos,viviendas_autorizadas,unidades,True,3620.0,128.50550230741925,unidades,conteo,total
+2020,14,Los Ríos,viviendas_autorizadas,unidades,True,3001.0,106.53177138800142,unidades,conteo,total
+2021,14,Los Ríos,viviendas_autorizadas,unidades,True,3384.0,120.12779552715655,unidades,conteo,total
+2022,14,Los Ríos,viviendas_autorizadas,unidades,True,2513.0,89.20837770678027,unidades,conteo,total
+2023,14,Los Ríos,viviendas_autorizadas,unidades,True,1443.0,51.22470713525026,unidades,conteo,total
+2024,14,Los Ríos,viviendas_autorizadas,unidades,True,1509.0,53.56762513312034,unidades,conteo,total
+2025,14,Los Ríos,viviendas_autorizadas,unidades,True,2135.0,75.78984735534256,unidades,conteo,total
+2014,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1206.0,100.0,unidades,conteo,total
+2015,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,2333.0,193.44941956882255,unidades,conteo,total
+2016,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1199.0,99.4195688225539,unidades,conteo,total
+2017,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1856.0,153.8971807628524,unidades,conteo,total
+2018,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1944.0,161.19402985074626,unidades,conteo,total
+2019,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1886.0,156.38474295190713,unidades,conteo,total
+2020,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,2899.0,240.38142620232173,unidades,conteo,total
+2021,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1656.0,137.3134328358209,unidades,conteo,total
+2022,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1311.0,108.70646766169155,unidades,conteo,total
+2023,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,716.0,59.3698175787728,unidades,conteo,total
+2024,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,2357.0,195.43946932006634,unidades,conteo,total
+2025,15,Arica y Parinacota,viviendas_autorizadas,unidades,True,1933.0,160.28192371475953,unidades,conteo,total
+2018,16,Ñuble,viviendas_autorizadas,unidades,True,869.0,,unidades,conteo,total
+2019,16,Ñuble,viviendas_autorizadas,unidades,True,5949.0,,unidades,conteo,total
+2020,16,Ñuble,viviendas_autorizadas,unidades,True,4714.0,,unidades,conteo,total
+2021,16,Ñuble,viviendas_autorizadas,unidades,True,5472.0,,unidades,conteo,total
+2022,16,Ñuble,viviendas_autorizadas,unidades,True,6090.0,,unidades,conteo,total
+2023,16,Ñuble,viviendas_autorizadas,unidades,True,5657.0,,unidades,conteo,total
+2024,16,Ñuble,viviendas_autorizadas,unidades,True,6568.0,,unidades,conteo,total
+2025,16,Ñuble,viviendas_autorizadas,unidades,True,6298.0,,unidades,conteo,total
