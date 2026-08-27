@@ -204,6 +204,8 @@ def build_index(
     pagina = f"""---
 title: "La revisión"
 subtitle: "{site_lib.SITE_SUBTITLE}"
+include-before-body:
+  - personal-nav.html
 ---
 
 ## Qué mide el Banco Central, y a qué escala

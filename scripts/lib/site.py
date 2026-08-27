@@ -101,8 +101,6 @@ format:
       light: cosmo
       dark: darkly
     css: styles.css
-    include-before-body:
-      - personal-nav.html
     toc: true
     toc-depth: 3
     df-print: paged
@@ -120,6 +118,11 @@ def personal_site_nav() -> str:
     same ground (#1e293b), same muted link colour (#94a3b8), same emphasised
     home link -- so this section reads as part of dpolancon.github.io rather
     than a separate website that happens to be hosted alongside it.
+
+    Va SÓLO en la portada de la sección, no en cada página. Es el navegador
+    del sitio anfitrión: repetirlo dentro de cada reporte incrusta el chrome
+    del sitio en el contenido de trabajo, y el equipo lee estas páginas para
+    trabajar, no para navegar a la sección de docencia.
 
     Links point at the SPANISH pages, because the programme is Spanish-only and
     those pages exist: research_es, talks_es, teaching_es, year-archive-es.
