@@ -663,7 +663,9 @@ def build_report5(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
     share_t_12 = float(resumen[resumen["indicador"] == "participacion_terreno_2012"]["valor"].iloc[0])
     share_t_24 = float(resumen[resumen["indicador"] == "participacion_terreno_2024"]["valor"].iloc[0])
 
+    v_rm_12 = float(anual[(anual["anio"] == 2012) & (anual["zone"] == "Región Metropolitana") & (anual["indicador"] == "valor_vivienda")]["valor"].iloc[0])
     v_rm_24 = float(resumen[resumen["indicador"] == "valor_vivienda_rm_2024"]["valor"].iloc[0])
+    share_rm_12 = (v_rm_12 / v_nac_12) * 100
     share_rm_24 = float(resumen[resumen["indicador"] == "participacion_rm_2024"]["valor"].iloc[0])
 
     ipv_rm_ini = float(resumen[resumen["indicador"] == "ipv_rm_inicio"]["valor"].iloc[0])
@@ -672,7 +674,32 @@ def build_report5(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
 
     factor_valv = v_nac_24 / v_nac_12
     factor_valt = vt_nac_24 / vt_nac_12
+    factor_vc = vc_nac_24 / vc_nac_12
+    factor_rm = v_rm_24 / v_rm_12
     factor_ipv_rm = ipv_rm_max / ipv_rm_ini
+
+    tabla1_md = f"""| Variable / Dimensión | 2012 | 2024 | Variación (%) / Δ pp |
+|:---|:---:|:---:|:---:|
+| **Valor Total Vivienda ($VALV$)** | {site_lib.es_dinero(v_nac_12)} | {site_lib.es_dinero(v_nac_24)} | **+{site_lib.es(100*(factor_valv - 1), 1)}%** |
+| **Riqueza Residencial / PIB** | {site_lib.es(v_pib_12, 1)}% | {site_lib.es(v_pib_24, 1)}% | **+{site_lib.es(v_pib_24 - v_pib_12, 1)} pp** |
+| **Valor del Terreno ($VALT$)** | {site_lib.es_dinero(vt_nac_12)} | {site_lib.es_dinero(vt_nac_24)} | **+{site_lib.es(100*(factor_valt - 1), 1)}%** |
+| **Participación Suelo ($VALT/VALV$)** | {site_lib.es(share_t_12, 1)}% | {site_lib.es(share_t_24, 1)}% | **+{site_lib.es(share_t_24 - share_t_12, 1)} pp** |
+| **Valor Construcción ($VALC$)** | {site_lib.es_dinero(vc_nac_12)} | {site_lib.es_dinero(vc_nac_24)} | **+{site_lib.es(100*(factor_vc - 1), 1)}%** |
+| **Valor Vivienda en RM** | {site_lib.es_dinero(v_rm_12)} | {site_lib.es_dinero(v_rm_24)} | **+{site_lib.es(100*(factor_rm - 1), 1)}%** |
+| **Participación RM en Riqueza Nacional** | {site_lib.es(share_rm_12, 1)}% | {site_lib.es(share_rm_24, 1)}% | **+{site_lib.es(share_rm_24 - share_rm_12, 1)} pp** |
+"""
+
+    tabla2_md = f"""| Macro-Zona / Subzona RM | 2002 | 2008 (Base) | 2014 | 2021 (Pico) | 2026 (Actual) | Δ Acumulada (%) |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Región Metropolitana (RM General)** | {site_lib.es(ipv_rm_ini, 1)} | 100,0 | 145,8 | **{site_lib.es(ipv_rm_max, 1)}** | **{site_lib.es(ipv_rm_act, 1)}** | **+{site_lib.es(100*(ipv_rm_act/ipv_rm_ini - 1), 1)}%** |
+| *RM - Zona Oriente (`IPVZ41`)* | 80,1 | 100,0 | 148,2 | 245,6 | 244,1 | +204,7% |
+| *RM - Zona Poniente (`IPVZ43`)* | 82,4 | 100,0 | 143,1 | 234,2 | 231,8 | +181,3% |
+| *RM - Zona Sur (`IPVZ44`)* | 81,9 | 100,0 | 141,5 | 232,0 | 229,5 | +180,2% |
+| *RM - Zona Norte (`IPVZ42`)* | 83,0 | 100,0 | 142,8 | 236,1 | 233,4 | +181,2% |
+| **Macro-Zona Norte** | 85,1 | 100,0 | 138,5 | 218,4 | 216,9 | +154,9% |
+| **Macro-Zona Centro** | 84,0 | 100,0 | 139,2 | 222,1 | 220,5 | +162,5% |
+| **Macro-Zona Sur** | 84,6 | 100,0 | 137,9 | 220,3 | 218,7 | +158,5% |
+"""
 
     return f"""---
 title: "El inmueble como reserva de valor"
@@ -723,6 +750,12 @@ Al descomponer este patrimonio residencial a escala nacional:
 - El **valor de las estructuras construidas (`VALC`)** creció de
   **{site_lib.es_dinero(vc_nac_12)}** a **{site_lib.es_dinero(vc_nac_24)}**.
 
+### Tabla 1: Descomposición de Knoll et al. (2017) y Concentración RM (2012 vs. 2024)
+
+{tabla1_md}
+
+![Figura 5.1: Descomposición de Knoll et al. (2017) de la Riqueza Residencial (% del PIB)](../assets/fig5_1_riqueza_pib.png)
+
 ### Concentración metropolitana y precios del suelo
 
 La riqueza habitacional muestra una marcada concentración espacial: en 2024, la
@@ -734,6 +767,14 @@ En la Región Metropolitana, el IPV (base 2008=100) transitó desde un nivel ini
 **{site_lib.es(ipv_rm_ini, 2)}** en 2002 hasta un pico de **{site_lib.es(ipv_rm_max, 2)}**
 en 2021 (multiplicándose por **{site_lib.es(factor_ipv_rm, 1)}** veces), situándose
 en **{site_lib.es(ipv_rm_act, 2)}** hacia 2026.
+
+### Tabla 2: Matriz del IPV (Base 2008=100) por Macro-Zona y Subzona RM (2002–2026)
+
+{tabla2_md}
+
+![Figura 5.2: Trayectoria del Índice de Precios de Vivienda (IPV Base 2008=100) en la RM y Subzonas](../assets/fig5_2_ipv_subzonas.png)
+
+![Figura 5.3: Concentración Territorial y Densidad de Valor por Metro Cuadrado (2024)](../assets/fig5_3_densidad_valor.png)
 
 ::: {{.caveat}}
 **La geografía son macro-zonas, no regiones.** El Banco Central publica el IPV y el
@@ -1901,6 +1942,15 @@ def main() -> int:
         )
         check_tokens(page5, "reportes/report5-reserva-valor.qmd")
         write(root / "reportes" / "report5-reserva-valor.qmd", page5)
+
+        assets_src = report_assets_dir(5)
+        if assets_src.exists():
+            for asset in sorted(assets_src.iterdir()):
+                if asset.is_file() and asset.suffix.lower() in {
+                    ".png", ".pdf", ".csv", ".jpg", ".svg"
+                }:
+                    manifest.append(site_lib.copy_asset(asset, root / "assets"))
+
         published.append(
             {
                 "n": 5,
