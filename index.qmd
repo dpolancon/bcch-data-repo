@@ -1,6 +1,8 @@
 ---
 title: "La revisión"
 subtitle: "Revisión multiescalar de la Base de Datos Estadísticos del Banco Central de Chile"
+include-before-body:
+  - personal-nav.html
 ---
 
 ## Qué mide el Banco Central, y a qué escala

@@ -52,8 +52,6 @@ format:
       light: cosmo
       dark: darkly
     css: styles.css
-    include-before-body:
-      - personal-nav.html
     toc: true
     toc-depth: 3
     df-print: paged
