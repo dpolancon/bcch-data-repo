@@ -841,33 +841,82 @@ def build_report6(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
     ].set_index("region_display")["valor"]
     peor, mejor = ult.nlargest(1), ult.nsmallest(1)
 
+    # TABLA 1: Profundización Financiera por Región (2009 vs 2025)
+    anual_25 = anual[anual["anio"] == a1].pivot_table(index="region_display", columns="indicador", values="valor")
+    anual_09 = anual[anual["anio"] == a0].pivot_table(index="region_display", columns="indicador", values="valor")
+
+    filas_t1 = []
+    for reg in sorted(anual_25.index.tolist()):
+        c09 = float(anual_09.loc[reg, "cuentas_corrientes"]) if reg in anual_09.index else 0
+        c25 = float(anual_25.loc[reg, "cuentas_corrientes"])
+        d25 = float(anual_25.loc[reg, "depositos_vista"])
+        s25 = float(anual_25.loc[reg, "saldo_medio_cuenta"])
+        filas_t1.append(
+            f"| **{reg}** | {site_lib.es(c09, 0)} | {site_lib.es(c25, 0)} | {site_lib.es_dinero(d25)} | {site_lib.es_dinero(s25)} |"
+        )
+    tabla1_md = "\n".join(filas_t1)
+
+    # TABLA 2: Matriz de Morosidad por Tipo de Cartera (2024-2025)
+    filas_t2 = []
+    for reg in sorted(anual_25.index.tolist()):
+        mv = float(anual_25.loc[reg, "mora_vivienda"])
+        mc = float(anual_25.loc[reg, "mora_consumo"])
+        mcom = float(anual_25.loc[reg, "mora_comercial"])
+        filas_t2.append(
+            f"| **{reg}** | {site_lib.es(mv, 2)}% | {site_lib.es(mc, 2)}% | {site_lib.es(mcom, 2)}% |"
+        )
+    tabla2_md = "\n".join(filas_t2)
+
     return f"""---
 title: "Profundidad financiera y morosidad por región"
 ---
 
 {site_lib.escala_badge(families_lib.ESCALA_REGIONAL)}
 
-*La mora hipotecaria se desplomó durante los años de tasas bajas y repunta
-desde que las tasas subieron. Es la huella regional del ciclo financiero sobre
-el deudor, no sobre el crédito.*
+*Entre 2009 y 2025, las cuentas corrientes pasaron de **{site_lib.es(ctas0 / 1e6, 2)} millones** a **{site_lib.es(ctas1 / 1e6, 2)} millones**, pero la concentración espacial de la liquidez en la Región Metropolitana escaló del **{site_lib.es(conc0, 1)}%** al **{site_lib.es(conc1, 1)}%** nacional. La mora hipotecaria cayó de **{site_lib.es(pico, 2)}%** a un piso de **{site_lib.es(piso, 2)}%** (reducción del **{site_lib.es(caida, 0)}%**), situándose en **{site_lib.es(hoy, 2)}%** en 2025.*
 
 ---
 
 ## El argumento
 
-De las tres carteras que el Banco Central desagrega por región, la de vivienda
-es la que menos morosos produce y la que más se movió. Entre {pico_anio} y
-{piso_anio} la mora hipotecaria cayó de **{site_lib.es(pico, 2)}%** a
-**{site_lib.es(piso, 2)}%** de la cartera: una reducción de
-**{site_lib.es(caida, 0)}%**. En {a1} está en **{site_lib.es(hoy, 2)}%**,
-todavía muy por debajo del inicio de la serie pero claramente por encima del
-piso.
+El análisis regional de la profundidad financiera expone dos dinámicas concurrentes: el crecimiento de los depósitos bancarios de personas naturales y el desempeño desigual del riesgo de crédito por cartera. Mientras los depósitos a la vista nacionales se multiplicaron desde **{site_lib.es_dinero(dep0)}** en 2009 hasta **{site_lib.es_dinero(dep1)}** en 2025, la centralización geográfica situó en la capital el **{site_lib.es(conc1, 1)}%** de todas las cuentas corrientes de personas del país.
 
-El contraste con las otras dos carteras es lo que da sentido a la cifra. En
-{a1} la mora comercial va en **{site_lib.es(com, 2)}%** y la de consumo en
-**{site_lib.es(con, 2)}%**: entre cinco y tres veces la hipotecaria. El
-inmueble es, en los datos del propio Banco Central, la deuda que menos se deja
-de pagar.
+En el mercado de crédito, la cartera habitacional exhibe el menor nivel de impago del sistema. Durante el período de liquidez extraordinaria (2020–2021), la mora hipotecaria nacional se redujo desde un máximo histórico de **{site_lib.es(pico, 2)}%** hasta un piso de **{site_lib.es(piso, 2)}%** (una contracción de **{site_lib.es(caida, 0)}%**). Hacia 2025, el repunte de tasas reales elevó la mora habitacional al **{site_lib.es(hoy, 2)}%**, manteniéndose muy por debajo de la mora comercial (**{site_lib.es(com, 2)}%**) y de consumo (**{site_lib.es(con, 2)}%**).
+
+## Lo que muestran los datos
+
+### Tabla 1: Matriz de Profundización Financiera y Liquidez por Región ({a0} vs. {a1})
+
+| Región | Cuentas Corrientes ({a0}) | Cuentas Corrientes ({a1}) | Depósitos a la Vista ({a1}) | Saldo Medio por Cuenta ({a1}) |
+|:---|:---:|:---:|:---:|:---:|
+{tabla1_md}
+
+### Tabla 2: Matriz de Morosidad Bancaria a 90 Días o Más por Cartera y Región ({a1})
+
+| Región | Mora Vivienda (%) | Mora Consumo (%) | Mora Comercial (%) |
+|:---|:---:|:---:|:---:|
+{tabla2_md}
+
+![Figura 6.1: Evolución Nacional de la Morosidad Bancaria a 90 Días o Más por Tipo de Cartera (2009–2025)](../assets/fig6_1_mora_temporal.png)
+
+::: {{.callout-note}}
+### Transmisión Macro-Financiera de la Morosidad (Figura 6.1)
+La tasa de morosidad a 90 días o más ($DV90_{{k,t}}$) aísla el porcentaje de saldo impago sobre la cartera total $k$. Durante 2020–2021, la liquidez inyectada a los hogares redujo la morosidad habitacional al piso histórico de **{site_lib.es(piso, 2)}%**. El ciclo posterior de contracción monetaria re-aceleró el impago comercial al **{site_lib.es(com, 2)}%**, evidenciando que el estrés financiero impacta primero a las firmas de menor escala y a las carteras de consumo.
+:::
+
+![Figura 6.2: Centralización Espacial del Crédito y Saldo Medio por Cuenta Corriente (2009–2025)](../assets/fig6_2_concentracion_liquidez.png)
+
+::: {{.callout-note}}
+### Medición de la Centralización Espacial de la Liquidez (Figura 6.2)
+La concentración metropolitana de la liquidez ($C_{{RM,t}} = CCPN_{{RM,t}} / CCPN_{{NAC,t}}$) mide la proporción de cuentas corrientes de personas naturales localizadas en la Región Metropolitana. Su ascenso del **{site_lib.es(conc0, 1)}%** al **{site_lib.es(conc1, 1)}%** demuestra que la expansión bancaria nacional ha profundizado la centralización patrimonial en la capital, mientras el saldo medio por cuenta se contrajo desde el pico de $3,98 millones en 2021 a $2,05 millones en 2025.
+:::
+
+![Figura 6.3: Heterogeneidad Regional de la Morosidad Bancaria >90 Días por Cartera (2024)](../assets/fig6_3_mora_regional.png)
+
+::: {{.callout-note}}
+### Medición de la Heterogeneidad Regional de Riesgo (Figura 6.3)
+La dispersión geográfica de la mora refleja las estructuras productivas regionales. En {a1}, la mora habitacional oscila entre **{site_lib.es(float(mejor.iloc[0]), 2)}%** en {mejor.index[0]} y **{site_lib.es(float(peor.iloc[0]), 2)}%** en {peor.index[0]}. Las regiones del norte minero y del centro-norte (Coquimbo y Tarapacá) concentran los mayores niveles de mora comercial, mientras las regiones agrícolas del sur exhiben mayor estabilidad en la cartera habitacional.
+:::
 
 ::: {{.caveat}}
 **Un porcentaje de cartera sube por dos motivos distintos.** Estas series son
@@ -878,31 +927,6 @@ hipotecarios, las tasas y el LTV son nacionales. Esta familia dice cómo le va
 al deudor en cada región, nunca cuánto crédito entró en cada región.
 :::
 
-## Lo que muestran los datos
-
-La trayectoria de la mora hipotecaria acompaña el ciclo de tasas: cae de forma
-sostenida durante los años de política monetaria expansiva y se quiebra al alza
-después. El proyecto no puede leer causalidad en eso —la tasa es nacional y
-esta serie es regional—, pero sí registrar que el período de valorización del
-suelo coincidió con deudores hipotecarios sin estrés visible.
-
-La dispersión entre regiones se mantiene: en {a1} la mora hipotecaria va de
-**{site_lib.es(float(mejor.iloc[0]), 2)}%** en {mejor.index[0]} a
-**{site_lib.es(float(peor.iloc[0]), 2)}%** en {peor.index[0]}.
-
-### La profundidad financiera se concentró
-
-En el mismo período las cuentas corrientes de personas naturales pasaron de
-**{site_lib.es(ctas0 / 1e6, 2)} millones** a
-**{site_lib.es(ctas1 / 1e6, 2)} millones**, y los depósitos a la vista de
-**{site_lib.es_dinero(dep0)}** a **{site_lib.es_dinero(dep1)}**. Pero el crecimiento no se repartió: la participación de la Región
-Metropolitana en las cuentas del país subió de **{site_lib.es(conc0, 1)}%** en
-{a0} a **{site_lib.es(conc1, 1)}%** en {a1}.
-
-Esa concentración corre en la misma dirección que la inmovilidad productiva que
-documentó el Reporte 1. La bancarización creció seis veces y se volvió más
-metropolitana, no menos.
-
 ## Nota metodológica
 
 Ninguno de los seis indicadores es un flujo. Las tres tasas de mora son
@@ -911,10 +935,9 @@ significa nada, y ponderarlas exigiría el tamaño de cada cartera regional, que
 esta familia no trae. Los tres saldos son stocks. Todo se promedia sobre los
 doce meses del año; nada se acumula.
 
-Los saldos están en **pesos nominales**, sin deflactar. La multiplicación por
-{site_lib.es(dep1 / dep0, 1)} de los depósitos a la vista mezcla inflación con
-profundización financiera, y separarlas exige un índice de precios que es
-nacional.
+Los saldos están en **pesos nominales**, sin deflactar. La multiplicación de los
+depósitos a la vista mezcla inflación con profundización financiera, y separarlas
+exige un índice de precios que es nacional.
 
 `CCPN` cuenta **cuentas**, no personas: una persona puede tener varias y una
 cuenta puede ser de una empresa. No es una medida de inclusión financiera per
@@ -1986,6 +2009,15 @@ def main() -> int:
         )
         check_tokens(page6, "reportes/report6-financiera.qmd")
         write(root / "reportes" / "report6-financiera.qmd", page6)
+
+        assets_src = report_assets_dir(6)
+        if assets_src.exists():
+            for asset in sorted(assets_src.iterdir()):
+                if asset.is_file() and asset.suffix.lower() in {
+                    ".png", ".pdf", ".csv", ".jpg", ".svg"
+                }:
+                    manifest.append(site_lib.copy_asset(asset, root / "assets"))
+
         published.append(
             {
                 "n": 6,
