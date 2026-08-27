@@ -58,8 +58,8 @@ def generate_figures():
     # FIGURA 5.2
     codes = {
         'F034.IPVZ4.FLU.BCCH.2008.0.T': ('RM General', '#0f172a', '-', 2.5),
-        'F034.IPVZ41.FLU.BCCH.2008.0.T': ('RM - Oriente', '#dc2626', '-', 2.0),
-        'F034.IPVZ42.FLU.BCCH.2008.0.T': ('RM - Norte', '#059669', '--', 1.8),
+        'F034.IPVZ41.FLU.BCCH.2008.0.T': ('RM - Centro', '#059669', '--', 1.8),
+        'F034.IPVZ42.FLU.BCCH.2008.0.T': ('RM - Oriente', '#dc2626', '-', 2.0),
         'F034.IPVZ43.FLU.BCCH.2008.0.T': ('RM - Poniente', '#2563eb', '--', 1.8),
         'F034.IPVZ44.FLU.BCCH.2008.0.T': ('RM - Sur', '#d97706', '--', 1.8),
     }

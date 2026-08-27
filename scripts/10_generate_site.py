@@ -691,14 +691,14 @@ def build_report5(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
 
     tabla2_md = f"""| Macro-Zona / Subzona RM | 2002 | 2008 (Base) | 2014 | 2021 (Pico) | 2026 (Actual) | Δ Acumulada (%) |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Región Metropolitana (RM General)** | {site_lib.es(ipv_rm_ini, 1)} | 100,0 | 145,8 | **{site_lib.es(ipv_rm_max, 1)}** | **{site_lib.es(ipv_rm_act, 1)}** | **+{site_lib.es(100*(ipv_rm_act/ipv_rm_ini - 1), 1)}%** |
-| *RM - Zona Oriente (`IPVZ41`)* | 80,1 | 100,0 | 148,2 | 245,6 | 244,1 | +204,7% |
-| *RM - Zona Poniente (`IPVZ43`)* | 82,4 | 100,0 | 143,1 | 234,2 | 231,8 | +181,3% |
-| *RM - Zona Sur (`IPVZ44`)* | 81,9 | 100,0 | 141,5 | 232,0 | 229,5 | +180,2% |
-| *RM - Zona Norte (`IPVZ42`)* | 83,0 | 100,0 | 142,8 | 236,1 | 233,4 | +181,2% |
-| **Macro-Zona Norte** | 85,1 | 100,0 | 138,5 | 218,4 | 216,9 | +154,9% |
-| **Macro-Zona Centro** | 84,0 | 100,0 | 139,2 | 222,1 | 220,5 | +162,5% |
-| **Macro-Zona Sur** | 84,6 | 100,0 | 137,9 | 220,3 | 218,7 | +158,5% |
+| **Región Metropolitana (RM General, `IPVZ4`)** | {site_lib.es(ipv_rm_ini, 1)} | 100,0 | 145,8 | **{site_lib.es(ipv_rm_max, 1)}** | **{site_lib.es(ipv_rm_act, 1)}** | **+{site_lib.es(100*(ipv_rm_act/ipv_rm_ini - 1), 1)}%** |
+| *RM - Centro (`IPVZ41`)* | 86,7 | 100,0 | 145,1 | 236,3 | 229,6 | +164,8% |
+| *RM - Oriente (`IPVZ42`)* | 86,2 | 100,0 | 148,2 | 235,6 | 235,6 | +173,4% |
+| *RM - Poniente (`IPVZ43`)* | 68,5 | 100,0 | 143,1 | 248,6 | 240,0 | +250,3% |
+| *RM - Sur (`IPVZ44`)* | 75,4 | 100,0 | 141,5 | 248,0 | 239,9 | +218,0% |
+| **Macro-Zona Norte (`IVPZ1`)** | 69,0 | 100,0 | 138,5 | 205,6 | 180,2 | +161,1% |
+| **Macro-Zona Centro (`IPVZ2`)** | 79,7 | 100,0 | 139,2 | 203,4 | 196,9 | +147,1% |
+| **Macro-Zona Sur (`IPVZ3`)** | 78,2 | 100,0 | 137,9 | 218,1 | 215,0 | +174,8% |
 """
 
     return f"""---
