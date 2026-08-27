@@ -1,6 +1,6 @@
 # **Reporte de Cobertura de Datos Regionales - Banco Central de Chile (BCCh)**
 
-Este reporte presenta una auditoría exhaustiva y un análisis de cobertura de todas las series de datos a nivel regional (16 regiones administrativas, $r = 1 \dots 16$) y sectorial ($s = 1 \dots 12$) disponibles a través de la API del Banco Central de Chile (BCCh).
+Este reporte presenta una auditoría exhaustiva y un análisis de cobertura de todas las series de datos a nivel regional (16 regiones administrativas, $r = 1 \dots 16$) y sectorial ($s = 1 \dots 13$) disponibles a través de la API del Banco Central de Chile (BCCh).
 
 Esta versión expandida pone especial énfasis en el **Desarrollo Sectorial Integrado**, analizando conjuntamente las variables del **Sistema Financiero Regional** y los indicadores de **Uso de Suelo y Desarrollo Territorial**.
 
@@ -77,11 +77,11 @@ La distribución de series por región es altamente homogénea en los dominios p
 
 ---
 
-## **4. Cobertura Sectorial ($s = 1 \dots 12$)**
+## **4. Cobertura Sectorial ($s = 1 \dots 13$)**
 
-La desagregación del PIB y del empleo en 12 sectores económicos estándar permite estudiar la especialización productiva regional y la vulnerabilidad ante choques sectoriales.
+La desagregación del PIB y del empleo en 13 sectores económicos estándar permite estudiar la especialización productiva regional y la vulnerabilidad ante choques sectoriales.
 
-### **Los 12 Sectores Económicos Analizados:**
+### **Los 13 Sectores Económicos Analizados:**
 1. **Agropecuario-silvícola** ($s = 01$)
 2. **Pesca** ($s = 02$)
 3. **Minería** ($s = 03$)
@@ -99,7 +99,7 @@ La desagregación del PIB y del empleo en 12 sectores económicos estándar perm
 ![Figure 3: Matriz Sectorial](assets/fig3_sectoral_matrix.png)
 
 ### **Evaluación de Cobertura Sectorial:**
-- **Homogeneidad Sectorial del PIB**: Las 16 regiones tienen series sectoriales asignadas para cada uno de los 12 sectores bajo la clasificación del PIB. Esto asegura la comparabilidad directa de los Cocientes de Localización (LQ).
+- **Homogeneidad Sectorial del PIB**: Las 16 regiones tienen series sectoriales asignadas para cada uno de los 13 sectores bajo la clasificación del PIB. Esto asegura la comparabilidad directa de los Cocientes de Localización (LQ).
 - **Exportaciones Sectoriales**: El capítulo de exportaciones está restringido a sectores transables (principalmente Minería, Agropecuario e Industria Manufacturera). Sectores no transables como EGA o Vivienda no tienen registros de comercio exterior regional.
 
 ---

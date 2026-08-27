@@ -28,12 +28,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pandas as pd
 
 from lib import site as site_lib
+from lib.sectors import SECTOR_BREAKDOWN_IDS
 from lib.paths import DATA_DIR, site_worktree
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s | %(levelname)-7s | %(message)s"
 )
 logger = logging.getLogger(__name__)
+
+# Número de actividades del desglose sectorial, derivado y no escrito.
+N_SECTORES = len(SECTOR_BREAKDOWN_IDS)
 
 TOKEN_RE = re.compile(r"@@[A-Z0-9_]+@@")
 # Bold Spanish-formatted numerals, which is how every derived statistic is
@@ -307,6 +311,84 @@ def audit_idioma(root: Path, problems: list[str]) -> None:
     logger.info("Idioma verificado en %d páginas", len(list(root.rglob("*.qmd"))))
 
 
+def _num_es(texto: str) -> int:
+    """Entero desde el formato español: 21.287 -> 21287."""
+    return int(texto.replace(".", "").replace("\u00a0", ""))
+
+
+def _suma_columna_series(texto: str) -> int | None:
+    """Suma de la columna «Series» de la primera tabla markdown de la página."""
+    filas = [l for l in texto.split("\n") if l.startswith("|") and "---" not in l]
+    if not filas:
+        return None
+    encabezado = [c.strip() for c in filas[0].strip("|").split("|")]
+    if "Series" not in encabezado:
+        return None
+    i = encabezado.index("Series")
+    total = 0
+    for linea in filas[1:]:
+        celdas = [c.strip() for c in linea.strip("|").split("|")]
+        if len(celdas) > i and re.fullmatch(r"[\d.]+", celdas[i]):
+            total += _num_es(celdas[i])
+    return total
+
+
+def audit_conteos(root: Path, problems: list[str]) -> None:
+    """Un conteo afirmado en prosa debe cuadrar con la tabla que lo acompaña.
+
+    Ocurrió dos veces y ninguna fue detectada por un test. El reporte de
+    cobertura anunciaba 3.881 series regionales contando filas del catálogo
+    cuando los códigos únicos eran 2.306, y el reporte 1 describía doce
+    sectores sobre una tabla de trece. Las dos veces el número estaba escrito
+    a mano al lado de la tabla que lo desmentía.
+    """
+    revisadas = 0
+    # Incluye reportes/: ahí vivían las dos incoherencias históricas.
+    for pagina in sorted(root.rglob("*.qmd")):
+        texto = pagina.read_text(encoding="utf-8")
+        rel = pagina.relative_to(root).as_posix()
+
+        afirmados = {
+            _num_es(m)
+            for m in re.findall(r"\*\*([\d.]+)\*?\*?\s*series", texto)
+        }
+        suma = _suma_columna_series(texto)
+        # Sólo cuando la página afirma UN total. Una página con varios
+        # conteos --por frecuencia, por dominio-- afirma parciales, y
+        # compararlos todos contra una única suma inventa una relación que no
+        # existe. Es preferible no revisar esa página que marcarla en falso.
+        if len(afirmados) == 1 and suma is not None:
+            revisadas += 1
+            if suma not in afirmados:
+                fail(
+                    problems,
+                    f"Conteo que no cuadra con su tabla en {rel}: la prosa "
+                    f"afirma {sorted(afirmados)} y la columna «Series» suma "
+                    f"{suma}.",
+                )
+
+        # Los sectores del desglose son los de lib.sectors, no un número
+        # escrito a mano. La base 2018 no tiene un 07 combinado.
+        for cantidad in re.findall(r"(\d+)\s+[Ss]ectores", texto):
+            if int(cantidad) != N_SECTORES:
+                fail(
+                    problems,
+                    f"Conteo de sectores erróneo en {rel}: dice {cantidad} y "
+                    f"el desglose de la base 2018 tiene {N_SECTORES}.",
+                )
+        for cantidad in re.findall(r"dots\s*(\d+)\$", texto):
+            if int(cantidad) not in (16, N_SECTORES):
+                fail(
+                    problems,
+                    f"Índice con tope erróneo en {rel}: \\dots {cantidad}. "
+                    f"Los sectores son {N_SECTORES} y las regiones 16.",
+                )
+
+    logger.info(
+        "Conteos verificados contra su tabla: %d página(s)", revisadas
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Audit the generated site.")
     parser.add_argument("--worktree", type=str, default=None)
@@ -322,6 +404,7 @@ def main() -> int:
     audit_panels(root, problems)
     audit_tokens(root, problems)
     audit_report3(root, problems)
+    audit_conteos(root, problems)
     audit_atribucion(root, problems)
     audit_idioma(root, problems)
     audit_rendered(root, problems)

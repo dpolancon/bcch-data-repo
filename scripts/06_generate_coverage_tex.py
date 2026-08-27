@@ -103,7 +103,7 @@ def parse_md_to_tex():
 \maketitle
 
 \begin{abstract}
-Este reporte presenta una auditoría exhaustiva y un análisis de cobertura de todas las series de datos a nivel regional (16 regiones administrativas, $r = 1 \dots 16$) y sectorial ($s = 1 \dots 12$) disponibles a través de la API del Banco Central de Chile (BCCh). Esta versión expandida pone especial énfasis en el \textbf{Desarrollo Sectorial Integrado}, analizando conjuntamente las variables del \textbf{Sistema Financiero Regional} (cuentas corrientes y cuentas vista) y los indicadores de \textbf{Uso de Suelo y Desarrollo Territorial} (metros cuadrados de edificación autorizados y superficies comerciales).
+Este reporte presenta una auditoría exhaustiva y un análisis de cobertura de todas las series de datos a nivel regional (16 regiones administrativas, $r = 1 \dots 16$) y sectorial ($s = 1 \dots 13$) disponibles a través de la API del Banco Central de Chile (BCCh). Esta versión expandida pone especial énfasis en el \textbf{Desarrollo Sectorial Integrado}, analizando conjuntamente las variables del \textbf{Sistema Financiero Regional} (cuentas corrientes y cuentas vista) y los indicadores de \textbf{Uso de Suelo y Desarrollo Territorial} (metros cuadrados de edificación autorizados y superficies comerciales).
 \end{abstract}
 
 \strut

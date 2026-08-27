@@ -18,6 +18,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.paths import REPO_ROOT
 from lib.codes import SECTOR_MAP, parse_frequency, parse_sector, is_sectoral_total
+from lib.sectors import SECTOR_BREAKDOWN_IDS
 from lib.regions import REGIONS
 from lib.regions import parse_region
 
@@ -49,6 +50,11 @@ REGION_MAP = {r.id: r.name_es for r in REGIONS}
 # inmobiliarios" -- which is how mining ended up unclassified and real-estate
 # series ended up labelled Construccion in the previous inventory.
 SECTORS_12 = dict(SECTOR_MAP)
+
+# Actividades del desglose de la base 2018. Son trece y no doce: no hay un
+# 07 combinado, comercio se separa de restaurantes y hoteles. El número se
+# deriva de lib.sectors para que ninguna prosa pueda contradecir la tabla.
+N_SECTORES = len(SECTOR_BREAKDOWN_IDS)
 
 def clean_text(text):
     if not isinstance(text, str):
@@ -283,8 +289,8 @@ def main():
     ).fillna(0).astype(int)
     
     sns.heatmap(reg_sector, cmap="Purples", annot=True, fmt="d", linewidths=0.5, cbar_kws={'label': 'Cantidad de Series'})
-    plt.title('Cobertura Sectorial por Región (12 Sectores Económicos)', fontsize=14, fontweight='bold')
-    plt.xlabel('Sector Económico ($s = 1 \\dots 12$)', fontsize=11, fontweight='bold')
+    plt.title(f'Cobertura Sectorial por Región ({N_SECTORES} Sectores Económicos)', fontsize=14, fontweight='bold')
+    plt.xlabel(f'Sector Económico ($s = 1 \\dots {N_SECTORES}$)', fontsize=11, fontweight='bold')
     plt.ylabel('Región ($r = 1 \\dots 16$)', fontsize=11, fontweight='bold')
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
@@ -333,7 +339,7 @@ def main():
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(f"""# **Reporte de Cobertura de Datos Regionales - Banco Central de Chile (BCCh)**
 
-Este reporte presenta una auditoría exhaustiva y un análisis de cobertura de todas las series de datos a nivel regional (16 regiones administrativas, $r = 1 \\dots 16$) y sectorial ($s = 1 \\dots 12$) disponibles a través de la API del Banco Central de Chile (BCCh).
+Este reporte presenta una auditoría exhaustiva y un análisis de cobertura de todas las series de datos a nivel regional (16 regiones administrativas, $r = 1 \\dots 16$) y sectorial ($s = 1 \\dots {N_SECTORES}$) disponibles a través de la API del Banco Central de Chile (BCCh).
 
 Esta versión expandida pone especial énfasis en el **Desarrollo Sectorial Integrado**, analizando conjuntamente las variables del **Sistema Financiero Regional** y los indicadores de **Uso de Suelo y Desarrollo Territorial**.
 
@@ -406,11 +412,11 @@ La distribución de series por región es altamente homogénea en los dominios p
 
 ---
 
-## **4. Cobertura Sectorial ($s = 1 \\dots 12$)**
+## **4. Cobertura Sectorial ($s = 1 \\dots {N_SECTORES}$)**
 
-La desagregación del PIB y del empleo en 12 sectores económicos estándar permite estudiar la especialización productiva regional y la vulnerabilidad ante choques sectoriales.
+La desagregación del PIB y del empleo en {N_SECTORES} sectores económicos estándar permite estudiar la especialización productiva regional y la vulnerabilidad ante choques sectoriales.
 
-### **Los 12 Sectores Económicos Analizados:**
+### **Los {N_SECTORES} Sectores Económicos Analizados:**
 1. **Agropecuario-silvícola** ($s = 01$)
 2. **Pesca** ($s = 02$)
 3. **Minería** ($s = 03$)
@@ -428,7 +434,7 @@ La desagregación del PIB y del empleo en 12 sectores económicos estándar perm
 ![Figure 3: Matriz Sectorial](assets/fig3_sectoral_matrix.png)
 
 ### **Evaluación de Cobertura Sectorial:**
-- **Homogeneidad Sectorial del PIB**: Las 16 regiones tienen series sectoriales asignadas para cada uno de los 12 sectores bajo la clasificación del PIB. Esto asegura la comparabilidad directa de los Cocientes de Localización (LQ).
+- **Homogeneidad Sectorial del PIB**: Las 16 regiones tienen series sectoriales asignadas para cada uno de los {N_SECTORES} sectores bajo la clasificación del PIB. Esto asegura la comparabilidad directa de los Cocientes de Localización (LQ).
 - **Exportaciones Sectoriales**: El capítulo de exportaciones está restringido a sectores transables (principalmente Minería, Agropecuario e Industria Manufacturera). Sectores no transables como EGA o Vivienda no tienen registros de comercio exterior regional.
 
 ---
@@ -514,7 +520,7 @@ Actúa como un Econometrista y Especialista en Datos Regionales de Chile.
 Tu tarea es auditar y mapear la cobertura de datos regionales a través de la API del Banco Central de Chile (BCCh).
 El objetivo es asegurar que contamos con las series para:
 1. Regiones: r = 01 a 16 (16 regiones administrativas).
-2. Sectores: s = 01 a 12 (12 sectores de actividad económica).
+2. Sectores: s = 01 a {N_SECTORES} ({N_SECTORES} actividades económicas).
 3. Frecuencias: diario (D), mensual (M), trimestral (T), anual (A).
 4. Dominios: Cuentas Nacionales (PIB, consumo), Exportaciones, Mercado Laboral (INE), Financiero (Cuentas corrientes/vista, Deuda/Mora) e Indicadores de Corto Plazo y Territorial (Edificación SAHAN, Construcción no habitacional, Supermercados ISUP, Alojamiento turístico EMAT).
 
