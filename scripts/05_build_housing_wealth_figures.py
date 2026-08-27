@@ -22,9 +22,7 @@ def generate_figures():
     resumen = pd.read_csv(DATA_DIR / 'panel_housing_wealth_summary.csv')
     raw_q = pd.read_csv(CRSM_RAW_DIR / 'raw_quarterly.csv', low_memory=False)
 
-    # =========================================================================
-    # FIGURA 5.1: Descomposición de Riqueza Residencial / PIB (2012-2024)
-    # =========================================================================
+    # FIGURA 5.1: Descomposición de Knoll et al. (2017) (% del PIB)
     nac = anual[anual['zone'] == 'Nacional']
     piv_nac = nac.pivot_table(index='anio', columns='indicador', values='valor')
 
@@ -33,7 +31,7 @@ def generate_figures():
     valt_pib = (piv_nac['valor_terreno'] / piv_nac['valor_vivienda']) * valv_pib
     valc_pib = (piv_nac['valor_construccion'] / piv_nac['valor_vivienda']) * valv_pib
 
-    fig, ax = plt.subplots(figsize=(10, 5.8), dpi=300)
+    fig, ax = plt.subplots(figsize=(10.5, 5.8), dpi=300)
     ax.bar(years, valc_pib, label='Valor de Estructuras / Construcción (VALC)', color='#3b82f6', width=0.55, edgecolor='#1e40af', linewidth=0.5)
     ax.bar(years, valt_pib, bottom=valc_pib, label='Valor del Suelo / Terreno (VALT - Renta Espacial)', color='#dc2626', width=0.55, edgecolor='#991b1b', linewidth=0.5)
     ax.plot(years, valv_pib, marker='o', color='#0f172a', linewidth=2.2, label='Patrimonio Residencial Total (VALV / PIB %)')
@@ -57,21 +55,19 @@ def generate_figures():
     plt.close()
     print('Generated', fig1_path)
 
-    # =========================================================================
     # FIGURA 5.2: Trayectoria del IPV por Macro-Zonas y Subzonas RM (2002-2026)
-    # =========================================================================
     codes = {
-        'F034.IPVZ4.FLU.BCCH.2008.0.T': ('RM General', '#0f172a', '-', 2.5),
-        'F034.IPVZ41.FLU.BCCH.2008.0.T': ('RM - Centro', '#059669', '--', 1.5),
-        'F034.IPVZ42.FLU.BCCH.2008.0.T': ('RM - Oriente', '#dc2626', '--', 1.5),
-        'F034.IPVZ43.FLU.BCCH.2008.0.T': ('RM - Poniente', '#2563eb', '--', 1.5),
-        'F034.IPVZ44.FLU.BCCH.2008.0.T': ('RM - Sur', '#d97706', '--', 1.5),
-        'F034.IVPZ1.FLU.BCCH.2008.0.T': ('Macro-Zona Norte', '#7c3aed', '-.', 1.8),
-        'F034.IPVZ2.FLU.BCCH.2008.0.T': ('Macro-Zona Centro', '#0891b2', '-.', 1.8),
-        'F034.IPVZ3.FLU.BCCH.2008.0.T': ('Macro-Zona Sur', '#64748b', '-.', 1.8),
+        'F034.IPVZ4.FLU.BCCH.2008.0.T': ('RM General (IPVZ4)', '#0f172a', '-', 2.5),
+        'F034.IPVZ41.FLU.BCCH.2008.0.T': ('RM - Centro (IPVZ41)', '#059669', '--', 1.6),
+        'F034.IPVZ42.FLU.BCCH.2008.0.T': ('RM - Oriente (IPVZ42)', '#dc2626', '--', 1.6),
+        'F034.IPVZ43.FLU.BCCH.2008.0.T': ('RM - Poniente (IPVZ43)', '#2563eb', '--', 1.6),
+        'F034.IPVZ44.FLU.BCCH.2008.0.T': ('RM - Sur (IPVZ44)', '#d97706', '--', 1.6),
+        'F034.IVPZ1.FLU.BCCH.2008.0.T': ('Macro-Zona Norte (IVPZ1)', '#7c3aed', '-.', 1.8),
+        'F034.IPVZ2.FLU.BCCH.2008.0.T': ('Macro-Zona Centro (IPVZ2)', '#0891b2', '-.', 1.8),
+        'F034.IPVZ3.FLU.BCCH.2008.0.T': ('Macro-Zona Sur (IPVZ3)', '#64748b', '-.', 1.8),
     }
 
-    fig, ax = plt.subplots(figsize=(10.5, 6.2), dpi=300)
+    fig, ax = plt.subplots(figsize=(11.0, 6.2), dpi=300)
 
     for code, (label, color, ls, lw) in codes.items():
         sub = raw_q[raw_q['series_code'] == code].dropna(subset=['value']).sort_values('date')
@@ -93,24 +89,7 @@ def generate_figures():
     plt.close()
     print('Generated', fig2_path)
 
-    # =========================================================================
-    # FIGURA 5.3: Concentración RM vs Resto del País y Densidad por Macro-Zona
-    # =========================================================================
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11.5, 5.2), dpi=300)
-
-    v_rm = float(anual[(anual['anio'] == 2024) & (anual['zone'] == 'Región Metropolitana') & (anual['indicador'] == 'valor_vivienda')]['valor'].iloc[0])
-    v_nac = float(anual[(anual['anio'] == 2024) & (anual['zone'] == 'Nacional') & (anual['indicador'] == 'valor_vivienda')]['valor'].iloc[0])
-    v_resto = v_nac - v_rm
-
-    shares = [v_rm / 1e12, v_resto / 1e12]
-    labels = ['Región Metropolitana\n(,8B / 53,6%)', 'Resto del País\n(,2B / 46,4%)']
-    colors = ['#1e3a8a', '#94a3b8']
-
-    ax1.pie(shares, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140, explode=(0.05, 0),
-            textprops={'fontsize': 9, 'fontweight': 'bold'})
-    ax1.set_title('Concentración Territorial de la Riqueza\nResidencial (2024, Billones $)', fontsize=11, fontweight='bold', pad=12)
-
-    # Right: $/m2 construido vs $/m2 terreno por Macro-Zona
+    # FIGURA 5.3: Densidad de Valor por Metro Cuadrado por Macro-Zona (Full Width)
     piv_24 = anual[anual['anio'] == 2024].pivot_table(index='zone', columns='indicador', values='valor')
     zones_sel = ['Región Metropolitana', 'Zona Norte', 'Zona Centro', 'Zona Sur', 'Nacional']
     sub_24 = piv_24.loc[zones_sel]
@@ -118,19 +97,23 @@ def generate_figures():
     pm2_c = (sub_24['valor_vivienda'] / sub_24['metros_construidos']) / 1e3
     pm2_t = (sub_24['valor_vivienda'] / sub_24['metros_terreno']) / 1e3
 
+    fig, ax = plt.subplots(figsize=(10.5, 5.8), dpi=300)
     x = range(len(zones_sel))
-    ax2.bar([i - 0.2 for i in x], pm2_c, width=0.4, label='$/m² Construido', color='#1e3a8a')
-    ax2.bar([i + 0.2 for i in x], pm2_t, width=0.4, label='$/m² Terreno', color='#dc2626')
-    ax2.set_xticks(x)
-    ax2.set_xticklabels(['Región Metropolitana', 'Macro-Zona Norte', 'Macro-Zona Centro', 'Macro-Zona Sur', 'Nacional'], rotation=15, ha='right', fontsize=8.5)
-    ax2.set_ylabel('Miles de $ / m²', fontsize=9, fontweight='bold')
-    ax2.set_title('Densidad de Valor por Metro Cuadrado por Macro-Zona (2024)', fontsize=11, fontweight='bold', pad=12)
-    ax2.grid(True, axis='y', linestyle=':', alpha=0.5)
-    ax2.legend(frameon=True, facecolor='#ffffff', edgecolor='#e2e8f0', fontsize=8.5, loc='upper right')
+
+    b1 = ax.bar([i - 0.18 for i in x], pm2_c, width=0.35, label='Valor por m² Construido (VALV / MCC)', color='#1e3a8a', edgecolor='#0f172a', linewidth=0.5)
+    b2 = ax.bar([i + 0.18 for i in x], pm2_t, width=0.35, label='Valor por m² de Terreno (VALV / MCT)', color='#dc2626', edgecolor='#991b1b', linewidth=0.5)
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(['Región Metropolitana', 'Macro-Zona Norte', 'Macro-Zona Centro', 'Macro-Zona Sur', 'Nacional General'], fontsize=9.5, fontweight='bold')
+    ax.set_ylabel('Miles de pesos por m²', fontsize=10, fontweight='bold', color='#334155')
+    ax.set_title('Figura 5.3: Densidad de Valor Residencial por Metro Cuadrado por Macro-Zona (2024)', fontsize=12, fontweight='bold', pad=12, color='#0f172a')
+    ax.set_ylim(0, max(pm2_c.max(), pm2_t.max()) * 1.18)
+    ax.grid(True, axis='y', linestyle=':', alpha=0.5, color='#cbd5e1')
+    ax.legend(frameon=True, facecolor='#ffffff', edgecolor='#e2e8f0', fontsize=9, loc='upper right')
 
     for i in x:
-        ax2.text(i - 0.2, pm2_c.iloc[i] + 25, f'k', ha='center', fontsize=7.5, fontweight='bold', color='#1e3a8a')
-        ax2.text(i + 0.2, pm2_t.iloc[i] + 25, f'k', ha='center', fontsize=7.5, fontweight='bold', color='#dc2626')
+        ax.text(i - 0.18, pm2_c.iloc[i] + 30, f'k', ha='center', fontsize=8.5, fontweight='bold', color='#1e3a8a')
+        ax.text(i + 0.18, pm2_t.iloc[i] + 30, f'k', ha='center', fontsize=8.5, fontweight='bold', color='#dc2626')
 
     plt.tight_layout()
     fig3_path = ASSETS_DIR / 'fig5_3_densidad_valor.png'

@@ -774,7 +774,19 @@ en **{site_lib.es(ipv_rm_act, 2)}** hacia 2026.
 
 ![Figura 5.2: Trayectoria del Índice de Precios de Vivienda (IPV Base 2008=100) por Macro-Zonas y Subzonas RM (2002–2026)](../assets/fig5_2_ipv_subzonas.png)
 
-![Figura 5.3: Concentración Territorial y Densidad de Valor por Metro Cuadrado por Macro-Zona (2024)](../assets/fig5_3_densidad_valor.png)
+::: {{.callout-note}}
+### Cálculo del Índice de Precios de Vivienda ($IPV$, Figura 5.2)
+El Banco Central de Chile calcula el $IPV$ trimestralmente (Base 2008=100) mediante la metodología de precios hedónicos. La serie $IPV_{{z,t}}$ aísla la variación pura de precios controlando por atributos físicos estables (superficie, antigüedad, estructura y localización). Las cuatro subzonas de la Región Metropolitana (`IPVZ41` Centro, `IPVZ42` Oriente, `IPVZ43` Poniente y `IPVZ44` Sur) y las tres macro-zonas del país (`IVPZ1` Norte, `IPVZ2` Centro y `IPVZ3` Sur) permiten comparar la velocidad de apreciación del activo residencial. La expansión del IPV en la RM Poniente (+250,3% acumulado) frente a la Macro-Zona Centro (+147,1%) documenta la intensidad desigual de la captura de renta de localización.
+:::
+
+![Figura 5.3: Densidad de Valor Residencial por Metro Cuadrado por Macro-Zona (2024)](../assets/fig5_3_densidad_valor.png)
+
+::: {{.callout-note}}
+### Cálculo de la Densidad de Valor por Metro Cuadrado (Figura 5.3)
+La densidad de valor cuantifica la masa patrimonial contenida por unidad de superficie física en 2024 a partir de dos razones:
+1. **Valor por $m^2$ construido ($v^c_z = VALV_z / MCC_z$):** Cociente entre el valor de mercado total del stock habitacional de la zona $z$ ($VALV_z$, en pesos) y los metros cuadrados construidos acumulados ($MCC_z$). La Región Metropolitana registra \\$1.669 mil / $m^2$, frente a \\$930 mil / $m^2$ en la Macro-Zona Sur.
+2. **Valor por $m^2$ de terreno ($v^t_z = VALV_z / MCT_z$):** Cociente entre el valor total habitacional y los metros cuadrados totales del predio ($MCT_z$). En la Región Metropolitana alcanza \\$542 mil / $m^2$ de terreno, cuadruplicando la densidad de las macro-zonas Centro (\\$146 mil / $m^2$) y Sur (\\$130 mil / $m^2$), lo que refleja la hiper-concentración de la renta del suelo en la capital.
+:::
 
 ::: {{.caveat}}
 **La geografía son macro-zonas, no regiones.** El Banco Central publica el IPV y el
