@@ -9,6 +9,7 @@ Task:     Revisión multiescalar de la BDE -- proyecto de precio del suelo
 Inputs:   data/catalogo_series.xlsx
 Outputs:  data/censo_bde_series.csv
           data/censo_bde_resumen.csv
+          data/censo_explorador.csv
 Created:  2026-08-27
 Updated:  2026-08-27
 Owner:    dpolancon
@@ -144,8 +145,18 @@ def main() -> int:
 
     ruta_censo = DATA_DIR / "censo_bde_series.csv"
     ruta_resumen = DATA_DIR / "censo_bde_resumen.csv"
+    ruta_vista = DATA_DIR / "censo_explorador.csv"
     censo.to_csv(ruta_censo, index=False, encoding="utf-8")
     resumen.to_csv(ruta_resumen, index=False, encoding="utf-8")
+
+    # Vista aligerada para el explorador del navegador. Se cae `cuadro`, que
+    # es el 55% del peso del archivo --101 caracteres de media contra 24 del
+    # nombre-- y que no sirve para filtrar. La base completa queda descargable
+    # en la página de datos: el explorador trabaja sobre una vista, no sobre
+    # una versión distinta del censo.
+    censo[["codigo", "nombre", "capitulo", "escala", "frecuencia"]].to_csv(
+        ruta_vista, index=False, encoding="utf-8"
+    )
 
     total = len(censo)
     logger.info("--- Censo por escala ---")
@@ -164,6 +175,10 @@ def main() -> int:
 
     logger.info("Escribió %s (%d filas)", ruta_censo.name, len(censo))
     logger.info("Escribió %s (%d filas)", ruta_resumen.name, len(resumen))
+    logger.info(
+        "Escribió %s (%d filas, %.1f MB)",
+        ruta_vista.name, len(censo), ruta_vista.stat().st_size / 1e6,
+    )
     return 0
 
 

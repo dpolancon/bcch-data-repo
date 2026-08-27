@@ -257,6 +257,50 @@ def styles_css() -> str:
 .ctl-actions button:hover { border-color: currentColor; }
 .ctl-actions button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
+/* Campo de búsqueda del censo: hereda la tipografía del cuerpo en vez de la
+   del sistema, para no leerse como un formulario ajeno a la página. */
+.ctl input[type="search"] {
+  font: inherit;
+  font-size: 0.92rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(128, 128, 128, 0.45);
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  max-width: 26rem;
+  width: 100%;
+}
+.ctl input[type="search"]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+
+/* Tabla de coincidencias del censo. Ancha por naturaleza: rueda dentro de su
+   caja y nunca empuja la página. */
+.tablabox { overflow-x: auto; margin: 0.6rem 0 1.4rem; }
+table.censo {
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  width: 100%;
+  min-width: 40rem;
+}
+table.censo th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  padding: 0.4rem 0.7rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+}
+table.censo td {
+  padding: 0.35rem 0.7rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.16);
+  vertical-align: top;
+}
+table.censo code { font-size: 0.82em; white-space: nowrap; }
+
 /* Charts scroll inside their own box; the page never scrolls sideways. */
 .plotbox { overflow-x: auto; margin: 1rem 0 0.4rem; }
 .plotbox svg { max-width: 100%; height: auto; }

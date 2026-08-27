@@ -173,6 +173,9 @@ def build_pagina_escala(escala: str, censo: pd.DataFrame) -> str:
         "",
         site_lib.fuente(CENSO_CSV),
         "",
+        f"[Explorar el censo filtrado por esta escala](../explorar.qmd"
+        f"#escala={escala})",
+        "",
     ]
 
     if familias:
