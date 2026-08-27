@@ -386,6 +386,27 @@ AÑO_ELABORACION = "2026"
 FUENTE_BDE = "la Base de Datos Estadísticos del Banco Central de Chile"
 
 
+def es_dinero(pesos: float) -> str:
+    """Monto en pesos, escalado a la magnitud legible y con su palabra.
+
+    Los paneles guardan dinero en pesos --la unidad canónica-- porque una
+    unidad implícita de millones es lo que produce un error de tres órdenes de
+    magnitud. Escalar para leer es tarea de la presentación, y hacerlo con una
+    función evita el divisor calibrado a mano que ya escribió «7 655 059,97
+    billones de pesos».
+    """
+    escalas = (
+        (1e12, "billones de pesos"),
+        (1e9, "miles de millones de pesos"),
+        (1e6, "millones de pesos"),
+        (1e3, "miles de pesos"),
+    )
+    for corte, palabra in escalas:
+        if abs(pesos) >= corte:
+            return f"{es(pesos / corte, 2)} {palabra}"
+    return f"{es(pesos, 0)} pesos"
+
+
 def fuente(
     csv: str | None = None,
     *,

@@ -34,6 +34,7 @@ from lib.paths import CRSM_RAW_DIR, DATA_DIR
 from lib.regions import REGIONS
 from lib.sectors import compute_sector_shares
 from lib.stats import compute_weighted_gini
+from lib import unidades as unidades_lib
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s | %(levelname)-7s | %(message)s"
@@ -254,7 +255,10 @@ def build_permits() -> tuple[pd.DataFrame, pd.DataFrame]:
     resumen["var_anual_pct"] = 100 * resumen.groupby("indicador")["valor"].pct_change()
     resumen = resumen.reset_index(drop=True)
 
-    return mensual.drop(columns=["anio"]), anual, resumen
+    mensual = unidades_lib.normalizar(mensual.drop(columns=["anio"]))
+    anual = unidades_lib.normalizar(anual)
+    resumen = unidades_lib.normalizar(resumen)
+    return mensual, anual, resumen
 
 
 # Los seis indicadores de la familia, con su tipo de medida. La distinción
@@ -356,17 +360,22 @@ def build_financial_depth() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     # porque el tamaño de cada cartera regional no está en esta familia-- y un
     # stock se suma, porque contar cuentas de todas las regiones sí tiene
     # sentido. Por eso el resumen distingue las dos operaciones.
-    tasas = (
-        anual[anual["medida"] == "tasa"]
-        .groupby(["anio", "indicador", "medida", "unidad"], as_index=False)["valor"]
-        .mean()
+    # La operación la decide la unidad, no el tipo de medida. `medida`
+    # distingue tasa de stock, pero eso no basta: SCCPN es un stock y es un
+    # saldo PROMEDIO por cuenta, así que sumarlo entre regiones no da nada
+    # interpretable. lib.unidades declara la agregación de cada unidad y acá
+    # se respeta: se suma lo sumable y se promedia el resto.
+    claves = ["anio", "indicador", "medida", "unidad"]
+    agregable = anual["unidad"].map(
+        lambda u: unidades_lib.resolver(u)[2] == unidades_lib.TOTAL
     )
-    stocks = (
-        anual[anual["medida"] == "stock"]
-        .groupby(["anio", "indicador", "medida", "unidad"], as_index=False)["valor"]
-        .sum()
+    sumables = (
+        anual[agregable].groupby(claves, as_index=False)["valor"].sum()
     )
-    resumen = pd.concat([tasas, stocks], ignore_index=True)
+    promediables = (
+        anual[~agregable].groupby(claves, as_index=False)["valor"].mean()
+    )
+    resumen = pd.concat([sumables, promediables], ignore_index=True)
 
     # Concentración metropolitana de las cuentas: la única de las seis series
     # donde la participación de una región dice algo por sí sola.
@@ -381,7 +390,13 @@ def build_financial_depth() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         ["indicador", "anio"]
     ).reset_index(drop=True)
 
-    return mensual.drop(columns=["anio"]), anual, resumen
+    # Todo a la unidad canónica de su dimensión: los saldos quedan en pesos y
+    # no unos en pesos y otros en millones. El marco además declara si el
+    # valor se suma entre regiones o no.
+    mensual = unidades_lib.normalizar(mensual.drop(columns=["anio"]))
+    anual = unidades_lib.normalizar(anual)
+    resumen = unidades_lib.normalizar(resumen)
+    return mensual, anual, resumen
 
 
 BUILDERS = {

@@ -639,8 +639,7 @@ La dispersión entre regiones se mantiene: en {a1} la mora hipotecaria va de
 En el mismo período las cuentas corrientes de personas naturales pasaron de
 **{site_lib.es(ctas0 / 1e6, 2)} millones** a
 **{site_lib.es(ctas1 / 1e6, 2)} millones**, y los depósitos a la vista de
-**{site_lib.es(dep0 / 1e6, 2)}** a **{site_lib.es(dep1 / 1e6, 2)} billones de
-pesos**. Pero el crecimiento no se repartió: la participación de la Región
+**{site_lib.es_dinero(dep0)}** a **{site_lib.es_dinero(dep1)}**. Pero el crecimiento no se repartió: la participación de la Región
 Metropolitana en las cuentas del país subió de **{site_lib.es(conc0, 1)}%** en
 {a0} a **{site_lib.es(conc1, 1)}%** en {a1}.
 

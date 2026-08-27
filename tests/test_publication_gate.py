@@ -15,6 +15,8 @@ import os
 import re
 
 import pandas as pd
+
+from lib import unidades as unidades_lib
 import sys
 
 import pytest
@@ -196,3 +198,54 @@ class TestCapaCruda:
                 f"{archivo.name} tiene region_id sin relleno: {malos[:5]}. "
                 "Leerlo como entero convierte '01' en 1 y rompe todo cruce."
             )
+
+class TestUnidades:
+    """Un panel debe declarar qué operaciones admite sobre sus valores.
+
+    Los tres errores que este módulo existe para impedir ya se cometieron:
+    sumar los doce meses de un stock, etiquetar igual un saldo en pesos y otro
+    en millones de pesos, y sumar entre regiones un saldo que es un promedio.
+    """
+
+    def _paneles(self):
+        data = REPO_ROOT / "data"
+        return [
+            p for p in sorted(data.glob("panel_*.csv"))
+            if "unidad" in pd.read_csv(p, nrows=1).columns
+        ]
+
+    def test_una_unidad_por_dimension(self):
+        """Dos series de la misma dimensión no pueden venir en unidades distintas."""
+        for panel in self._paneles():
+            d = pd.read_csv(panel)
+            for dim, grupo in d.groupby("dimension"):
+                unidades = set(grupo["unidad"].unique())
+                assert len(unidades) == 1, (
+                    f"{panel.name}: la dimensión {dim} trae {sorted(unidades)}. "
+                    "Dos unidades en una dimensión no son comparables ni sumables."
+                )
+
+    def test_unidad_es_la_canonica(self):
+        for panel in self._paneles():
+            d = pd.read_csv(panel)
+            for dim, grupo in d.groupby("dimension"):
+                esperada = unidades_lib.CANONICA[dim]
+                got = grupo["unidad"].iloc[0]
+                assert got == esperada, (
+                    f"{panel.name}: {dim} está en {got!r} y la canónica es {esperada!r}"
+                )
+
+    def test_agregacion_declarada(self):
+        """Sin este campo no se sabe si un valor se puede sumar entre regiones."""
+        for panel in self._paneles():
+            d = pd.read_csv(panel)
+            malos = set(d["agregacion"].unique()) - {
+                unidades_lib.TOTAL, unidades_lib.PROMEDIO
+            }
+            assert not malos, f"{panel.name}: agregación desconocida {malos}"
+
+    def test_toda_unidad_de_origen_esta_declarada(self):
+        for panel in self._paneles():
+            d = pd.read_csv(panel)
+            for u in d["unidad_original"].dropna().unique():
+                unidades_lib.resolver(u)

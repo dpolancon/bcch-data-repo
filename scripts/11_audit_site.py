@@ -217,6 +217,24 @@ def audit_report6(root: Path, problems: list[str]) -> None:
         site_lib.es(100 * (1 - float(viv.min()) / float(viv.max())), 0),
         site_lib.es(float(tasas["concentracion_rm_cuentas"].loc[a1]), 1),
     }
+    # Los montos también: fueron los que dejaron pasar «7 655 059,97 billones
+    # de pesos» cuando la unidad canónica cambió a pesos y el divisor de la
+    # página seguía calibrado a millones.
+    stocks = resumen[resumen["medida"] == "stock"].pivot(
+        index="anio", columns="indicador", values="valor"
+    )
+    a0 = int(tasas.index.min())
+    for col in ("cuentas_corrientes", "depositos_vista"):
+        if col not in stocks.columns:
+            continue
+        for anio in (a0, a1):
+            bruto = float(stocks[col].loc[anio])
+            texto_esperado = (
+                site_lib.es(bruto / 1e6, 2)
+                if col == "cuentas_corrientes"
+                else site_lib.es_dinero(bruto).split(" ")[0]
+            )
+            esperados.add(texto_esperado)
     texto = pagina.read_text(encoding="utf-8")
     hallados = set()
     for bloque in re.findall(r"\*\*([^*]+)\*\*", texto):
