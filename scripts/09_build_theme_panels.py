@@ -10,6 +10,7 @@ Inputs:   data/raw/regional-spatial-macro-dataset/raw_annual.csv (via lib.sector
 Outputs:  data/panel_two_axes_annual.csv
           data/panel_two_axes_summary.csv
           data/panel_permits_{monthly,annual,summary}.csv
+          data/panel_financial_depth_{monthly,annual,summary}.csv
 Created:  2026-08-26
 Updated:  2026-08-26
 Owner:    dpolancon
@@ -256,7 +257,138 @@ def build_permits() -> tuple[pd.DataFrame, pd.DataFrame]:
     return mensual.drop(columns=["anio"]), anual, resumen
 
 
-BUILDERS = {"two_axes": build_two_axes, "permits": build_permits}
+# Los seis indicadores de la familia, con su tipo de medida. La distinción
+# tasa/stock es la que impide el error más fácil de cometer acá: ninguno de los
+# seis es un flujo, así que sumar meses no significa nada. Un stock se promedia,
+# una tasa se promedia, y nada se acumula.
+FINANCIERO = {
+    "DV90": ("mora_vivienda", "tasa", "% de la cartera de vivienda"),
+    "DCS90": ("mora_consumo", "tasa", "% de la cartera de consumo"),
+    "DCM90": ("mora_comercial", "tasa", "% de la cartera comercial"),
+    # Las unidades salen del nombre que publica el Banco Central, no de un
+    # supuesto: CCPN cuenta cuentas de personas naturales, SCCPN es un saldo
+    # promedio en pesos y SDV un saldo total en MILLONES de pesos. Confundir
+    # las dos últimas escalas por tres órdenes de magnitud.
+    "CCPN": ("cuentas_corrientes", "stock", "número de cuentas de personas naturales"),
+    "SCCPN": ("saldo_medio_cuenta", "stock", "pesos nominales por cuenta"),
+    "SDV": ("depositos_vista", "stock", "millones de pesos nominales"),
+}
+
+
+def build_financial_depth() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Morosidad y profundidad de depósitos por región.
+
+    Mide angustia del deudor y profundidad de depósitos, **nunca volumen de
+    crédito**: los montos hipotecarios, las tasas y el LTV son nacionales. Es
+    decir, dice cómo le va al deudor en cada región, no cuánto crédito entró en
+    cada región; la segunda pregunta no se responde con la BDE.
+
+    Ninguno de los seis indicadores es un flujo. Las tres tasas de mora son
+    porcentajes de carteras distintas --con denominadores distintos, de modo que
+    su suma no significa nada-- y los tres saldos son stocks. Todo se promedia;
+    nada se acumula.
+    """
+    ruta = CRSM_RAW_DIR / "raw_monthly.csv"
+    if not ruta.exists():
+        raise SystemExit(f"Falta {ruta}. Corra la etapa 01 con --family financial_depth.")
+
+    crudo = pd.read_csv(ruta, dtype=str, low_memory=False)
+    crudo["date"] = pd.to_datetime(crudo["date"], format="ISO8601")
+    crudo["mnemonico"] = crudo["series_code"].map(_mnemonico)
+    sub = crudo[crudo["mnemonico"].isin(FINANCIERO)].copy()
+    if sub.empty:
+        raise SystemExit(
+            "No hay filas de la familia en raw_monthly.csv -- ¿se descargó?"
+        )
+
+    sub["valor"] = pd.to_numeric(sub["value"], errors="coerce")
+    sub["indicador"] = sub["mnemonico"].map(lambda m: FINANCIERO[m][0])
+    sub["medida"] = sub["mnemonico"].map(lambda m: FINANCIERO[m][1])
+    sub["unidad"] = sub["mnemonico"].map(lambda m: FINANCIERO[m][2])
+
+    por_id = {r.id: r.name_es for r in REGIONS}
+    sub["region_display"] = sub["region_id"].map(por_id)
+    faltan = sub[sub["region_display"].isna()]["region_id"].unique()
+    if len(faltan):
+        raise SystemExit(f"Regiones sin nombre: {sorted(faltan)}")
+
+    mensual = (
+        sub[[
+            "date", "region_id", "region_display", "mnemonico", "indicador",
+            "medida", "unidad", "valor",
+        ]]
+        .sort_values(["indicador", "region_id", "date"])
+        .reset_index(drop=True)
+    )
+    # Promedio móvil de doce meses. Para una tasa suaviza; para un stock quita
+    # la estacionalidad de fin de año. En ningún caso es una acumulación.
+    mensual["promedio_12m"] = mensual.groupby(
+        ["indicador", "region_id"], sort=False
+    )["valor"].transform(lambda x: x.rolling(12, min_periods=12).mean())
+
+    mensual["anio"] = mensual["date"].dt.year
+    conteo = (
+        mensual.groupby(["indicador", "region_id", "anio"])["valor"]
+        .size()
+        .reset_index(name="meses")
+    )
+    completos = conteo[conteo["meses"] == 12]
+    anios = completos.groupby("indicador")["anio"].apply(set)
+    comunes = set.intersection(*anios) if len(anios) else set()
+    logger.info(
+        "Años completos comunes a los %d indicadores: %d-%d",
+        len(anios), min(comunes), max(comunes),
+    )
+
+    # Promedio de los doce meses, para tasas y para stocks por igual.
+    anual = (
+        mensual[mensual["anio"].isin(comunes)]
+        .groupby(
+            ["anio", "region_id", "region_display", "indicador", "medida", "unidad"],
+            as_index=False,
+        )["valor"]
+        .mean()
+        .sort_values(["indicador", "region_id", "anio"])
+        .reset_index(drop=True)
+    )
+
+    # Resumen nacional. Una tasa se promedia entre regiones --no se pondera,
+    # porque el tamaño de cada cartera regional no está en esta familia-- y un
+    # stock se suma, porque contar cuentas de todas las regiones sí tiene
+    # sentido. Por eso el resumen distingue las dos operaciones.
+    tasas = (
+        anual[anual["medida"] == "tasa"]
+        .groupby(["anio", "indicador", "medida", "unidad"], as_index=False)["valor"]
+        .mean()
+    )
+    stocks = (
+        anual[anual["medida"] == "stock"]
+        .groupby(["anio", "indicador", "medida", "unidad"], as_index=False)["valor"]
+        .sum()
+    )
+    resumen = pd.concat([tasas, stocks], ignore_index=True)
+
+    # Concentración metropolitana de las cuentas: la única de las seis series
+    # donde la participación de una región dice algo por sí sola.
+    cuentas = anual[anual["indicador"] == "cuentas_corrientes"]
+    total = cuentas.groupby("anio")["valor"].sum()
+    rm = cuentas[cuentas["region_id"] == "13"].set_index("anio")["valor"]
+    conc = (100 * rm / total).rename("valor").reset_index()
+    conc["indicador"] = "concentracion_rm_cuentas"
+    conc["medida"] = "tasa"
+    conc["unidad"] = "% de las cuentas del país"
+    resumen = pd.concat([resumen, conc], ignore_index=True).sort_values(
+        ["indicador", "anio"]
+    ).reset_index(drop=True)
+
+    return mensual.drop(columns=["anio"]), anual, resumen
+
+
+BUILDERS = {
+    "two_axes": build_two_axes,
+    "permits": build_permits,
+    "financial_depth": build_financial_depth,
+}
 
 
 def main() -> int:

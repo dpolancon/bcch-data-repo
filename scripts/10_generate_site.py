@@ -65,6 +65,8 @@ PUBLISHED_PANELS = [
     "panel_two_axes_summary.csv",
     "panel_permits_annual.csv",
     "panel_permits_summary.csv",
+    "panel_financial_depth_annual.csv",
+    "panel_financial_depth_summary.csv",
     "panel_regional_pib_annual.csv",
 ]
 
@@ -545,6 +547,126 @@ Banco Central no publica población regional como serie propia, sólo como
 denominador dentro de las tablas per cápita.
 
 {site_lib.fuente("panel_permits_annual.csv")}
+"""
+
+
+def build_report6(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
+    """Reporte 6: la mora hipotecaria y el ciclo de tasas.
+
+    Toda cifra se interpola del panel; la etapa 11 las recalcula y falla si la
+    prosa deja de seguir de los datos.
+    """
+    tasas = resumen[resumen["medida"] == "tasa"].pivot(
+        index="anio", columns="indicador", values="valor"
+    )
+    a0, a1 = int(tasas.index.min()), int(tasas.index.max())
+    viv = tasas["mora_vivienda"]
+    pico_anio, pico = int(viv.idxmax()), float(viv.max())
+    piso_anio, piso = int(viv.idxmin()), float(viv.min())
+    hoy = float(viv.loc[a1])
+    caida = 100 * (1 - piso / pico)
+
+    com = float(tasas["mora_comercial"].loc[a1])
+    con = float(tasas["mora_consumo"].loc[a1])
+
+    conc = tasas["concentracion_rm_cuentas"]
+    conc0, conc1 = float(conc.loc[a0]), float(conc.loc[a1])
+
+    stocks = resumen[resumen["medida"] == "stock"].pivot(
+        index="anio", columns="indicador", values="valor"
+    )
+    ctas0 = float(stocks["cuentas_corrientes"].loc[a0])
+    ctas1 = float(stocks["cuentas_corrientes"].loc[a1])
+    dep0 = float(stocks["depositos_vista"].loc[a0])
+    dep1 = float(stocks["depositos_vista"].loc[a1])
+
+    ult = anual[
+        (anual["indicador"] == "mora_vivienda") & (anual["anio"] == a1)
+    ].set_index("region_display")["valor"]
+    peor, mejor = ult.nlargest(1), ult.nsmallest(1)
+
+    return f"""---
+title: "Profundidad financiera y morosidad por región"
+---
+
+{site_lib.escala_badge(families_lib.ESCALA_REGIONAL)}
+
+*La mora hipotecaria se desplomó durante los años de tasas bajas y repunta
+desde que las tasas subieron. Es la huella regional del ciclo financiero sobre
+el deudor, no sobre el crédito.*
+
+---
+
+## El argumento
+
+De las tres carteras que el Banco Central desagrega por región, la de vivienda
+es la que menos morosos produce y la que más se movió. Entre {pico_anio} y
+{piso_anio} la mora hipotecaria cayó de **{site_lib.es(pico, 2)}%** a
+**{site_lib.es(piso, 2)}%** de la cartera: una reducción de
+**{site_lib.es(caida, 0)}%**. En {a1} está en **{site_lib.es(hoy, 2)}%**,
+todavía muy por debajo del inicio de la serie pero claramente por encima del
+piso.
+
+El contraste con las otras dos carteras es lo que da sentido a la cifra. En
+{a1} la mora comercial va en **{site_lib.es(com, 2)}%** y la de consumo en
+**{site_lib.es(con, 2)}%**: entre cinco y tres veces la hipotecaria. El
+inmueble es, en los datos del propio Banco Central, la deuda que menos se deja
+de pagar.
+
+::: {{.caveat}}
+**Un porcentaje de cartera sube por dos motivos distintos.** Estas series son
+mora sobre el saldo de cada cartera, no montos: una alza puede venir de más
+deudores en problemas *o* de una cartera que se contrae. Distinguirlo exige el
+volumen de crédito por región, y el Banco Central **no lo publica**: los montos
+hipotecarios, las tasas y el LTV son nacionales. Esta familia dice cómo le va
+al deudor en cada región, nunca cuánto crédito entró en cada región.
+:::
+
+## Lo que muestran los datos
+
+La trayectoria de la mora hipotecaria acompaña el ciclo de tasas: cae de forma
+sostenida durante los años de política monetaria expansiva y se quiebra al alza
+después. El proyecto no puede leer causalidad en eso —la tasa es nacional y
+esta serie es regional—, pero sí registrar que el período de valorización del
+suelo coincidió con deudores hipotecarios sin estrés visible.
+
+La dispersión entre regiones se mantiene: en {a1} la mora hipotecaria va de
+**{site_lib.es(float(mejor.iloc[0]), 2)}%** en {mejor.index[0]} a
+**{site_lib.es(float(peor.iloc[0]), 2)}%** en {peor.index[0]}.
+
+### La profundidad financiera se concentró
+
+En el mismo período las cuentas corrientes de personas naturales pasaron de
+**{site_lib.es(ctas0 / 1e6, 2)} millones** a
+**{site_lib.es(ctas1 / 1e6, 2)} millones**, y los depósitos a la vista de
+**{site_lib.es(dep0 / 1e6, 2)}** a **{site_lib.es(dep1 / 1e6, 2)} billones de
+pesos**. Pero el crecimiento no se repartió: la participación de la Región
+Metropolitana en las cuentas del país subió de **{site_lib.es(conc0, 1)}%** en
+{a0} a **{site_lib.es(conc1, 1)}%** en {a1}.
+
+Esa concentración corre en la misma dirección que la inmovilidad productiva que
+documentó el Reporte 1. La bancarización creció seis veces y se volvió más
+metropolitana, no menos.
+
+## Nota metodológica
+
+Ninguno de los seis indicadores es un flujo. Las tres tasas de mora son
+porcentajes de carteras **distintas**, con denominadores distintos: sumarlas no
+significa nada, y ponderarlas exigiría el tamaño de cada cartera regional, que
+esta familia no trae. Los tres saldos son stocks. Todo se promedia sobre los
+doce meses del año; nada se acumula.
+
+Los saldos están en **pesos nominales**, sin deflactar. La multiplicación por
+{site_lib.es(dep1 / dep0, 1)} de los depósitos a la vista mezcla inflación con
+profundización financiera, y separarlas exige un índice de precios que es
+nacional.
+
+`CCPN` cuenta **cuentas**, no personas: una persona puede tener varias y una
+cuenta puede ser de una empresa. No es una medida de inclusión financiera per
+cápita, y no puede convertirse en una, porque la población regional no existe
+como serie del Banco Central.
+
+{site_lib.fuente("panel_financial_depth_annual.csv")}
 """
 
 
@@ -1224,6 +1346,8 @@ def main() -> int:
         "panel_two_axes_summary.csv": "Resumen anual de los dos ejes",
         "panel_permits_annual.csv": "Permisos de edificación, región × año",
         "panel_permits_summary.csv": "Permisos: totales nacionales y variación",
+        "panel_financial_depth_annual.csv": "Morosidad y depósitos, región × año",
+        "panel_financial_depth_summary.csv": "Morosidad y depósitos: resumen nacional",
         "panel_regional_pib_annual.csv": "PIB regional anual",
     }
     panels_meta = [
@@ -1299,6 +1423,29 @@ def main() -> int:
         logger.warning(
             "Sin panel de permisos; el reporte 4 no se genera. "
             "Corra: python scripts/09_build_theme_panels.py --family permits"
+        )
+
+    # ---- reporte 6: profundidad financiera y morosidad --------------------
+    fin_anual = DATA_DIR / "panel_financial_depth_annual.csv"
+    if fin_anual.exists():
+        page6 = build_report6(
+            pd.read_csv(fin_anual, dtype={"region_id": str}),
+            pd.read_csv(DATA_DIR / "panel_financial_depth_summary.csv"),
+        )
+        check_tokens(page6, "reportes/report6-financiera.qmd")
+        write(root / "reportes" / "report6-financiera.qmd", page6)
+        published.append(
+            {
+                "n": 6,
+                "slug": "report6-financiera",
+                "nav_label": "6 · Profundidad financiera",
+                "family": "financial_depth",
+            }
+        )
+    else:
+        logger.warning(
+            "Sin panel financiero; el reporte 6 no se genera. "
+            "Corra: python scripts/09_build_theme_panels.py --family financial_depth"
         )
 
     # ---- vendored chart libraries ----------------------------------------

@@ -197,6 +197,40 @@ def audit_report4(root: Path, problems: list[str]) -> None:
         )
 
 
+def audit_report6(root: Path, problems: list[str]) -> None:
+    """Recalcula las cifras del reporte 6 y las compara con su página."""
+    pagina = root / "reportes" / "report6-financiera.qmd"
+    if not pagina.exists():
+        logger.info("Reporte 6 ausente -- se omite su verificación")
+        return
+
+    resumen = pd.read_csv(DATA_DIR / "panel_financial_depth_summary.csv")
+    tasas = resumen[resumen["medida"] == "tasa"].pivot(
+        index="anio", columns="indicador", values="valor"
+    )
+    viv = tasas["mora_vivienda"]
+    a1 = int(tasas.index.max())
+    esperados = {
+        site_lib.es(float(viv.max()), 2),
+        site_lib.es(float(viv.min()), 2),
+        site_lib.es(float(viv.loc[a1]), 2),
+        site_lib.es(100 * (1 - float(viv.min()) / float(viv.max())), 0),
+        site_lib.es(float(tasas["concentracion_rm_cuentas"].loc[a1]), 1),
+    }
+    texto = pagina.read_text(encoding="utf-8")
+    hallados = set()
+    for bloque in re.findall(r"\*\*([^*]+)\*\*", texto):
+        hallados.update(re.findall(r"\d+(?:,\d+)?", bloque))
+    faltan = esperados - hallados
+    if faltan:
+        fail(
+            problems,
+            f"El reporte 6 no reproduce su propio panel; ausentes: {sorted(faltan)}",
+        )
+    else:
+        logger.info("Reporte 6: %d cifras reproducen del panel", len(esperados))
+
+
 def audit_panels(root: Path, problems: list[str]) -> None:
     """Published CSVs must be identical to the ones in data/."""
     datos = root / "datos"
@@ -456,6 +490,7 @@ def main() -> int:
     audit_tokens(root, problems)
     audit_report3(root, problems)
     audit_report4(root, problems)
+    audit_report6(root, problems)
     audit_conteos(root, problems)
     audit_atribucion(root, problems)
     audit_idioma(root, problems)
