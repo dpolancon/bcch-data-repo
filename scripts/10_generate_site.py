@@ -772,9 +772,9 @@ en **{site_lib.es(ipv_rm_act, 2)}** hacia 2026.
 
 {tabla2_md}
 
-![Figura 5.2: Trayectoria del Índice de Precios de Vivienda (IPV Base 2008=100) en la RM y Subzonas](../assets/fig5_2_ipv_subzonas.png)
+![Figura 5.2: Trayectoria del Índice de Precios de Vivienda (IPV Base 2008=100) por Macro-Zonas y Subzonas RM (2002–2026)](../assets/fig5_2_ipv_subzonas.png)
 
-![Figura 5.3: Concentración Territorial y Densidad de Valor por Metro Cuadrado (2024)](../assets/fig5_3_densidad_valor.png)
+![Figura 5.3: Concentración Territorial y Densidad de Valor por Metro Cuadrado por Macro-Zona (2024)](../assets/fig5_3_densidad_valor.png)
 
 ::: {{.caveat}}
 **La geografía son macro-zonas, no regiones.** El Banco Central publica el IPV y el
