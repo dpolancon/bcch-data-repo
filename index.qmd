@@ -1,0 +1,79 @@
+---
+title: "El programa"
+subtitle: "Programa de publicaciones sobre datos regionales del Banco Central de Chile"
+---
+
+## La tesis, en dos registros
+
+Este programa sostiene un solo argumento, medido en dos niveles distintos
+porque el Banco Central publica los datos en dos niveles distintos.
+
+**Tier A — nacional y por zonas.** El inmueble en Chile funciona como reserva
+de valor. La riqueza habitacional como proporción del PIB, la descomposición
+entre valor del *suelo* y valor de la *construcción*, y el apalancamiento
+hipotecario de los hogares miden la financiarización del espacio de forma
+directa.
+
+**Tier B — las 16 regiones.** Ese proceso nacional deja una huella regional que
+sí es medible: permisos de edificación, participación del sector 10 en el
+producto regional, morosidad hipotecaria y profundidad de cuentas corrientes.
+Esa huella corre contra la inmovilidad estructural que documentó el Reporte 1
+—un HHI plano en 0,236–0,244 durante trece años.
+
+::: {.caveat}
+**Los dos tiers no se cruzan libremente.** El índice de precios de vivienda
+existe para siete zonas, no para dieciséis regiones. Cualquier comparación
+entre tiers declara explícitamente la pérdida por agregación, o se restringe a
+Norte / Centro / Sur / RM. No se ofrece una tabla de equivalencia región-zona
+porque no existe una que sea honesta.
+:::
+
+## Hoja de ruta
+
+Cada reporte abre exactamente **una** familia de series nueva, y las familias
+están ordenadas por costo de ingesta creciente. El equipo nunca enfrenta dos
+estructuras de datos desconocidas al mismo tiempo. El orden *es* el diseño de
+absorción.
+
+| # | Reporte | Tier | Familia | Frec. | Estado |
+|---|---------|------|---------|-------|--------|
+| 3 | [Los dos ejes: renta espacial y renta de recursos](reportes/report3-dos-ejes.qmd) | Tier B | `two_axes` | A, T | publicado |
+| 4 | El ciclo regional de la construcción | Tier B | `permits` | M | en preparación |
+| 5 | El inmueble como reserva de valor | Tier A | `housing_wealth` | A, T | en preparación |
+| 6 | Profundidad financiera y morosidad por región | Tier B | `financial_depth` | M | en preparación |
+| 7 | Estancamiento del sector dinámico | Tier B | `interregional_trade` | M, T, A | en preparación |
+
+## Cómo avanza el programa
+
+El ritmo lo fija la comprensión, no el calendario. Corren dos vías en paralelo.
+
+**Vía lenta — los reportes.** Un ciclo no se cierra en una fecha: se cierra
+cuando existen tres artefactos.
+
+1. el reporte publicado,
+2. una **nota de familia** que explica qué significan los códigos, cómo se
+   codifican las regiones y dónde están las trampas —lo que necesita leer la
+   *próxima* persona, no la que ya hizo el trabajo,
+3. una respuesta escrita del equipo, enlazada desde la página del reporte.
+
+**Vía rápida — las notas de datos.** Una nota breve cada vez que aterriza una
+familia nueva en `data/raw/`, *antes* del reporte que la usa. Se genera desde
+el manifiesto de descarga: cuántas series, qué regiones, qué rango de fechas,
+qué falta. Barata y mecánica; mantiene la ingesta en movimiento entre reportes.
+
+**La compuerta.** La descarga del reporte N+1 no corre hasta que existe la nota
+de familia del reporte N. Ese es el mecanismo de autorregulación, y es
+verificable de forma automática.
+
+## Notas de familia
+
+Cada familia de series ingerida deja una nota: qué significan los códigos, cómo se codifican las regiones, dónde están las trampas. Es lo que abre la compuerta del reporte siguiente.
+
+- [Nota de familia: Los dos ejes: renta espacial y renta de recursos](briefings/briefing_two_axes.qmd)
+
+## Procedencia
+
+Todo número de este sitio proviene de un CSV en `data/`, y todo CSV proviene de
+la API del Banco Central de Chile. No hay datos sintéticos, estimados ni
+interpolados en ninguna etapa —la ausencia se reporta como ausencia. Los
+paneles publicados están [disponibles para descarga](explorar.qmd).

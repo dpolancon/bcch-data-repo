@@ -1,0 +1,92 @@
+---
+title: "Metodología y límites"
+---
+
+Esta página existe para que ningún lector infiera de este sitio algo que los
+datos no sostienen. Los límites de abajo no son notas al pie: son restricciones
+que cambian qué preguntas se pueden responder.
+
+## Lo que no existe en el catálogo
+
+Cuatro ausencias condicionan todo el programa. Ninguna se rellena con
+estimaciones.
+
+**No hay índice de arriendos.** Fuera de un único componente del IPC nacional,
+el Banco Central no publica precios de arriendo, y menos aún por región. El eje
+de renta espacial se mide con el sector 10 de las cuentas regionales, que es
+mayoritariamente **alquiler imputado**.
+
+**No hay productividad total de factores.** El catálogo no contiene ninguna
+serie de PTF. Por lo tanto el «estancamiento» del sector dinámico se argumenta
+con participaciones de producto y descomposición *shift-share*, nunca como una
+caída de productividad medida.
+
+**No hay uso de suelo urbano.** No existen series de zonificación ni de huella
+urbana. Las únicas cantidades vinculadas al suelo son los metros cuadrados del
+stock habitacional y la valorización del terreno, ambas nacionales o por zona.
+
+**No hay población regional como serie propia.** Aparece sólo como denominador
+dentro de las tablas per cápita. Cualquier cálculo per cápita fuera de ese
+conjunto requiere ir al INE.
+
+## Precios corrientes, no volumen encadenado
+
+Las participaciones sectoriales se calculan sobre precios corrientes. Los
+volúmenes encadenados **no son aditivos** entre sectores: la suma de los
+sectores no reproduce el total regional, de modo que una participación
+construida sobre volúmenes no sería una proporción del producto regional sino
+un cociente sin denominador interpretable.
+
+## Empalme de años de referencia
+
+El PIB regional existe con años base 1986, 1996, 2003, 2008, 2013 y 2018, pero
+sólo las cosechas 2013 y 2018 están etiquetadas como empalmadas. Los reportes
+que abarcan 2013 en adelante no enfrentan el problema. Cualquier afirmación de
+largo plazo que cruce hacia atrás debe declarar el empalme explícitamente.
+
+## Alcance descriptivo
+
+Este programa es **descriptivo**. Documenta co-movimientos, participaciones y
+dispersión; no identifica efectos causales. Donde el texto dice «acompaña»,
+«corre contra» o «coincide con», debe leerse literalmente y no como una
+afirmación de causalidad.
+
+## Zonas y regiones no son lo mismo
+
+El índice de precios de vivienda se publica para siete zonas
+—Norte, Centro, Sur y cuatro subzonas de la Región Metropolitana— y el producto
+se publica para dieciséis regiones. La correspondencia es de uno a muchos en
+todos los casos salvo la RM. La única dirección de agregación honesta es
+**subir** el dato regional hasta la zona, nunca **bajar** el dato zonal hasta
+la región.
+
+## Trampas por familia de series
+
+### `two_axes` — Reporte 3 (Tier B)
+
+No API calls required -- sector 10 and 03 are already present in raw_annual.csv. Sector 10 is largely IMPUTED rent from national accounts; every report leaning on it must say so.
+
+### `permits` — Reporte 4 (Tier B)
+
+First encounter with the two-letter region suffix vocabulary (AP, TA, AN, ...). Monthly regional data; pairs against sector-06 construction GDP already on disk.
+
+### `housing_wealth` — Reporte 5 (Tier A)
+
+TIER A. Geography is 7 IPV zones (Norte/Centro/Sur + 4 RM sub-zones), which do NOT map onto the 16 regions. Any Tier A x Tier B comparison must state the aggregation loss or restrict itself to Norte/Centro/Sur/RM throughout. Note the upstream typo: zone 1 is IVPZ1, not IPVZ1.
+
+### `financial_depth` — Reporte 6 (Tier B)
+
+F022 uses the glued-mnemonic encoding. F022.CTOBI is NOT Biobio and F022.CAP is NOT Arica y Parinacota -- lib.regions' GLUED_FAMILY_STEMS whitelist exists for exactly this family. Measures distress and deposit depth, never credit volume: mortgage volumes are national only.
+
+### `interregional_trade` — Reporte 7 (Tier B)
+
+Compraventas use a NUMERIC region token (15 = Arica y Parinacota) -- a fifth encoding lib.regions does not yet handle. Add the parser there, never as a standalone parser elsewhere. No TFP series exists in the catalog, so 'stagnation' rests on output shares and shift-share, not productivity.
+
+## Reproducir
+
+```bash
+python scripts/01_fetch_crsm_raw.py --family <familia>
+python scripts/09_build_theme_panels.py --family <familia>
+python scripts/10_generate_site.py
+python scripts/11_audit_site.py
+```

@@ -1,0 +1,215 @@
+---
+title: "Explorar"
+---
+
+Los dos ejes, región por región. Los datos son los mismos CSV que publican los
+reportes: si un gráfico y una tabla no coinciden, el CSV manda.
+
+```{=html}
+<div class="explorer">
+<div class="ctl">
+<span class="ctl-label">Eje</span>
+<div class="ctl-group" id="ctl-eje" role="radiogroup" aria-label="Eje">
+<label><input type="radio" name="eje" value="spatial_rent" checked> Renta espacial (sector 10)</label>
+<label><input type="radio" name="eje" value="resource_rent"> Renta de recursos (sector 03)</label>
+<label><input type="radio" name="eje" value="construction"> Construcción (sector 06)</label>
+</div>
+</div>
+<div class="ctl">
+<span class="ctl-label">Regiones</span>
+<div class="ctl-group ctl-regions" id="ctl-regiones" aria-label="Regiones"></div>
+<div class="ctl-actions">
+<button type="button" id="sel-all">Todas</button>
+<button type="button" id="sel-none">Ninguna</button>
+</div>
+</div>
+</div>
+```
+
+<div id="chart-shares" class="plotbox" aria-live="polite"></div>
+<p class="plotnote" id="note-shares"></p>
+
+## Dispersión entre regiones
+
+Un Gini alto significa que el eje está concentrado en pocas regiones. Nótese
+que los dos ejes viven en mundos distintos: la renta espacial se reparte, la
+renta de recursos no.
+
+<div id="chart-gini" class="plotbox"></div>
+
+## Descargar
+
+- [`panel_two_axes_annual.csv`](datos/panel_two_axes_annual.csv) — región × año × eje
+- [`panel_two_axes_summary.csv`](datos/panel_two_axes_summary.csv) — resumen anual
+- [`panel_regional_pib_annual.csv`](datos/panel_regional_pib_annual.csv) — PIB regional
+
+<script src="libs/d3.min.js"></script>
+<script src="libs/plot.umd.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var AXIS_LABEL = {
+    spatial_rent: "Renta espacial",
+    resource_rent: "Renta de recursos",
+    construction: "Construcción"
+  };
+  var DEFAULT_REGIONS = [
+    "Antofagasta", "Metropolitana de Santiago", "Biobío", "Aysén"
+  ];
+
+  function fail(id, err) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.innerHTML = '<p class="ploterr">No se pudieron cargar los datos: ' +
+        String(err && err.message ? err.message : err) + "</p>";
+    }
+  }
+
+  function render(panel, summary) {
+    var regions = Array.from(new Set(panel.map(function (d) {
+      return d.region_display;
+    }))).sort(function (a, b) { return a.localeCompare(b, "es"); });
+
+    // Region checkboxes, built from the data rather than hardcoded, so a
+    // renamed or added region cannot fall out of the control silently.
+    var box = document.getElementById("ctl-regiones");
+    regions.forEach(function (r) {
+      var id = "rg-" + r.replace(/[^a-zA-Z0-9]/g, "");
+      var label = document.createElement("label");
+      var input = document.createElement("input");
+      input.type = "checkbox";
+      input.value = r;
+      input.id = id;
+      input.checked = DEFAULT_REGIONS.indexOf(r) !== -1;
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(" " + r));
+      box.appendChild(label);
+    });
+
+    function selectedRegions() {
+      return Array.prototype.slice
+        .call(box.querySelectorAll("input:checked"))
+        .map(function (i) { return i.value; });
+    }
+    function selectedAxis() {
+      var el = document.querySelector('input[name="eje"]:checked');
+      return el ? el.value : "spatial_rent";
+    }
+
+    function drawShares() {
+      var axis = selectedAxis();
+      var picked = selectedRegions();
+      var rows = panel.filter(function (d) {
+        return d.axis === axis && picked.indexOf(d.region_display) !== -1;
+      });
+      var host = document.getElementById("chart-shares");
+      host.innerHTML = "";
+
+      var note = document.getElementById("note-shares");
+      if (!rows.length) {
+        host.innerHTML = '<p class="ploterr">Seleccione al menos una región.</p>';
+        note.textContent = "";
+        return;
+      }
+
+      var maxYear = d3.max(rows, function (d) { return d.year; });
+      var last = rows.filter(function (d) { return d.year === maxYear; });
+
+      host.appendChild(Plot.plot({
+        marginLeft: 62,
+        marginRight: 150,
+        height: 430,
+        width: 860,
+        style: { fontSize: "12px", background: "transparent" },
+        x: { label: "Año", tickFormat: "d" },
+        y: {
+          label: "Participación en el PIB regional",
+          percent: true,
+          grid: true,
+          zero: true
+        },
+        marks: [
+          Plot.ruleY([0]),
+          Plot.line(rows, {
+            x: "year", y: "share", stroke: "region_display", strokeWidth: 2
+          }),
+          Plot.dot(last, { x: "year", y: "share", fill: "region_display", r: 3 }),
+          Plot.text(last, {
+            x: "year", y: "share", text: "region_display",
+            dx: 8, textAnchor: "start", fontSize: 11
+          })
+        ]
+      }));
+
+      var vals = last.map(function (d) { return d.share; });
+      note.textContent = AXIS_LABEL[axis] + " · " + picked.length +
+        " región(es) · " + maxYear + ": entre " +
+        (d3.min(vals) * 100).toFixed(1).replace(".", ",") + "% y " +
+        (d3.max(vals) * 100).toFixed(1).replace(".", ",") + "%.";
+    }
+
+    function drawGini() {
+      var series = [];
+      ["spatial_rent", "resource_rent", "construction"].forEach(function (a) {
+        summary.forEach(function (d) {
+          series.push({
+            year: d.year, gini: d[a + "_gini"], eje: AXIS_LABEL[a]
+          });
+        });
+      });
+      var host = document.getElementById("chart-gini");
+      host.innerHTML = "";
+      host.appendChild(Plot.plot({
+        marginLeft: 62,
+        marginRight: 150,
+        height: 380,
+        width: 860,
+        style: { fontSize: "12px", background: "transparent" },
+        x: { label: "Año", tickFormat: "d" },
+        y: { label: "Gini entre regiones", grid: true, domain: [0, 0.8] },
+        marks: [
+          Plot.ruleY([0]),
+          Plot.line(series, {
+            x: "year", y: "gini", stroke: "eje", strokeWidth: 2.5
+          }),
+          Plot.text(
+            series.filter(function (d) {
+              return d.year === d3.max(series, function (x) { return x.year; });
+            }),
+            {
+              x: "year", y: "gini", text: "eje",
+              dx: 8, textAnchor: "start", fontSize: 11
+            }
+          )
+        ]
+      }));
+    }
+
+    document.getElementById("ctl-eje")
+      .addEventListener("change", drawShares);
+    box.addEventListener("change", drawShares);
+    document.getElementById("sel-all").addEventListener("click", function () {
+      box.querySelectorAll("input").forEach(function (i) { i.checked = true; });
+      drawShares();
+    });
+    document.getElementById("sel-none").addEventListener("click", function () {
+      box.querySelectorAll("input").forEach(function (i) { i.checked = false; });
+      drawShares();
+    });
+
+    drawShares();
+    drawGini();
+  }
+
+  Promise.all([
+    d3.csv("datos/panel_two_axes_annual.csv", d3.autoType),
+    d3.csv("datos/panel_two_axes_summary.csv", d3.autoType)
+  ]).then(function (r) {
+    render(r[0], r[1]);
+  }).catch(function (e) {
+    fail("chart-shares", e);
+    fail("chart-gini", e);
+  });
+})();
+</script>

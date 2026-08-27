@@ -1,0 +1,12 @@
+# This branch holds the Quarto SOURCE only.
+#
+# Publishing goes through the personal site: stage 12 mirrors docs/
+# into dpolancon.github.io/bcch/, which GitHub Pages builds. The local
+# render is therefore a preview, not a deliverable, and committing it
+# would put an 8 MB build artifact in this branch's history for no
+# reader's benefit.
+docs/
+
+# Quarto build state.
+.quarto/
+**/*.quarto_ipynb
