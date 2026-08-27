@@ -117,7 +117,24 @@ SITE_SECTION = "bcch"
 
 # Public URL the section is served at, used for the Quarto sitemap and search
 # index -- both of which need an absolute base to resolve under a subpath.
-SITE_BASE_URL = "https://dpolancon.github.io/bcch/"
+# Identidad pública del sitio. Vive acá y no en lib.site porque el sitio se
+# trasladará a una cuenta de GitHub del proyecto: que la migración sea barata
+# depende de que esto sea configuración y no código. Las variables de entorno
+# permiten apuntar a otro repositorio sin editar nada.
+SITE_HOST = os.environ.get("BCCH_SITE_HOST", "https://dpolancon.github.io")
+SITE_BASE_URL = f"{SITE_HOST}/{SITE_SECTION}/"
+
+# Rótulo y enlaces del sitio anfitrión, para la barra de continuidad visual.
+# Cuando el sitio pase a la cuenta del proyecto, esto cambia de valor y la
+# barra sigue funcionando.
+SITE_HOST_NOMBRE = os.environ.get("BCCH_SITE_HOST_NOMBRE", "Diego Polanco")
+SITE_HOST_LINKS = (
+    ("/research_es/", "Investigación"),
+    ("/talks_es/", "Presentaciones"),
+    ("/teaching_es/", "Enseñanza"),
+    ("/year-archive-es/", "Blog"),
+    ("/files/CV_dpolancon.pdf", "CV"),
+)
 
 
 def personal_site() -> Path | None:

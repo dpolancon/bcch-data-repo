@@ -33,6 +33,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pandas as pd
 
 from lib import families as families_lib
+from lib import escalas as escalas_lib
 from lib import site as site_lib
 from lib.paths import (
     BRIEFINGS_DIR,
@@ -57,6 +58,8 @@ TOKEN_RE = re.compile(r"@@[A-Z0-9_]+@@")
 VENDORED_LIBS = ["d3.min.js", "plot.umd.min.js"]
 
 PUBLISHED_PANELS = [
+    "censo_bde_series.csv",
+    "censo_bde_resumen.csv",
     "panel_two_axes_annual.csv",
     "panel_two_axes_summary.csv",
     "panel_regional_pib_annual.csv",
@@ -73,7 +76,7 @@ VAULT_REPORTS = [
         "nav_label": "1 · Disparidades regionales",
         "title": "Disparidades económicas regionales en Chile",
         "source": "report_REG_ECON_DEV_ES.md",
-        "tier": families_lib.TIER_REGIONAL,
+        "escala": families_lib.ESCALA_SECTORIAL_REGIONAL,
         "lead": (
             "La geografía productiva de Chile está estructuralmente fijada, "
             "mientras que la desigualdad de bienestar apenas oscila con los "
@@ -86,7 +89,7 @@ VAULT_REPORTS = [
         "nav_label": "2 · Cobertura de datos",
         "title": "Reporte de cobertura de datos regionales",
         "source": "data_coverage_report_ES.md",
-        "tier": families_lib.TIER_REGIONAL,
+        "escala": families_lib.ESCALA_SECTORIAL_REGIONAL,
         "lead": (
             "Qué publica efectivamente el Banco Central a nivel regional, "
             "por dominio temático, frecuencia y región."
@@ -140,7 +143,11 @@ def write(path: Path, text: str) -> None:
 # Page builders
 # --------------------------------------------------------------------------
 
-def build_index(published: list[dict], briefs: list[dict] | None = None) -> str:
+def build_index(
+    published: list[dict],
+    briefs: list[dict] | None = None,
+    censo: "pd.DataFrame | None" = None,
+) -> str:
     """The programme page: the thesis, the roadmap, and the absorption model."""
     rows = []
     for fam in families_lib.ordered():
@@ -152,7 +159,7 @@ def build_index(published: list[dict], briefs: list[dict] | None = None) -> str:
                 link = f"[{fam.title_es}](reportes/{p['slug']}.qmd)"
         label = link or fam.title_es
         rows.append(
-            f"| {fam.report} | {label} | Tier {fam.tier} | "
+            f"| {fam.report} | {label} | {fam.escala} | "
             f"`{fam.name}` | {', '.join(fam.frequencies)} | {status} |"
         )
     roadmap = "\n".join(rows)
@@ -171,34 +178,64 @@ def build_index(published: list[dict], briefs: list[dict] | None = None) -> str:
     else:
         notes_section = ""
 
-    return f"""---
-title: "El programa"
+    # Las cifras del censo se interpolan; ninguna se escribe a mano.
+    if censo is not None:
+        total = len(censo)
+        conteo = censo["escala"].value_counts()
+        tokens = {
+            "@@N_TOTAL@@": f"{total:,}".replace(",", "."),
+            "@@FUENTE_CENSO@@": site_lib.fuente(
+                escalas_lib.CENSO_CSV, raiz=True
+            ).strip(),
+        }
+        for clave, escala in (
+            ("NAC", families_lib.ESCALA_NACIONAL),
+            ("SEC", families_lib.ESCALA_SECTORIAL_REGIONAL),
+            ("REG", families_lib.ESCALA_REGIONAL),
+            ("ZON", families_lib.ESCALA_ZONAL),
+        ):
+            n = int(conteo.get(escala, 0))
+            tokens[f"@@N_{clave}@@"] = f"{n:,}".replace(",", ".")
+            tokens[f"@@P_{clave}@@"] = site_lib.es(100 * n / total, 1)
+    else:
+        tokens = {}
+
+    pagina = f"""---
+title: "La revisión"
 subtitle: "{site_lib.SITE_SUBTITLE}"
 ---
 
-## La tesis, en dos registros
+## Qué mide el Banco Central, y a qué escala
 
-Este programa sostiene un solo argumento, medido en dos niveles distintos
-porque el Banco Central publica los datos en dos niveles distintos.
+Esta revisión recorre la Base de Datos Estadísticos del Banco Central para el
+proyecto sobre las determinantes financieras del precio del suelo metropolitano.
+Su resultado no es un inventario sino una asimetría.
 
-**Tier A — nacional y por zonas.** El inmueble en Chile funciona como reserva
-de valor. La riqueza habitacional como proporción del PIB, la descomposición
-entre valor del *suelo* y valor de la *construcción*, y el apalancamiento
-hipotecario de los hogares miden la financiarización del espacio de forma
-directa.
+El catálogo publica **@@N_TOTAL@@ series únicas** repartidas de forma muy
+desigual entre cuatro escalas de observación:
 
-**Tier B — las 16 regiones.** Ese proceso nacional deja una huella regional que
-sí es medible: permisos de edificación, participación del sector 10 en el
-producto regional, morosidad hipotecaria y profundidad de cuentas corrientes.
-Esa huella corre contra la inmovilidad estructural que documentó el Reporte 1
-—un HHI plano en 0,236–0,244 durante trece años.
+| Escala | Series | Participación |
+|---|---:|---:|
+| [Nacional](escalas/nacional.qmd) | @@N_NAC@@ | @@P_NAC@@% |
+| [Sectorial-regional](escalas/sectorial-regional.qmd) | @@N_SEC@@ | @@P_SEC@@% |
+| [Regional](escalas/regional.qmd) | @@N_REG@@ | @@P_REG@@% |
+| [Macro-zona](escalas/macro-zona.qmd) | @@N_ZON@@ | @@P_ZON@@% |
+
+@@FUENTE_CENSO@@
+
+La BDE mide las escalas que al Banco Central le interesa gobernar. El grueso es
+nacional porque el mandato es la política monetaria nacional; la región aparece
+por vía de Cuentas Nacionales; la macro-zona aparece como estadística
+experimental. La asimetría no es una limitación técnica del catálogo: es una
+propiedad de la institución que lo produce.
 
 ::: {{.caveat}}
-**Los dos tiers no se cruzan libremente.** El índice de precios de vivienda
-existe para siete zonas, no para dieciséis regiones. Cualquier comparación
-entre tiers declara explícitamente la pérdida por agregación, o se restringe a
-Norte / Centro / Sur / RM. No se ofrece una tabla de equivalencia región-zona
-porque no existe una que sea honesta.
+**El área metropolitana no existe en ninguna escala.** Es la unidad que el
+proyecto mide, y la BDE no la publica. Lo más próximo son las macro-zonas
+—@@N_ZON@@ series, la escala más pequeña del catálogo—, y la correspondencia
+con las regiones es de uno a muchos salvo en la Región Metropolitana. La única
+dirección de agregación honesta es subir el dato regional hasta la zona, nunca
+bajar el zonal hasta la región.
 :::
 
 ## Hoja de ruta
@@ -239,14 +276,19 @@ verificable de forma automática.
 
 Todo número de este sitio proviene de un CSV en `data/`, y todo CSV proviene de
 la API del Banco Central de Chile. No hay datos sintéticos, estimados ni
-interpolados en ninguna etapa —la ausencia se reporta como ausencia. Los
-paneles publicados están [disponibles para descarga](explorar.qmd).
+interpolados en ninguna etapa —la ausencia se reporta como ausencia. Todas las
+bases procesadas están [disponibles para descarga](datos.qmd), y el
+[crosswalk](diseno.qmd) permite rastrear cualquier cifra hasta el código de
+serie que la origina.
 """
+    for token, valor in tokens.items():
+        pagina = pagina.replace(token, valor)
+    return pagina
 
 
 def build_report_page(meta: dict, body: str) -> str:
     """Wrap a vault report's markdown as a Quarto page."""
-    badge = site_lib.tier_badge(meta["tier"])
+    badge = site_lib.escala_badge(meta["escala"])
     return f"""---
 title: "{meta['title']}"
 ---
@@ -290,7 +332,7 @@ def build_report3(panel: pd.DataFrame, summary: pd.DataFrame) -> str:
     sr_list = "; ".join(f"{n} ({site_lib.es_pct(v, 1)}%)" for n, v in sr_top)
     rr_list = "; ".join(f"{n} ({site_lib.es_pct(v, 1)}%)" for n, v in rr_top)
 
-    badge = site_lib.tier_badge(families_lib.TIER_REGIONAL)
+    badge = site_lib.escala_badge(families_lib.ESCALA_SECTORIAL_REGIONAL)
 
     return f"""---
 title: "Los dos ejes: renta espacial y renta de recursos"
@@ -614,10 +656,12 @@ renta de recursos no.
 
 def build_methodology() -> str:
     """The standing caveats. This page is the site's conscience."""
+    # `notes` quedó como memoria técnica en inglés; lo que se publica es
+    # `notas_es`, porque el sitio es íntegramente en español.
     fam_notes = "\n\n".join(
-        f"### `{f.name}` — Reporte {f.report} (Tier {f.tier})\n\n{f.notes}"
+        f"### `{f.name}` — Reporte {f.report} ({f.escala})\n\n{f.notas_es}"
         for f in families_lib.ordered()
-        if f.notes
+        if f.notas_es
     )
     return f"""---
 title: "Metodología y límites"
@@ -699,6 +743,120 @@ python scripts/11_audit_site.py
 # --------------------------------------------------------------------------
 
 
+def build_datos(manifest: list[dict], panels: list[dict]) -> str:
+    """Página de descargas: qué existe, de qué tamaño, y cómo se regenera.
+
+    Es la primera página que abre quien llega a trabajar con los datos, y hasta
+    ahora no existía: los paneles se descargaban desde enlaces dentro de los
+    reportes.
+    """
+    filas = ["| Base | Contenido | Tamaño |", "|---|---|---:|"]
+    for pan in panels:
+        kb = pan["bytes"] / 1024
+        tam = f"{kb/1024:.1f} MB" if kb > 1024 else f"{kb:.0f} KB"
+        filas.append(
+            f"| [`{pan['nombre']}`](datos/{pan['nombre']}) | {pan['desc']} | {tam} |"
+        )
+
+    return """---
+title: "Datos"
+---
+
+Todas las bases procesadas de la revisión, en CSV y sin registro previo. Cada
+figura y cada tabla del sitio enlaza la base que la produce; acá están todas
+juntas.
+
+""" + "\n".join(filas) + """
+
+""" + site_lib.fuente() + """
+## Cómo se regeneran
+
+Cada base se reconstruye desde la fuente primaria con un comando. No hay paso
+manual en ninguna etapa.
+
+```bash
+python scripts/13_census_bde.py                      # censo del catálogo
+python scripts/01_fetch_crsm_raw.py --family <fam>   # descarga por familia
+python scripts/09_build_theme_panels.py --family <fam>  # panel analítico
+```
+
+## Formato
+
+CSV en UTF-8, separador coma, fechas ISO. Los códigos de región y de sector van
+con relleno de ceros y son texto, no número: leerlos como entero convierte
+`"01"` en `1` y rompe cualquier cruce en silencio.
+
+```python
+pd.read_csv(ruta, dtype={"region_id": str, "sector_id": str}, parse_dates=["date"])
+```
+"""
+
+
+def build_crosswalk_md() -> str:
+    """Tabla que rastrea cada cifra hasta el código de serie que la origina."""
+    filas = [
+        "| Reporte | Familia | Escala | Mnemónicos BCCh | Panel derivado |",
+        "|---|---|---|---|---|",
+    ]
+    for fam in families_lib.ordered():
+        toks = ", ".join(f"`{t}`" for t in fam.tokens)
+        panel = f"`panel_{fam.name}_annual.csv`" if fam.name == "two_axes" else "—"
+        filas.append(
+            f"| {fam.report} | `{fam.name}` | {fam.escala} | {toks} | {panel} |"
+        )
+    return "\n".join(filas)
+
+
+def build_diseno() -> str:
+    """Correspondencia entre el diseño de investigación y las escalas."""
+    filas = [
+        "| Pieza del diseño | Escala | Estado |",
+        "|---|---|---|",
+    ]
+    for fam in families_lib.ordered():
+        nombre, _ = families_lib.ESCALA_LABEL[fam.escala]
+        filas.append(f"| {fam.title_es} | {nombre.lower()} | reporte {fam.report} |")
+
+    return """---
+title: "Diseño"
+---
+
+A qué responde cada pieza de esta revisión dentro de la formulación del
+proyecto, y dónde la BDE no alcanza.
+
+## Correspondencia
+
+""" + "\n".join(filas) + """
+
+""" + site_lib.fuente(
+        "censo_bde_series.csv",
+        raiz=True,
+        extra=(
+            "Correspondencia y crosswalk derivados del registro de "
+            "familias en scripts/lib/families.py"
+        ),
+    ) + """
+## Dónde la BDE no alcanza
+
+Tres piezas del diseño no tienen contraparte en el catálogo del Banco Central y
+deben venir de otra fuente.
+
+**La variable dependiente.** El precio del suelo metropolitano no está en la
+BDE en ninguna escala. Viene del Boletín del Mercado del Suelo y de los
+Conservadores de Bienes Raíces.
+
+**La demanda física de suelo.** El indicador de utilización de suelo por
+primeras edificaciones se construye desde el Detalle Catastral del Servicio de
+Impuestos Internos. La BDE aporta los permisos de edificación, que son el
+insumo del proxy, no el proxy.
+
+**La población regional.** No existe como serie propia: aparece sólo como
+denominador dentro de las tablas per cápita. Cualquier cálculo per cápita fuera
+de ese conjunto requiere ir al Instituto Nacional de Estadísticas.
+
+""" + site_lib.nota_herramientas_ia(build_crosswalk_md())
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate the Quarto publication site.")
     parser.add_argument(
@@ -734,6 +892,42 @@ def main() -> int:
         if not src.exists():
             raise SystemExit(f"Missing panel {src}. Run stage 09 first.")
         manifest.append(site_lib.copy_asset(src, datos))
+
+    # ---- páginas de escala ----------------------------------------------
+    censo_path = DATA_DIR / escalas_lib.CENSO_CSV
+    if not censo_path.exists():
+        raise SystemExit(
+            f"Falta {censo_path.name}. Corra primero:\n"
+            "    python scripts/13_census_bde.py"
+        )
+    censo = pd.read_csv(censo_path, dtype=str)
+    (root / "escalas").mkdir(parents=True, exist_ok=True)
+    for escala in escalas_lib.ORDEN:
+        pagina = escalas_lib.build_pagina_escala(escala, censo)
+        slug = escalas_lib.SLUG[escala]
+        check_tokens(pagina, f"escalas/{slug}.qmd")
+        write(root / "escalas" / f"{slug}.qmd", pagina)
+    logger.info("Páginas de escala: %d", len(escalas_lib.ORDEN))
+
+    # ---- datos y diseño ---------------------------------------------------
+    descripciones = {
+        "censo_bde_series.csv": "Cada serie del catálogo, clasificada por escala",
+        "censo_bde_resumen.csv": "Series por escala, capítulo y frecuencia",
+        "panel_two_axes_annual.csv": "Renta espacial y de recursos, región × año",
+        "panel_two_axes_summary.csv": "Resumen anual de los dos ejes",
+        "panel_regional_pib_annual.csv": "PIB regional anual",
+    }
+    panels_meta = [
+        {
+            "nombre": name,
+            "desc": descripciones.get(name, "—"),
+            "bytes": (datos / name).stat().st_size,
+        }
+        for name in PUBLISHED_PANELS
+        if (datos / name).exists()
+    ]
+    write(root / "datos.qmd", build_datos(manifest, panels_meta))
+    write(root / "diseno.qmd", build_diseno())
 
     # ---- vault reports ---------------------------------------------------
     published = []
@@ -806,7 +1000,7 @@ def main() -> int:
             title = (
                 f"Nota de familia: {fam.title_es}" if fam else f"Nota: {note.stem}"
             )
-            badge = site_lib.tier_badge(fam.tier) if fam else ""
+            badge = site_lib.escala_badge(fam.escala) if fam else ""
             page = f'''---
 title: "{title}"
 ---
@@ -821,7 +1015,7 @@ title: "{title}"
     logger.info("Published %d briefing note(s)", len(briefs))
 
     # ---- shell pages ------------------------------------------------------
-    index = build_index(published, briefs)
+    index = build_index(published, briefs, censo)
     check_tokens(index, "index.qmd")
     write(root / "index.qmd", index)
     write(root / "explorar.qmd", build_explorer())

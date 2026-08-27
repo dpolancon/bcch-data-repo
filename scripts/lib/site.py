@@ -18,10 +18,18 @@ import shutil
 from pathlib import Path
 
 from lib import families as families_lib
-from lib.paths import SITE_BASE_URL
+from lib.paths import (
+    SITE_BASE_URL,
+    SITE_HOST,
+    SITE_HOST_LINKS,
+    SITE_HOST_NOMBRE,
+)
 
 SITE_TITLE = "Renta espacial y renta de recursos"
-SITE_SUBTITLE = "Programa de publicaciones sobre datos regionales del Banco Central de Chile"
+SITE_SUBTITLE = (
+    "Revisión multiescalar de la Base de Datos Estadísticos del Banco "
+    "Central de Chile"
+)
 
 # Directories the generator owns outright. Anything here is regenerated on
 # every run, so nothing in them should ever be hand-edited -- stage 11 checks.
@@ -60,13 +68,27 @@ website:
   reader-mode: true
   navbar:
     left:
-      - text: "Programa"
+      - text: "La revisión"
         href: index.qmd
+      - text: "Escalas"
+        menu:
+          - text: "Nacional"
+            href: escalas/nacional.qmd
+          - text: "Macro-zona"
+            href: escalas/macro-zona.qmd
+          - text: "Regional"
+            href: escalas/regional.qmd
+          - text: "Sectorial-regional"
+            href: escalas/sectorial-regional.qmd
       - text: "Reportes"
         menu:
 {nav}
       - text: "Explorar"
         href: explorar.qmd
+      - text: "Datos"
+        href: datos.qmd
+      - text: "Diseño"
+        href: diseno.qmd
       - text: "Metodología"
         href: metodologia.qmd
   page-footer:
@@ -105,14 +127,8 @@ def personal_site_nav() -> str:
     element that does NOT follow the page theme, exactly as it does not on the
     rest of the personal site.
     """
-    base = "https://dpolancon.github.io"
-    links = [
-        (f"{base}/research_es/", "Investigación"),
-        (f"{base}/talks_es/", "Presentaciones"),
-        (f"{base}/teaching_es/", "Enseñanza"),
-        (f"{base}/year-archive-es/", "Blog"),
-        (f"{base}/files/CV_dpolancon.pdf", "CV"),
-    ]
+    base = SITE_HOST
+    links = [(f"{base}{ruta}", texto) for ruta, texto in SITE_HOST_LINKS]
     items = "\n".join(f'<a href="{href}">{text}</a>' for href, text in links)
     return f"""<style>
 .personal-site-nav {{
@@ -140,7 +156,7 @@ def personal_site_nav() -> str:
 }}
 </style>
 <nav class="personal-site-nav" aria-label="Sitio personal">
-<a href="{base}/" class="nav-home">Diego Polanco</a>
+<a href="{base}/" class="nav-home">{SITE_HOST_NOMBRE}</a>
 {items}
 </nav>
 """
@@ -155,6 +171,18 @@ def styles_css() -> str:
   overflow-x: auto;
   max-width: 100%;
 }
+
+/* Línea de fuente. Va bajo cada exhibit, en cuerpo menor pero legible: es
+   parte del material citable, no una nota al pie decorativa. */
+.fuente {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.78;
+  border-top: 1px solid rgba(128, 128, 128, 0.22);
+  padding-top: 0.5rem;
+  margin: 0.4rem 0 1.8rem;
+}
+.fuente p { margin: 0; }
 
 /* Distintivos de escala. La escala de observación es la afirmación central
    de la revisión, así que a qué unidad se refiere una cifra debe leerse sin
@@ -303,6 +331,83 @@ ESCALA_CLASE = {
     families_lib.ESCALA_REGIONAL: "esc-reg",
     families_lib.ESCALA_SECTORIAL_REGIONAL: "esc-sec",
 }
+
+
+AÑO_ELABORACION = "2026"
+
+# Nombre completo de la fuente primaria, tal como debe citarse.
+FUENTE_BDE = "la Base de Datos Estadísticos del Banco Central de Chile"
+
+
+def fuente(
+    csv: str | None = None,
+    *,
+    tamano: str | None = None,
+    extra: str | None = None,
+    raiz: bool = False,
+) -> str:
+    """Línea de fuente de una figura, tabla o panel.
+
+    Sigue la convención que el equipo ya usa en la formulación --«elaboración
+    propia en base a BCCh»-- y se genera desde acá y no a mano, para que no
+    pueda faltar en un exhibit ni divergir entre uno y otro.
+
+    `csv` enlaza la base que produce el exhibit. La línea de fuente sola no
+    basta: lo que vuelve el material verificable por un tercero es poder
+    descargar el dato que está detrás, y por eso la auditoría exige ambos.
+    """
+    partes = [
+        f"**Fuente:** elaboración propia ({AÑO_ELABORACION}) en base a {FUENTE_BDE}."
+    ]
+    if extra:
+        partes.append(extra.rstrip("."))
+        partes[-1] += "."
+    if csv:
+        etiqueta = f"`{csv}`" + (f" · {tamano}" if tamano else "")
+        prefijo = "datos" if raiz else "../datos"
+        partes.append(f"Datos: [{etiqueta}]({prefijo}/{csv}).")
+    return '::: {.fuente}\n' + " ".join(partes) + "\n:::\n"
+
+
+def nota_herramientas_ia(crosswalk_md: str = "") -> str:
+    """Apartado que separa las tres capas de autoría del material.
+
+    Existe para que un lector pueda citar sin ambigüedad de procedencia: el
+    dato es del Banco Central, las decisiones de método son del equipo, y las
+    herramientas de navegación se construyeron con asistencia de IA. Sin esa
+    separación no se distingue una decisión metodológica de un artefacto de la
+    herramienta, y la duda contamina lo sustantivo.
+    """
+    cuerpo = f"""## Nota: herramientas de apoyo creadas con IA
+
+Este sitio combina tres capas de autoría distintas y conviene no confundirlas.
+
+**El dato es del Banco Central.** Todas las series provienen de {FUENTE_BDE}.
+No hay serie construida, estimada ni interpolada en ninguna etapa: la ausencia
+se reporta como ausencia.
+
+**La elaboración es del proyecto.** Las decisiones de método son del equipo de
+investigación: calcular participaciones sobre precios corrientes y no sobre
+volumen encadenado, seleccionar series por parseabilidad de región y no por
+capítulo del catálogo, y organizar la revisión por escala de observación.
+
+**Las herramientas de apoyo se construyeron con asistencia de IA.** El censo
+automatizado del catálogo, el crosswalk que aparece abajo, el explorador
+interactivo y las rutinas de auditoría se desarrollaron con asistencia de
+modelos de lenguaje. Se verifican contra la fuente primaria y son reproducibles
+con los comandos publicados en cada página. La responsabilidad por el contenido
+es de quienes firman.
+"""
+    if crosswalk_md:
+        cuerpo += f"""
+### Crosswalk: reporte, familia, códigos y panel
+
+Permite rastrear cualquier cifra del sitio hasta el código de serie que la
+origina.
+
+{crosswalk_md}
+"""
+    return cuerpo
 
 
 def caveat(text: str) -> str:

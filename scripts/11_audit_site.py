@@ -235,6 +235,78 @@ def audit_rendered(root: Path, problems: list[str]) -> None:
     )
 
 
+# Palabras funcionales inglesas frecuentes en las notas técnicas que ya se
+# filtraron una vez a una página en español. Se buscan como palabra completa y
+# se exige una densidad mínima, para no marcar un término técnico suelto.
+INGLES = (
+    "the", "and", "with", "from", "which", "this", "that", "must", "every",
+    "required", "present", "encounter", "already", "should", "because",
+)
+# Términos ingleses que el texto en español usa legítimamente y no delatan
+# una filtración: nombres de formato, de librería o de concepto importado.
+INGLES_PERMITIDO = ("rent gap", "shift-share", "software", "dataset")
+
+
+def audit_atribucion(root: Path, problems: list[str]) -> None:
+    """Cada página con exhibit lleva fuente, y cada fuente enlaza su dato.
+
+    La línea de fuente sola no vuelve verificable un exhibit: lo que permite a
+    un tercero comprobarlo es descargar la base que lo produce. Por eso se
+    exigen las dos cosas juntas y no una.
+    """
+    paginas = sorted(root.glob("*.qmd")) + sorted(root.glob("escalas/*.qmd"))
+    sin_fuente, sin_dato = [], []
+    for pagina in paginas:
+        texto = pagina.read_text(encoding="utf-8")
+        # Un exhibit es una tabla markdown o una figura.
+        tiene_exhibit = "|---" in texto or "![" in texto
+        if not tiene_exhibit:
+            continue
+        rel = pagina.relative_to(root).as_posix()
+        if "{.fuente}" not in texto:
+            sin_fuente.append(rel)
+            continue
+        if "datos/" not in texto:
+            sin_dato.append(rel)
+
+    for rel in sin_fuente:
+        fail(problems, f"Exhibit sin línea de fuente: {rel}")
+    for rel in sin_dato:
+        fail(problems, f"Fuente sin dato descargable: {rel}")
+    logger.info(
+        "Atribución verificada: %d páginas con exhibit", len(paginas)
+    )
+
+
+def audit_idioma(root: Path, problems: list[str]) -> None:
+    """El sitio es íntegramente en español; el inglés filtrado es un defecto.
+
+    Ocurrió: el campo `notes` del registro de familias, escrito en inglés, se
+    volcaba literal a la página de metodología. Ningún test lo detectaba porque
+    ninguno miraba el idioma.
+    """
+    import re
+
+    for pagina in sorted(root.rglob("*.qmd")):
+        texto = pagina.read_text(encoding="utf-8")
+        # Fuera el código y el YAML: allí el inglés es legítimo.
+        cuerpo = re.sub(r"```.*?```", "", texto, flags=re.S)
+        cuerpo = re.sub(r"^---.*?^---", "", cuerpo, flags=re.S | re.M)
+        for permitido in INGLES_PERMITIDO:
+            cuerpo = cuerpo.replace(permitido, "")
+        palabras = re.findall(r"\b[a-z]+\b", cuerpo.lower())
+        if not palabras:
+            continue
+        hits = sum(1 for w in palabras if w in INGLES)
+        if hits >= 8:
+            fail(
+                problems,
+                f"Texto en inglés en {pagina.relative_to(root).as_posix()}: "
+                f"{hits} palabras funcionales inglesas. El sitio es en español.",
+            )
+    logger.info("Idioma verificado en %d páginas", len(list(root.rglob("*.qmd"))))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Audit the generated site.")
     parser.add_argument("--worktree", type=str, default=None)
@@ -250,6 +322,8 @@ def main() -> int:
     audit_panels(root, problems)
     audit_tokens(root, problems)
     audit_report3(root, problems)
+    audit_atribucion(root, problems)
+    audit_idioma(root, problems)
     audit_rendered(root, problems)
 
     if problems:
