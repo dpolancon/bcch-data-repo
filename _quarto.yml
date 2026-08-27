@@ -4,6 +4,9 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - assets/
+    - datos/
 
 website:
   title: "Renta espacial y renta de recursos"

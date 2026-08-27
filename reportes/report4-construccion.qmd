@@ -39,6 +39,8 @@ regional **subió**: alcanzó un índice de **109,9** frente al
 índice de **53,9** para la superficie habitacional autorizada
 (ambos con base 100 en 2014).
 
+![Figura 1: El Gran Desacople entre la actividad física de edificación y la renta espacial (2014–2025)](../assets/fig4_1_desacople_macro.png)
+
 ### Tabla 2: Evolución Macroeconómica de la Edificación y Dinamismo Empresarial (2014–2025)
 
 | Año | Superficie Habitacional (millones m²) | Superficie No Habitacional (millones m²) | Viviendas Autorizadas (miles unid.) | Metraje Medio (m²/viv.) | Creación Empresas (miles unid.) |
@@ -56,10 +58,12 @@ regional **subió**: alcanzó un índice de **109,9** frente al
 | 2024 | 7,58 | 3,96 | 102,0 | 74,4 | 165,3 |
 | 2025 | 7,18 | 4,48 | 89,8 | 79,9 | 202,4 |
 
-Como revela la Tabla 2, el metraje promedio por unidad habitacional autorizada se
+Como revela la Tabla 2 y la Figura 3, el metraje promedio por unidad habitacional autorizada se
 mantuvo estable en torno a los **74–76 m²** durante todo el decenio. Esto descarta
 la conjetura de que la menor cantidad de viviendas autorizadas hubiese sido
 compensada por unidades de mayor metraje unitario o mayor envergadura física.
+
+![Figura 3: Composición de la superficie autorizada y estabilidad del metraje medio por unidad (2014–2025)](../assets/fig4_3_composicion_metraje.png)
 
 ## La pauta territorial: Matriz forense regional
 
@@ -67,6 +71,8 @@ La contracción física no es un fenómeno exclusivo de la capital: **13 de las 
 autorizaban en 2025 menos superficie habitacional que en 2014.
 El rango de variación va desde Arica y Parinacota (185,3)
 hasta Biobío (31,4).
+
+![Figura 2: Heterogeneidad regional en la variación acumulada de la superficie habitacional autorizada (2014 vs. 2025)](../assets/fig4_2_heterogeneidad_regional.png)
 
 Las principales áreas metropolitanas del país registraron contracciones severas:
 - **Región Metropolitana:** la superficie habitacional se contrajo un **-61,8%**
