@@ -9,71 +9,125 @@ Lo que se valoriza es el stock existente, no la formación de capital.*
 
 ---
 
-## El argumento
+## El argumento: Desacoplando precio y cantidad
 
-El Reporte 3 dejó una pregunta que el sector 10 no puede responder. *Servicios
-de vivienda e inmobiliarios* es en buena parte **alquiler imputado**: sube
-cuando suben los precios de la vivienda, se construya o no un metro cuadrado
-nuevo. Precio y cantidad son indistinguibles dentro de esa serie.
+El Reporte 3 demostró la expansión tendencial de la renta espacial (Sector 10:
+*Servicios de vivienda e inmobiliarios*). No obstante, el Sector 10 contiene
+en buena parte **alquiler imputado**: su valor agregado macroeconómico aumenta
+automáticamente cuando se incrementa el precio de los inmuebles, se construya o no
+un metro cuadrado físico nuevo. Precio y cantidad física son formalmente
+indistinguibles en las cuentas nacionales del sector.
 
-Los permisos de edificación son cantidad sin precio: metros cuadrados
-autorizados y unidades de vivienda. Puestos contra la participación del sector
-10 separan las dos historias. Si la renta espacial sube **con** los permisos,
-hay formación de capital. Si sube **contra** permisos que caen, lo que crece es
-la valorización del stock que ya existe.
+Los permisos de edificación recopilados por el INE (`SAH`, `SANH`, `NVA`) miden
+**cantidad física pura sin precio**: metros cuadrados autorizados y unidades de
+vivienda. Puestos en contraste con la participación del Sector 10, permiten
+discriminar entre dos hipótesis contrapuestas:
+1. Si la renta espacial sube **con** un aumento de los permisos, la valorización
+   refleja una acumulación real de capital físico en estructuras urbanas.
+2. Si la renta espacial sube **contra** permisos que se derrumban, lo que crece
+   es la capitalización financiera del suelo urbano y del stock preexistente.
 
-## Lo que muestran los datos
+## La trayectoria macroeconómica nacional
 
-Entre 2014 y 2025 la superficie habitacional autorizada pasó de
-**13,3 millones de m²** a **7,2 millones de m²**, una caída de
-**46,1%**. Las viviendas autorizadas cayeron de
-**176 mil** a **90 mil** unidades.
+Entre 2014 y 2025, la superficie habitacional autorizada a nivel nacional pasó de
+**13,3 millones de m²** a **7,2 millones de m²**, lo que representa
+una contracción acumulada de **46,1%**. Las viviendas
+autorizadas cayeron de **176 mil** a **90 mil** unidades.
 
-En el mismo período la participación media de la renta espacial en el producto
-regional **subió**: índice **109,9** contra un índice de
-**53,9** para los permisos, ambos con base 100 en 2014.
+En el mismo período, la participación media de la renta espacial en el producto
+regional **subió**: alcanzó un índice de **109,9** frente al
+índice de **53,9** para la superficie habitacional autorizada
+(ambos con base 100 en 2014).
 
-La caída no es de una región ni de un año: **13 de las 16 regiones**
-autorizaban en 2025 menos superficie habitacional que en 2014. El rango va de
-Arica y Parinacota (185,3) a
-Biobío (31,4).
+### Tabla 2: Evolución Macroeconómica de la Edificación y Dinamismo Empresarial (2014–2025)
+
+| Año | Superficie Habitacional (millones m²) | Superficie No Habitacional (millones m²) | Viviendas Autorizadas (miles unid.) | Metraje Medio (m²/viv.) | Creación Empresas (miles unid.) |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 2014 | 13,32 | 8,19 | 175,8 | 75,8 | 51,5 |
+| 2015 | 15,47 | 6,75 | 204,1 | 75,8 | 64,8 |
+| 2016 | 10,93 | 6,69 | 149,1 | 73,3 | 76,2 |
+| 2017 | 11,66 | 5,96 | 160,6 | 72,6 | 87,6 |
+| 2018 | 13,44 | 5,78 | 183,7 | 73,2 | 102,0 |
+| 2019 | 14,09 | 5,94 | 189,1 | 74,5 | 109,4 |
+| 2020 | 10,38 | 4,24 | 140,6 | 73,8 | 134,8 |
+| 2021 | 12,29 | 4,11 | 163,2 | 75,3 | 172,1 |
+| 2022 | 10,19 | 4,22 | 133,8 | 76,1 | 145,6 |
+| 2023 | 7,88 | 3,37 | 104,7 | 75,3 | 147,8 |
+| 2024 | 7,58 | 3,96 | 102,0 | 74,4 | 165,3 |
+| 2025 | 7,18 | 4,48 | 89,8 | 79,9 | 202,4 |
+
+Como revela la Tabla 2, el metraje promedio por unidad habitacional autorizada se
+mantuvo estable en torno a los **74–76 m²** durante todo el decenio. Esto descarta
+la conjetura de que la menor cantidad de viviendas autorizadas hubiese sido
+compensada por unidades de mayor metraje unitario o mayor envergadura física.
+
+## La pauta territorial: Matriz forense regional
+
+La contracción física no es un fenómeno exclusivo de la capital: **13 de las 16 regiones**
+autorizaban en 2025 menos superficie habitacional que en 2014.
+El rango de variación va desde Arica y Parinacota (185,3)
+hasta Biobío (31,4).
+
+Las principales áreas metropolitanas del país registraron contracciones severas:
+- **Región Metropolitana:** la superficie habitacional se contrajo un **-61,8%**
+  (de 5.886 a 2.246 miles de m²) y las viviendas cayeron un **-58,2%** (de 69.218
+  a 28.935 unidades), mientras la participación del Sector 10 creció **+0,79 pp**.
+- **Valparaíso:** la superficie cayó un **-47,5%** y las viviendas un **-45,4%**,
+  mientras el Sector 10 escaló **+1,74 pp**.
+- **Biobío:** la superficie se redujo un **-52,3%** y las viviendas un **-59,0%**,
+  con un alza de **+1,39 pp** en el Sector 10.
+- **Antofagasta:** la superficie habitacional colapsó un **-65,6%** (de 624 a 214
+  miles de m²).
+
+### Tabla 1: Matriz Forense del Ciclo de Edificación por Región (2014 vs. 2025)
+
+| Código | Región | Superficie Hab. 2014 (miles m²) | Superficie Hab. 2025 (miles m²) | Δ Superficie (%) | Viviendas 2014 (unid.) | Viviendas 2025 (unid.) | Δ Viviendas (%) | Δ Sector 10 (pp) |
+|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `01` | Tarapacá | 238 | 148 | **-38,0%** | 2 762 | 1 850 | **-33,0%** | -0,30 pp |
+| `02` | Antofagasta | 624 | 212 | **-66,0%** | 5 985 | 2 368 | **-60,4%** | -0,44 pp |
+| `03` | Atacama | 118 | 75 | **-36,0%** | 1 738 | 983 | **-43,4%** | -1,15 pp |
+| `04` | Coquimbo | 637 | 270 | **-57,6%** | 8 957 | 3 835 | **-57,2%** | +1,16 pp |
+| `05` | Valparaíso | 1 424 | 760 | **-46,6%** | 16 647 | 8 068 | **-51,5%** | +1,33 pp |
+| `06` | O'Higgins | 620 | 548 | **-11,6%** | 8 991 | 6 465 | **-28,1%** | +1,03 pp |
+| `07` | Maule | 739 | 594 | **-19,7%** | 13 066 | 7 668 | **-41,3%** | +1,92 pp |
+| `08` | Biobío | 1 532 | 480 | **-68,6%** | 24 803 | 6 591 | **-73,4%** | +1,54 pp |
+| `09` | La Araucanía | 611 | 609 | **-0,2%** | 10 401 | 8 681 | **-16,5%** | +1,51 pp |
+| `10` | Los Lagos | 466 | 536 | **+15,0%** | 6 884 | 6 374 | **-7,4%** | +1,08 pp |
+| `11` | Aysén | 69 | 60 | **-12,1%** | 1 047 | 904 | **-13,7%** | +1,63 pp |
+| `12` | Magallanes | 79 | 40 | **-50,1%** | 1 300 | 518 | **-60,2%** | +0,02 pp |
+| `13` | Metropolitana de Santiago | 5 886 | 2 076 | **-64,7%** | 69 218 | 25 154 | **-63,7%** | +0,71 pp |
+| `14` | Los Ríos | 200 | 183 | **-8,3%** | 2 817 | 2 135 | **-24,2%** | +1,41 pp |
+| `15` | Arica y Parinacota | 81 | 150 | **+85,3%** | 1 206 | 1 933 | **+60,3%** | -0,15 pp |
+| `16` | Ñuble | — | 435 | **—** | — | 6 298 | **—** | +1,17 pp |
 
 ::: {.caveat}
-**Un permiso es intención de construir, no construcción.** Un permiso
-autorizado puede no ejecutarse nunca. La serie es un indicador adelantado del
-ciclo, no una medida de stock ni de producto, y la caída documentada acá es de
-autorizaciones, no de obra terminada.
+**Un permiso es intención administrativa, no obra ejecutada.** Un permiso de
+edificación registra la autorización otorgada por la Dirección de Obras Municipales
+(DOM), pero no garantiza que la faena comience de inmediato ni que llegue a término.
+La serie constituye un indicador adelantado del ciclo físico de edificación, no una
+medida de obra terminada ni de consumo de suelo urbano efectivo.
 :::
 
-## Por qué importa
+## Ortogonalidad del dinamismo empresarial (CEYS)
 
-La divergencia es el objeto del proyecto medido a escala regional. Una renta
-espacial que crece mientras la cantidad construida se contrae no describe una
-expansión inmobiliaria: describe la revalorización de un activo que no se
-deprecia, sostenida por algo distinto de la demanda física de suelo.
+Mientras la actividad física de edificación se redujo a la mitad, las empresas
+constituidas (`CEYS`) exhibieron la trayectoria opuesta: pasaron de **52 mil**
+a **202 mil** empresas entre 2014 y 2025.
 
-El dato regional no prueba nada sobre las tasas de interés —eso ocurre a escala
-nacional y con otra serie—, pero sí descarta que el alza de la renta espacial
-venga acompañada de más construcción. Esa es la mitad del argumento que la
-escala regional sí puede sostener.
-
-Las empresas constituidas siguen el camino contrario: de **52 mil**
-a **202 mil** entre 2014 y 2025. Entra como control de dinamismo
-empresarial y **no forma parte del eje espacial**: no se suma a los otros tres
-indicadores.
+Esta expansión refleja la digitalización y simplificación administrativa del registro
+de sociedades (creación de empresas en un día), compuesto primordialmente por firmas
+de servicios y sociedades de responsabilidad limitada sin infraestructura física.
+Por tanto, `CEYS` entra al análisis como **control de dinamismo empresarial
+institucional** y **no forma parte del eje espacial**, por lo que no debe agregarse
+a los indicadores físicos de construcción.
 
 ## Nota metodológica
 
-Los cuatro indicadores son flujos mensuales con estacionalidad marcada —los
-permisos caen en invierno austral y en enero—, de modo que el panel mensual
-carga la suma móvil de doce meses y ninguna lectura mes contra mes es
-interpretable. El panel anual usa sólo años calendario **completos**: las series
-del INE terminan en mayo de 2026, y graficar un año parcial junto a años
-completos inventaría una caída que no ocurrió.
-
-Las regiones se comparan como **índice base 100 = 2014**, no per cápita: el
-Banco Central no publica población regional como serie propia, sólo como
-denominador dentro de las tablas per cápita.
+Los permisos de edificación provienen del Instituto Nacional de Estadísticas (INE) y
+se recopilan mensualmente a partir de los formularios municipales. Presentan una
+marcada estacionalidad (fuertes caídas en el invierno austral y en enero), por lo
+que el panel mensual computa sumas móviles de 12 meses. El panel anual integra
+exclusivamente años calendario **completos** (2014–2025).
 
 ::: {.fuente}
 **Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`panel_permits_annual.csv`](../datos/panel_permits_annual.csv).

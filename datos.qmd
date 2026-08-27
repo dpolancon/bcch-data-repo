@@ -17,6 +17,12 @@ juntas.
 | [`panel_permits_summary.csv`](datos/panel_permits_summary.csv) | Permisos: totales nacionales y variación | 4 KB |
 | [`panel_financial_depth_annual.csv`](datos/panel_financial_depth_annual.csv) | Morosidad y depósitos, región × año | 166 KB |
 | [`panel_financial_depth_summary.csv`](datos/panel_financial_depth_summary.csv) | Morosidad y depósitos: resumen nacional | 11 KB |
+| [`panel_interregional_trade_annual.csv`](datos/panel_interregional_trade_annual.csv) | Compraventas interregionales y facturación anual | 77 KB |
+| [`panel_interregional_trade_summary.csv`](datos/panel_interregional_trade_summary.csv) | Indicadores de apertura, autocontención y balance neto | 5 KB |
+| [`panel_tasas_annual.csv`](datos/panel_tasas_annual.csv) | Tasas de interés y ratios de deuda anuales | 11 KB |
+| [`panel_tasas_summary.csv`](datos/panel_tasas_summary.csv) | Tasas, expectativas y apalancamiento: resumen | 1 KB |
+| [`panel_housing_wealth_annual.csv`](datos/panel_housing_wealth_annual.csv) | Stock de vivienda, terreno y construcción anual | 53 KB |
+| [`panel_housing_wealth_summary.csv`](datos/panel_housing_wealth_summary.csv) | Stock habitacional y valor del suelo: resumen | 1 KB |
 | [`panel_regional_pib_annual.csv`](datos/panel_regional_pib_annual.csv) | PIB regional anual | 27 KB |
 
 ::: {.fuente}

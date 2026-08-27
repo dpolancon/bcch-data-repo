@@ -1,0 +1,49 @@
+region_code,region_name,indicador,valor,unidad,anio,unidad_original,dimension,agregacion
+05,Valparaíso,apertura,70.02026268816974,%,2025,% de las ventas de la región,tasa,promedio
+08,Biobío,apertura,58.35618741500939,%,2025,% de las ventas de la región,tasa,promedio
+13,Metropolitana de Santiago,apertura,23.561076955316352,%,2025,% de las ventas de la región,tasa,promedio
+02,Antofagasta,apertura,69.53563125109628,%,2025,% de las ventas de la región,tasa,promedio
+14,Los Ríos,apertura,64.05530495519923,%,2025,% de las ventas de la región,tasa,promedio
+07,Maule,apertura,50.408001983688955,%,2025,% de las ventas de la región,tasa,promedio
+09,La Araucanía,apertura,49.100550453208655,%,2025,% de las ventas de la región,tasa,promedio
+03,Atacama,apertura,56.468032997047665,%,2025,% de las ventas de la región,tasa,promedio
+16,Ñuble,apertura,54.50516536538341,%,2025,% de las ventas de la región,tasa,promedio
+12,Magallanes,apertura,50.50453611246144,%,2025,% de las ventas de la región,tasa,promedio
+06,O'Higgins,apertura,53.89042754554417,%,2025,% de las ventas de la región,tasa,promedio
+04,Coquimbo,apertura,53.27576659120419,%,2025,% de las ventas de la región,tasa,promedio
+11,Aysén,apertura,45.061997264225226,%,2025,% de las ventas de la región,tasa,promedio
+10,Los Lagos,apertura,35.75286470539439,%,2025,% de las ventas de la región,tasa,promedio
+15,Arica y Parinacota,apertura,49.226255204307414,%,2025,% de las ventas de la región,tasa,promedio
+01,Tarapacá,apertura,51.659043018840165,%,2025,% de las ventas de la región,tasa,promedio
+05,Valparaíso,autocontencion,29.979737311830334,%,2025,% de las ventas de la región,tasa,promedio
+08,Biobío,autocontencion,41.643812584992354,%,2025,% de las ventas de la región,tasa,promedio
+13,Metropolitana de Santiago,autocontencion,76.43892304468336,%,2025,% de las ventas de la región,tasa,promedio
+02,Antofagasta,autocontencion,30.464368748906622,%,2025,% de las ventas de la región,tasa,promedio
+14,Los Ríos,autocontencion,35.94469504480053,%,2025,% de las ventas de la región,tasa,promedio
+07,Maule,autocontencion,49.5919980163124,%,2025,% de las ventas de la región,tasa,promedio
+09,La Araucanía,autocontencion,50.899449546790784,%,2025,% de las ventas de la región,tasa,promedio
+03,Atacama,autocontencion,43.53196700295129,%,2025,% de las ventas de la región,tasa,promedio
+16,Ñuble,autocontencion,45.494834634615856,%,2025,% de las ventas de la región,tasa,promedio
+12,Magallanes,autocontencion,49.49546388753935,%,2025,% de las ventas de la región,tasa,promedio
+06,O'Higgins,autocontencion,46.10957245445879,%,2025,% de las ventas de la región,tasa,promedio
+04,Coquimbo,autocontencion,46.72423340879477,%,2025,% de las ventas de la región,tasa,promedio
+11,Aysén,autocontencion,54.93800273577409,%,2025,% de las ventas de la región,tasa,promedio
+10,Los Lagos,autocontencion,64.24713529461013,%,2025,% de las ventas de la región,tasa,promedio
+15,Arica y Parinacota,autocontencion,50.77374479569347,%,2025,% de las ventas de la región,tasa,promedio
+01,Tarapacá,autocontencion,48.34095698115905,%,2025,% de las ventas de la región,tasa,promedio
+05,Valparaíso,balance_neto,20.758962129234973,%,2025,% del intercambio interregional bruto,tasa,promedio
+08,Biobío,balance_neto,6.195476867386464,%,2025,% del intercambio interregional bruto,tasa,promedio
+13,Metropolitana de Santiago,balance_neto,5.002013811935738,%,2025,% del intercambio interregional bruto,tasa,promedio
+02,Antofagasta,balance_neto,1.1974258584748254,%,2025,% del intercambio interregional bruto,tasa,promedio
+14,Los Ríos,balance_neto,-3.6017834235674373,%,2025,% del intercambio interregional bruto,tasa,promedio
+07,Maule,balance_neto,-5.425254717078484,%,2025,% del intercambio interregional bruto,tasa,promedio
+09,La Araucanía,balance_neto,-6.626167753854194,%,2025,% del intercambio interregional bruto,tasa,promedio
+03,Atacama,balance_neto,-12.287186998002367,%,2025,% del intercambio interregional bruto,tasa,promedio
+16,Ñuble,balance_neto,-12.534515011233758,%,2025,% del intercambio interregional bruto,tasa,promedio
+12,Magallanes,balance_neto,-14.720181052235567,%,2025,% del intercambio interregional bruto,tasa,promedio
+06,O'Higgins,balance_neto,-15.868898967985587,%,2025,% del intercambio interregional bruto,tasa,promedio
+04,Coquimbo,balance_neto,-17.19799672712647,%,2025,% del intercambio interregional bruto,tasa,promedio
+11,Aysén,balance_neto,-23.389210200071975,%,2025,% del intercambio interregional bruto,tasa,promedio
+10,Los Lagos,balance_neto,-30.262293897516106,%,2025,% del intercambio interregional bruto,tasa,promedio
+15,Arica y Parinacota,balance_neto,-35.787299798491205,%,2025,% del intercambio interregional bruto,tasa,promedio
+01,Tarapacá,balance_neto,-36.784066695220815,%,2025,% del intercambio interregional bruto,tasa,promedio

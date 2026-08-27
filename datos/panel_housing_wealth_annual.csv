@@ -1,0 +1,534 @@
+anio,zone,is_zone_subset,indicador,valor,unidad,unidad_original,dimension,agregacion
+2012,Nacional,False,metros_construidos,315737666.0,m2,millones de metros cuadrados,superficie,total
+2012,Nacional,False,metros_terreno,1415200837.2358,m2,millones de metros cuadrados,superficie,total
+2012,Nacional,False,numero_propiedades,4444230.0,unidades,propiedades,conteo,total
+2012,Nacional,False,valor_construccion,88537416107240.0,pesos,miles de millones de pesos,dinero,total
+2012,Nacional,False,valor_terreno,56912636099986.0,pesos,miles de millones de pesos,dinero,total
+2012,Nacional,False,valor_vivienda,145450052207220.0,pesos,miles de millones de pesos,dinero,total
+2012,Nacional,False,valor_vivienda_pib,111.90755867992,%,% del PIB,tasa,promedio
+2012,Nacional -- casas,True,metros_construidos,267882392.99999997,m2,millones de metros cuadrados,superficie,total
+2012,Nacional -- casas,True,metros_terreno,1382438890.1726,m2,millones de metros cuadrados,superficie,total
+2012,Nacional -- casas,True,numero_propiedades,3686875.0,unidades,propiedades,conteo,total
+2012,Nacional -- casas,True,valor_construccion,58498275864342.0,pesos,miles de millones de pesos,dinero,total
+2012,Nacional -- casas,True,valor_terreno,52639788017210.0,pesos,miles de millones de pesos,dinero,total
+2012,Nacional -- casas,True,valor_vivienda,111138063881550.0,pesos,miles de millones de pesos,dinero,total
+2012,Nacional -- casas,True,valor_vivienda_pib,85.508318606024,%,% del PIB,tasa,promedio
+2012,Nacional -- departamentos,True,metros_construidos,47855273.0,m2,millones de metros cuadrados,superficie,total
+2012,Nacional -- departamentos,True,metros_terreno,32761947.063268002,m2,millones de metros cuadrados,superficie,total
+2012,Nacional -- departamentos,True,numero_propiedades,757355.0,unidades,propiedades,conteo,total
+2012,Nacional -- departamentos,True,valor_construccion,30039140242897.0,pesos,miles de millones de pesos,dinero,total
+2012,Nacional -- departamentos,True,valor_terreno,4272848082776.5996,pesos,miles de millones de pesos,dinero,total
+2012,Nacional -- departamentos,True,valor_vivienda,34311988325674.0,pesos,miles de millones de pesos,dinero,total
+2012,Nacional -- departamentos,True,valor_vivienda_pib,26.399240073903,%,% del PIB,tasa,promedio
+2012,Región Metropolitana,False,metros_construidos,136102007.0,m2,millones de metros cuadrados,superficie,total
+2012,Región Metropolitana,False,metros_terreno,410735922.90261,m2,millones de metros cuadrados,superficie,total
+2012,Región Metropolitana,False,numero_propiedades,1848532.0,unidades,propiedades,conteo,total
+2012,Región Metropolitana,False,valor_vivienda,78477347247015.0,pesos,miles de millones de pesos,dinero,total
+2012,Región Metropolitana,False,valor_vivienda_pib,60.379547541023,%,% del PIB,tasa,promedio
+2012,Zona Centro,False,metros_construidos,86219867.0,m2,millones de metros cuadrados,superficie,total
+2012,Zona Centro,False,metros_terreno,515081288.44244003,m2,millones de metros cuadrados,superficie,total
+2012,Zona Centro,False,numero_propiedades,1246083.0,unidades,propiedades,conteo,total
+2012,Zona Centro,False,valor_vivienda,29149883679620.0,pesos,miles de millones de pesos,dinero,total
+2012,Zona Centro,False,valor_vivienda_pib,22.427577500918,%,% del PIB,tasa,promedio
+2012,Zona Norte,False,metros_construidos,24025451.5,m2,millones de metros cuadrados,superficie,total
+2012,Zona Norte,False,metros_terreno,69191608.847081,m2,millones de metros cuadrados,superficie,total
+2012,Zona Norte,False,numero_propiedades,346244.0,unidades,propiedades,conteo,total
+2012,Zona Norte,False,valor_vivienda,13496998468207.0,pesos,miles de millones de pesos,dinero,total
+2012,Zona Norte,False,valor_vivienda_pib,10.384431804341,%,% del PIB,tasa,promedio
+2012,Zona Sur,False,metros_construidos,69390340.5,m2,millones de metros cuadrados,superficie,total
+2012,Zona Sur,False,metros_terreno,420192017.04374003,m2,millones de metros cuadrados,superficie,total
+2012,Zona Sur,False,numero_propiedades,1003371.0,unidades,propiedades,conteo,total
+2012,Zona Sur,False,valor_vivienda,24325822812382.0,pesos,miles de millones de pesos,dinero,total
+2012,Zona Sur,False,valor_vivienda_pib,18.716001833645,%,% del PIB,tasa,promedio
+2013,Nacional,False,metros_construidos,318919288.0,m2,millones de metros cuadrados,superficie,total
+2013,Nacional,False,metros_terreno,1425254805.4232,m2,millones de metros cuadrados,superficie,total
+2013,Nacional,False,numero_propiedades,4491769.0,unidades,propiedades,conteo,total
+2013,Nacional,False,valor_construccion,91673158668764.0,pesos,miles de millones de pesos,dinero,total
+2013,Nacional,False,valor_terreno,66860140732584.0,pesos,miles de millones de pesos,dinero,total
+2013,Nacional,False,valor_vivienda,158533299401340.0,pesos,miles de millones de pesos,dinero,total
+2013,Nacional,False,valor_vivienda_pib,115.45716428581,%,% del PIB,tasa,promedio
+2013,Nacional -- casas,True,metros_construidos,269928895.0,m2,millones de metros cuadrados,superficie,total
+2013,Nacional -- casas,True,metros_terreno,1391597212.3374999,m2,millones de metros cuadrados,superficie,total
+2013,Nacional -- casas,True,numero_propiedades,3714199.0,unidades,propiedades,conteo,total
+2013,Nacional -- casas,True,valor_construccion,59483177748932.0,pesos,miles de millones de pesos,dinero,total
+2013,Nacional -- casas,True,valor_terreno,61562807101647.0,pesos,miles de millones de pesos,dinero,total
+2013,Nacional -- casas,True,valor_vivienda,121045984850580.0,pesos,miles de millones de pesos,dinero,total
+2013,Nacional -- casas,True,valor_vivienda_pib,88.155776810337,%,% del PIB,tasa,promedio
+2013,Nacional -- departamentos,True,metros_construidos,48990393.0,m2,millones de metros cuadrados,superficie,total
+2013,Nacional -- departamentos,True,metros_terreno,33657593.085659996,m2,millones de metros cuadrados,superficie,total
+2013,Nacional -- departamentos,True,numero_propiedades,777570.0,unidades,propiedades,conteo,total
+2013,Nacional -- departamentos,True,valor_construccion,32189980919831.0,pesos,miles de millones de pesos,dinero,total
+2013,Nacional -- departamentos,True,valor_terreno,5297333630936.2,pesos,miles de millones de pesos,dinero,total
+2013,Nacional -- departamentos,True,valor_vivienda,37487314550767.0,pesos,miles de millones de pesos,dinero,total
+2013,Nacional -- departamentos,True,valor_vivienda_pib,27.301387475476,%,% del PIB,tasa,promedio
+2013,Región Metropolitana,False,metros_construidos,137297799.5,m2,millones de metros cuadrados,superficie,total
+2013,Región Metropolitana,False,metros_terreno,413601011.36405003,m2,millones de metros cuadrados,superficie,total
+2013,Región Metropolitana,False,numero_propiedades,1864616.0,unidades,propiedades,conteo,total
+2013,Región Metropolitana,False,valor_vivienda,86934127402580.0,pesos,miles de millones de pesos,dinero,total
+2013,Región Metropolitana,False,valor_vivienda_pib,63.312678582139,%,% del PIB,tasa,promedio
+2013,Zona Centro,False,metros_construidos,87244139.0,m2,millones de metros cuadrados,superficie,total
+2013,Zona Centro,False,metros_terreno,519975624.63504004,m2,millones de metros cuadrados,superficie,total
+2013,Zona Centro,False,numero_propiedades,1260871.0,unidades,propiedades,conteo,total
+2013,Zona Centro,False,valor_vivienda,30659492411569.0,pesos,miles de millones de pesos,dinero,total
+2013,Zona Centro,False,valor_vivienda_pib,22.328798212422,%,% del PIB,tasa,promedio
+2013,Zona Norte,False,metros_construidos,24325598.0,m2,millones de metros cuadrados,superficie,total
+2013,Zona Norte,False,metros_terreno,69169969.232718,m2,millones de metros cuadrados,superficie,total
+2013,Zona Norte,False,numero_propiedades,352202.0,unidades,propiedades,conteo,total
+2013,Zona Norte,False,valor_vivienda,15641870961908.0,pesos,miles de millones de pesos,dinero,total
+2013,Zona Norte,False,valor_vivienda_pib,11.391714372981,%,% del PIB,tasa,promedio
+2013,Zona Sur,False,metros_construidos,70051751.5,m2,millones de metros cuadrados,superficie,total
+2013,Zona Sur,False,metros_terreno,422508200.19141996,m2,millones de metros cuadrados,superficie,total
+2013,Zona Sur,False,numero_propiedades,1014080.0,unidades,propiedades,conteo,total
+2013,Zona Sur,False,valor_vivienda,25297808625289.0,pesos,miles de millones de pesos,dinero,total
+2013,Zona Sur,False,valor_vivienda_pib,18.42397311827,%,% del PIB,tasa,promedio
+2014,Nacional,False,metros_construidos,329409590.0,m2,millones de metros cuadrados,superficie,total
+2014,Nacional,False,metros_terreno,1467593110.6926,m2,millones de metros cuadrados,superficie,total
+2014,Nacional,False,numero_propiedades,4649620.0,unidades,propiedades,conteo,total
+2014,Nacional,False,valor_construccion,106375697331810.0,pesos,miles de millones de pesos,dinero,total
+2014,Nacional,False,valor_terreno,75864177770637.0,pesos,miles de millones de pesos,dinero,total
+2014,Nacional,False,valor_vivienda,182239875102450.0,pesos,miles de millones de pesos,dinero,total
+2014,Nacional,False,valor_vivienda_pib,123.17559046507,%,% del PIB,tasa,promedio
+2014,Nacional -- casas,True,metros_construidos,276900774.0,m2,millones de metros cuadrados,superficie,total
+2014,Nacional -- casas,True,metros_terreno,1431454106.2455,m2,millones de metros cuadrados,superficie,total
+2014,Nacional -- casas,True,numero_propiedades,3809678.0,unidades,propiedades,conteo,total
+2014,Nacional -- casas,True,valor_construccion,68954871827020.01,pesos,miles de millones de pesos,dinero,total
+2014,Nacional -- casas,True,valor_terreno,69124531590636.99,pesos,miles de millones de pesos,dinero,total
+2014,Nacional -- casas,True,valor_vivienda,138079403417650.0,pesos,miles de millones de pesos,dinero,total
+2014,Nacional -- casas,True,valor_vivienda_pib,93.327610312914,%,% del PIB,tasa,promedio
+2014,Nacional -- departamentos,True,metros_construidos,52508816.0,m2,millones de metros cuadrados,superficie,total
+2014,Nacional -- departamentos,True,metros_terreno,36139004.447075,m2,millones de metros cuadrados,superficie,total
+2014,Nacional -- departamentos,True,numero_propiedades,839942.0,unidades,propiedades,conteo,total
+2014,Nacional -- departamentos,True,valor_construccion,37420825504795.0,pesos,miles de millones de pesos,dinero,total
+2014,Nacional -- departamentos,True,valor_terreno,6739646179999.6,pesos,miles de millones de pesos,dinero,total
+2014,Nacional -- departamentos,True,valor_vivienda,44160471684794.0,pesos,miles de millones de pesos,dinero,total
+2014,Nacional -- departamentos,True,valor_vivienda_pib,29.847980152164,%,% del PIB,tasa,promedio
+2014,Región Metropolitana,False,metros_construidos,141408298.5,m2,millones de metros cuadrados,superficie,total
+2014,Región Metropolitana,False,metros_terreno,423782707.22672,m2,millones de metros cuadrados,superficie,total
+2014,Región Metropolitana,False,numero_propiedades,1927497.0,unidades,propiedades,conteo,total
+2014,Región Metropolitana,False,valor_vivienda,100806470284170.0,pesos,miles de millones de pesos,dinero,total
+2014,Región Metropolitana,False,valor_vivienda_pib,68.134904575482,%,% del PIB,tasa,promedio
+2014,Zona Centro,False,metros_construidos,90284257.5,m2,millones de metros cuadrados,superficie,total
+2014,Zona Centro,False,metros_terreno,534459349.42225003,m2,millones de metros cuadrados,superficie,total
+2014,Zona Centro,False,numero_propiedades,1306002.0,unidades,propiedades,conteo,total
+2014,Zona Centro,False,valor_vivienda,34655199918057.0,pesos,miles de millones de pesos,dinero,total
+2014,Zona Centro,False,valor_vivienda_pib,23.423384756998,%,% del PIB,tasa,promedio
+2014,Zona Norte,False,metros_construidos,25066364.5,m2,millones de metros cuadrados,superficie,total
+2014,Zona Norte,False,metros_terreno,70001593.80864601,m2,millones de metros cuadrados,superficie,total
+2014,Zona Norte,False,numero_propiedades,365332.0,unidades,propiedades,conteo,total
+2014,Zona Norte,False,valor_vivienda,17794447474077.0,pesos,miles de millones de pesos,dinero,total
+2014,Zona Norte,False,valor_vivienda_pib,12.027233740075,%,% del PIB,tasa,promedio
+2014,Zona Sur,False,metros_construidos,72650669.5,m2,millones de metros cuadrados,superficie,total
+2014,Zona Sur,False,metros_terreno,439349460.23499,m2,millones de metros cuadrados,superficie,total
+2014,Zona Sur,False,numero_propiedades,1050789.0,unidades,propiedades,conteo,total
+2014,Zona Sur,False,valor_vivienda,28983757426145.0,pesos,miles de millones de pesos,dinero,total
+2014,Zona Sur,False,valor_vivienda_pib,19.590067392523,%,% del PIB,tasa,promedio
+2015,Nacional,False,metros_construidos,339436237.0,m2,millones de metros cuadrados,superficie,total
+2015,Nacional,False,metros_terreno,1519534981.3531,m2,millones de metros cuadrados,superficie,total
+2015,Nacional,False,numero_propiedades,4784921.0,unidades,propiedades,conteo,total
+2015,Nacional,False,valor_construccion,124027316271650.0,pesos,miles de millones de pesos,dinero,total
+2015,Nacional,False,valor_terreno,87542965940915.0,pesos,miles de millones de pesos,dinero,total
+2015,Nacional,False,valor_vivienda,211570282212560.0,pesos,miles de millones de pesos,dinero,total
+2015,Nacional,False,valor_vivienda_pib,133.379403862,%,% del PIB,tasa,promedio
+2015,Nacional -- casas,True,metros_construidos,283524294.0,m2,millones de metros cuadrados,superficie,total
+2015,Nacional -- casas,True,metros_terreno,1480767414.1683998,m2,millones de metros cuadrados,superficie,total
+2015,Nacional -- casas,True,numero_propiedades,3884329.0,unidades,propiedades,conteo,total
+2015,Nacional -- casas,True,valor_construccion,79967790875010.0,pesos,miles de millones de pesos,dinero,total
+2015,Nacional -- casas,True,valor_terreno,79085760386762.0,pesos,miles de millones de pesos,dinero,total
+2015,Nacional -- casas,True,valor_vivienda,159053551261770.0,pesos,miles de millones de pesos,dinero,total
+2015,Nacional -- casas,True,valor_vivienda_pib,100.27149194855,%,% del PIB,tasa,promedio
+2015,Nacional -- departamentos,True,metros_construidos,55911943.0,m2,millones de metros cuadrados,superficie,total
+2015,Nacional -- departamentos,True,metros_terreno,38767567.184655,m2,millones de metros cuadrados,superficie,total
+2015,Nacional -- departamentos,True,numero_propiedades,900592.0,unidades,propiedades,conteo,total
+2015,Nacional -- departamentos,True,valor_construccion,44059525396641.0,pesos,miles de millones de pesos,dinero,total
+2015,Nacional -- departamentos,True,valor_terreno,8457205554152.601,pesos,miles de millones de pesos,dinero,total
+2015,Nacional -- departamentos,True,valor_vivienda,52516730950794.0,pesos,miles de millones de pesos,dinero,total
+2015,Nacional -- departamentos,True,valor_vivienda_pib,33.107911913454,%,% del PIB,tasa,promedio
+2015,Región Metropolitana,False,metros_construidos,144893979.0,m2,millones de metros cuadrados,superficie,total
+2015,Región Metropolitana,False,metros_terreno,439422570.01436,m2,millones de metros cuadrados,superficie,total
+2015,Región Metropolitana,False,numero_propiedades,1976172.0,unidades,propiedades,conteo,total
+2015,Región Metropolitana,False,valor_vivienda,115435465532650.0,pesos,miles de millones de pesos,dinero,total
+2015,Región Metropolitana,False,valor_vivienda_pib,72.773517226818,%,% del PIB,tasa,promedio
+2015,Zona Centro,False,metros_construidos,93641289.5,m2,millones de metros cuadrados,superficie,total
+2015,Zona Centro,False,metros_terreno,551931975.1985501,m2,millones de metros cuadrados,superficie,total
+2015,Zona Centro,False,numero_propiedades,1350656.0,unidades,propiedades,conteo,total
+2015,Zona Centro,False,valor_vivienda,41570403080886.0,pesos,miles de millones de pesos,dinero,total
+2015,Zona Centro,False,valor_vivienda_pib,26.207062368339,%,% del PIB,tasa,promedio
+2015,Zona Norte,False,metros_construidos,25711153.0,m2,millones de metros cuadrados,superficie,total
+2015,Zona Norte,False,metros_terreno,70967666.308277,m2,millones de metros cuadrados,superficie,total
+2015,Zona Norte,False,numero_propiedades,373897.0,unidades,propiedades,conteo,total
+2015,Zona Norte,False,valor_vivienda,20068169015761.0,pesos,miles de millones de pesos,dinero,total
+2015,Zona Norte,False,valor_vivienda_pib,12.651495247498,%,% del PIB,tasa,promedio
+2015,Zona Sur,False,metros_construidos,75189815.5,m2,millones de metros cuadrados,superficie,total
+2015,Zona Sur,False,metros_terreno,457212769.83193004,m2,millones de metros cuadrados,superficie,total
+2015,Zona Sur,False,numero_propiedades,1084196.0,unidades,propiedades,conteo,total
+2015,Zona Sur,False,valor_vivienda,34496244583264.0,pesos,miles de millones de pesos,dinero,total
+2015,Zona Sur,False,valor_vivienda_pib,21.747329019352,%,% del PIB,tasa,promedio
+2016,Nacional,False,metros_construidos,349475157.5,m2,millones de metros cuadrados,superficie,total
+2016,Nacional,False,metros_terreno,1567065401.371,m2,millones de metros cuadrados,superficie,total
+2016,Nacional,False,numero_propiedades,4919688.0,unidades,propiedades,conteo,total
+2016,Nacional,False,valor_construccion,138270439040909.98,pesos,miles de millones de pesos,dinero,total
+2016,Nacional,False,valor_terreno,93237186901760.0,pesos,miles de millones de pesos,dinero,total
+2016,Nacional,False,valor_vivienda,231507625942670.0,pesos,miles de millones de pesos,dinero,total
+2016,Nacional,False,valor_vivienda_pib,137.17776437747,%,% del PIB,tasa,promedio
+2016,Nacional -- casas,True,metros_construidos,290373979.5,m2,millones de metros cuadrados,superficie,total
+2016,Nacional -- casas,True,metros_terreno,1526067179.4061,m2,millones de metros cuadrados,superficie,total
+2016,Nacional -- casas,True,numero_propiedades,3960584.0,unidades,propiedades,conteo,total
+2016,Nacional -- casas,True,valor_construccion,87901463214720.0,pesos,miles de millones de pesos,dinero,total
+2016,Nacional -- casas,True,valor_terreno,84334178225544.0,pesos,miles de millones de pesos,dinero,total
+2016,Nacional -- casas,True,valor_vivienda,172235641440260.0,pesos,miles de millones de pesos,dinero,total
+2016,Nacional -- casas,True,valor_vivienda_pib,102.05668233471,%,% del PIB,tasa,promedio
+2016,Nacional -- departamentos,True,metros_construidos,59101178.0,m2,millones de metros cuadrados,superficie,total
+2016,Nacional -- departamentos,True,metros_terreno,40998221.964944,m2,millones de metros cuadrados,superficie,total
+2016,Nacional -- departamentos,True,numero_propiedades,959104.0,unidades,propiedades,conteo,total
+2016,Nacional -- departamentos,True,valor_construccion,50368975826189.0,pesos,miles de millones de pesos,dinero,total
+2016,Nacional -- departamentos,True,valor_terreno,8903008676216.102,pesos,miles de millones de pesos,dinero,total
+2016,Nacional -- departamentos,True,valor_vivienda,59271984502405.0,pesos,miles de millones de pesos,dinero,total
+2016,Nacional -- departamentos,True,valor_vivienda_pib,35.121082042756,%,% del PIB,tasa,promedio
+2016,Región Metropolitana,False,metros_construidos,148717085.0,m2,millones de metros cuadrados,superficie,total
+2016,Región Metropolitana,False,metros_terreno,444802766.0152,m2,millones de metros cuadrados,superficie,total
+2016,Región Metropolitana,False,numero_propiedades,2029709.0,unidades,propiedades,conteo,total
+2016,Región Metropolitana,False,valor_vivienda,128842251884820.0,pesos,miles de millones de pesos,dinero,total
+2016,Región Metropolitana,False,valor_vivienda_pib,76.344319108074,%,% del PIB,tasa,promedio
+2016,Zona Centro,False,metros_construidos,96730499.0,m2,millones de metros cuadrados,superficie,total
+2016,Zona Centro,False,metros_terreno,573534135.56016,m2,millones de metros cuadrados,superficie,total
+2016,Zona Centro,False,numero_propiedades,1392567.0,unidades,propiedades,conteo,total
+2016,Zona Centro,False,valor_vivienda,44979557957331.0,pesos,miles de millones de pesos,dinero,total
+2016,Zona Centro,False,valor_vivienda_pib,26.652233066403,%,% del PIB,tasa,promedio
+2016,Zona Norte,False,metros_construidos,26339507.5,m2,millones de metros cuadrados,superficie,total
+2016,Zona Norte,False,metros_terreno,71966923.088734,m2,millones de metros cuadrados,superficie,total
+2016,Zona Norte,False,numero_propiedades,382522.0,unidades,propiedades,conteo,total
+2016,Zona Norte,False,valor_vivienda,21238699216147.0,pesos,miles de millones de pesos,dinero,total
+2016,Zona Norte,False,valor_vivienda_pib,12.584800456975,%,% del PIB,tasa,promedio
+2016,Zona Sur,False,metros_construidos,77688066.0,m2,millones de metros cuadrados,superficie,total
+2016,Zona Sur,False,metros_terreno,476761576.70695,m2,millones de metros cuadrados,superficie,total
+2016,Zona Sur,False,numero_propiedades,1114890.0,unidades,propiedades,conteo,total
+2016,Zona Sur,False,valor_vivienda,36447116884363.0,pesos,miles de millones de pesos,dinero,total
+2016,Zona Sur,False,valor_vivienda_pib,21.596411746019,%,% del PIB,tasa,promedio
+2017,Nacional,False,metros_construidos,358314624.5,m2,millones de metros cuadrados,superficie,total
+2017,Nacional,False,metros_terreno,1612054692.3223999,m2,millones de metros cuadrados,superficie,total
+2017,Nacional,False,numero_propiedades,5038275.0,unidades,propiedades,conteo,total
+2017,Nacional,False,valor_construccion,153351919884370.0,pesos,miles de millones de pesos,dinero,total
+2017,Nacional,False,valor_terreno,109303777100670.0,pesos,miles de millones de pesos,dinero,total
+2017,Nacional,False,valor_vivienda,262655696985050.0,pesos,miles de millones de pesos,dinero,total
+2017,Nacional,False,valor_vivienda_pib,146.47733243694,%,% del PIB,tasa,promedio
+2017,Nacional -- casas,True,metros_construidos,296256139.5,m2,millones de metros cuadrados,superficie,total
+2017,Nacional -- casas,True,metros_terreno,1569110671.6483,m2,millones de metros cuadrados,superficie,total
+2017,Nacional -- casas,True,numero_propiedades,4026999.0,unidades,propiedades,conteo,total
+2017,Nacional -- casas,True,valor_construccion,93668638268995.0,pesos,miles de millones de pesos,dinero,total
+2017,Nacional -- casas,True,valor_terreno,97430000858793.0,pesos,miles de millones de pesos,dinero,total
+2017,Nacional -- casas,True,valor_vivienda,191098639127780.0,pesos,miles de millones de pesos,dinero,total
+2017,Nacional -- casas,True,valor_vivienda_pib,106.57152771889,%,% del PIB,tasa,promedio
+2017,Nacional -- departamentos,True,metros_construidos,62058485.0,m2,millones de metros cuadrados,superficie,total
+2017,Nacional -- departamentos,True,metros_terreno,42944020.674081996,m2,millones de metros cuadrados,superficie,total
+2017,Nacional -- departamentos,True,numero_propiedades,1011276.0,unidades,propiedades,conteo,total
+2017,Nacional -- departamentos,True,valor_construccion,59683281615381.0,pesos,miles de millones de pesos,dinero,total
+2017,Nacional -- departamentos,True,valor_terreno,11873776241879.0,pesos,miles de millones de pesos,dinero,total
+2017,Nacional -- departamentos,True,valor_vivienda,71557057857261.0,pesos,miles de millones de pesos,dinero,total
+2017,Nacional -- departamentos,True,valor_vivienda_pib,39.905804718046,%,% del PIB,tasa,promedio
+2017,Región Metropolitana,False,metros_construidos,151978675.0,m2,millones de metros cuadrados,superficie,total
+2017,Región Metropolitana,False,metros_terreno,452701215.39057,m2,millones de metros cuadrados,superficie,total
+2017,Región Metropolitana,False,numero_propiedades,2076693.0,unidades,propiedades,conteo,total
+2017,Región Metropolitana,False,valor_vivienda,146914610955940.0,pesos,miles de millones de pesos,dinero,total
+2017,Región Metropolitana,False,valor_vivienda_pib,81.931062435942,%,% del PIB,tasa,promedio
+2017,Zona Centro,False,metros_construidos,99557767.5,m2,millones de metros cuadrados,superficie,total
+2017,Zona Centro,False,metros_terreno,592328578.4790001,m2,millones de metros cuadrados,superficie,total
+2017,Zona Centro,False,numero_propiedades,1428525.0,unidades,propiedades,conteo,total
+2017,Zona Centro,False,valor_vivienda,51821116541007.0,pesos,miles de millones de pesos,dinero,total
+2017,Zona Centro,False,valor_vivienda_pib,28.89950228364,%,% del PIB,tasa,promedio
+2017,Zona Norte,False,metros_construidos,26789065.0,m2,millones de metros cuadrados,superficie,total
+2017,Zona Norte,False,metros_terreno,72657365.21928701,m2,millones de metros cuadrados,superficie,total
+2017,Zona Norte,False,numero_propiedades,388726.0,unidades,propiedades,conteo,total
+2017,Zona Norte,False,valor_vivienda,23268283927687.0,pesos,miles de millones de pesos,dinero,total
+2017,Zona Norte,False,valor_vivienda_pib,12.976212582615,%,% del PIB,tasa,promedio
+2017,Zona Sur,False,metros_construidos,79989117.0,m2,millones de metros cuadrados,superficie,total
+2017,Zona Sur,False,metros_terreno,494367533.2336,m2,millones de metros cuadrados,superficie,total
+2017,Zona Sur,False,numero_propiedades,1144331.0,unidades,propiedades,conteo,total
+2017,Zona Sur,False,valor_vivienda,40651685560410.0,pesos,miles de millones de pesos,dinero,total
+2017,Zona Sur,False,valor_vivienda_pib,22.670555134744,%,% del PIB,tasa,promedio
+2018,Nacional,False,metros_construidos,367745402.5,m2,millones de metros cuadrados,superficie,total
+2018,Nacional,False,metros_terreno,1664164356.2851,m2,millones de metros cuadrados,superficie,total
+2018,Nacional,False,numero_propiedades,5172478.0,unidades,propiedades,conteo,total
+2018,Nacional,False,valor_construccion,167930734266200.0,pesos,miles de millones de pesos,dinero,total
+2018,Nacional,False,valor_terreno,125319646495250.0,pesos,miles de millones de pesos,dinero,total
+2018,Nacional,False,valor_vivienda,293250380761460.0,pesos,miles de millones de pesos,dinero,total
+2018,Nacional,False,valor_vivienda_pib,154.80274817984,%,% del PIB,tasa,promedio
+2018,Nacional -- casas,True,metros_construidos,302255775.5,m2,millones de metros cuadrados,superficie,total
+2018,Nacional -- casas,True,metros_terreno,1619457250.2998998,m2,millones de metros cuadrados,superficie,total
+2018,Nacional -- casas,True,numero_propiedades,4097578.0,unidades,propiedades,conteo,total
+2018,Nacional -- casas,True,valor_construccion,99435813323270.0,pesos,miles de millones de pesos,dinero,total
+2018,Nacional -- casas,True,valor_terreno,110525823492040.0,pesos,miles de millones de pesos,dinero,total
+2018,Nacional -- casas,True,valor_vivienda,209961636815310.0,pesos,miles de millones de pesos,dinero,total
+2018,Nacional -- casas,True,valor_vivienda_pib,110.83579263205,%,% del PIB,tasa,promedio
+2018,Nacional -- departamentos,True,metros_construidos,65489627.0,m2,millones de metros cuadrados,superficie,total
+2018,Nacional -- departamentos,True,metros_terreno,44707105.985237,m2,millones de metros cuadrados,superficie,total
+2018,Nacional -- departamentos,True,numero_propiedades,1074900.0,unidades,propiedades,conteo,total
+2018,Nacional -- departamentos,True,valor_construccion,68494920942935.0,pesos,miles de millones de pesos,dinero,total
+2018,Nacional -- departamentos,True,valor_terreno,14793823003214.0,pesos,miles de millones de pesos,dinero,total
+2018,Nacional -- departamentos,True,valor_vivienda,83288743946150.0,pesos,miles de millones de pesos,dinero,total
+2018,Nacional -- departamentos,True,valor_vivienda_pib,43.966955547788,%,% del PIB,tasa,promedio
+2018,Región Metropolitana,False,metros_construidos,155193540.0,m2,millones de metros cuadrados,superficie,total
+2018,Región Metropolitana,False,metros_terreno,462424452.32,m2,millones de metros cuadrados,superficie,total
+2018,Región Metropolitana,False,numero_propiedades,2128259.0,unidades,propiedades,conteo,total
+2018,Región Metropolitana,False,valor_vivienda,164432735055960.0,pesos,miles de millones de pesos,dinero,total
+2018,Región Metropolitana,False,valor_vivienda_pib,86.80172626305,%,% del PIB,tasa,promedio
+2018,Zona Centro,False,metros_construidos,102582927.5,m2,millones de metros cuadrados,superficie,total
+2018,Zona Centro,False,metros_terreno,612879066.908,m2,millones de metros cuadrados,superficie,total
+2018,Zona Centro,False,numero_propiedades,1470657.0,unidades,propiedades,conteo,total
+2018,Zona Centro,False,valor_vivienda,58663484629498.0,pesos,miles de millones de pesos,dinero,total
+2018,Zona Centro,False,valor_vivienda_pib,30.967627782346,%,% del PIB,tasa,promedio
+2018,Zona Norte,False,metros_construidos,27296716.5,m2,millones de metros cuadrados,superficie,total
+2018,Zona Norte,False,metros_terreno,73760739.70947699,m2,millones de metros cuadrados,superficie,total
+2018,Zona Norte,False,numero_propiedades,394249.0,unidades,propiedades,conteo,total
+2018,Zona Norte,False,valor_vivienda,25297868639228.0,pesos,miles de millones de pesos,dinero,total
+2018,Zona Norte,False,valor_vivienda_pib,13.354388759108,%,% del PIB,tasa,promedio
+2018,Zona Sur,False,metros_construidos,82672218.5,m2,millones de metros cuadrados,superficie,total
+2018,Zona Sur,False,metros_terreno,515100097.34769994,m2,millones de metros cuadrados,superficie,total
+2018,Zona Sur,False,numero_propiedades,1179313.0,unidades,propiedades,conteo,total
+2018,Zona Sur,False,valor_vivienda,44856292436766.0,pesos,miles de millones de pesos,dinero,total
+2018,Zona Sur,False,valor_vivienda_pib,23.679005375335,%,% del PIB,tasa,promedio
+2019,Nacional,False,metros_construidos,377794279.0,m2,millones de metros cuadrados,superficie,total
+2019,Nacional,False,metros_terreno,1735022903.0238,m2,millones de metros cuadrados,superficie,total
+2019,Nacional,False,numero_propiedades,5286015.0,unidades,propiedades,conteo,total
+2019,Nacional,False,valor_construccion,185813266754640.0,pesos,miles de millones de pesos,dinero,total
+2019,Nacional,False,valor_terreno,136667058319380.02,pesos,miles de millones de pesos,dinero,total
+2019,Nacional,False,valor_vivienda,322480325074030.0,pesos,miles de millones de pesos,dinero,total
+2019,Nacional,False,valor_vivienda_pib,164.92481170423,%,% del PIB,tasa,promedio
+2019,Nacional -- casas,True,metros_construidos,310077957.99999005,m2,millones de metros cuadrados,superficie,total
+2019,Nacional -- casas,True,metros_terreno,1688541910.5304,m2,millones de metros cuadrados,superficie,total
+2019,Nacional -- casas,True,numero_propiedades,4169528.0,unidades,propiedades,conteo,total
+2019,Nacional -- casas,True,valor_construccion,109881326941810.0,pesos,miles de millones de pesos,dinero,total
+2019,Nacional -- casas,True,valor_terreno,121411574687620.0,pesos,miles de millones de pesos,dinero,total
+2019,Nacional -- casas,True,valor_vivienda,231292901629430.0,pesos,miles de millones de pesos,dinero,total
+2019,Nacional -- casas,True,valor_vivienda_pib,118.28919559977,%,% del PIB,tasa,promedio
+2019,Nacional -- departamentos,True,metros_construidos,67716321.0,m2,millones de metros cuadrados,superficie,total
+2019,Nacional -- departamentos,True,metros_terreno,46480992.493427,m2,millones de metros cuadrados,superficie,total
+2019,Nacional -- departamentos,True,numero_propiedades,1116487.0,unidades,propiedades,conteo,total
+2019,Nacional -- departamentos,True,valor_construccion,75931939812837.0,pesos,miles de millones de pesos,dinero,total
+2019,Nacional -- departamentos,True,valor_terreno,15255483631765.0,pesos,miles de millones de pesos,dinero,total
+2019,Nacional -- departamentos,True,valor_vivienda,91187423444603.0,pesos,miles de millones de pesos,dinero,total
+2019,Nacional -- departamentos,True,valor_vivienda_pib,46.635616104464,%,% del PIB,tasa,promedio
+2019,Región Metropolitana,False,metros_construidos,158266117.0,m2,millones de metros cuadrados,superficie,total
+2019,Región Metropolitana,False,metros_terreno,473063693.87351996,m2,millones de metros cuadrados,superficie,total
+2019,Región Metropolitana,False,numero_propiedades,2169895.0,unidades,propiedades,conteo,total
+2019,Región Metropolitana,False,valor_vivienda,178694908291600.0,pesos,miles de millones de pesos,dinero,total
+2019,Región Metropolitana,False,valor_vivienda_pib,91.389216057547,%,% del PIB,tasa,promedio
+2019,Zona Centro,False,metros_construidos,105912316.0,m2,millones de metros cuadrados,superficie,total
+2019,Zona Centro,False,metros_terreno,642180996.0004,m2,millones de metros cuadrados,superficie,total
+2019,Zona Centro,False,numero_propiedades,1504290.0,unidades,propiedades,conteo,total
+2019,Zona Centro,False,valor_vivienda,66026206417238.99,pesos,miles de millones de pesos,dinero,total
+2019,Zona Centro,False,valor_vivienda_pib,33.767516385404,%,% del PIB,tasa,promedio
+2019,Zona Norte,False,metros_construidos,27893582.5,m2,millones de metros cuadrados,superficie,total
+2019,Zona Norte,False,metros_terreno,75621438.35972099,m2,millones de metros cuadrados,superficie,total
+2019,Zona Norte,False,numero_propiedades,400772.0,unidades,propiedades,conteo,total
+2019,Zona Norte,False,valor_vivienda,27440087350467.0,pesos,miles de millones de pesos,dinero,total
+2019,Zona Norte,False,valor_vivienda_pib,14.033573174997,%,% del PIB,tasa,promedio
+2019,Zona Sur,False,metros_construidos,85722263.5,m2,millones de metros cuadrados,superficie,total
+2019,Zona Sur,False,metros_terreno,544156774.79019,m2,millones de metros cuadrados,superficie,total
+2019,Zona Sur,False,numero_propiedades,1211058.0,unidades,propiedades,conteo,total
+2019,Zona Sur,False,valor_vivienda,50319123014722.0,pesos,miles de millones de pesos,dinero,total
+2019,Zona Sur,False,valor_vivienda_pib,25.734506086286,%,% del PIB,tasa,promedio
+2020,Nacional,False,metros_construidos,385110654.0,m2,millones de metros cuadrados,superficie,total
+2020,Nacional,False,metros_terreno,1776352458.3862,m2,millones de metros cuadrados,superficie,total
+2020,Nacional,False,numero_propiedades,5381133.0,unidades,propiedades,conteo,total
+2020,Nacional,False,valor_construccion,204636629825090.0,pesos,miles de millones de pesos,dinero,total
+2020,Nacional,False,valor_terreno,146143783089040.0,pesos,miles de millones de pesos,dinero,total
+2020,Nacional,False,valor_vivienda,350780412914130.0,pesos,miles de millones de pesos,dinero,total
+2020,Nacional,False,valor_vivienda_pib,174.29411858268,%,% del PIB,tasa,promedio
+2020,Nacional -- casas,True,metros_construidos,315434089.0,m2,millones de metros cuadrados,superficie,total
+2020,Nacional -- casas,True,metros_terreno,1728420101.4784,m2,millones de metros cuadrados,superficie,total
+2020,Nacional -- casas,True,numero_propiedades,4227859.0,unidades,propiedades,conteo,total
+2020,Nacional -- casas,True,valor_construccion,121962378731520.0,pesos,miles de millones de pesos,dinero,total
+2020,Nacional -- casas,True,valor_terreno,129862782421700.0,pesos,miles de millones de pesos,dinero,total
+2020,Nacional -- casas,True,valor_vivienda,251825161153220.0,pesos,miles de millones de pesos,dinero,total
+2020,Nacional -- casas,True,valor_vivienda_pib,125.12569939556,%,% del PIB,tasa,promedio
+2020,Nacional -- departamentos,True,metros_construidos,69676565.0,m2,millones de metros cuadrados,superficie,total
+2020,Nacional -- departamentos,True,metros_terreno,47932356.907744,m2,millones de metros cuadrados,superficie,total
+2020,Nacional -- departamentos,True,numero_propiedades,1153274.0,unidades,propiedades,conteo,total
+2020,Nacional -- departamentos,True,valor_construccion,82674251093567.0,pesos,miles de millones de pesos,dinero,total
+2020,Nacional -- departamentos,True,valor_terreno,16281000667341.0,pesos,miles de millones de pesos,dinero,total
+2020,Nacional -- departamentos,True,valor_vivienda,98955251760909.0,pesos,miles de millones de pesos,dinero,total
+2020,Nacional -- departamentos,True,valor_vivienda_pib,49.168419187127,%,% del PIB,tasa,promedio
+2020,Región Metropolitana,False,metros_construidos,160483230.0,m2,millones de metros cuadrados,superficie,total
+2020,Región Metropolitana,False,metros_terreno,478900250.38058,m2,millones de metros cuadrados,superficie,total
+2020,Región Metropolitana,False,numero_propiedades,2202089.0,unidades,propiedades,conteo,total
+2020,Región Metropolitana,False,valor_vivienda,195100175843980.0,pesos,miles de millones de pesos,dinero,total
+2020,Región Metropolitana,False,valor_vivienda_pib,96.940456000826,%,% del PIB,tasa,promedio
+2020,Zona Centro,False,metros_construidos,108261004.0,m2,millones de metros cuadrados,superficie,total
+2020,Zona Centro,False,metros_terreno,658316129.58922,m2,millones de metros cuadrados,superficie,total
+2020,Zona Centro,False,numero_propiedades,1533281.0,unidades,propiedades,conteo,total
+2020,Zona Centro,False,valor_vivienda,72835989816263.0,pesos,miles de millones de pesos,dinero,total
+2020,Zona Centro,False,valor_vivienda_pib,36.190403394133,%,% del PIB,tasa,promedio
+2020,Zona Norte,False,metros_construidos,28294057.5,m2,millones de metros cuadrados,superficie,total
+2020,Zona Norte,False,metros_terreno,76401319.338134,m2,millones de metros cuadrados,superficie,total
+2020,Zona Norte,False,numero_propiedades,406046.0,unidades,propiedades,conteo,total
+2020,Zona Norte,False,valor_vivienda,29136641320712.0,pesos,miles de millones de pesos,dinero,total
+2020,Zona Norte,False,valor_vivienda_pib,14.477277038546,%,% del PIB,tasa,promedio
+2020,Zona Sur,False,metros_construidos,88072362.5,m2,millones de metros cuadrados,superficie,total
+2020,Zona Sur,False,metros_terreno,562734759.0782801,m2,millones de metros cuadrados,superficie,total
+2020,Zona Sur,False,numero_propiedades,1239717.0,unidades,propiedades,conteo,total
+2020,Zona Sur,False,valor_vivienda,53707605933177.0,pesos,miles de millones de pesos,dinero,total
+2020,Zona Sur,False,valor_vivienda_pib,26.685982149182,%,% del PIB,tasa,promedio
+2021,Nacional,False,metros_construidos,389891892.0,m2,millones de metros cuadrados,superficie,total
+2021,Nacional,False,metros_terreno,1802400396.8244002,m2,millones de metros cuadrados,superficie,total
+2021,Nacional,False,numero_propiedades,5448803.0,unidades,propiedades,conteo,total
+2021,Nacional,False,valor_construccion,218686388686930.0,pesos,miles de millones de pesos,dinero,total
+2021,Nacional,False,valor_terreno,174099153444510.0,pesos,miles de millones de pesos,dinero,total
+2021,Nacional,False,valor_vivienda,392785542131440.0,pesos,miles de millones de pesos,dinero,total
+2021,Nacional,False,valor_vivienda_pib,164.05839960283,%,% del PIB,tasa,promedio
+2021,Nacional -- casas,True,metros_construidos,317994483.0,m2,millones de metros cuadrados,superficie,total
+2021,Nacional -- casas,True,metros_terreno,1752706715.1777,m2,millones de metros cuadrados,superficie,total
+2021,Nacional -- casas,True,numero_propiedades,4257516.0,unidades,propiedades,conteo,total
+2021,Nacional -- casas,True,valor_construccion,127478498967650.0,pesos,miles de millones de pesos,dinero,total
+2021,Nacional -- casas,True,valor_terreno,152867790774860.0,pesos,miles de millones de pesos,dinero,total
+2021,Nacional -- casas,True,valor_vivienda,280346289742520.03,pesos,miles de millones de pesos,dinero,total
+2021,Nacional -- casas,True,valor_vivienda_pib,117.09484870591,%,% del PIB,tasa,promedio
+2021,Nacional -- departamentos,True,metros_construidos,71897409.0,m2,millones de metros cuadrados,superficie,total
+2021,Nacional -- departamentos,True,metros_terreno,49693681.646671996,m2,millones de metros cuadrados,superficie,total
+2021,Nacional -- departamentos,True,numero_propiedades,1191287.0,unidades,propiedades,conteo,total
+2021,Nacional -- departamentos,True,valor_construccion,91207889719274.0,pesos,miles de millones de pesos,dinero,total
+2021,Nacional -- departamentos,True,valor_terreno,21231362669645.0,pesos,miles de millones de pesos,dinero,total
+2021,Nacional -- departamentos,True,valor_vivienda,112439252388910.0,pesos,miles de millones de pesos,dinero,total
+2021,Nacional -- departamentos,True,valor_vivienda_pib,46.963550896921,%,% del PIB,tasa,promedio
+2021,Región Metropolitana,False,metros_construidos,161839861.99999002,m2,millones de metros cuadrados,superficie,total
+2021,Región Metropolitana,False,metros_terreno,481611403.1743,m2,millones de metros cuadrados,superficie,total
+2021,Región Metropolitana,False,numero_propiedades,2224990.0,unidades,propiedades,conteo,total
+2021,Región Metropolitana,False,valor_vivienda,217226869947110.0,pesos,miles de millones de pesos,dinero,total
+2021,Región Metropolitana,False,valor_vivienda_pib,90.731172132423,%,% del PIB,tasa,promedio
+2021,Zona Centro,False,metros_construidos,109913573.0,m2,millones de metros cuadrados,superficie,total
+2021,Zona Centro,False,metros_terreno,667702019.7822,m2,millones de metros cuadrados,superficie,total
+2021,Zona Centro,False,numero_propiedades,1555153.0,unidades,propiedades,conteo,total
+2021,Zona Centro,False,valor_vivienda,80844635743624.0,pesos,miles de millones de pesos,dinero,total
+2021,Zona Centro,False,valor_vivienda_pib,33.767132783452,%,% del PIB,tasa,promedio
+2021,Zona Norte,False,metros_construidos,28529121.5,m2,millones de metros cuadrados,superficie,total
+2021,Zona Norte,False,metros_terreno,76786470.206904,m2,millones de metros cuadrados,superficie,total
+2021,Zona Norte,False,numero_propiedades,408487.0,unidades,propiedades,conteo,total
+2021,Zona Norte,False,valor_vivienda,32119662782352.0,pesos,miles de millones de pesos,dinero,total
+2021,Zona Norte,False,valor_vivienda_pib,13.415719028914,%,% del PIB,tasa,promedio
+2021,Zona Sur,False,metros_construidos,89609335.5,m2,millones de metros cuadrados,superficie,total
+2021,Zona Sur,False,metros_terreno,576300503.66103,m2,millones de metros cuadrados,superficie,total
+2021,Zona Sur,False,numero_propiedades,1260173.0,unidades,propiedades,conteo,total
+2021,Zona Sur,False,valor_vivienda,62594373658359.0,pesos,miles de millones de pesos,dinero,total
+2021,Zona Sur,False,valor_vivienda_pib,26.144375658041,%,% del PIB,tasa,promedio
+2022,Nacional,False,metros_construidos,402797873.0,m2,millones de metros cuadrados,superficie,total
+2022,Nacional,False,metros_terreno,1908659017.2563002,m2,millones de metros cuadrados,superficie,total
+2022,Nacional,False,numero_propiedades,5598350.0,unidades,propiedades,conteo,total
+2022,Nacional,False,valor_construccion,253643803116360.0,pesos,miles de millones de pesos,dinero,total
+2022,Nacional,False,valor_terreno,188683676175250.0,pesos,miles de millones de pesos,dinero,total
+2022,Nacional,False,valor_vivienda,442327479291620.0,pesos,miles de millones de pesos,dinero,total
+2022,Nacional,False,valor_vivienda_pib,168.14351385062,%,% del PIB,tasa,promedio
+2022,Nacional -- casas,True,metros_construidos,327377483.0,m2,millones de metros cuadrados,superficie,total
+2022,Nacional -- casas,True,metros_terreno,1856288685.9589,m2,millones de metros cuadrados,superficie,total
+2022,Nacional -- casas,True,numero_propiedades,4340642.0,unidades,propiedades,conteo,total
+2022,Nacional -- casas,True,valor_construccion,145971392163710.0,pesos,miles de millones de pesos,dinero,total
+2022,Nacional -- casas,True,valor_terreno,165885733285590.0,pesos,miles de millones de pesos,dinero,total
+2022,Nacional -- casas,True,valor_vivienda,311857125449310.0,pesos,miles de millones de pesos,dinero,total
+2022,Nacional -- casas,True,valor_vivienda_pib,118.54735540369,%,% del PIB,tasa,promedio
+2022,Nacional -- departamentos,True,metros_construidos,75420390.0,m2,millones de metros cuadrados,superficie,total
+2022,Nacional -- departamentos,True,metros_terreno,52370331.297485,m2,millones de metros cuadrados,superficie,total
+2022,Nacional -- departamentos,True,numero_propiedades,1257708.0,unidades,propiedades,conteo,total
+2022,Nacional -- departamentos,True,valor_construccion,107672410952650.0,pesos,miles de millones de pesos,dinero,total
+2022,Nacional -- departamentos,True,valor_terreno,22797942889662.0,pesos,miles de millones de pesos,dinero,total
+2022,Nacional -- departamentos,True,valor_vivienda,130470353842310.0,pesos,miles de millones de pesos,dinero,total
+2022,Nacional -- departamentos,True,valor_vivienda_pib,49.596158446936,%,% del PIB,tasa,promedio
+2022,Región Metropolitana,False,metros_construidos,165816060.5,m2,millones de metros cuadrados,superficie,total
+2022,Región Metropolitana,False,metros_terreno,495213299.96266,m2,millones de metros cuadrados,superficie,total
+2022,Región Metropolitana,False,numero_propiedades,2281010.0,unidades,propiedades,conteo,total
+2022,Región Metropolitana,False,valor_vivienda,244614959934900.0,pesos,miles de millones de pesos,dinero,total
+2022,Región Metropolitana,False,valor_vivienda_pib,92.986352486521,%,% del PIB,tasa,promedio
+2022,Zona Centro,False,metros_construidos,114005929.5,m2,millones de metros cuadrados,superficie,total
+2022,Zona Centro,False,metros_terreno,709523142.75313,m2,millones de metros cuadrados,superficie,total
+2022,Zona Centro,False,numero_propiedades,1597297.0,unidades,propiedades,conteo,total
+2022,Zona Centro,False,valor_vivienda,91797660995993.0,pesos,miles de millones de pesos,dinero,total
+2022,Zona Centro,False,valor_vivienda_pib,34.895370524693,%,% del PIB,tasa,promedio
+2022,Zona Norte,False,metros_construidos,29222371.5,m2,millones de metros cuadrados,superficie,total
+2022,Zona Norte,False,metros_terreno,80405984.29089001,m2,millones de metros cuadrados,superficie,total
+2022,Zona Norte,False,numero_propiedades,414918.0,unidades,propiedades,conteo,total
+2022,Zona Norte,False,valor_vivienda,35005318053914.996,pesos,miles de millones de pesos,dinero,total
+2022,Zona Norte,False,valor_vivienda_pib,13.30669573247,%,% del PIB,tasa,promedio
+2022,Zona Sur,False,metros_construidos,93753511.5,m2,millones de metros cuadrados,superficie,total
+2022,Zona Sur,False,metros_terreno,623516590.24969,m2,millones de metros cuadrados,superficie,total
+2022,Zona Sur,False,numero_propiedades,1305125.0,unidades,propiedades,conteo,total
+2022,Zona Sur,False,valor_vivienda,70909540306811.0,pesos,miles de millones de pesos,dinero,total
+2022,Zona Sur,False,valor_vivienda_pib,26.955095106942,%,% del PIB,tasa,promedio
+2023,Nacional,False,metros_construidos,413318940.5,m2,millones de metros cuadrados,superficie,total
+2023,Nacional,False,metros_terreno,2005822458.3948,m2,millones de metros cuadrados,superficie,total
+2023,Nacional,False,numero_propiedades,5718377.0,unidades,propiedades,conteo,total
+2023,Nacional,False,valor_construccion,286578284856070.0,pesos,miles de millones de pesos,dinero,total
+2023,Nacional,False,valor_terreno,200855832146200.0,pesos,miles de millones de pesos,dinero,total
+2023,Nacional,False,valor_vivienda,487434117002280.0,pesos,miles de millones de pesos,dinero,total
+2023,Nacional,False,valor_vivienda_pib,172.93637403029,%,% del PIB,tasa,promedio
+2023,Nacional -- casas,True,metros_construidos,336358939.5,m2,millones de metros cuadrados,superficie,total
+2023,Nacional -- casas,True,metros_terreno,1952208696.6796,m2,millones de metros cuadrados,superficie,total
+2023,Nacional -- casas,True,numero_propiedades,4424412.0,unidades,propiedades,conteo,total
+2023,Nacional -- casas,True,valor_construccion,167075396907530.0,pesos,miles de millones de pesos,dinero,total
+2023,Nacional -- casas,True,valor_terreno,176906975529950.0,pesos,miles de millones de pesos,dinero,total
+2023,Nacional -- casas,True,valor_vivienda,343982372437490.0,pesos,miles de millones de pesos,dinero,total
+2023,Nacional -- casas,True,valor_vivienda_pib,122.04124033319,%,% del PIB,tasa,promedio
+2023,Nacional -- departamentos,True,metros_construidos,76960001.0,m2,millones de metros cuadrados,superficie,total
+2023,Nacional -- departamentos,True,metros_terreno,53613761.715212,m2,millones de metros cuadrados,superficie,total
+2023,Nacional -- departamentos,True,numero_propiedades,1293965.0,unidades,propiedades,conteo,total
+2023,Nacional -- departamentos,True,valor_construccion,119502887948540.0,pesos,miles de millones de pesos,dinero,total
+2023,Nacional -- departamentos,True,valor_terreno,23948856616246.0,pesos,miles de millones de pesos,dinero,total
+2023,Nacional -- departamentos,True,valor_vivienda,143451744564790.0,pesos,miles de millones de pesos,dinero,total
+2023,Nacional -- departamentos,True,valor_vivienda_pib,50.89513369709,%,% del PIB,tasa,promedio
+2023,Región Metropolitana,False,metros_construidos,169279472.5,m2,millones de metros cuadrados,superficie,total
+2023,Región Metropolitana,False,metros_terreno,512214657.9442,m2,millones de metros cuadrados,superficie,total
+2023,Región Metropolitana,False,numero_propiedades,2327804.0,unidades,propiedades,conteo,total
+2023,Región Metropolitana,False,valor_vivienda,266035441065609.97,pesos,miles de millones de pesos,dinero,total
+2023,Región Metropolitana,False,valor_vivienda_pib,94.386508733488,%,% del PIB,tasa,promedio
+2023,Zona Centro,False,metros_construidos,117320651.0,m2,millones de metros cuadrados,superficie,total
+2023,Zona Centro,False,metros_terreno,743064038.2742,m2,millones de metros cuadrados,superficie,total
+2023,Zona Centro,False,numero_propiedades,1630726.0,unidades,propiedades,conteo,total
+2023,Zona Centro,False,valor_vivienda,102763631560890.0,pesos,miles de millones de pesos,dinero,total
+2023,Zona Centro,False,valor_vivienda_pib,36.459429499149,%,% del PIB,tasa,promedio
+2023,Zona Norte,False,metros_construidos,29713984.0,m2,millones de metros cuadrados,superficie,total
+2023,Zona Norte,False,metros_terreno,83757073.468074,m2,millones de metros cuadrados,superficie,total
+2023,Zona Norte,False,numero_propiedades,419565.0,unidades,propiedades,conteo,total
+2023,Zona Norte,False,valor_vivienda,37979560377919.0,pesos,miles de millones de pesos,dinero,total
+2023,Zona Norte,False,valor_vivienda_pib,13.474738903003,%,% del PIB,tasa,promedio
+2023,Zona Sur,False,metros_construidos,97004833.0,m2,millones de metros cuadrados,superficie,total
+2023,Zona Sur,False,metros_terreno,666786688.70835,m2,millones de metros cuadrados,superficie,total
+2023,Zona Sur,False,numero_propiedades,1340282.0,unidades,propiedades,conteo,total
+2023,Zona Sur,False,valor_vivienda,80655483997860.0,pesos,miles de millones de pesos,dinero,total
+2023,Zona Sur,False,valor_vivienda_pib,28.615696894648,%,% del PIB,tasa,promedio
+2024,Nacional,False,metros_construidos,423726674.0,m2,millones de metros cuadrados,superficie,total
+2024,Nacional,False,metros_terreno,2111690862.2318,m2,millones de metros cuadrados,superficie,total
+2024,Nacional,False,numero_propiedades,5824443.0,unidades,propiedades,conteo,total
+2024,Nacional,False,valor_construccion,319345932989950.0,pesos,miles de millones de pesos,dinero,total
+2024,Nacional,False,valor_terreno,217657181620860.0,pesos,miles de millones de pesos,dinero,total
+2024,Nacional,False,valor_vivienda,537003114610819.94,pesos,miles de millones de pesos,dinero,total
+2024,Nacional,False,valor_vivienda_pib,172.32025183062,%,% del PIB,tasa,promedio
+2024,Nacional -- casas,True,metros_construidos,345253041.5,m2,millones de metros cuadrados,superficie,total
+2024,Nacional -- casas,True,metros_terreno,2057213126.2736,m2,millones de metros cuadrados,superficie,total
+2024,Nacional -- casas,True,numero_propiedades,4496618.0,unidades,propiedades,conteo,total
+2024,Nacional -- casas,True,valor_construccion,188697302461850.0,pesos,miles de millones de pesos,dinero,total
+2024,Nacional -- casas,True,valor_terreno,193239008224510.0,pesos,miles de millones de pesos,dinero,total
+2024,Nacional -- casas,True,valor_vivienda,381936310686370.0,pesos,miles de millones de pesos,dinero,total
+2024,Nacional -- casas,True,valor_vivienda_pib,122.56048326355,%,% del PIB,tasa,promedio
+2024,Nacional -- departamentos,True,metros_construidos,78473632.5,m2,millones de metros cuadrados,superficie,total
+2024,Nacional -- departamentos,True,metros_terreno,54477735.958211,m2,millones de metros cuadrados,superficie,total
+2024,Nacional -- departamentos,True,numero_propiedades,1327825.0,unidades,propiedades,conteo,total
+2024,Nacional -- departamentos,True,valor_construccion,130648630528090.0,pesos,miles de millones de pesos,dinero,total
+2024,Nacional -- departamentos,True,valor_terreno,24418173396350.0,pesos,miles de millones de pesos,dinero,total
+2024,Nacional -- departamentos,True,valor_vivienda,155066803924450.0,pesos,miles de millones de pesos,dinero,total
+2024,Nacional -- departamentos,True,valor_vivienda_pib,49.759768567072,%,% del PIB,tasa,promedio
+2024,Región Metropolitana,False,metros_construidos,172494014.5,m2,millones de metros cuadrados,superficie,total
+2024,Región Metropolitana,False,metros_terreno,531082357.75263995,m2,millones de metros cuadrados,superficie,total
+2024,Región Metropolitana,False,numero_propiedades,2366288.0,unidades,propiedades,conteo,total
+2024,Región Metropolitana,False,valor_vivienda,287839198670950.0,pesos,miles de millones de pesos,dinero,total
+2024,Región Metropolitana,False,valor_vivienda_pib,92.36542927251,%,% del PIB,tasa,promedio
+2024,Zona Centro,False,metros_construidos,120355972.0,m2,millones de metros cuadrados,superficie,total
+2024,Zona Centro,False,metros_terreno,777843755.8183501,m2,millones de metros cuadrados,superficie,total
+2024,Zona Centro,False,numero_propiedades,1660544.0,unidades,propiedades,conteo,total
+2024,Zona Centro,False,valor_vivienda,113485064108930.0,pesos,miles de millones de pesos,dinero,total
+2024,Zona Centro,False,valor_vivienda_pib,36.41650168163,%,% del PIB,tasa,promedio
+2024,Zona Norte,False,metros_construidos,30399812.5,m2,millones de metros cuadrados,superficie,total
+2024,Zona Norte,False,metros_terreno,86744416.010713,m2,millones de metros cuadrados,superficie,total
+2024,Zona Norte,False,numero_propiedades,425174.0,unidades,propiedades,conteo,total
+2024,Zona Norte,False,valor_vivienda,42238781572092.0,pesos,miles de millones de pesos,dinero,total
+2024,Zona Norte,False,valor_vivienda_pib,13.554106632689,%,% del PIB,tasa,promedio
+2024,Zona Sur,False,metros_construidos,100476875.0,m2,millones de metros cuadrados,superficie,total
+2024,Zona Sur,False,metros_terreno,716020332.65016,m2,millones de metros cuadrados,superficie,total
+2024,Zona Sur,False,numero_propiedades,1372437.0,unidades,propiedades,conteo,total
+2024,Zona Sur,False,valor_vivienda,93440070258848.0,pesos,miles de millones de pesos,dinero,total
+2024,Zona Sur,False,valor_vivienda_pib,29.984214243794,%,% del PIB,tasa,promedio

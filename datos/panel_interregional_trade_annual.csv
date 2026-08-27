@@ -1,0 +1,769 @@
+anio,region_code,region_name,indicador,unidad,valor,unidad_original,dimension,agregacion
+2018,01,Tarapacá,compra_interregional,pesos,1549219000109.47,miles de millones de pesos,dinero,total
+2018,01,Tarapacá,compra_intrarregional,pesos,902146484450.732,miles de millones de pesos,dinero,total
+2018,01,Tarapacá,facturas_compra_interregional,unidades,2143643.0,miles de unidades,conteo,total
+2018,01,Tarapacá,facturas_venta_interregional,unidades,792566.0,miles de unidades,conteo,total
+2018,01,Tarapacá,venta_interregional,pesos,724219425326.491,miles de millones de pesos,dinero,total
+2018,01,Tarapacá,venta_intrarregional,pesos,902146484450.732,miles de millones de pesos,dinero,total
+2018,02,Antofagasta,compra_interregional,pesos,4450449788358.34,miles de millones de pesos,dinero,total
+2018,02,Antofagasta,compra_intrarregional,pesos,2559024007619.58,miles de millones de pesos,dinero,total
+2018,02,Antofagasta,facturas_compra_interregional,unidades,4843220.0,miles de unidades,conteo,total
+2018,02,Antofagasta,facturas_venta_interregional,unidades,2244061.0,miles de unidades,conteo,total
+2018,02,Antofagasta,venta_interregional,pesos,3584482685440.21,miles de millones de pesos,dinero,total
+2018,02,Antofagasta,venta_intrarregional,pesos,2559024007619.58,miles de millones de pesos,dinero,total
+2018,03,Atacama,compra_interregional,pesos,1454205092907.24,miles de millones de pesos,dinero,total
+2018,03,Atacama,compra_intrarregional,pesos,716110609922.775,miles de millones de pesos,dinero,total
+2018,03,Atacama,facturas_compra_interregional,unidades,2518859.0,miles de unidades,conteo,total
+2018,03,Atacama,facturas_venta_interregional,unidades,803757.0000000001,miles de unidades,conteo,total
+2018,03,Atacama,venta_interregional,pesos,951677570225.966,miles de millones de pesos,dinero,total
+2018,03,Atacama,venta_intrarregional,pesos,716110609922.775,miles de millones de pesos,dinero,total
+2018,04,Coquimbo,compra_interregional,pesos,2473745016671.41,miles de millones de pesos,dinero,total
+2018,04,Coquimbo,compra_intrarregional,pesos,1706728558369.24,miles de millones de pesos,dinero,total
+2018,04,Coquimbo,facturas_compra_interregional,unidades,5349403.0,miles de unidades,conteo,total
+2018,04,Coquimbo,facturas_venta_interregional,unidades,1946886.0,miles de unidades,conteo,total
+2018,04,Coquimbo,venta_interregional,pesos,1622192558765.91,miles de millones de pesos,dinero,total
+2018,04,Coquimbo,venta_intrarregional,pesos,1706728558369.24,miles de millones de pesos,dinero,total
+2018,05,Valparaíso,compra_interregional,pesos,6884414437838.029,miles de millones de pesos,dinero,total
+2018,05,Valparaíso,compra_intrarregional,pesos,4911967325815.89,miles de millones de pesos,dinero,total
+2018,05,Valparaíso,facturas_compra_interregional,unidades,13592393.0,miles de unidades,conteo,total
+2018,05,Valparaíso,facturas_venta_interregional,unidades,6689876.999999999,miles de unidades,conteo,total
+2018,05,Valparaíso,venta_interregional,pesos,11222450106836.61,miles de millones de pesos,dinero,total
+2018,05,Valparaíso,venta_intrarregional,pesos,4911967325815.89,miles de millones de pesos,dinero,total
+2018,06,O'Higgins,compra_interregional,pesos,4578521459151.689,miles de millones de pesos,dinero,total
+2018,06,O'Higgins,compra_intrarregional,pesos,2964687627661.0303,miles de millones de pesos,dinero,total
+2018,06,O'Higgins,facturas_compra_interregional,unidades,7699856.0,miles de unidades,conteo,total
+2018,06,O'Higgins,facturas_venta_interregional,unidades,2642078.0,miles de unidades,conteo,total
+2018,06,O'Higgins,venta_interregional,pesos,3303250343595.46,miles de millones de pesos,dinero,total
+2018,06,O'Higgins,venta_intrarregional,pesos,2964687627661.0303,miles de millones de pesos,dinero,total
+2018,07,Maule,compra_interregional,pesos,3774419082349.35,miles de millones de pesos,dinero,total
+2018,07,Maule,compra_intrarregional,pesos,3188157810498.2,miles de millones de pesos,dinero,total
+2018,07,Maule,facturas_compra_interregional,unidades,7335056.000000001,miles de unidades,conteo,total
+2018,07,Maule,facturas_venta_interregional,unidades,5922850.0,miles de unidades,conteo,total
+2018,07,Maule,venta_interregional,pesos,3361181823680.62,miles de millones de pesos,dinero,total
+2018,07,Maule,venta_intrarregional,pesos,3188157810498.2,miles de millones de pesos,dinero,total
+2018,08,Biobío,compra_interregional,pesos,5767774991149.899,miles de millones de pesos,dinero,total
+2018,08,Biobío,compra_intrarregional,pesos,5079466513737.779,miles de millones de pesos,dinero,total
+2018,08,Biobío,facturas_compra_interregional,unidades,11354630.0,miles de unidades,conteo,total
+2018,08,Biobío,facturas_venta_interregional,unidades,4716819.0,miles de unidades,conteo,total
+2018,08,Biobío,venta_interregional,pesos,6638590972960.43,miles de millones de pesos,dinero,total
+2018,08,Biobío,venta_intrarregional,pesos,5079466513737.779,miles de millones de pesos,dinero,total
+2018,09,La Araucanía,compra_interregional,pesos,2826490128162.89,miles de millones de pesos,dinero,total
+2018,09,La Araucanía,compra_intrarregional,pesos,2375510365558.44,miles de millones de pesos,dinero,total
+2018,09,La Araucanía,facturas_compra_interregional,unidades,6295604.0,miles de unidades,conteo,total
+2018,09,La Araucanía,facturas_venta_interregional,unidades,3243657.0,miles de unidades,conteo,total
+2018,09,La Araucanía,venta_interregional,pesos,2304165576336.29,miles de millones de pesos,dinero,total
+2018,09,La Araucanía,venta_intrarregional,pesos,2375510365558.44,miles de millones de pesos,dinero,total
+2018,10,Los Lagos,compra_interregional,pesos,5040074767217.46,miles de millones de pesos,dinero,total
+2018,10,Los Lagos,compra_intrarregional,pesos,4974360932413.15,miles de millones de pesos,dinero,total
+2018,10,Los Lagos,facturas_compra_interregional,unidades,6886742.0,miles de unidades,conteo,total
+2018,10,Los Lagos,facturas_venta_interregional,unidades,3633163.0,miles de unidades,conteo,total
+2018,10,Los Lagos,venta_interregional,pesos,2703008297237.52,miles de millones de pesos,dinero,total
+2018,10,Los Lagos,venta_intrarregional,pesos,4974360932413.15,miles de millones de pesos,dinero,total
+2018,11,Aysén,compra_interregional,pesos,394678525025.245,miles de millones de pesos,dinero,total
+2018,11,Aysén,compra_intrarregional,pesos,272572943487.70596,miles de millones de pesos,dinero,total
+2018,11,Aysén,facturas_compra_interregional,unidades,875140.0,miles de unidades,conteo,total
+2018,11,Aysén,facturas_venta_interregional,unidades,263421.0,miles de unidades,conteo,total
+2018,11,Aysén,venta_interregional,pesos,196599787794.45502,miles de millones de pesos,dinero,total
+2018,11,Aysén,venta_intrarregional,pesos,272572943487.70596,miles de millones de pesos,dinero,total
+2018,12,Magallanes,compra_interregional,pesos,871237087704.1981,miles de millones de pesos,dinero,total
+2018,12,Magallanes,compra_intrarregional,pesos,824440462485.219,miles de millones de pesos,dinero,total
+2018,12,Magallanes,facturas_compra_interregional,unidades,1333640.0,miles de unidades,conteo,total
+2018,12,Magallanes,facturas_venta_interregional,unidades,390698.0,miles de unidades,conteo,total
+2018,12,Magallanes,venta_interregional,pesos,630457230704.946,miles de millones de pesos,dinero,total
+2018,12,Magallanes,venta_intrarregional,pesos,824440462485.219,miles de millones de pesos,dinero,total
+2018,13,Metropolitana de Santiago,compra_interregional,pesos,35742007677618.5,miles de millones de pesos,dinero,total
+2018,13,Metropolitana de Santiago,compra_intrarregional,pesos,130929197150663.4,miles de millones de pesos,dinero,total
+2018,13,Metropolitana de Santiago,facturas_compra_interregional,unidades,28679708.0,miles de unidades,conteo,total
+2018,13,Metropolitana de Santiago,facturas_venta_interregional,unidades,69291877.00000001,miles de unidades,conteo,total
+2018,13,Metropolitana de Santiago,venta_interregional,pesos,39314781797292.4,miles de millones de pesos,dinero,total
+2018,13,Metropolitana de Santiago,venta_intrarregional,pesos,130929197150663.4,miles de millones de pesos,dinero,total
+2018,14,Los Ríos,compra_interregional,pesos,1646231391681.25,miles de millones de pesos,dinero,total
+2018,14,Los Ríos,compra_intrarregional,pesos,806218526668.833,miles de millones de pesos,dinero,total
+2018,14,Los Ríos,facturas_compra_interregional,unidades,3558003.0,miles de unidades,conteo,total
+2018,14,Los Ríos,facturas_venta_interregional,unidades,1616683.0,miles de unidades,conteo,total
+2018,14,Los Ríos,venta_interregional,pesos,1367265741741.1,miles de millones de pesos,dinero,total
+2018,14,Los Ríos,venta_intrarregional,pesos,806218526668.833,miles de millones de pesos,dinero,total
+2018,15,Arica y Parinacota,compra_interregional,pesos,622053474840.3209,miles de millones de pesos,dinero,total
+2018,15,Arica y Parinacota,compra_intrarregional,pesos,340826394100.51105,miles de millones de pesos,dinero,total
+2018,15,Arica y Parinacota,facturas_compra_interregional,unidades,1144350.0,miles de unidades,conteo,total
+2018,15,Arica y Parinacota,facturas_venta_interregional,unidades,521819.99999999994,miles de unidades,conteo,total
+2018,15,Arica y Parinacota,venta_interregional,pesos,317712042271.0,miles de millones de pesos,dinero,total
+2018,15,Arica y Parinacota,venta_intrarregional,pesos,340826394100.51105,miles de millones de pesos,dinero,total
+2018,16,Ñuble,compra_interregional,pesos,1469178786844.73,miles de millones de pesos,dinero,total
+2018,16,Ñuble,compra_intrarregional,pesos,900387319378.745,miles de millones de pesos,dinero,total
+2018,16,Ñuble,facturas_compra_interregional,unidades,3253669.0,miles de unidades,conteo,total
+2018,16,Ñuble,facturas_venta_interregional,unidades,2143703.0,miles de unidades,conteo,total
+2018,16,Ñuble,venta_interregional,pesos,1302664747420.9102,miles de millones de pesos,dinero,total
+2018,16,Ñuble,venta_intrarregional,pesos,900387319378.745,miles de millones de pesos,dinero,total
+2019,01,Tarapacá,compra_interregional,pesos,2119109401589.51,miles de millones de pesos,dinero,total
+2019,01,Tarapacá,compra_intrarregional,pesos,932886540153.749,miles de millones de pesos,dinero,total
+2019,01,Tarapacá,facturas_compra_interregional,unidades,2130934.0,miles de unidades,conteo,total
+2019,01,Tarapacá,facturas_venta_interregional,unidades,851928.0,miles de unidades,conteo,total
+2019,01,Tarapacá,venta_interregional,pesos,772505575605.1791,miles de millones de pesos,dinero,total
+2019,01,Tarapacá,venta_intrarregional,pesos,932886540153.749,miles de millones de pesos,dinero,total
+2019,02,Antofagasta,compra_interregional,pesos,4697877286925.27,miles de millones de pesos,dinero,total
+2019,02,Antofagasta,compra_intrarregional,pesos,2595308000663.06,miles de millones de pesos,dinero,total
+2019,02,Antofagasta,facturas_compra_interregional,unidades,4915063.0,miles de unidades,conteo,total
+2019,02,Antofagasta,facturas_venta_interregional,unidades,2232299.0,miles de unidades,conteo,total
+2019,02,Antofagasta,venta_interregional,pesos,4271956085844.01,miles de millones de pesos,dinero,total
+2019,02,Antofagasta,venta_intrarregional,pesos,2595308000663.06,miles de millones de pesos,dinero,total
+2019,03,Atacama,compra_interregional,pesos,1462308756366.5698,miles de millones de pesos,dinero,total
+2019,03,Atacama,compra_intrarregional,pesos,708312022260.743,miles de millones de pesos,dinero,total
+2019,03,Atacama,facturas_compra_interregional,unidades,2542742.0,miles de unidades,conteo,total
+2019,03,Atacama,facturas_venta_interregional,unidades,799064.0,miles de unidades,conteo,total
+2019,03,Atacama,venta_interregional,pesos,1017835628454.629,miles de millones de pesos,dinero,total
+2019,03,Atacama,venta_intrarregional,pesos,708312022260.743,miles de millones de pesos,dinero,total
+2019,04,Coquimbo,compra_interregional,pesos,2585214766979.4297,miles de millones de pesos,dinero,total
+2019,04,Coquimbo,compra_intrarregional,pesos,1765373749050.6301,miles de millones de pesos,dinero,total
+2019,04,Coquimbo,facturas_compra_interregional,unidades,5422601.0,miles de unidades,conteo,total
+2019,04,Coquimbo,facturas_venta_interregional,unidades,2039981.0,miles de unidades,conteo,total
+2019,04,Coquimbo,venta_interregional,pesos,1646694527492.25,miles de millones de pesos,dinero,total
+2019,04,Coquimbo,venta_intrarregional,pesos,1765373749050.6301,miles de millones de pesos,dinero,total
+2019,05,Valparaíso,compra_interregional,pesos,7266858581654.601,miles de millones de pesos,dinero,total
+2019,05,Valparaíso,compra_intrarregional,pesos,4968280820899.561,miles de millones de pesos,dinero,total
+2019,05,Valparaíso,facturas_compra_interregional,unidades,13713661.0,miles de unidades,conteo,total
+2019,05,Valparaíso,facturas_venta_interregional,unidades,6872358.0,miles de unidades,conteo,total
+2019,05,Valparaíso,venta_interregional,pesos,11766003083716.07,miles de millones de pesos,dinero,total
+2019,05,Valparaíso,venta_intrarregional,pesos,4968280820899.561,miles de millones de pesos,dinero,total
+2019,06,O'Higgins,compra_interregional,pesos,4877581694436.92,miles de millones de pesos,dinero,total
+2019,06,O'Higgins,compra_intrarregional,pesos,3122824675911.7,miles de millones de pesos,dinero,total
+2019,06,O'Higgins,facturas_compra_interregional,unidades,7824629.0,miles de unidades,conteo,total
+2019,06,O'Higgins,facturas_venta_interregional,unidades,2813444.0,miles de unidades,conteo,total
+2019,06,O'Higgins,venta_interregional,pesos,3542168201434.36,miles de millones de pesos,dinero,total
+2019,06,O'Higgins,venta_intrarregional,pesos,3122824675911.7,miles de millones de pesos,dinero,total
+2019,07,Maule,compra_interregional,pesos,3949708520899.8003,miles de millones de pesos,dinero,total
+2019,07,Maule,compra_intrarregional,pesos,3376497111973.41,miles de millones de pesos,dinero,total
+2019,07,Maule,facturas_compra_interregional,unidades,7731695.0,miles de unidades,conteo,total
+2019,07,Maule,facturas_venta_interregional,unidades,5833767.0,miles de unidades,conteo,total
+2019,07,Maule,venta_interregional,pesos,3546668182857.9297,miles de millones de pesos,dinero,total
+2019,07,Maule,venta_intrarregional,pesos,3376497111973.41,miles de millones de pesos,dinero,total
+2019,08,Biobío,compra_interregional,pesos,6137356450636.26,miles de millones de pesos,dinero,total
+2019,08,Biobío,compra_intrarregional,pesos,5183568861470.261,miles de millones de pesos,dinero,total
+2019,08,Biobío,facturas_compra_interregional,unidades,11642351.0,miles de unidades,conteo,total
+2019,08,Biobío,facturas_venta_interregional,unidades,4706677.0,miles de unidades,conteo,total
+2019,08,Biobío,venta_interregional,pesos,6680342473317.51,miles de millones de pesos,dinero,total
+2019,08,Biobío,venta_intrarregional,pesos,5183568861470.261,miles de millones de pesos,dinero,total
+2019,09,La Araucanía,compra_interregional,pesos,3002745384132.63,miles de millones de pesos,dinero,total
+2019,09,La Araucanía,compra_intrarregional,pesos,2580096469154.74,miles de millones de pesos,dinero,total
+2019,09,La Araucanía,facturas_compra_interregional,unidades,6514273.0,miles de unidades,conteo,total
+2019,09,La Araucanía,facturas_venta_interregional,unidades,3371341.0000000005,miles de unidades,conteo,total
+2019,09,La Araucanía,venta_interregional,pesos,2377212318453.17,miles de millones de pesos,dinero,total
+2019,09,La Araucanía,venta_intrarregional,pesos,2580096469154.74,miles de millones de pesos,dinero,total
+2019,10,Los Lagos,compra_interregional,pesos,5754666785958.08,miles de millones de pesos,dinero,total
+2019,10,Los Lagos,compra_intrarregional,pesos,5640038257764.471,miles de millones de pesos,dinero,total
+2019,10,Los Lagos,facturas_compra_interregional,unidades,7121432.0,miles de unidades,conteo,total
+2019,10,Los Lagos,facturas_venta_interregional,unidades,3869721.0,miles de unidades,conteo,total
+2019,10,Los Lagos,venta_interregional,pesos,2906611276097.7197,miles de millones de pesos,dinero,total
+2019,10,Los Lagos,venta_intrarregional,pesos,5640038257764.471,miles de millones de pesos,dinero,total
+2019,11,Aysén,compra_interregional,pesos,323302618389.33,miles de millones de pesos,dinero,total
+2019,11,Aysén,compra_intrarregional,pesos,281197355083.25696,miles de millones de pesos,dinero,total
+2019,11,Aysén,facturas_compra_interregional,unidades,920911.0,miles de unidades,conteo,total
+2019,11,Aysén,facturas_venta_interregional,unidades,284639.0,miles de unidades,conteo,total
+2019,11,Aysén,venta_interregional,pesos,223263433370.0,miles de millones de pesos,dinero,total
+2019,11,Aysén,venta_intrarregional,pesos,281197355083.25696,miles de millones de pesos,dinero,total
+2019,12,Magallanes,compra_interregional,pesos,968917642114.6171,miles de millones de pesos,dinero,total
+2019,12,Magallanes,compra_intrarregional,pesos,886485195428.3219,miles de millones de pesos,dinero,total
+2019,12,Magallanes,facturas_compra_interregional,unidades,1382728.0,miles de unidades,conteo,total
+2019,12,Magallanes,facturas_venta_interregional,unidades,404766.0,miles de unidades,conteo,total
+2019,12,Magallanes,venta_interregional,pesos,661623287682.448,miles de millones de pesos,dinero,total
+2019,12,Magallanes,venta_intrarregional,pesos,886485195428.3219,miles de millones de pesos,dinero,total
+2019,13,Metropolitana de Santiago,compra_interregional,pesos,37778082431129.2,miles de millones de pesos,dinero,total
+2019,13,Metropolitana de Santiago,compra_intrarregional,pesos,138889955464467.9,miles de millones de pesos,dinero,total
+2019,13,Metropolitana de Santiago,facturas_compra_interregional,unidades,28386748.0,miles de unidades,conteo,total
+2019,13,Metropolitana de Santiago,facturas_venta_interregional,unidades,69858889.0,miles de unidades,conteo,total
+2019,13,Metropolitana de Santiago,venta_interregional,pesos,42180734472949.3,miles de millones de pesos,dinero,total
+2019,13,Metropolitana de Santiago,venta_intrarregional,pesos,138889955464467.9,miles de millones de pesos,dinero,total
+2019,14,Los Ríos,compra_interregional,pesos,1670218931506.71,miles de millones de pesos,dinero,total
+2019,14,Los Ríos,compra_intrarregional,pesos,870124834244.25,miles de millones de pesos,dinero,total
+2019,14,Los Ríos,facturas_compra_interregional,unidades,3692262.0,miles de unidades,conteo,total
+2019,14,Los Ríos,facturas_venta_interregional,unidades,1680239.0,miles de unidades,conteo,total
+2019,14,Los Ríos,venta_interregional,pesos,1408695417069.9102,miles de millones de pesos,dinero,total
+2019,14,Los Ríos,venta_intrarregional,pesos,870124834244.25,miles de millones de pesos,dinero,total
+2019,15,Arica y Parinacota,compra_interregional,pesos,612630611709.4619,miles de millones de pesos,dinero,total
+2019,15,Arica y Parinacota,compra_intrarregional,pesos,352079519018.0,miles de millones de pesos,dinero,total
+2019,15,Arica y Parinacota,facturas_compra_interregional,unidades,1177076.0,miles de unidades,conteo,total
+2019,15,Arica y Parinacota,facturas_venta_interregional,unidades,526905.0,miles de unidades,conteo,total
+2019,15,Arica y Parinacota,venta_interregional,pesos,323406315523.44,miles de millones de pesos,dinero,total
+2019,15,Arica y Parinacota,venta_intrarregional,pesos,352079519018.0,miles de millones de pesos,dinero,total
+2019,16,Ñuble,compra_interregional,pesos,1531001211077.0498,miles de millones de pesos,dinero,total
+2019,16,Ñuble,compra_intrarregional,pesos,970193477790.165,miles de millones de pesos,dinero,total
+2019,16,Ñuble,facturas_compra_interregional,unidades,3368537.0,miles de unidades,conteo,total
+2019,16,Ñuble,facturas_venta_interregional,unidades,2341625.0,miles de unidades,conteo,total
+2019,16,Ñuble,venta_interregional,pesos,1411860795637.5,miles de millones de pesos,dinero,total
+2019,16,Ñuble,venta_intrarregional,pesos,970193477790.165,miles de millones de pesos,dinero,total
+2020,01,Tarapacá,compra_interregional,pesos,2500008460364.21,miles de millones de pesos,dinero,total
+2020,01,Tarapacá,compra_intrarregional,pesos,960571772579.897,miles de millones de pesos,dinero,total
+2020,01,Tarapacá,facturas_compra_interregional,unidades,2093672.0,miles de unidades,conteo,total
+2020,01,Tarapacá,facturas_venta_interregional,unidades,795320.0,miles de unidades,conteo,total
+2020,01,Tarapacá,venta_interregional,pesos,806397218991.3821,miles de millones de pesos,dinero,total
+2020,01,Tarapacá,venta_intrarregional,pesos,960571772579.897,miles de millones de pesos,dinero,total
+2020,02,Antofagasta,compra_interregional,pesos,4617393164393.2705,miles de millones de pesos,dinero,total
+2020,02,Antofagasta,compra_intrarregional,pesos,2565999796816.58,miles de millones de pesos,dinero,total
+2020,02,Antofagasta,facturas_compra_interregional,unidades,4745241.0,miles de unidades,conteo,total
+2020,02,Antofagasta,facturas_venta_interregional,unidades,1833929.0,miles de unidades,conteo,total
+2020,02,Antofagasta,venta_interregional,pesos,4336399818351.7197,miles de millones de pesos,dinero,total
+2020,02,Antofagasta,venta_intrarregional,pesos,2565999796816.58,miles de millones de pesos,dinero,total
+2020,03,Atacama,compra_interregional,pesos,1556059670843.16,miles de millones de pesos,dinero,total
+2020,03,Atacama,compra_intrarregional,pesos,761605894900.2731,miles de millones de pesos,dinero,total
+2020,03,Atacama,facturas_compra_interregional,unidades,2434922.0,miles de unidades,conteo,total
+2020,03,Atacama,facturas_venta_interregional,unidades,751548.0,miles de unidades,conteo,total
+2020,03,Atacama,venta_interregional,pesos,1067660531506.8,miles de millones de pesos,dinero,total
+2020,03,Atacama,venta_intrarregional,pesos,761605894900.2731,miles de millones de pesos,dinero,total
+2020,04,Coquimbo,compra_interregional,pesos,2742055188885.35,miles de millones de pesos,dinero,total
+2020,04,Coquimbo,compra_intrarregional,pesos,1780083282650.08,miles de millones de pesos,dinero,total
+2020,04,Coquimbo,facturas_compra_interregional,unidades,5277897.0,miles de unidades,conteo,total
+2020,04,Coquimbo,facturas_venta_interregional,unidades,1912111.0,miles de unidades,conteo,total
+2020,04,Coquimbo,venta_interregional,pesos,1735248476114.99,miles de millones de pesos,dinero,total
+2020,04,Coquimbo,venta_intrarregional,pesos,1780083282650.08,miles de millones de pesos,dinero,total
+2020,05,Valparaíso,compra_interregional,pesos,7374250193560.511,miles de millones de pesos,dinero,total
+2020,05,Valparaíso,compra_intrarregional,pesos,4802595877814.49,miles de millones de pesos,dinero,total
+2020,05,Valparaíso,facturas_compra_interregional,unidades,13121027.0,miles de unidades,conteo,total
+2020,05,Valparaíso,facturas_venta_interregional,unidades,6665677.0,miles de unidades,conteo,total
+2020,05,Valparaíso,venta_interregional,pesos,10202605219908.83,miles de millones de pesos,dinero,total
+2020,05,Valparaíso,venta_intrarregional,pesos,4802595877814.49,miles de millones de pesos,dinero,total
+2020,06,O'Higgins,compra_interregional,pesos,5490502777822.15,miles de millones de pesos,dinero,total
+2020,06,O'Higgins,compra_intrarregional,pesos,3301542232594.5503,miles de millones de pesos,dinero,total
+2020,06,O'Higgins,facturas_compra_interregional,unidades,7761518.0,miles de unidades,conteo,total
+2020,06,O'Higgins,facturas_venta_interregional,unidades,2730453.0,miles de unidades,conteo,total
+2020,06,O'Higgins,venta_interregional,pesos,3975188811477.23,miles de millones de pesos,dinero,total
+2020,06,O'Higgins,venta_intrarregional,pesos,3301542232594.5503,miles de millones de pesos,dinero,total
+2020,07,Maule,compra_interregional,pesos,4293007148941.5005,miles de millones de pesos,dinero,total
+2020,07,Maule,compra_intrarregional,pesos,3798730838242.27,miles de millones de pesos,dinero,total
+2020,07,Maule,facturas_compra_interregional,unidades,7443985.0,miles de unidades,conteo,total
+2020,07,Maule,facturas_venta_interregional,unidades,5524927.0,miles de unidades,conteo,total
+2020,07,Maule,venta_interregional,pesos,3886264163664.67,miles de millones de pesos,dinero,total
+2020,07,Maule,venta_intrarregional,pesos,3798730838242.27,miles de millones de pesos,dinero,total
+2020,08,Biobío,compra_interregional,pesos,6219002488995.37,miles de millones de pesos,dinero,total
+2020,08,Biobío,compra_intrarregional,pesos,5210042055549.61,miles de millones de pesos,dinero,total
+2020,08,Biobío,facturas_compra_interregional,unidades,11171224.0,miles de unidades,conteo,total
+2020,08,Biobío,facturas_venta_interregional,unidades,4396174.0,miles de unidades,conteo,total
+2020,08,Biobío,venta_interregional,pesos,6532375615101.54,miles de millones de pesos,dinero,total
+2020,08,Biobío,venta_intrarregional,pesos,5210042055549.61,miles de millones de pesos,dinero,total
+2020,09,La Araucanía,compra_interregional,pesos,3117797928440.26,miles de millones de pesos,dinero,total
+2020,09,La Araucanía,compra_intrarregional,pesos,2649075119148.5996,miles de millones de pesos,dinero,total
+2020,09,La Araucanía,facturas_compra_interregional,unidades,6308157.0,miles de unidades,conteo,total
+2020,09,La Araucanía,facturas_venta_interregional,unidades,3047302.0,miles de unidades,conteo,total
+2020,09,La Araucanía,venta_interregional,pesos,2515212876605.83,miles de millones de pesos,dinero,total
+2020,09,La Araucanía,venta_intrarregional,pesos,2649075119148.5996,miles de millones de pesos,dinero,total
+2020,10,Los Lagos,compra_interregional,pesos,6288186701546.19,miles de millones de pesos,dinero,total
+2020,10,Los Lagos,compra_intrarregional,pesos,5973742994585.15,miles de millones de pesos,dinero,total
+2020,10,Los Lagos,facturas_compra_interregional,unidades,6873512.0,miles de unidades,conteo,total
+2020,10,Los Lagos,facturas_venta_interregional,unidades,3573919.0,miles de unidades,conteo,total
+2020,10,Los Lagos,venta_interregional,pesos,3052788466950.41,miles de millones de pesos,dinero,total
+2020,10,Los Lagos,venta_intrarregional,pesos,5973742994585.15,miles de millones de pesos,dinero,total
+2020,11,Aysén,compra_interregional,pesos,337543731873.304,miles de millones de pesos,dinero,total
+2020,11,Aysén,compra_intrarregional,pesos,280350388444.218,miles de millones de pesos,dinero,total
+2020,11,Aysén,facturas_compra_interregional,unidades,884759.0,miles de unidades,conteo,total
+2020,11,Aysén,facturas_venta_interregional,unidades,254901.0,miles de unidades,conteo,total
+2020,11,Aysén,venta_interregional,pesos,236727790669.095,miles de millones de pesos,dinero,total
+2020,11,Aysén,venta_intrarregional,pesos,280350388444.218,miles de millones de pesos,dinero,total
+2020,12,Magallanes,compra_interregional,pesos,989021601644.601,miles de millones de pesos,dinero,total
+2020,12,Magallanes,compra_intrarregional,pesos,734629370699.05,miles de millones de pesos,dinero,total
+2020,12,Magallanes,facturas_compra_interregional,unidades,1265660.0,miles de unidades,conteo,total
+2020,12,Magallanes,facturas_venta_interregional,unidades,317820.0,miles de unidades,conteo,total
+2020,12,Magallanes,venta_interregional,pesos,588273204400.4569,miles de millones de pesos,dinero,total
+2020,12,Magallanes,venta_intrarregional,pesos,734629370699.05,miles de millones de pesos,dinero,total
+2020,13,Metropolitana de Santiago,compra_interregional,pesos,36246440163663.4,miles de millones de pesos,dinero,total
+2020,13,Metropolitana de Santiago,compra_intrarregional,pesos,133698227179034.3,miles de millones de pesos,dinero,total
+2020,13,Metropolitana de Santiago,facturas_compra_interregional,unidades,25740506.999999996,miles de unidades,conteo,total
+2020,13,Metropolitana de Santiago,facturas_venta_interregional,unidades,67011140.0,miles de unidades,conteo,total
+2020,13,Metropolitana de Santiago,venta_interregional,pesos,43749488116418.8,miles de millones de pesos,dinero,total
+2020,13,Metropolitana de Santiago,venta_intrarregional,pesos,133698227179034.3,miles de millones de pesos,dinero,total
+2020,14,Los Ríos,compra_interregional,pesos,1771792038971.09,miles de millones de pesos,dinero,total
+2020,14,Los Ríos,compra_intrarregional,pesos,917530179909.698,miles de millones de pesos,dinero,total
+2020,14,Los Ríos,facturas_compra_interregional,unidades,3533040.0,miles de unidades,conteo,total
+2020,14,Los Ríos,facturas_venta_interregional,unidades,1544058.0,miles de unidades,conteo,total
+2020,14,Los Ríos,venta_interregional,pesos,1419090964213.1702,miles de millones de pesos,dinero,total
+2020,14,Los Ríos,venta_intrarregional,pesos,917530179909.698,miles de millones de pesos,dinero,total
+2020,15,Arica y Parinacota,compra_interregional,pesos,699272718992.807,miles de millones de pesos,dinero,total
+2020,15,Arica y Parinacota,compra_intrarregional,pesos,349249475446.61597,miles de millones de pesos,dinero,total
+2020,15,Arica y Parinacota,facturas_compra_interregional,unidades,1227143.0,miles de unidades,conteo,total
+2020,15,Arica y Parinacota,facturas_venta_interregional,unidades,478167.0,miles de unidades,conteo,total
+2020,15,Arica y Parinacota,venta_interregional,pesos,320833266015.906,miles de millones de pesos,dinero,total
+2020,15,Arica y Parinacota,venta_intrarregional,pesos,349249475446.61597,miles de millones de pesos,dinero,total
+2020,16,Ñuble,compra_interregional,pesos,1654308756163.7798,miles de millones de pesos,dinero,total
+2020,16,Ñuble,compra_intrarregional,pesos,1048797096070.989,miles de millones de pesos,dinero,total
+2020,16,Ñuble,facturas_compra_interregional,unidades,3222750.0,miles de unidades,conteo,total
+2020,16,Ñuble,facturas_venta_interregional,unidades,2267568.0,miles de unidades,conteo,total
+2020,16,Ñuble,venta_interregional,pesos,1472088194710.0,miles de millones de pesos,dinero,total
+2020,16,Ñuble,venta_intrarregional,pesos,1048797096070.989,miles de millones de pesos,dinero,total
+2021,01,Tarapacá,compra_interregional,pesos,3127324891604.92,miles de millones de pesos,dinero,total
+2021,01,Tarapacá,compra_intrarregional,pesos,1163158325529.149,miles de millones de pesos,dinero,total
+2021,01,Tarapacá,facturas_compra_interregional,unidades,2393956.0,miles de unidades,conteo,total
+2021,01,Tarapacá,facturas_venta_interregional,unidades,968801.0,miles de unidades,conteo,total
+2021,01,Tarapacá,venta_interregional,pesos,1042559524965.1251,miles de millones de pesos,dinero,total
+2021,01,Tarapacá,venta_intrarregional,pesos,1163158325529.149,miles de millones de pesos,dinero,total
+2021,02,Antofagasta,compra_interregional,pesos,5631996124062.57,miles de millones de pesos,dinero,total
+2021,02,Antofagasta,compra_intrarregional,pesos,3055572888696.17,miles de millones de pesos,dinero,total
+2021,02,Antofagasta,facturas_compra_interregional,unidades,5435258.0,miles de unidades,conteo,total
+2021,02,Antofagasta,facturas_venta_interregional,unidades,2116705.0,miles de unidades,conteo,total
+2021,02,Antofagasta,venta_interregional,pesos,5104653565923.21,miles de millones de pesos,dinero,total
+2021,02,Antofagasta,venta_intrarregional,pesos,3055572888696.17,miles de millones de pesos,dinero,total
+2021,03,Atacama,compra_interregional,pesos,2078132391203.2998,miles de millones de pesos,dinero,total
+2021,03,Atacama,compra_intrarregional,pesos,960932680119.662,miles de millones de pesos,dinero,total
+2021,03,Atacama,facturas_compra_interregional,unidades,2728162.0,miles de unidades,conteo,total
+2021,03,Atacama,facturas_venta_interregional,unidades,901342.0,miles de unidades,conteo,total
+2021,03,Atacama,venta_interregional,pesos,1371105443380.915,miles de millones de pesos,dinero,total
+2021,03,Atacama,venta_intrarregional,pesos,960932680119.662,miles de millones de pesos,dinero,total
+2021,04,Coquimbo,compra_interregional,pesos,3588537975472.44,miles de millones de pesos,dinero,total
+2021,04,Coquimbo,compra_intrarregional,pesos,2271548514146.14,miles de millones de pesos,dinero,total
+2021,04,Coquimbo,facturas_compra_interregional,unidades,6221367.999999999,miles de unidades,conteo,total
+2021,04,Coquimbo,facturas_venta_interregional,unidades,2197571.0,miles de unidades,conteo,total
+2021,04,Coquimbo,venta_interregional,pesos,2268165609421.9204,miles de millones de pesos,dinero,total
+2021,04,Coquimbo,venta_intrarregional,pesos,2271548514146.14,miles de millones de pesos,dinero,total
+2021,05,Valparaíso,compra_interregional,pesos,9507832678802.602,miles de millones de pesos,dinero,total
+2021,05,Valparaíso,compra_intrarregional,pesos,5965650554056.499,miles de millones de pesos,dinero,total
+2021,05,Valparaíso,facturas_compra_interregional,unidades,15303645.0,miles de unidades,conteo,total
+2021,05,Valparaíso,facturas_venta_interregional,unidades,8048382.000000001,miles de unidades,conteo,total
+2021,05,Valparaíso,venta_interregional,pesos,13364878910869.07,miles de millones de pesos,dinero,total
+2021,05,Valparaíso,venta_intrarregional,pesos,5965650554056.499,miles de millones de pesos,dinero,total
+2021,06,O'Higgins,compra_interregional,pesos,6801614343247.26,miles de millones de pesos,dinero,total
+2021,06,O'Higgins,compra_intrarregional,pesos,4037837312785.04,miles de millones de pesos,dinero,total
+2021,06,O'Higgins,facturas_compra_interregional,unidades,8886988.0,miles de unidades,conteo,total
+2021,06,O'Higgins,facturas_venta_interregional,unidades,3096011.0,miles de unidades,conteo,total
+2021,06,O'Higgins,venta_interregional,pesos,4917624424909.4795,miles de millones de pesos,dinero,total
+2021,06,O'Higgins,venta_intrarregional,pesos,4037837312785.04,miles de millones de pesos,dinero,total
+2021,07,Maule,compra_interregional,pesos,5507795087232.84,miles de millones de pesos,dinero,total
+2021,07,Maule,compra_intrarregional,pesos,4520002477326.859,miles de millones de pesos,dinero,total
+2021,07,Maule,facturas_compra_interregional,unidades,8376425.999999999,miles de unidades,conteo,total
+2021,07,Maule,facturas_venta_interregional,unidades,6064949.000000001,miles de unidades,conteo,total
+2021,07,Maule,venta_interregional,pesos,4694971915052.11,miles de millones de pesos,dinero,total
+2021,07,Maule,venta_intrarregional,pesos,4520002477326.859,miles de millones de pesos,dinero,total
+2021,08,Biobío,compra_interregional,pesos,7932476878328.35,miles de millones de pesos,dinero,total
+2021,08,Biobío,compra_intrarregional,pesos,6462764100146.6,miles de millones de pesos,dinero,total
+2021,08,Biobío,facturas_compra_interregional,unidades,12764402.0,miles de unidades,conteo,total
+2021,08,Biobío,facturas_venta_interregional,unidades,4949299.0,miles de unidades,conteo,total
+2021,08,Biobío,venta_interregional,pesos,8067210860888.35,miles de millones de pesos,dinero,total
+2021,08,Biobío,venta_intrarregional,pesos,6462764100146.6,miles de millones de pesos,dinero,total
+2021,09,La Araucanía,compra_interregional,pesos,4106823399689.0205,miles de millones de pesos,dinero,total
+2021,09,La Araucanía,compra_intrarregional,pesos,3411324429371.15,miles de millones de pesos,dinero,total
+2021,09,La Araucanía,facturas_compra_interregional,unidades,7420465.0,miles de unidades,conteo,total
+2021,09,La Araucanía,facturas_venta_interregional,unidades,3441422.0,miles de unidades,conteo,total
+2021,09,La Araucanía,venta_interregional,pesos,3215045635981.5996,miles de millones de pesos,dinero,total
+2021,09,La Araucanía,venta_intrarregional,pesos,3411324429371.15,miles de millones de pesos,dinero,total
+2021,10,Los Lagos,compra_interregional,pesos,7253889661541.63,miles de millones de pesos,dinero,total
+2021,10,Los Lagos,compra_intrarregional,pesos,6978208700394.689,miles de millones de pesos,dinero,total
+2021,10,Los Lagos,facturas_compra_interregional,unidades,7838829.000000001,miles de unidades,conteo,total
+2021,10,Los Lagos,facturas_venta_interregional,unidades,3889987.0,miles de unidades,conteo,total
+2021,10,Los Lagos,venta_interregional,pesos,3797515756918.31,miles de millones de pesos,dinero,total
+2021,10,Los Lagos,venta_intrarregional,pesos,6978208700394.689,miles de millones de pesos,dinero,total
+2021,11,Aysén,compra_interregional,pesos,450903927378.083,miles de millones de pesos,dinero,total
+2021,11,Aysén,compra_intrarregional,pesos,353769967424.0,miles de millones de pesos,dinero,total
+2021,11,Aysén,facturas_compra_interregional,unidades,1046897.9999999999,miles de unidades,conteo,total
+2021,11,Aysén,facturas_venta_interregional,unidades,298170.0,miles de unidades,conteo,total
+2021,11,Aysén,venta_interregional,pesos,318930731492.578,miles de millones de pesos,dinero,total
+2021,11,Aysén,venta_intrarregional,pesos,353769967424.0,miles de millones de pesos,dinero,total
+2021,12,Magallanes,compra_interregional,pesos,1152865889647.679,miles de millones de pesos,dinero,total
+2021,12,Magallanes,compra_intrarregional,pesos,869084324579.8729,miles de millones de pesos,dinero,total
+2021,12,Magallanes,facturas_compra_interregional,unidades,1477137.0,miles de unidades,conteo,total
+2021,12,Magallanes,facturas_venta_interregional,unidades,364499.0,miles de unidades,conteo,total
+2021,12,Magallanes,venta_interregional,pesos,601305304737.596,miles de millones de pesos,dinero,total
+2021,12,Magallanes,venta_intrarregional,pesos,869084324579.8729,miles de millones de pesos,dinero,total
+2021,13,Metropolitana de Santiago,compra_interregional,pesos,44497870970877.6,miles de millones de pesos,dinero,total
+2021,13,Metropolitana de Santiago,compra_intrarregional,pesos,168749451786793.0,miles de millones de pesos,dinero,total
+2021,13,Metropolitana de Santiago,facturas_compra_interregional,unidades,28583194.0,miles de unidades,conteo,total
+2021,13,Metropolitana de Santiago,facturas_venta_interregional,unidades,76637742.0,miles de unidades,conteo,total
+2021,13,Metropolitana de Santiago,venta_interregional,pesos,54362775562354.2,miles de millones de pesos,dinero,total
+2021,13,Metropolitana de Santiago,venta_intrarregional,pesos,168749451786793.0,miles de millones de pesos,dinero,total
+2021,14,Los Ríos,compra_interregional,pesos,2353469222823.92,miles de millones de pesos,dinero,total
+2021,14,Los Ríos,compra_intrarregional,pesos,1150464298768.924,miles de millones de pesos,dinero,total
+2021,14,Los Ríos,facturas_compra_interregional,unidades,4023643.0,miles de unidades,conteo,total
+2021,14,Los Ríos,facturas_venta_interregional,unidades,1750368.0,miles de unidades,conteo,total
+2021,14,Los Ríos,venta_interregional,pesos,1650388326772.45,miles de millones de pesos,dinero,total
+2021,14,Los Ríos,venta_intrarregional,pesos,1150464298768.924,miles de millones de pesos,dinero,total
+2021,15,Arica y Parinacota,compra_interregional,pesos,932851291124.9099,miles de millones de pesos,dinero,total
+2021,15,Arica y Parinacota,compra_intrarregional,pesos,448378024000.64197,miles de millones de pesos,dinero,total
+2021,15,Arica y Parinacota,facturas_compra_interregional,unidades,1462106.0,miles de unidades,conteo,total
+2021,15,Arica y Parinacota,facturas_venta_interregional,unidades,522713.99999999994,miles de unidades,conteo,total
+2021,15,Arica y Parinacota,venta_interregional,pesos,420005742757.36804,miles de millones de pesos,dinero,total
+2021,15,Arica y Parinacota,venta_intrarregional,pesos,448378024000.64197,miles de millones de pesos,dinero,total
+2021,16,Ñuble,compra_interregional,pesos,2234243357122.5703,miles de millones de pesos,dinero,total
+2021,16,Ñuble,compra_intrarregional,pesos,1385237281422.299,miles de millones de pesos,dinero,total
+2021,16,Ñuble,facturas_compra_interregional,unidades,3770454.0,miles de unidades,conteo,total
+2021,16,Ñuble,facturas_venta_interregional,unidades,2484969.0,miles de unidades,conteo,total
+2021,16,Ñuble,venta_interregional,pesos,1961490773735.42,miles de millones de pesos,dinero,total
+2021,16,Ñuble,venta_intrarregional,pesos,1385237281422.299,miles de millones de pesos,dinero,total
+2022,01,Tarapacá,compra_interregional,pesos,4259745343150.65,miles de millones de pesos,dinero,total
+2022,01,Tarapacá,compra_intrarregional,pesos,1478757536619.258,miles de millones de pesos,dinero,total
+2022,01,Tarapacá,facturas_compra_interregional,unidades,2511303.0,miles de unidades,conteo,total
+2022,01,Tarapacá,facturas_venta_interregional,unidades,998291.9999999999,miles de unidades,conteo,total
+2022,01,Tarapacá,venta_interregional,pesos,1286015866161.196,miles de millones de pesos,dinero,total
+2022,01,Tarapacá,venta_intrarregional,pesos,1478757536619.258,miles de millones de pesos,dinero,total
+2022,02,Antofagasta,compra_interregional,pesos,7439735802944.67,miles de millones de pesos,dinero,total
+2022,02,Antofagasta,compra_intrarregional,pesos,3902116904707.51,miles de millones de pesos,dinero,total
+2022,02,Antofagasta,facturas_compra_interregional,unidades,5770113.0,miles de unidades,conteo,total
+2022,02,Antofagasta,facturas_venta_interregional,unidades,2307143.0,miles de unidades,conteo,total
+2022,02,Antofagasta,venta_interregional,pesos,7040272405450.79,miles de millones de pesos,dinero,total
+2022,02,Antofagasta,venta_intrarregional,pesos,3902116904707.51,miles de millones de pesos,dinero,total
+2022,03,Atacama,compra_interregional,pesos,2523109526445.55,miles de millones de pesos,dinero,total
+2022,03,Atacama,compra_intrarregional,pesos,1227568324931.191,miles de millones de pesos,dinero,total
+2022,03,Atacama,facturas_compra_interregional,unidades,2774444.0,miles de unidades,conteo,total
+2022,03,Atacama,facturas_venta_interregional,unidades,988842.0,miles de unidades,conteo,total
+2022,03,Atacama,venta_interregional,pesos,1708058834844.4001,miles de millones de pesos,dinero,total
+2022,03,Atacama,venta_intrarregional,pesos,1227568324931.191,miles de millones de pesos,dinero,total
+2022,04,Coquimbo,compra_interregional,pesos,4219772540465.0103,miles de millones de pesos,dinero,total
+2022,04,Coquimbo,compra_intrarregional,pesos,2722439095274.31,miles de millones de pesos,dinero,total
+2022,04,Coquimbo,facturas_compra_interregional,unidades,6366753.000000001,miles de unidades,conteo,total
+2022,04,Coquimbo,facturas_venta_interregional,unidades,2335246.0,miles de unidades,conteo,total
+2022,04,Coquimbo,venta_interregional,pesos,2672684049792.8604,miles de millones de pesos,dinero,total
+2022,04,Coquimbo,venta_intrarregional,pesos,2722439095274.31,miles de millones de pesos,dinero,total
+2022,05,Valparaíso,compra_interregional,pesos,11051265910243.979,miles de millones de pesos,dinero,total
+2022,05,Valparaíso,compra_intrarregional,pesos,7232727852760.739,miles de millones de pesos,dinero,total
+2022,05,Valparaíso,facturas_compra_interregional,unidades,15954170.0,miles de unidades,conteo,total
+2022,05,Valparaíso,facturas_venta_interregional,unidades,8338477.000000001,miles de unidades,conteo,total
+2022,05,Valparaíso,venta_interregional,pesos,20038050698857.3,miles de millones de pesos,dinero,total
+2022,05,Valparaíso,venta_intrarregional,pesos,7232727852760.739,miles de millones de pesos,dinero,total
+2022,06,O'Higgins,compra_interregional,pesos,8255628943968.461,miles de millones de pesos,dinero,total
+2022,06,O'Higgins,compra_intrarregional,pesos,5129117892184.26,miles de millones de pesos,dinero,total
+2022,06,O'Higgins,facturas_compra_interregional,unidades,9097163.0,miles de unidades,conteo,total
+2022,06,O'Higgins,facturas_venta_interregional,unidades,3257380.0,miles de unidades,conteo,total
+2022,06,O'Higgins,venta_interregional,pesos,6029947802306.34,miles de millones de pesos,dinero,total
+2022,06,O'Higgins,venta_intrarregional,pesos,5129117892184.26,miles de millones de pesos,dinero,total
+2022,07,Maule,compra_interregional,pesos,6651148024834.119,miles de millones de pesos,dinero,total
+2022,07,Maule,compra_intrarregional,pesos,5402510238572.23,miles de millones de pesos,dinero,total
+2022,07,Maule,facturas_compra_interregional,unidades,8612988.0,miles de unidades,conteo,total
+2022,07,Maule,facturas_venta_interregional,unidades,6055446.0,miles de unidades,conteo,total
+2022,07,Maule,venta_interregional,pesos,5350600517740.75,miles de millones de pesos,dinero,total
+2022,07,Maule,venta_intrarregional,pesos,5402510238572.23,miles de millones de pesos,dinero,total
+2022,08,Biobío,compra_interregional,pesos,9487328461238.6,miles de millones de pesos,dinero,total
+2022,08,Biobío,compra_intrarregional,pesos,7864245624515.76,miles de millones de pesos,dinero,total
+2022,08,Biobío,facturas_compra_interregional,unidades,13118238.0,miles de unidades,conteo,total
+2022,08,Biobío,facturas_venta_interregional,unidades,5202203.0,miles de unidades,conteo,total
+2022,08,Biobío,venta_interregional,pesos,10070938067355.041,miles de millones de pesos,dinero,total
+2022,08,Biobío,venta_intrarregional,pesos,7864245624515.76,miles de millones de pesos,dinero,total
+2022,09,La Araucanía,compra_interregional,pesos,4636384004551.34,miles de millones de pesos,dinero,total
+2022,09,La Araucanía,compra_intrarregional,pesos,4013741701051.4,miles de millones de pesos,dinero,total
+2022,09,La Araucanía,facturas_compra_interregional,unidades,7630147.0,miles de unidades,conteo,total
+2022,09,La Araucanía,facturas_venta_interregional,unidades,3607793.0,miles de unidades,conteo,total
+2022,09,La Araucanía,venta_interregional,pesos,3586364848306.62,miles de millones de pesos,dinero,total
+2022,09,La Araucanía,venta_intrarregional,pesos,4013741701051.4,miles de millones de pesos,dinero,total
+2022,10,Los Lagos,compra_interregional,pesos,8847205424973.62,miles de millones de pesos,dinero,total
+2022,10,Los Lagos,compra_intrarregional,pesos,9090280336071.18,miles de millones de pesos,dinero,total
+2022,10,Los Lagos,facturas_compra_interregional,unidades,8030966.0,miles de unidades,conteo,total
+2022,10,Los Lagos,facturas_venta_interregional,unidades,4116205.0,miles de unidades,conteo,total
+2022,10,Los Lagos,venta_interregional,pesos,4743803591010.8,miles de millones de pesos,dinero,total
+2022,10,Los Lagos,venta_intrarregional,pesos,9090280336071.18,miles de millones de pesos,dinero,total
+2022,11,Aysén,compra_interregional,pesos,490647681815.424,miles de millones de pesos,dinero,total
+2022,11,Aysén,compra_intrarregional,pesos,429845480928.096,miles de millones de pesos,dinero,total
+2022,11,Aysén,facturas_compra_interregional,unidades,1093212.0,miles de unidades,conteo,total
+2022,11,Aysén,facturas_venta_interregional,unidades,324591.0,miles de unidades,conteo,total
+2022,11,Aysén,venta_interregional,pesos,387087644792.425,miles de millones de pesos,dinero,total
+2022,11,Aysén,venta_intrarregional,pesos,429845480928.096,miles de millones de pesos,dinero,total
+2022,12,Magallanes,compra_interregional,pesos,1431286176968.76,miles de millones de pesos,dinero,total
+2022,12,Magallanes,compra_intrarregional,pesos,1106117068734.226,miles de millones de pesos,dinero,total
+2022,12,Magallanes,facturas_compra_interregional,unidades,1553996.0,miles de unidades,conteo,total
+2022,12,Magallanes,facturas_venta_interregional,unidades,408279.0,miles de unidades,conteo,total
+2022,12,Magallanes,venta_interregional,pesos,744025286993.079,miles de millones de pesos,dinero,total
+2022,12,Magallanes,venta_intrarregional,pesos,1106117068734.226,miles de millones de pesos,dinero,total
+2022,13,Metropolitana de Santiago,compra_interregional,pesos,57873871906871.1,miles de millones de pesos,dinero,total
+2022,13,Metropolitana de Santiago,compra_intrarregional,pesos,201919339464379.0,miles de millones de pesos,dinero,total
+2022,13,Metropolitana de Santiago,facturas_compra_interregional,unidades,29916727.0,miles de unidades,conteo,total
+2022,13,Metropolitana de Santiago,facturas_venta_interregional,unidades,79340495.0,miles de unidades,conteo,total
+2022,13,Metropolitana de Santiago,venta_interregional,pesos,65043886879070.9,miles de millones de pesos,dinero,total
+2022,13,Metropolitana de Santiago,venta_intrarregional,pesos,201919339464379.0,miles de millones de pesos,dinero,total
+2022,14,Los Ríos,compra_interregional,pesos,2766836077511.3203,miles de millones de pesos,dinero,total
+2022,14,Los Ríos,compra_intrarregional,pesos,1363081309613.487,miles de millones de pesos,dinero,total
+2022,14,Los Ríos,facturas_compra_interregional,unidades,4208480.0,miles de unidades,conteo,total
+2022,14,Los Ríos,facturas_venta_interregional,unidades,1798976.0,miles de unidades,conteo,total
+2022,14,Los Ríos,venta_interregional,pesos,2063501843573.6702,miles de millones de pesos,dinero,total
+2022,14,Los Ríos,venta_intrarregional,pesos,1363081309613.487,miles de millones de pesos,dinero,total
+2022,15,Arica y Parinacota,compra_interregional,pesos,1063509292268.72,miles de millones de pesos,dinero,total
+2022,15,Arica y Parinacota,compra_intrarregional,pesos,549438123217.64404,miles de millones de pesos,dinero,total
+2022,15,Arica y Parinacota,facturas_compra_interregional,unidades,1471292.0,miles de unidades,conteo,total
+2022,15,Arica y Parinacota,facturas_venta_interregional,unidades,514748.00000000006,miles de unidades,conteo,total
+2022,15,Arica y Parinacota,venta_interregional,pesos,487321188953.0,miles de millones de pesos,dinero,total
+2022,15,Arica y Parinacota,venta_intrarregional,pesos,549438123217.64404,miles de millones de pesos,dinero,total
+2022,16,Ñuble,compra_interregional,pesos,2661747137883.19,miles de millones de pesos,dinero,total
+2022,16,Ñuble,compra_intrarregional,pesos,1691836911823.56,miles de millones de pesos,dinero,total
+2022,16,Ñuble,facturas_compra_interregional,unidades,3920923.0,miles de unidades,conteo,total
+2022,16,Ñuble,facturas_venta_interregional,unidades,2436799.0,miles de unidades,conteo,total
+2022,16,Ñuble,venta_interregional,pesos,2406662730924.91,miles de millones de pesos,dinero,total
+2022,16,Ñuble,venta_intrarregional,pesos,1691836911823.56,miles de millones de pesos,dinero,total
+2023,01,Tarapacá,compra_interregional,pesos,4719792146078.561,miles de millones de pesos,dinero,total
+2023,01,Tarapacá,compra_intrarregional,pesos,1588446376276.22,miles de millones de pesos,dinero,total
+2023,01,Tarapacá,facturas_compra_interregional,unidades,2623362.0,miles de unidades,conteo,total
+2023,01,Tarapacá,facturas_venta_interregional,unidades,1012678.0,miles de unidades,conteo,total
+2023,01,Tarapacá,venta_interregional,pesos,1504182019900.99,miles de millones de pesos,dinero,total
+2023,01,Tarapacá,venta_intrarregional,pesos,1588446376276.22,miles de millones de pesos,dinero,total
+2023,02,Antofagasta,compra_interregional,pesos,8321437810954.76,miles de millones de pesos,dinero,total
+2023,02,Antofagasta,compra_intrarregional,pesos,3875871157614.35,miles de millones de pesos,dinero,total
+2023,02,Antofagasta,facturas_compra_interregional,unidades,6070855.0,miles de unidades,conteo,total
+2023,02,Antofagasta,facturas_venta_interregional,unidades,2421681.0,miles de unidades,conteo,total
+2023,02,Antofagasta,venta_interregional,pesos,8149746803776.16,miles de millones de pesos,dinero,total
+2023,02,Antofagasta,venta_intrarregional,pesos,3875871157614.35,miles de millones de pesos,dinero,total
+2023,03,Atacama,compra_interregional,pesos,2350271151000.8,miles de millones de pesos,dinero,total
+2023,03,Atacama,compra_intrarregional,pesos,1320611581562.55,miles de millones de pesos,dinero,total
+2023,03,Atacama,facturas_compra_interregional,unidades,2829517.0,miles de unidades,conteo,total
+2023,03,Atacama,facturas_venta_interregional,unidades,983053.0,miles de unidades,conteo,total
+2023,03,Atacama,venta_interregional,pesos,1859600702399.2002,miles de millones de pesos,dinero,total
+2023,03,Atacama,venta_intrarregional,pesos,1320611581562.55,miles de millones de pesos,dinero,total
+2023,04,Coquimbo,compra_interregional,pesos,4375397385503.44,miles de millones de pesos,dinero,total
+2023,04,Coquimbo,compra_intrarregional,pesos,2768099656635.69,miles de millones de pesos,dinero,total
+2023,04,Coquimbo,facturas_compra_interregional,unidades,6462243.0,miles de unidades,conteo,total
+2023,04,Coquimbo,facturas_venta_interregional,unidades,2443348.0,miles de unidades,conteo,total
+2023,04,Coquimbo,venta_interregional,pesos,2920892787795.6597,miles de millones de pesos,dinero,total
+2023,04,Coquimbo,venta_intrarregional,pesos,2768099656635.69,miles de millones de pesos,dinero,total
+2023,05,Valparaíso,compra_interregional,pesos,11437958889777.74,miles de millones de pesos,dinero,total
+2023,05,Valparaíso,compra_intrarregional,pesos,7545124716031.34,miles de millones de pesos,dinero,total
+2023,05,Valparaíso,facturas_compra_interregional,unidades,16612565.999999998,miles de unidades,conteo,total
+2023,05,Valparaíso,facturas_venta_interregional,unidades,8343852.999999999,miles de unidades,conteo,total
+2023,05,Valparaíso,venta_interregional,pesos,18576124415905.098,miles de millones de pesos,dinero,total
+2023,05,Valparaíso,venta_intrarregional,pesos,7545124716031.34,miles de millones de pesos,dinero,total
+2023,06,O'Higgins,compra_interregional,pesos,8184960182002.7705,miles de millones de pesos,dinero,total
+2023,06,O'Higgins,compra_intrarregional,pesos,5211110351707.49,miles de millones de pesos,dinero,total
+2023,06,O'Higgins,facturas_compra_interregional,unidades,9204664.0,miles de unidades,conteo,total
+2023,06,O'Higgins,facturas_venta_interregional,unidades,3459685.0,miles de unidades,conteo,total
+2023,06,O'Higgins,venta_interregional,pesos,6270632684885.64,miles de millones de pesos,dinero,total
+2023,06,O'Higgins,venta_intrarregional,pesos,5211110351707.49,miles de millones de pesos,dinero,total
+2023,07,Maule,compra_interregional,pesos,6593231245762.66,miles de millones de pesos,dinero,total
+2023,07,Maule,compra_intrarregional,pesos,5313565769093.0,miles de millones de pesos,dinero,total
+2023,07,Maule,facturas_compra_interregional,unidades,8956927.0,miles de unidades,conteo,total
+2023,07,Maule,facturas_venta_interregional,unidades,6028604.0,miles de unidades,conteo,total
+2023,07,Maule,venta_interregional,pesos,5661363341105.37,miles de millones de pesos,dinero,total
+2023,07,Maule,venta_intrarregional,pesos,5313565769093.0,miles de millones de pesos,dinero,total
+2023,08,Biobío,compra_interregional,pesos,9679839337846.43,miles de millones de pesos,dinero,total
+2023,08,Biobío,compra_intrarregional,pesos,8117858534738.38,miles de millones de pesos,dinero,total
+2023,08,Biobío,facturas_compra_interregional,unidades,13655721.0,miles de unidades,conteo,total
+2023,08,Biobío,facturas_venta_interregional,unidades,5244904.0,miles de unidades,conteo,total
+2023,08,Biobío,venta_interregional,pesos,10387243890360.58,miles de millones de pesos,dinero,total
+2023,08,Biobío,venta_intrarregional,pesos,8117858534738.38,miles de millones de pesos,dinero,total
+2023,09,La Araucanía,compra_interregional,pesos,4626823383982.131,miles de millones de pesos,dinero,total
+2023,09,La Araucanía,compra_intrarregional,pesos,4275180360724.3,miles de millones de pesos,dinero,total
+2023,09,La Araucanía,facturas_compra_interregional,unidades,7976242.0,miles de unidades,conteo,total
+2023,09,La Araucanía,facturas_venta_interregional,unidades,3714054.0,miles de unidades,conteo,total
+2023,09,La Araucanía,venta_interregional,pesos,3775871880060.46,miles de millones de pesos,dinero,total
+2023,09,La Araucanía,venta_intrarregional,pesos,4275180360724.3,miles de millones de pesos,dinero,total
+2023,10,Los Lagos,compra_interregional,pesos,9319418043055.73,miles de millones de pesos,dinero,total
+2023,10,Los Lagos,compra_intrarregional,pesos,9394014254116.14,miles de millones de pesos,dinero,total
+2023,10,Los Lagos,facturas_compra_interregional,unidades,8444584.0,miles de unidades,conteo,total
+2023,10,Los Lagos,facturas_venta_interregional,unidades,4311898.0,miles de unidades,conteo,total
+2023,10,Los Lagos,venta_interregional,pesos,4969770566206.69,miles de millones de pesos,dinero,total
+2023,10,Los Lagos,venta_intrarregional,pesos,9394014254116.14,miles de millones de pesos,dinero,total
+2023,11,Aysén,compra_interregional,pesos,483812694604.32404,miles de millones de pesos,dinero,total
+2023,11,Aysén,compra_intrarregional,pesos,442594075555.809,miles de millones de pesos,dinero,total
+2023,11,Aysén,facturas_compra_interregional,unidades,1155299.0,miles de unidades,conteo,total
+2023,11,Aysén,facturas_venta_interregional,unidades,338416.0,miles de unidades,conteo,total
+2023,11,Aysén,venta_interregional,pesos,339792842152.7,miles de millones de pesos,dinero,total
+2023,11,Aysén,venta_intrarregional,pesos,442594075555.809,miles de millones de pesos,dinero,total
+2023,12,Magallanes,compra_interregional,pesos,1488622714492.2,miles de millones de pesos,dinero,total
+2023,12,Magallanes,compra_intrarregional,pesos,1132843403351.845,miles de millones de pesos,dinero,total
+2023,12,Magallanes,facturas_compra_interregional,unidades,1622800.0,miles de unidades,conteo,total
+2023,12,Magallanes,facturas_venta_interregional,unidades,415861.0,miles de unidades,conteo,total
+2023,12,Magallanes,venta_interregional,pesos,849319911213.738,miles de millones de pesos,dinero,total
+2023,12,Magallanes,venta_intrarregional,pesos,1132843403351.845,miles de millones de pesos,dinero,total
+2023,13,Metropolitana de Santiago,compra_interregional,pesos,58060497845184.3,miles de millones de pesos,dinero,total
+2023,13,Metropolitana de Santiago,compra_intrarregional,pesos,210123203354898.0,miles de millones de pesos,dinero,total
+2023,13,Metropolitana de Santiago,facturas_compra_interregional,unidades,30406767.0,miles de unidades,conteo,total
+2023,13,Metropolitana de Santiago,facturas_venta_interregional,unidades,82368142.0,miles de unidades,conteo,total
+2023,13,Metropolitana de Santiago,venta_interregional,pesos,65851276114832.41,miles de millones de pesos,dinero,total
+2023,13,Metropolitana de Santiago,venta_intrarregional,pesos,210123203354898.0,miles de millones de pesos,dinero,total
+2023,14,Los Ríos,compra_interregional,pesos,2774076806786.4,miles de millones de pesos,dinero,total
+2023,14,Los Ríos,compra_intrarregional,pesos,1408470699496.03,miles de millones de pesos,dinero,total
+2023,14,Los Ríos,facturas_compra_interregional,unidades,4391669.0,miles de unidades,conteo,total
+2023,14,Los Ríos,facturas_venta_interregional,unidades,1833612.0,miles de unidades,conteo,total
+2023,14,Los Ríos,venta_interregional,pesos,2099850517685.9998,miles de millones de pesos,dinero,total
+2023,14,Los Ríos,venta_intrarregional,pesos,1408470699496.03,miles de millones de pesos,dinero,total
+2023,15,Arica y Parinacota,compra_interregional,pesos,1156914892598.265,miles de millones de pesos,dinero,total
+2023,15,Arica y Parinacota,compra_intrarregional,pesos,547139269230.8,miles de millones de pesos,dinero,total
+2023,15,Arica y Parinacota,facturas_compra_interregional,unidades,1520274.0,miles de unidades,conteo,total
+2023,15,Arica y Parinacota,facturas_venta_interregional,unidades,512938.99999999994,miles de unidades,conteo,total
+2023,15,Arica y Parinacota,venta_interregional,pesos,499112759125.0,miles de millones de pesos,dinero,total
+2023,15,Arica y Parinacota,venta_intrarregional,pesos,547139269230.8,miles de millones de pesos,dinero,total
+2023,16,Ñuble,compra_interregional,pesos,2617489786942.67,miles de millones de pesos,dinero,total
+2023,16,Ñuble,compra_intrarregional,pesos,1760500306568.12,miles de millones de pesos,dinero,total
+2023,16,Ñuble,facturas_compra_interregional,unidades,4047913.0,miles de unidades,conteo,total
+2023,16,Ñuble,facturas_venta_interregional,unidades,2548675.0,miles de unidades,conteo,total
+2023,16,Ñuble,venta_interregional,pesos,2475763079167.75,miles de millones de pesos,dinero,total
+2023,16,Ñuble,venta_intrarregional,pesos,1760500306568.12,miles de millones de pesos,dinero,total
+2024,01,Tarapacá,compra_interregional,pesos,4418545496785.41,miles de millones de pesos,dinero,total
+2024,01,Tarapacá,compra_intrarregional,pesos,1628141489572.8599,miles de millones de pesos,dinero,total
+2024,01,Tarapacá,facturas_compra_interregional,unidades,2674841.0,miles de unidades,conteo,total
+2024,01,Tarapacá,facturas_venta_interregional,unidades,1074708.0,miles de unidades,conteo,total
+2024,01,Tarapacá,venta_interregional,pesos,1774444569340.09,miles de millones de pesos,dinero,total
+2024,01,Tarapacá,venta_intrarregional,pesos,1628141489572.8599,miles de millones de pesos,dinero,total
+2024,02,Antofagasta,compra_interregional,pesos,8853917911366.73,miles de millones de pesos,dinero,total
+2024,02,Antofagasta,compra_intrarregional,pesos,3991446013130.43,miles de millones de pesos,dinero,total
+2024,02,Antofagasta,facturas_compra_interregional,unidades,6199161.0,miles de unidades,conteo,total
+2024,02,Antofagasta,facturas_venta_interregional,unidades,2639806.0,miles de unidades,conteo,total
+2024,02,Antofagasta,venta_interregional,pesos,9146134385509.23,miles de millones de pesos,dinero,total
+2024,02,Antofagasta,venta_intrarregional,pesos,3991446013130.43,miles de millones de pesos,dinero,total
+2024,03,Atacama,compra_interregional,pesos,2599533805672.38,miles de millones de pesos,dinero,total
+2024,03,Atacama,compra_intrarregional,pesos,1310659075396.734,miles de millones de pesos,dinero,total
+2024,03,Atacama,facturas_compra_interregional,unidades,2877022.0,miles de unidades,conteo,total
+2024,03,Atacama,facturas_venta_interregional,unidades,1048521.9999999999,miles de unidades,conteo,total
+2024,03,Atacama,venta_interregional,pesos,2107396231379.78,miles de millones de pesos,dinero,total
+2024,03,Atacama,venta_intrarregional,pesos,1310659075396.734,miles de millones de pesos,dinero,total
+2024,04,Coquimbo,compra_interregional,pesos,4653214369800.28,miles de millones de pesos,dinero,total
+2024,04,Coquimbo,compra_intrarregional,pesos,2858149893771.9,miles de millones de pesos,dinero,total
+2024,04,Coquimbo,facturas_compra_interregional,unidades,6719130.0,miles de unidades,conteo,total
+2024,04,Coquimbo,facturas_venta_interregional,unidades,2534820.0,miles de unidades,conteo,total
+2024,04,Coquimbo,venta_interregional,pesos,3057498072555.7197,miles de millones de pesos,dinero,total
+2024,04,Coquimbo,venta_intrarregional,pesos,2858149893771.9,miles de millones de pesos,dinero,total
+2024,05,Valparaíso,compra_interregional,pesos,12164670872393.95,miles de millones de pesos,dinero,total
+2024,05,Valparaíso,compra_intrarregional,pesos,7972499400527.77,miles de millones de pesos,dinero,total
+2024,05,Valparaíso,facturas_compra_interregional,unidades,17364516.0,miles de unidades,conteo,total
+2024,05,Valparaíso,facturas_venta_interregional,unidades,8851482.0,miles de unidades,conteo,total
+2024,05,Valparaíso,venta_interregional,pesos,19732266000954.7,miles de millones de pesos,dinero,total
+2024,05,Valparaíso,venta_intrarregional,pesos,7972499400527.77,miles de millones de pesos,dinero,total
+2024,06,O'Higgins,compra_interregional,pesos,9396132846755.7,miles de millones de pesos,dinero,total
+2024,06,O'Higgins,compra_intrarregional,pesos,6069613003300.59,miles de millones de pesos,dinero,total
+2024,06,O'Higgins,facturas_compra_interregional,unidades,9826543.0,miles de unidades,conteo,total
+2024,06,O'Higgins,facturas_venta_interregional,unidades,3700667.0000000005,miles de unidades,conteo,total
+2024,06,O'Higgins,venta_interregional,pesos,6488481421952.88,miles de millones de pesos,dinero,total
+2024,06,O'Higgins,venta_intrarregional,pesos,6069613003300.59,miles de millones de pesos,dinero,total
+2024,07,Maule,compra_interregional,pesos,7143194728777.26,miles de millones de pesos,dinero,total
+2024,07,Maule,compra_intrarregional,pesos,6262398708666.88,miles de millones de pesos,dinero,total
+2024,07,Maule,facturas_compra_interregional,unidades,9144489.0,miles de unidades,conteo,total
+2024,07,Maule,facturas_venta_interregional,unidades,6493084.0,miles de unidades,conteo,total
+2024,07,Maule,venta_interregional,pesos,6491885007105.63,miles de millones de pesos,dinero,total
+2024,07,Maule,venta_intrarregional,pesos,6262398708666.88,miles de millones de pesos,dinero,total
+2024,08,Biobío,compra_interregional,pesos,10033150171804.15,miles de millones de pesos,dinero,total
+2024,08,Biobío,compra_intrarregional,pesos,8226507894511.92,miles de millones de pesos,dinero,total
+2024,08,Biobío,facturas_compra_interregional,unidades,13984957.0,miles de unidades,conteo,total
+2024,08,Biobío,facturas_venta_interregional,unidades,5605451.0,miles de unidades,conteo,total
+2024,08,Biobío,venta_interregional,pesos,11297822656728.36,miles de millones de pesos,dinero,total
+2024,08,Biobío,venta_intrarregional,pesos,8226507894511.92,miles de millones de pesos,dinero,total
+2024,09,La Araucanía,compra_interregional,pesos,4803308741526.7,miles de millones de pesos,dinero,total
+2024,09,La Araucanía,compra_intrarregional,pesos,4375248657931.21,miles de millones de pesos,dinero,total
+2024,09,La Araucanía,facturas_compra_interregional,unidades,8332505.000000001,miles de unidades,conteo,total
+2024,09,La Araucanía,facturas_venta_interregional,unidades,3916963.0,miles de unidades,conteo,total
+2024,09,La Araucanía,venta_interregional,pesos,4075518127321.99,miles de millones de pesos,dinero,total
+2024,09,La Araucanía,venta_intrarregional,pesos,4375248657931.21,miles de millones de pesos,dinero,total
+2024,10,Los Lagos,compra_interregional,pesos,9673654940130.04,miles de millones de pesos,dinero,total
+2024,10,Los Lagos,compra_intrarregional,pesos,9588228820839.229,miles de millones de pesos,dinero,total
+2024,10,Los Lagos,facturas_compra_interregional,unidades,8807438.0,miles de unidades,conteo,total
+2024,10,Los Lagos,facturas_venta_interregional,unidades,4546367.0,miles de unidades,conteo,total
+2024,10,Los Lagos,venta_interregional,pesos,5178199282418.61,miles de millones de pesos,dinero,total
+2024,10,Los Lagos,venta_intrarregional,pesos,9588228820839.229,miles de millones de pesos,dinero,total
+2024,11,Aysén,compra_interregional,pesos,538179847467.54407,miles de millones de pesos,dinero,total
+2024,11,Aysén,compra_intrarregional,pesos,463365562064.62396,miles de millones de pesos,dinero,total
+2024,11,Aysén,facturas_compra_interregional,unidades,1251228.0,miles de unidades,conteo,total
+2024,11,Aysén,facturas_venta_interregional,unidades,366630.0,miles de unidades,conteo,total
+2024,11,Aysén,venta_interregional,pesos,360806117045.498,miles de millones de pesos,dinero,total
+2024,11,Aysén,venta_intrarregional,pesos,463365562064.62396,miles de millones de pesos,dinero,total
+2024,12,Magallanes,compra_interregional,pesos,1588037102039.27,miles de millones de pesos,dinero,total
+2024,12,Magallanes,compra_intrarregional,pesos,1157035751936.6702,miles de millones de pesos,dinero,total
+2024,12,Magallanes,facturas_compra_interregional,unidades,1695950.0,miles de unidades,conteo,total
+2024,12,Magallanes,facturas_venta_interregional,unidades,433135.0,miles de unidades,conteo,total
+2024,12,Magallanes,venta_interregional,pesos,908077496198.019,miles de millones de pesos,dinero,total
+2024,12,Magallanes,venta_intrarregional,pesos,1157035751936.6702,miles de millones de pesos,dinero,total
+2024,13,Metropolitana de Santiago,compra_interregional,pesos,63125632305909.8,miles de millones de pesos,dinero,total
+2024,13,Metropolitana de Santiago,compra_intrarregional,pesos,224129405550193.0,miles de millones de pesos,dinero,total
+2024,13,Metropolitana de Santiago,facturas_compra_interregional,unidades,32486080.0,miles de unidades,conteo,total
+2024,13,Metropolitana de Santiago,facturas_venta_interregional,unidades,85432278.0,miles de unidades,conteo,total
+2024,13,Metropolitana de Santiago,venta_interregional,pesos,70007047682453.11,miles de millones de pesos,dinero,total
+2024,13,Metropolitana de Santiago,venta_intrarregional,pesos,224129405550193.0,miles de millones de pesos,dinero,total
+2024,14,Los Ríos,compra_interregional,pesos,2838142594788.41,miles de millones de pesos,dinero,total
+2024,14,Los Ríos,compra_intrarregional,pesos,1482745649965.95,miles de millones de pesos,dinero,total
+2024,14,Los Ríos,facturas_compra_interregional,unidades,4540846.0,miles de unidades,conteo,total
+2024,14,Los Ríos,facturas_venta_interregional,unidades,2222090.0,miles de unidades,conteo,total
+2024,14,Los Ríos,venta_interregional,pesos,2412141974736.94,miles de millones de pesos,dinero,total
+2024,14,Los Ríos,venta_intrarregional,pesos,1482745649965.95,miles de millones de pesos,dinero,total
+2024,15,Arica y Parinacota,compra_interregional,pesos,1239268036841.001,miles de millones de pesos,dinero,total
+2024,15,Arica y Parinacota,compra_intrarregional,pesos,566574406872.777,miles de millones de pesos,dinero,total
+2024,15,Arica y Parinacota,facturas_compra_interregional,unidades,1593231.0,miles de unidades,conteo,total
+2024,15,Arica y Parinacota,facturas_venta_interregional,unidades,569498.0,miles de unidades,conteo,total
+2024,15,Arica y Parinacota,venta_interregional,pesos,527401839329.00006,miles de millones de pesos,dinero,total
+2024,15,Arica y Parinacota,venta_intrarregional,pesos,566574406872.777,miles de millones de pesos,dinero,total
+2024,16,Ñuble,compra_interregional,pesos,2763576043651.5,miles de millones de pesos,dinero,total
+2024,16,Ñuble,compra_intrarregional,pesos,1919852594063.3699,miles de millones de pesos,dinero,total
+2024,16,Ñuble,facturas_compra_interregional,unidades,4260206.0,miles de unidades,conteo,total
+2024,16,Ñuble,facturas_venta_interregional,unidades,2322642.0,miles de unidades,conteo,total
+2024,16,Ñuble,venta_interregional,pesos,2267038950680.52,miles de millones de pesos,dinero,total
+2024,16,Ñuble,venta_intrarregional,pesos,1919852594063.3699,miles de millones de pesos,dinero,total
+2025,01,Tarapacá,compra_interregional,pesos,4265039690778.38,miles de millones de pesos,dinero,total
+2025,01,Tarapacá,compra_intrarregional,pesos,1844518463221.57,miles de millones de pesos,dinero,total
+2025,01,Tarapacá,facturas_compra_interregional,unidades,2844990.0,miles de unidades,conteo,total
+2025,01,Tarapacá,facturas_venta_interregional,unidades,1176576.0,miles de unidades,conteo,total
+2025,01,Tarapacá,venta_interregional,pesos,1971124789228.85,miles de millones de pesos,dinero,total
+2025,01,Tarapacá,venta_intrarregional,pesos,1844518463221.57,miles de millones de pesos,dinero,total
+2025,02,Antofagasta,compra_interregional,pesos,9590002089486.35,miles de millones de pesos,dinero,total
+2025,02,Antofagasta,compra_intrarregional,pesos,4303330382714.09,miles de millones de pesos,dinero,total
+2025,02,Antofagasta,facturas_compra_interregional,unidades,6422175.0,miles de unidades,conteo,total
+2025,02,Antofagasta,facturas_venta_interregional,unidades,2853542.0,miles de unidades,conteo,total
+2025,02,Antofagasta,venta_interregional,pesos,9822451832512.879,miles de millones de pesos,dinero,total
+2025,02,Antofagasta,venta_intrarregional,pesos,4303330382714.09,miles de millones de pesos,dinero,total
+2025,03,Atacama,compra_interregional,pesos,2774675950988.2197,miles de millones de pesos,dinero,total
+2025,03,Atacama,compra_intrarregional,pesos,1670901076118.96,miles de millones de pesos,dinero,total
+2025,03,Atacama,facturas_compra_interregional,unidades,3019842.0,miles de unidades,conteo,total
+2025,03,Atacama,facturas_venta_interregional,unidades,1116048.0,miles de unidades,conteo,total
+2025,03,Atacama,venta_interregional,pesos,2167430134610.99,miles de millones de pesos,dinero,total
+2025,03,Atacama,venta_intrarregional,pesos,1670901076118.96,miles de millones de pesos,dinero,total
+2025,04,Coquimbo,compra_interregional,pesos,5050477886565.9,miles de millones de pesos,dinero,total
+2025,04,Coquimbo,compra_intrarregional,pesos,3129432631907.3,miles de millones de pesos,dinero,total
+2025,04,Coquimbo,facturas_compra_interregional,unidades,7117034.000000001,miles de unidades,conteo,total
+2025,04,Coquimbo,facturas_venta_interregional,unidades,2711877.0,miles de unidades,conteo,total
+2025,04,Coquimbo,venta_interregional,pesos,3568232377441.4097,miles de millones de pesos,dinero,total
+2025,04,Coquimbo,venta_intrarregional,pesos,3129432631907.3,miles de millones de pesos,dinero,total
+2025,05,Valparaíso,compra_interregional,pesos,13142045425788.871,miles de millones de pesos,dinero,total
+2025,05,Valparaíso,compra_intrarregional,pesos,8575042241341.42,miles de millones de pesos,dinero,total
+2025,05,Valparaíso,facturas_compra_interregional,unidades,18313628.0,miles de unidades,conteo,total
+2025,05,Valparaíso,facturas_venta_interregional,unidades,9353151.0,miles de unidades,conteo,total
+2025,05,Valparaíso,venta_interregional,pesos,20027750879056.0,miles de millones de pesos,dinero,total
+2025,05,Valparaíso,venta_intrarregional,pesos,8575042241341.42,miles de millones de pesos,dinero,total
+2025,06,O'Higgins,compra_interregional,pesos,9780456949520.34,miles de millones de pesos,dinero,total
+2025,06,O'Higgins,compra_intrarregional,pesos,6076147450870.931,miles de millones de pesos,dinero,total
+2025,06,O'Higgins,facturas_compra_interregional,unidades,10289763.0,miles de unidades,conteo,total
+2025,06,O'Higgins,facturas_venta_interregional,unidades,3802019.0,miles de unidades,conteo,total
+2025,06,O'Higgins,venta_interregional,pesos,7101479509067.51,miles de millones de pesos,dinero,total
+2025,06,O'Higgins,venta_intrarregional,pesos,6076147450870.931,miles de millones de pesos,dinero,total
+2025,07,Maule,compra_interregional,pesos,7436378412946.49,miles de millones de pesos,dinero,total
+2025,07,Maule,compra_intrarregional,pesos,6563026004638.46,miles de millones de pesos,dinero,total
+2025,07,Maule,facturas_compra_interregional,unidades,9483129.0,miles de unidades,conteo,total
+2025,07,Maule,facturas_venta_interregional,unidades,7018814.0,miles de unidades,conteo,total
+2025,07,Maule,venta_interregional,pesos,6671016315011.09,miles de millones de pesos,dinero,total
+2025,07,Maule,venta_intrarregional,pesos,6563026004638.46,miles de millones de pesos,dinero,total
+2025,08,Biobío,compra_interregional,pesos,10352863757760.45,miles de millones de pesos,dinero,total
+2025,08,Biobío,compra_intrarregional,pesos,8363851458112.211,miles de millones de pesos,dinero,total
+2025,08,Biobío,facturas_compra_interregional,unidades,14836625.0,miles de unidades,conteo,total
+2025,08,Biobío,facturas_venta_interregional,unidades,5866662.0,miles de unidades,conteo,total
+2025,08,Biobío,venta_interregional,pesos,11720408216820.94,miles de millones de pesos,dinero,total
+2025,08,Biobío,venta_intrarregional,pesos,8363851458112.211,miles de millones de pesos,dinero,total
+2025,09,La Araucanía,compra_interregional,pesos,4987981144604.84,miles de millones de pesos,dinero,total
+2025,09,La Araucanía,compra_intrarregional,pesos,4528067693387.1,miles de millones de pesos,dinero,total
+2025,09,La Araucanía,facturas_compra_interregional,unidades,8791641.0,miles de unidades,conteo,total
+2025,09,La Araucanía,facturas_venta_interregional,unidades,4170157.0,miles de unidades,conteo,total
+2025,09,La Araucanía,venta_interregional,pesos,4368035768840.95,miles de millones de pesos,dinero,total
+2025,09,La Araucanía,venta_intrarregional,pesos,4528067693387.1,miles de millones de pesos,dinero,total
+2025,10,Los Lagos,compra_interregional,pesos,10490070978889.79,miles de millones de pesos,dinero,total
+2025,10,Los Lagos,compra_intrarregional,pesos,10091838345475.41,miles de millones de pesos,dinero,total
+2025,10,Los Lagos,facturas_compra_interregional,unidades,9322697.0,miles de unidades,conteo,total
+2025,10,Los Lagos,facturas_venta_interregional,unidades,4814091.0,miles de unidades,conteo,total
+2025,10,Los Lagos,venta_interregional,pesos,5616003411513.4,miles de millones de pesos,dinero,total
+2025,10,Los Lagos,venta_intrarregional,pesos,10091838345475.41,miles de millones de pesos,dinero,total
+2025,11,Aysén,compra_interregional,pesos,640328613999.6631,miles de millones de pesos,dinero,total
+2025,11,Aysén,compra_intrarregional,pesos,484705663640.525,miles de millones de pesos,dinero,total
+2025,11,Aysén,facturas_compra_interregional,unidades,1354774.0,miles de unidades,conteo,total
+2025,11,Aysén,facturas_venta_interregional,unidades,413499.0,miles de unidades,conteo,total
+2025,11,Aysén,venta_interregional,pesos,397571884692.871,miles de millones de pesos,dinero,total
+2025,11,Aysén,venta_intrarregional,pesos,484705663640.525,miles de millones de pesos,dinero,total
+2025,12,Magallanes,compra_interregional,pesos,1713512515398.54,miles de millones de pesos,dinero,total
+2025,12,Magallanes,compra_intrarregional,pesos,1248328078869.271,miles de millones de pesos,dinero,total
+2025,12,Magallanes,facturas_compra_interregional,unidades,1792495.9999999998,miles de unidades,conteo,total
+2025,12,Magallanes,facturas_venta_interregional,unidades,473806.0,miles de unidades,conteo,total
+2025,12,Magallanes,venta_interregional,pesos,1273777950292.629,miles de millones de pesos,dinero,total
+2025,12,Magallanes,venta_intrarregional,pesos,1248328078869.271,miles de millones de pesos,dinero,total
+2025,13,Metropolitana de Santiago,compra_interregional,pesos,66887403098035.9,miles de millones de pesos,dinero,total
+2025,13,Metropolitana de Santiago,compra_intrarregional,pesos,239854011332320.0,miles de millones de pesos,dinero,total
+2025,13,Metropolitana de Santiago,facturas_compra_interregional,unidades,34625064.0,miles de unidades,conteo,total
+2025,13,Metropolitana de Santiago,facturas_venta_interregional,unidades,89571423.0,miles de unidades,conteo,total
+2025,13,Metropolitana de Santiago,venta_interregional,pesos,73931167446441.11,miles de millones de pesos,dinero,total
+2025,13,Metropolitana de Santiago,venta_intrarregional,pesos,239854011332320.0,miles de millones de pesos,dinero,total
+2025,14,Los Ríos,compra_interregional,pesos,2972854594328.02,miles de millones de pesos,dinero,total
+2025,14,Los Ríos,compra_intrarregional,pesos,1552226651481.56,miles de millones de pesos,dinero,total
+2025,14,Los Ríos,facturas_compra_interregional,unidades,4784172.0,miles de unidades,conteo,total
+2025,14,Los Ríos,facturas_venta_interregional,unidades,3096175.0,miles de unidades,conteo,total
+2025,14,Los Ríos,venta_interregional,pesos,2766148144985.35,miles de millones de pesos,dinero,total
+2025,14,Los Ríos,venta_intrarregional,pesos,1552226651481.56,miles de millones de pesos,dinero,total
+2025,15,Arica y Parinacota,compra_interregional,pesos,1294876268672.399,miles de millones de pesos,dinero,total
+2025,15,Arica y Parinacota,compra_intrarregional,pesos,631585933593.243,miles de millones de pesos,dinero,total
+2025,15,Arica y Parinacota,facturas_compra_interregional,unidades,1648021.0,miles de unidades,conteo,total
+2025,15,Arica y Parinacota,facturas_venta_interregional,unidades,595593.0,miles de unidades,conteo,total
+2025,15,Arica y Parinacota,venta_interregional,pesos,612336365489.9999,miles de millones de pesos,dinero,total
+2025,15,Arica y Parinacota,venta_intrarregional,pesos,631585933593.243,miles de millones de pesos,dinero,total
+2025,16,Ñuble,compra_interregional,pesos,2854849620968.52,miles de millones de pesos,dinero,total
+2025,16,Ñuble,compra_intrarregional,pesos,1852075261972.5,miles de millones de pesos,dinero,total
+2025,16,Ñuble,facturas_compra_interregional,unidades,4571103.0,miles de unidades,conteo,total
+2025,16,Ñuble,facturas_venta_interregional,unidades,2183721.0,miles de unidades,conteo,total
+2025,16,Ñuble,venta_interregional,pesos,2218881972727.04,miles de millones de pesos,dinero,total
+2025,16,Ñuble,venta_intrarregional,pesos,1852075261972.5,miles de millones de pesos,dinero,total

@@ -1,0 +1,61 @@
+---
+title: "Nota de familia: El inmueble como reserva de valor"
+---
+
+<span class="escala esc-zon">MACRO-ZONA &middot; 7 zonas</span>
+
+
+**Escala:** macro-zona (13 macro-zonas / subzonas) y nacional · **Frecuencia:** trimestral, anual
+**Fuente:** `raw_quarterly.csv`, `raw_annual.csv`
+**Universo:** `universe_housing_wealth.csv` (77 series) · **Manifiesto:** `manifest_housing_wealth.csv`
+
+Esta nota existe para que la próxima persona no tenga que reconstruir lo que ya
+se aprendió acá. No resume el reporte: describe los datos.
+
+## Qué contiene la familia
+
+La familia reúne las series de valor del stock habitacional residencial, metros
+cuadrados, número de propiedades y el Índice de Precios de Vivienda (IPV):
+
+1. **Descomposición Terreno / Construcción (`VALT` vs `VALC`):**
+   - Mide el valor de reposición de las construcciones (`VALC`) frente al valor
+     del suelo subyacente (`VALT`), además del valor total de la vivienda (`VALV`).
+   - Es la descomposición de Knoll, Schularick y Steger (2017) aplicada a Chile.
+   - **Disponible únicamente a escala nacional (`NAC`, `CAS`, `DEP`)**; la BDE
+     no publica la descomposición terreno/construcción por zona.
+2. **Dimensiones físicas del stock habitacional (`NUMP`, `MCT`, `MCC`):**
+   - Número de propiedades habitacionales (`NUMP`).
+   - Metros cuadrados de terreno (`MCT`) y metros cuadrados construidos (`MCC`).
+   - Publicado para las 4 macro-zonas (`ZN`, `ZC`, `ZS`, `RM`) y agregados nacionales (`NAC`, `CAS`, `DEP`).
+3. **Índice de Precios de Vivienda (`IPV` / `IVPZ`):**
+   - Índice trimestral base 2018=100.
+   - Publicado para las 4 macro-zonas (`ZN`, `ZC`, `ZS`, `RM`) y las 4 subzonas metropolitanas de Santiago (`RM Centro`, `RM Oriente`, `RM Poniente`, `RM Sur`).
+   - Ojo con el mnemónico de origen: la Zona 1 está codificada upstream como `IVPZ1` (con transposición de letras) y no `IPVZ1`.
+
+## Por qué esta familia importa en el programa
+
+Reproduce y extiende la Figura 4 de la formulación del proyecto Fondecyt: el
+valor del stock de suelo residencial agregado y unitario. Demuestra
+empíricamente que la mayor parte de la apreciación del patrimonio habitacional
+chileno en las últimas dos décadas se explica por la renta del suelo urbano
+(`VALT`) y no por el costo de edificación (`VALC`).
+
+## Geografía: Tier A (Zonas, no Regiones)
+
+La geografía del IPV y del stock habitacional **no coincide con las 16 regiones
+político-administrativas**:
+- Agrupa al país en 4 macro-zonas (`Zona Norte`, `Zona Centro`, `Zona Sur`, `Región Metropolitana`) más 4 subdivisiones dentro de la RM.
+- La RM es la única zona que coincide exactamente con una región (Región 13).
+- Cualquier cruce entre esta familia y variables regionales (PIB regional, permisos de edificación) exige agregar los datos regionales al nivel de macro-zona.
+
+## Advertencias metodológicas
+
+1. `VALT` y `VALC` son agregados nacionales (y desgloses casas/departamentos). No intentar calcular `VALT` por macro-zona porque la BDE no lo publica.
+2. `ZONE_SUBSETS`: Las 4 subzonas de la RM (`RM Centro`, `RM Oriente`, `RM Poniente`, `RM Sur`) y los desgloses `CAS`/`DEP` son subconjuntos estrictos de `RM` y `NAC` respectivamente. Nunca sumarlos con sus agregados para evitar doble contabilización.
+
+## Relacionado
+
+- [[briefing_tasas]] — la contraparte financiera (tasas hipotecarias y deuda de hogares)
+- [[briefing_permits]] — el flujo físico de nuevas edificaciones
+- `lib/families.py` — declaración de la familia `housing_wealth` y escala macro-zona
+

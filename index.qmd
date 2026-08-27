@@ -1,8 +1,6 @@
 ---
 title: "La revisión"
 subtitle: "Revisión multiescalar de la Base de Datos Estadísticos del Banco Central de Chile"
-include-before-body:
-  - personal-nav.html
 ---
 
 ## Qué mide el Banco Central, y a qué escala
@@ -51,10 +49,10 @@ absorción.
 |---|---------|------|---------|-------|--------|
 | 3 | [Los dos ejes: renta espacial y renta de recursos](reportes/report3-dos-ejes.qmd) | sectorial-regional | `two_axes` | A, T | publicado |
 | 4 | [El ciclo regional de la construcción](reportes/report4-construccion.qmd) | regional | `permits` | M | publicado |
-| 5 | El inmueble como reserva de valor | macro-zona | `housing_wealth` | A, T | en preparación |
+| 5 | [El inmueble como reserva de valor](reportes/report5-reserva-valor.qmd) | macro-zona | `housing_wealth` | A, T | publicado |
 | 6 | [Profundidad financiera y morosidad por región](reportes/report6-financiera.qmd) | regional | `financial_depth` | M | publicado |
-| 7 | Estancamiento del sector dinámico | regional | `interregional_trade` | M, T, A | en preparación |
-| 8 | El precio del dinero: tasas y apalancamiento | nacional | `tasas` | D, M, T, A | en preparación |
+| 7 | [Estancamiento del sector dinámico](reportes/report7-sector-dinamico.qmd) | regional | `interregional_trade` | M, T, A | publicado |
+| 8 | [El precio del dinero: tasas y apalancamiento](reportes/report8-tasas.qmd) | nacional | `tasas` | D, M, T, A | publicado |
 
 ## Cómo avanza el programa
 
@@ -83,8 +81,10 @@ verificable de forma automática.
 Cada familia de series ingerida deja una nota: qué significan los códigos, cómo se codifican las regiones, dónde están las trampas. Es lo que abre la compuerta del reporte siguiente.
 
 - [Nota de familia: Profundidad financiera y morosidad por región](briefings/briefing_financial_depth.qmd)
+- [Nota de familia: El inmueble como reserva de valor](briefings/briefing_housing_wealth.qmd)
 - [Nota de familia: Estancamiento del sector dinámico](briefings/briefing_interregional_trade.qmd)
 - [Nota de familia: El ciclo regional de la construcción](briefings/briefing_permits.qmd)
+- [Nota de familia: El precio del dinero: tasas y apalancamiento](briefings/briefing_tasas.qmd)
 - [Nota de familia: Los dos ejes: renta espacial y renta de recursos](briefings/briefing_two_axes.qmd)
 
 ## Procedencia

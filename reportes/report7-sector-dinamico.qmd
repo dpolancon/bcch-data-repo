@@ -1,0 +1,96 @@
+---
+title: "Estancamiento del sector dinámico"
+---
+
+<span class="escala esc-reg">REGIONAL &middot; 16 regiones</span>
+
+*Las compraventas interregionales revelan una estructura polarizada: la Región
+Metropolitana autocontiene tres cuartas partes de su comercio, mientras las
+regiones productivas dependen de la demanda externa. Sin embargo, la brecha
+temporal de los datos limita la observación al ciclo posterior a las tasas
+bajas.*
+
+---
+
+## El argumento
+
+El marco analítico del proyecto (Reportes 3 y 4) identificó una divergencia
+clave: la renta espacial se expande mientras la cantidad física construida se
+contrae, señalando una valorización del stock de activos independiente de la
+demanda física de suelo. La pregunta subsiguiente para el Objetivo 1 es qué
+ocurre con el sector productivo transable: si la valorización de activos
+inmobiliarios convive con el dinamismo o con el estancamiento de la economía
+real.
+
+Para evaluar esta articulación, la BDE no provee matrices completas de
+origen-destino, pero sí publica los márgenes de compraventas regionales
+(`CVRV` y `CVRC`) y sus descomposiciones interregionales (`ITE`) e
+intrarregionales (`ITA`). Estos márgenes permiten medir la fuerza de apertura,
+el grado de autocontención y los saldos netos comerciales de cada economía
+regional.
+
+## Lo que muestran los datos
+
+En 2025, la estructura del comercio interregional exhibe una asimetría
+estructural. La Región Metropolitana opera como un nodo fuertemente
+autocontenido: retiene el **76,4%** de sus ventas dentro de
+su propio territorio (autocontención), exhibiendo una tasa de apertura
+interregional de apenas **23,6%**.
+
+En el extremo opuesto, las economías productivas del norte y sur dependen
+primordialmente de los mercados del resto del país. La tasa de apertura
+interregional alcanza el **70,0%** en Valparaíso, el
+**69,5%** en Antofagasta y el **64,1%** en
+Los Ríos. Fuera de la capital, únicamente Los Lagos (**64,2%**)
+y Aysén (**54,9%**) muestran una fracción sustantiva de
+comercio intrarregional.
+
+### Balances comerciales polarizados
+
+De las 16 regiones, sólo cuatro logran un balance comercial neto positivo frente
+al resto de Chile en 2025: Valparaíso (**20,8%** del
+intercambio bruto), Biobío (**6,2%**), la Región
+Metropolitana (**5,0%**) y Antofagasta (**1,2%**).
+
+Las doce regiones restantes transfieren recursos netos como compradoras brutas,
+registrando brechas deficitarias de **36,8%** en
+Tarapacá, **35,8%** en Arica y Parinacota, y
+**30,3%** en Los Lagos.
+
+Entre 2018 y 2025, las ventas interregionales totales nominales se expandieron
+de **79,54 billones de pesos** a **154,23 billones de pesos**,
+mientras el volumen de facturas emitidas pasó de **106,9 millones**
+a **139,2 millones**.
+
+::: {.caveat}
+**El catálogo no contiene series de productividad.** La búsqueda de «productividad»
+o PTF en las 25.369 series del Banco Central arroja cero resultados. El dinamismo o
+estancamiento del sector productivo no se puede inferir como una caída observada de
+productividad total de factores: debe argumentarse rigurosamente a partir de
+participaciones de valor, flujos comerciales y márgenes de compraventa.
+:::
+
+## La brecha temporal: la serie regional más corta
+
+Las series de compraventas regionales inician en **2018** (2018), lo que las
+convierte en la capa regional más corta que el programa ha ingerido (8 años
+completos frente a 2008 en morosidad financiera y 2013 en PIB y exportaciones
+regionales).
+
+Esta restricción temporal significa que la ventana común 2018–2025 **no cubre el
+período de tasas de interés mínimas históricas (2010–2017)** donde ocurrió la
+mayor aceleración del precio del suelo. El año 2026 se excluye por incompleto
+para evitar registrar caídas artificiales en flujos acumulados.
+
+## Nota metodológica
+
+Las compraventas usan codificación posicional numérica de 16 regiones
+(`F035.CVRC.FLU.Z.CLP.Z.Z.Z.Z.RR.0.M`). Los montos están expresados en pesos
+nominales y nunca deben sumarse entre compras y ventas, pues cada transacción
+aparece registrada en ambos lados y su adición duplicaría el comercio nacional.
+La identidad `total = inter + intra` se cumple de manera exacta en los datos.
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`panel_interregional_trade_annual.csv`](../datos/panel_interregional_trade_annual.csv).
+:::
+

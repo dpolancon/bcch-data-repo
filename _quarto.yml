@@ -36,8 +36,14 @@ website:
             href: reportes/report3-dos-ejes.qmd
           - text: "4 · El ciclo de la construcción"
             href: reportes/report4-construccion.qmd
+          - text: "5 · El inmueble como reserva de valor"
+            href: reportes/report5-reserva-valor.qmd
           - text: "6 · Profundidad financiera"
             href: reportes/report6-financiera.qmd
+          - text: "7 · Estancamiento del sector dinámico"
+            href: reportes/report7-sector-dinamico.qmd
+          - text: "8 · El precio del dinero"
+            href: reportes/report8-tasas.qmd
       - text: "Explorar"
         href: explorar.qmd
       - text: "Datos"

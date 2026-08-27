@@ -1,0 +1,17 @@
+indicador,valor,unidad,anio,unidad_original,dimension,agregacion
+valor_vivienda_nacional_2012,145450052207220.0,pesos,2012,miles de millones de pesos,dinero,total
+valor_vivienda_nacional_2024,537003114610819.94,pesos,2024,miles de millones de pesos,dinero,total
+valor_vivienda_pib_2012,111.90755867992,%,2012,% del PIB,tasa,promedio
+valor_vivienda_pib_2024,172.32025183062,%,2024,% del PIB,tasa,promedio
+valor_vivienda_pib_pico,174.29411858268,%,2021,% del PIB,tasa,promedio
+valor_terreno_nacional_2012,56912636099986.0,pesos,2012,miles de millones de pesos,dinero,total
+valor_terreno_nacional_2024,217657181620860.0,pesos,2024,miles de millones de pesos,dinero,total
+valor_construccion_nacional_2012,88537416107240.0,pesos,2012,miles de millones de pesos,dinero,total
+valor_construccion_nacional_2024,319345932989950.0,pesos,2024,miles de millones de pesos,dinero,total
+participacion_terreno_2012,39.12864604469417,%,2012,%,tasa,promedio
+participacion_terreno_2024,40.531828531125335,%,2024,%,tasa,promedio
+valor_vivienda_rm_2024,287839198670950.0,pesos,2024,miles de millones de pesos,dinero,total
+participacion_rm_2024,53.6010296475756,%,2024,%,tasa,promedio
+ipv_rm_inicio,81.5094600954806,%,2002,índice base 2008=100,tasa,promedio
+ipv_rm_pico,238.84834896806,%,2021,índice base 2008=100,tasa,promedio
+ipv_rm_actual,236.92914677413,%,2026,índice base 2008=100,tasa,promedio
