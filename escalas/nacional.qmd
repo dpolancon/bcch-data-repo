@@ -1,0 +1,46 @@
+---
+title: "Nacional"
+---
+
+<span class="escala esc-nac">NACIONAL &middot; una economía</span>
+
+*Es la escala donde la BDE es abundante y larga, y no por casualidad: el mandato del Banco Central es la política monetaria nacional, de modo que mide con detalle aquello que gobierna.*
+
+---
+
+## El censo
+
+La BDE publica **21.287 series** en esta escala. 83.9% de los 25.369 códigos únicos del catálogo. La unidad de observación es una economía.
+
+| Capítulo | Series | Frecuencias |
+|---|---:|---|
+| Cuentas Nacionales | 8.652 | trimestral 6882. anual 1497. mensual 273 |
+| Derivados y Spot | 2.171 | mensual 1457. diaria 714 |
+| Sector Externo | 2.043 | mensual 823. trimestral 550. anual 543. diaria 127 |
+| Precios | 2.034 | mensual 2032. diaria 2 |
+| Estadísticas Monetarias y Financieras | 1.227 | mensual 1158. diaria 38. anual 30. trimestral 1 |
+| Operaciones de Mercado Abierto | 737 | diaria 684. mensual 53 |
+| Expectativas Económicas | 714 | trimestral 426. mensual 252. diaria 36 |
+| Mercado de Capitales | 684 | mensual 665. trimestral 11. diaria 8 |
+| *otros 12 capítulos* | 3.025 | |
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`censo_bde_series.csv`](../datos/censo_bde_series.csv).
+:::
+
+
+## Qué usa el proyecto
+
+### El precio del dinero: tasas y apalancamiento
+
+**Objetivo.** Objetivo 4 e hipótesis H1 — el efecto del descenso de las tasas sobre la variación del precio del suelo. Es el único conjunto de regresores de H1 que la BDE publica completo.
+
+Escala nacional, y no le falta desagregación: la tasa de descuento que discute H1 es un precio único de la economía. La cobertura es desigual entre series (captación y colocación desde 1983; TPM desde 1995; hipotecarias y bonos UF desde 2002), de modo que cualquier ventana común es más corta que la más larga. DEUBH mide apalancamiento de hogares como porcentaje del PIB y del ingreso disponible, y es la contraparte financiera del stock de vivienda que mide housing_wealth.
+
+## Lo que esta escala sostiene
+
+El conjunto completo de regresores financieros de H1 --tasa de política monetaria, captación y colocación, hipotecarias, bonos en UF-- y el apalancamiento hipotecario de los hogares. También la descomposición entre valorización del terreno y de la construcción, que en Chile sólo existe a este nivel.
+
+## Lo que no sostiene
+
+Nada que requiera geografía. Una tasa nacional no distingue entre el mercado de suelo de Santiago y el de Puerto Montt, y el proyecto necesita justamente esa distinción para su variable dependiente.

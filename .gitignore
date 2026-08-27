@@ -10,3 +10,5 @@ docs/
 # Quarto build state.
 .quarto/
 **/*.quarto_ipynb
+
+/.quarto/

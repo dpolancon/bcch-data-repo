@@ -1,31 +1,41 @@
 ---
-title: "El programa"
-subtitle: "Programa de publicaciones sobre datos regionales del Banco Central de Chile"
+title: "La revisión"
+subtitle: "Revisión multiescalar de la Base de Datos Estadísticos del Banco Central de Chile"
 ---
 
-## La tesis, en dos registros
+## Qué mide el Banco Central, y a qué escala
 
-Este programa sostiene un solo argumento, medido en dos niveles distintos
-porque el Banco Central publica los datos en dos niveles distintos.
+Esta revisión recorre la Base de Datos Estadísticos del Banco Central para el
+proyecto sobre las determinantes financieras del precio del suelo metropolitano.
+Su resultado no es un inventario sino una asimetría.
 
-**Tier A — nacional y por zonas.** El inmueble en Chile funciona como reserva
-de valor. La riqueza habitacional como proporción del PIB, la descomposición
-entre valor del *suelo* y valor de la *construcción*, y el apalancamiento
-hipotecario de los hogares miden la financiarización del espacio de forma
-directa.
+El catálogo publica **25.369 series únicas** repartidas de forma muy
+desigual entre cuatro escalas de observación:
 
-**Tier B — las 16 regiones.** Ese proceso nacional deja una huella regional que
-sí es medible: permisos de edificación, participación del sector 10 en el
-producto regional, morosidad hipotecaria y profundidad de cuentas corrientes.
-Esa huella corre contra la inmovilidad estructural que documentó el Reporte 1
-—un HHI plano en 0,236–0,244 durante trece años.
+| Escala | Series | Participación |
+|---|---:|---:|
+| [Nacional](escalas/nacional.qmd) | 21.287 | 83,9% |
+| [Sectorial-regional](escalas/sectorial-regional.qmd) | 2.331 | 9,2% |
+| [Regional](escalas/regional.qmd) | 1.695 | 6,7% |
+| [Macro-zona](escalas/macro-zona.qmd) | 56 | 0,2% |
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`censo_bde_series.csv`](datos/censo_bde_series.csv).
+:::
+
+La BDE mide las escalas que al Banco Central le interesa gobernar. El grueso es
+nacional porque el mandato es la política monetaria nacional; la región aparece
+por vía de Cuentas Nacionales; la macro-zona aparece como estadística
+experimental. La asimetría no es una limitación técnica del catálogo: es una
+propiedad de la institución que lo produce.
 
 ::: {.caveat}
-**Los dos tiers no se cruzan libremente.** El índice de precios de vivienda
-existe para siete zonas, no para dieciséis regiones. Cualquier comparación
-entre tiers declara explícitamente la pérdida por agregación, o se restringe a
-Norte / Centro / Sur / RM. No se ofrece una tabla de equivalencia región-zona
-porque no existe una que sea honesta.
+**El área metropolitana no existe en ninguna escala.** Es la unidad que el
+proyecto mide, y la BDE no la publica. Lo más próximo son las macro-zonas
+—56 series, la escala más pequeña del catálogo—, y la correspondencia
+con las regiones es de uno a muchos salvo en la Región Metropolitana. La única
+dirección de agregación honesta es subir el dato regional hasta la zona, nunca
+bajar el zonal hasta la región.
 :::
 
 ## Hoja de ruta
@@ -37,11 +47,12 @@ absorción.
 
 | # | Reporte | Tier | Familia | Frec. | Estado |
 |---|---------|------|---------|-------|--------|
-| 3 | [Los dos ejes: renta espacial y renta de recursos](reportes/report3-dos-ejes.qmd) | Tier B | `two_axes` | A, T | publicado |
-| 4 | El ciclo regional de la construcción | Tier B | `permits` | M | en preparación |
-| 5 | El inmueble como reserva de valor | Tier A | `housing_wealth` | A, T | en preparación |
-| 6 | Profundidad financiera y morosidad por región | Tier B | `financial_depth` | M | en preparación |
-| 7 | Estancamiento del sector dinámico | Tier B | `interregional_trade` | M, T, A | en preparación |
+| 3 | [Los dos ejes: renta espacial y renta de recursos](reportes/report3-dos-ejes.qmd) | sectorial-regional | `two_axes` | A, T | publicado |
+| 4 | El ciclo regional de la construcción | regional | `permits` | M | en preparación |
+| 5 | El inmueble como reserva de valor | macro-zona | `housing_wealth` | A, T | en preparación |
+| 6 | Profundidad financiera y morosidad por región | regional | `financial_depth` | M | en preparación |
+| 7 | Estancamiento del sector dinámico | regional | `interregional_trade` | M, T, A | en preparación |
+| 8 | El precio del dinero: tasas y apalancamiento | nacional | `tasas` | D, M, T, A | en preparación |
 
 ## Cómo avanza el programa
 
@@ -69,11 +80,14 @@ verificable de forma automática.
 
 Cada familia de series ingerida deja una nota: qué significan los códigos, cómo se codifican las regiones, dónde están las trampas. Es lo que abre la compuerta del reporte siguiente.
 
+- [Nota de familia: El ciclo regional de la construcción](briefings/briefing_permits.qmd)
 - [Nota de familia: Los dos ejes: renta espacial y renta de recursos](briefings/briefing_two_axes.qmd)
 
 ## Procedencia
 
 Todo número de este sitio proviene de un CSV en `data/`, y todo CSV proviene de
 la API del Banco Central de Chile. No hay datos sintéticos, estimados ni
-interpolados en ninguna etapa —la ausencia se reporta como ausencia. Los
-paneles publicados están [disponibles para descarga](explorar.qmd).
+interpolados en ninguna etapa —la ausencia se reporta como ausencia. Todas las
+bases procesadas están [disponibles para descarga](datos.qmd), y el
+[crosswalk](diseno.qmd) permite rastrear cualquier cifra hasta el código de
+serie que la origina.

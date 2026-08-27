@@ -1,4 +1,6 @@
 source,published,sha256,bytes
+C:\ReposGitHub\bcch-data-repo\data\censo_bde_series.csv,censo_bde_series.csv,954c5255f301edfc3ec5f27447dfbfa5161d52ce4147eae657c42ae891f518c9,5067979
+C:\ReposGitHub\bcch-data-repo\data\censo_bde_resumen.csv,censo_bde_resumen.csv,04870291616ed961310f4f388feed8624f6abf176ce8bbd7c9bfc8191a00da79,2912
 C:\ReposGitHub\bcch-data-repo\data\panel_two_axes_annual.csv,panel_two_axes_annual.csv,a5e8eae3a41f223bd6ad26a2adc393dffb744e95c19e2c4db5d42b41d8c4e188,74017
 C:\ReposGitHub\bcch-data-repo\data\panel_two_axes_summary.csv,panel_two_axes_summary.csv,a48ece7d1a11b16d030a7d83201b0b217f69387679c4f401489affd2040841ae,3105
 C:\ReposGitHub\bcch-data-repo\data\panel_regional_pib_annual.csv,panel_regional_pib_annual.csv,846eca83f040ce6afd3a8e096c0ca183d8c0060ae58883aeae62f906fb6f9df2,27992

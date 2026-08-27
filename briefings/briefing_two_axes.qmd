@@ -2,7 +2,7 @@
 title: "Nota de familia: Los dos ejes: renta espacial y renta de recursos"
 ---
 
-<span class="tier tier-b">TIER B &middot; 16 regiones</span>
+<span class="escala esc-sec">SECTORIAL-REGIONAL &middot; 16 regiones × 13 sectores</span>
 
 
 **Tier:** B (16 regiones) · **Frecuencia:** anual, con un subconjunto trimestral

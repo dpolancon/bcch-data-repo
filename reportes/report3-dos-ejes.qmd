@@ -2,7 +2,7 @@
 title: "Los dos ejes: renta espacial y renta de recursos"
 ---
 
-<span class="tier tier-b">TIER B &middot; 16 regiones</span>
+<span class="escala esc-sec">SECTORIAL-REGIONAL &middot; 16 regiones × 13 sectores</span>
 
 *La renta espacial es difusa y creciente; la renta de recursos es concentrada y
 se endurece. Son dos geografías distintas dentro del mismo país.*

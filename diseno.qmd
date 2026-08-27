@@ -1,0 +1,73 @@
+---
+title: "Diseño"
+---
+
+A qué responde cada pieza de esta revisión dentro de la formulación del
+proyecto, y dónde la BDE no alcanza.
+
+## Correspondencia
+
+| Pieza del diseño | Escala | Estado |
+|---|---|---|
+| Los dos ejes: renta espacial y renta de recursos | sectorial-regional | reporte 3 |
+| El ciclo regional de la construcción | regional | reporte 4 |
+| El inmueble como reserva de valor | macro-zona | reporte 5 |
+| Profundidad financiera y morosidad por región | regional | reporte 6 |
+| Estancamiento del sector dinámico | regional | reporte 7 |
+| El precio del dinero: tasas y apalancamiento | nacional | reporte 8 |
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Correspondencia y crosswalk derivados del registro de familias en scripts/lib/families.py. Datos: [`censo_bde_series.csv`](datos/censo_bde_series.csv).
+:::
+
+## Dónde la BDE no alcanza
+
+Tres piezas del diseño no tienen contraparte en el catálogo del Banco Central y
+deben venir de otra fuente.
+
+**La variable dependiente.** El precio del suelo metropolitano no está en la
+BDE en ninguna escala. Viene del Boletín del Mercado del Suelo y de los
+Conservadores de Bienes Raíces.
+
+**La demanda física de suelo.** El indicador de utilización de suelo por
+primeras edificaciones se construye desde el Detalle Catastral del Servicio de
+Impuestos Internos. La BDE aporta los permisos de edificación, que son el
+insumo del proxy, no el proxy.
+
+**La población regional.** No existe como serie propia: aparece sólo como
+denominador dentro de las tablas per cápita. Cualquier cálculo per cápita fuera
+de ese conjunto requiere ir al Instituto Nacional de Estadísticas.
+
+## Nota: herramientas de apoyo creadas con IA
+
+Este sitio combina tres capas de autoría distintas y conviene no confundirlas.
+
+**El dato es del Banco Central.** Todas las series provienen de la Base de Datos Estadísticos del Banco Central de Chile.
+No hay serie construida, estimada ni interpolada en ninguna etapa: la ausencia
+se reporta como ausencia.
+
+**La elaboración es del proyecto.** Las decisiones de método son del equipo de
+investigación: calcular participaciones sobre precios corrientes y no sobre
+volumen encadenado, seleccionar series por parseabilidad de región y no por
+capítulo del catálogo, y organizar la revisión por escala de observación.
+
+**Las herramientas de apoyo se construyeron con asistencia de IA.** El censo
+automatizado del catálogo, el crosswalk que aparece abajo, el explorador
+interactivo y las rutinas de auditoría se desarrollaron con asistencia de
+modelos de lenguaje. Se verifican contra la fuente primaria y son reproducibles
+con los comandos publicados en cada página. La responsabilidad por el contenido
+es de quienes firman.
+
+### Crosswalk: reporte, familia, códigos y panel
+
+Permite rastrear cualquier cifra del sitio hasta el código de serie que la
+origina.
+
+| Reporte | Familia | Escala | Mnemónicos BCCh | Panel derivado |
+|---|---|---|---|---|
+| 3 | `two_axes` | sectorial-regional | `PIB` | `panel_two_axes_annual.csv` |
+| 4 | `permits` | regional | `SAH`, `SANH`, `NVA`, `CEYS` | — |
+| 5 | `housing_wealth` | macro-zona | `VALV`, `VALT`, `VALC`, `NUMP`, `MCT`, `MCC`, `IPV`, `IVPZ`, `DEUBH` | — |
+| 6 | `financial_depth` | regional | `DV90`, `DCS90`, `DCM90`, `CCPN`, `SCCPN`, `SDV` | — |
+| 7 | `interregional_trade` | regional | `CVRV`, `CVRC`, `NFRV`, `NFRC`, `XSE` | — |
+| 8 | `tasas` | nacional | `TPM`, `ECB`, `TIP`, `BCU`, `VIV`, `IPSA`, `DEUBH` | — |

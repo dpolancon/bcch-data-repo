@@ -1,0 +1,39 @@
+---
+title: "Macro-zona"
+---
+
+<span class="escala esc-zon">MACRO-ZONA &middot; 7 zonas</span>
+
+*La escala más próxima a la unidad metropolitana que el proyecto mide, y la que la BDE casi no publica. Son siete zonas --Norte, Centro, Sur y cuatro subzonas de la Región Metropolitana--, y la mayor parte vive en Estadísticas Experimentales, no en estadística oficial.*
+
+---
+
+## El censo
+
+La BDE publica **56 series** en esta escala. 0.2% de los 25.369 códigos únicos del catálogo. La unidad de observación es 7 zonas.
+
+| Capítulo | Series | Frecuencias |
+|---|---:|---|
+| Estadísticas Experimentales | 38 | anual 20. trimestral 18 |
+| Indicadores Sectoriales | 18 | trimestral 18 |
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`censo_bde_series.csv`](../datos/censo_bde_series.csv).
+:::
+
+
+## Qué usa el proyecto
+
+### El inmueble como reserva de valor
+
+**Objetivo.** Reproduce y extiende la Figura 4 de la formulación (valor del stock de suelo residencial, agregado y unitario). VALT frente a VALC es la descomposición terreno/construcción de Knoll et al., premisa empírica de la propuesta, medida para Chile.
+
+La geografía son zonas, no regiones: Norte, Centro, Sur y cuatro subzonas de la Región Metropolitana. La correspondencia con las 16 regiones es de uno a muchos salvo en la RM, de modo que la única dirección de agregación honesta es subir el dato regional hasta la zona. Ojo con la transposición de origen: la zona 1 es IVPZ1 y no IPVZ1, y corregirla acá sencillamente no encontraría la serie. La familia abarca dos escalas: 56 series zonales y 21 nacionales. VALT y VALC --la descomposición entre valorización del terreno y de la construcción-- sólo existen para NAC, CAS y DEP, de modo que la premisa empírica de Knoll et al. es medible en Chile únicamente a escala nacional y nunca por zona.
+
+## Lo que esta escala sostiene
+
+El índice de precios de vivienda por zona y el valor del stock habitacional. Es lo más cerca que la BDE llega de un precio inmobiliario con desagregación territorial.
+
+## Lo que no sostiene
+
+El precio del suelo, que no es el precio de la vivienda. Y ninguna comparación directa con las 16 regiones: la correspondencia es de uno a muchos salvo en la RM, de modo que la única dirección de agregación honesta es subir el dato regional hasta la zona, nunca bajar el zonal hasta la región.

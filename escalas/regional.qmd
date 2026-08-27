@@ -1,0 +1,55 @@
+---
+title: "Regional"
+---
+
+<span class="escala esc-reg">REGIONAL &middot; 16 regiones</span>
+
+*Dieciséis regiones administrativas, repartidas en varios capítulos del catálogo. Conviene recordar que una región administrativa es una construcción del Estado y no una economía: la Región de Los Lagos no es el área metropolitana de Puerto Montt--Puerto Varas.*
+
+---
+
+## El censo
+
+La BDE publica **1.695 series** en esta escala. 6.7% de los 25.369 códigos únicos del catálogo. La unidad de observación es 16 regiones.
+
+| Capítulo | Series | Frecuencias |
+|---|---:|---|
+| Regionales | 585 | mensual 541. anual 44 |
+| Cuentas Nacionales | 577 | anual 369. trimestral 208 |
+| Estadísticas Experimentales | 304 | mensual 192. anual 64. diaria 32. trimestral 16 |
+| Género | 192 | anual 192 |
+| Mercado Laboral y Demografía | 34 | mensual 34 |
+| Mercado de Capitales | 3 | trimestral 3 |
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`censo_bde_series.csv`](../datos/censo_bde_series.csv).
+:::
+
+
+## Qué usa el proyecto
+
+### El ciclo regional de la construcción
+
+**Objetivo.** Objetivo 2 — demanda física de suelo. Es el insumo con que la formulación propone reconstruir el Consumo de Suelo Urbano del MINVU a partir de permisos de edificación desde 2010 (Proxy 2).
+
+Primer encuentro con el sufijo de región de dos letras pegado al mnemónico (AP, TA, AN...). Son permisos: intención de construir, no construcción ejecutada. Fuerte estacionalidad, así que toda lectura mes contra mes es ruido; usar variación doce meses. CEYS es constitución de empresas de todo tipo y entra como control de dinamismo empresarial, no como parte del eje espacial: no sumarlo a los otros tres.
+
+### Profundidad financiera y morosidad por región
+
+**Objetivo.** Objetivo 4 — huella regional del ciclo financiero. Mide angustia y profundidad de depósitos, nunca volumen de crédito: los volúmenes hipotecarios son nacionales.
+
+F022 usa la codificación de mnemónico pegado. F022.CTOBI NO es Biobío y F022.CAP NO es Arica y Parinacota: la lista blanca de raíces en lib.regions existe exactamente para esta familia. La selección por familia se ancla al mnemónico por la misma razón, después de que NVA hiciera match dentro de CCPNVA.
+
+### Estancamiento del sector dinámico
+
+**Objetivo.** Objetivo 1 — dinamismo del sector productivo. El estancamiento se argumenta con participaciones de producto y descomposición shift-share, nunca como caída de productividad medida: el catálogo no contiene ninguna serie de PTF.
+
+Las compraventas usan un token de región NUMÉRICO (15 = Arica y Parinacota), una quinta codificación que lib.regions todavía no resuelve. El parser va ahí, nunca como parser suelto en otro lado.
+
+## Lo que esta escala sostiene
+
+La demanda física de suelo por la vía de los permisos de edificación, que es el insumo con que la formulación propone reconstruir el Consumo de Suelo Urbano del MINVU. También la morosidad hipotecaria y la profundidad de depósitos, como huella regional del ciclo financiero.
+
+## Lo que no sostiene
+
+Volumen de crédito, que es nacional. Población regional, que no existe como serie propia y aparece sólo como denominador dentro de las tablas per cápita. Y la unidad metropolitana, que no está en ninguna escala.

@@ -62,25 +62,29 @@ la región.
 
 ## Trampas por familia de series
 
-### `two_axes` — Reporte 3 (Tier B)
+### `two_axes` — Reporte 3 (sectorial-regional)
 
-No API calls required -- sector 10 and 03 are already present in raw_annual.csv. Sector 10 is largely IMPUTED rent from national accounts; every report leaning on it must say so.
+Los dos ejes del marco de crecimiento desbalanceado tienen contraparte directa en las cuentas regionales: sector 10 (Servicios de vivienda e inmobiliarios) es renta espacial, sector 03 (Minería) es renta de recursos, sector 06 (Construcción) es la pata de inversión. Ninguna requiere descarga: ya están en raw_annual.csv. El sector 10 es mayoritariamente ALQUILER IMPUTADO de las cuentas nacionales, no arriendo efectivamente pagado; es el supuesto que sostiene todo el eje espacial y se declara en cada reporte que se apoya en él. La familia abarca dos escalas: 2.037 series sectorial-regionales y 209 totales regionales (sector Z). La escala declarada es la principal, no la única.
 
-### `permits` — Reporte 4 (Tier B)
+### `permits` — Reporte 4 (regional)
 
-First encounter with the two-letter region suffix vocabulary (AP, TA, AN, ...). Monthly regional data; pairs against sector-06 construction GDP already on disk.
+Primer encuentro con el sufijo de región de dos letras pegado al mnemónico (AP, TA, AN...). Son permisos: intención de construir, no construcción ejecutada. Fuerte estacionalidad, así que toda lectura mes contra mes es ruido; usar variación doce meses. CEYS es constitución de empresas de todo tipo y entra como control de dinamismo empresarial, no como parte del eje espacial: no sumarlo a los otros tres.
 
-### `housing_wealth` — Reporte 5 (Tier A)
+### `housing_wealth` — Reporte 5 (macro-zona)
 
-TIER A. Geography is 7 IPV zones (Norte/Centro/Sur + 4 RM sub-zones), which do NOT map onto the 16 regions. Any Tier A x Tier B comparison must state the aggregation loss or restrict itself to Norte/Centro/Sur/RM throughout. Note the upstream typo: zone 1 is IVPZ1, not IPVZ1.
+La geografía son zonas, no regiones: Norte, Centro, Sur y cuatro subzonas de la Región Metropolitana. La correspondencia con las 16 regiones es de uno a muchos salvo en la RM, de modo que la única dirección de agregación honesta es subir el dato regional hasta la zona. Ojo con la transposición de origen: la zona 1 es IVPZ1 y no IPVZ1, y corregirla acá sencillamente no encontraría la serie. La familia abarca dos escalas: 56 series zonales y 21 nacionales. VALT y VALC --la descomposición entre valorización del terreno y de la construcción-- sólo existen para NAC, CAS y DEP, de modo que la premisa empírica de Knoll et al. es medible en Chile únicamente a escala nacional y nunca por zona.
 
-### `financial_depth` — Reporte 6 (Tier B)
+### `financial_depth` — Reporte 6 (regional)
 
-F022 uses the glued-mnemonic encoding. F022.CTOBI is NOT Biobio and F022.CAP is NOT Arica y Parinacota -- lib.regions' GLUED_FAMILY_STEMS whitelist exists for exactly this family. Measures distress and deposit depth, never credit volume: mortgage volumes are national only.
+F022 usa la codificación de mnemónico pegado. F022.CTOBI NO es Biobío y F022.CAP NO es Arica y Parinacota: la lista blanca de raíces en lib.regions existe exactamente para esta familia. La selección por familia se ancla al mnemónico por la misma razón, después de que NVA hiciera match dentro de CCPNVA.
 
-### `interregional_trade` — Reporte 7 (Tier B)
+### `interregional_trade` — Reporte 7 (regional)
 
-Compraventas use a NUMERIC region token (15 = Arica y Parinacota) -- a fifth encoding lib.regions does not yet handle. Add the parser there, never as a standalone parser elsewhere. No TFP series exists in the catalog, so 'stagnation' rests on output shares and shift-share, not productivity.
+Las compraventas usan un token de región NUMÉRICO (15 = Arica y Parinacota), una quinta codificación que lib.regions todavía no resuelve. El parser va ahí, nunca como parser suelto en otro lado.
+
+### `tasas` — Reporte 8 (nacional)
+
+Escala nacional, y no le falta desagregación: la tasa de descuento que discute H1 es un precio único de la economía. La cobertura es desigual entre series (captación y colocación desde 1983; TPM desde 1995; hipotecarias y bonos UF desde 2002), de modo que cualquier ventana común es más corta que la más larga. DEUBH mide apalancamiento de hogares como porcentaje del PIB y del ingreso disponible, y es la contraparte financiera del stock de vivienda que mide housing_wealth.
 
 ## Reproducir
 

@@ -7,15 +7,25 @@ project:
 
 website:
   title: "Renta espacial y renta de recursos"
-  description: "Programa de publicaciones sobre datos regionales del Banco Central de Chile"
+  description: "Revisión multiescalar de la Base de Datos Estadísticos del Banco Central de Chile"
   # Absolute base: the section is served from a subpath of the personal site,
   # and the sitemap and search index cannot resolve without it.
   site-url: "https://dpolancon.github.io/bcch/"
   reader-mode: true
   navbar:
     left:
-      - text: "Programa"
+      - text: "La revisión"
         href: index.qmd
+      - text: "Escalas"
+        menu:
+          - text: "Nacional"
+            href: escalas/nacional.qmd
+          - text: "Macro-zona"
+            href: escalas/macro-zona.qmd
+          - text: "Regional"
+            href: escalas/regional.qmd
+          - text: "Sectorial-regional"
+            href: escalas/sectorial-regional.qmd
       - text: "Reportes"
         menu:
           - text: "1 · Disparidades regionales"
@@ -26,6 +36,10 @@ website:
             href: reportes/report3-dos-ejes.qmd
       - text: "Explorar"
         href: explorar.qmd
+      - text: "Datos"
+        href: datos.qmd
+      - text: "Diseño"
+        href: diseno.qmd
       - text: "Metodología"
         href: metodologia.qmd
   page-footer:

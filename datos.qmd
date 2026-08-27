@@ -1,0 +1,40 @@
+---
+title: "Datos"
+---
+
+Todas las bases procesadas de la revisión, en CSV y sin registro previo. Cada
+figura y cada tabla del sitio enlaza la base que la produce; acá están todas
+juntas.
+
+| Base | Contenido | Tamaño |
+|---|---|---:|
+| [`censo_bde_series.csv`](datos/censo_bde_series.csv) | Cada serie del catálogo, clasificada por escala | 4.8 MB |
+| [`censo_bde_resumen.csv`](datos/censo_bde_resumen.csv) | Series por escala, capítulo y frecuencia | 3 KB |
+| [`panel_two_axes_annual.csv`](datos/panel_two_axes_annual.csv) | Renta espacial y de recursos, región × año | 72 KB |
+| [`panel_two_axes_summary.csv`](datos/panel_two_axes_summary.csv) | Resumen anual de los dos ejes | 3 KB |
+| [`panel_regional_pib_annual.csv`](datos/panel_regional_pib_annual.csv) | PIB regional anual | 27 KB |
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile.
+:::
+
+## Cómo se regeneran
+
+Cada base se reconstruye desde la fuente primaria con un comando. No hay paso
+manual en ninguna etapa.
+
+```bash
+python scripts/13_census_bde.py                      # censo del catálogo
+python scripts/01_fetch_crsm_raw.py --family <fam>   # descarga por familia
+python scripts/09_build_theme_panels.py --family <fam>  # panel analítico
+```
+
+## Formato
+
+CSV en UTF-8, separador coma, fechas ISO. Los códigos de región y de sector van
+con relleno de ceros y son texto, no número: leerlos como entero convierte
+`"01"` en `1` y rompe cualquier cruce en silencio.
+
+```python
+pd.read_csv(ruta, dtype={"region_id": str, "sector_id": str}, parse_dates=["date"])
+```

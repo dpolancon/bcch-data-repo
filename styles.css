@@ -6,9 +6,22 @@
   max-width: 100%;
 }
 
-/* Tier badges: the two-tier design is the site's central claim, so the tier a
-   figure belongs to should be visible without reading the caption. */
-.tier {
+/* Línea de fuente. Va bajo cada exhibit, en cuerpo menor pero legible: es
+   parte del material citable, no una nota al pie decorativa. */
+.fuente {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.78;
+  border-top: 1px solid rgba(128, 128, 128, 0.22);
+  padding-top: 0.5rem;
+  margin: 0.4rem 0 1.8rem;
+}
+.fuente p { margin: 0; }
+
+/* Distintivos de escala. La escala de observación es la afirmación central
+   de la revisión, así que a qué unidad se refiere una cifra debe leerse sin
+   entrar al texto. Cuatro escalas, de la más agregada a la más fina. */
+.escala {
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 600;
@@ -17,8 +30,10 @@
   border-radius: 999px;
   vertical-align: middle;
 }
-.tier-a { background: #7c3aed22; color: #6d28d9; border: 1px solid #7c3aed55; }
-.tier-b { background: #0d948822; color: #0f766e; border: 1px solid #0d948855; }
+.esc-nac { background: #7c3aed22; color: #6d28d9; border: 1px solid #7c3aed55; }
+.esc-zon { background: #0891b222; color: #0e7490; border: 1px solid #0891b255; }
+.esc-reg { background: #0d948822; color: #0f766e; border: 1px solid #0d948855; }
+.esc-sec { background: #65a30d22; color: #4d7c0f; border: 1px solid #65a30d55; }
 
 /* A standing caveat block. Used wherever imputed rent or zone-vs-region
    aggregation is in play -- these are not footnotes, they are load-bearing. */

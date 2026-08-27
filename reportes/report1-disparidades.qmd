@@ -2,7 +2,7 @@
 title: "Disparidades económicas regionales en Chile"
 ---
 
-<span class="tier tier-b">TIER B &middot; 16 regiones</span>
+<span class="escala esc-sec">SECTORIAL-REGIONAL &middot; 16 regiones × 13 sectores</span>
 
 *La geografía productiva de Chile está estructuralmente fijada, mientras que la desigualdad de bienestar apenas oscila con los ciclos de commodities.*
 

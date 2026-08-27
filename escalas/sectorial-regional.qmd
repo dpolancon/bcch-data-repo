@@ -1,0 +1,38 @@
+---
+title: "Sectorial-regional"
+---
+
+<span class="escala esc-sec">SECTORIAL-REGIONAL &middot; 16 regiones × 13 sectores</span>
+
+*Región por sector, enteramente dentro de Cuentas Nacionales y casi enteramente anual. Es la escala más fina que publica la BDE y la que permite caracterizar la estructura productiva de cada territorio.*
+
+---
+
+## El censo
+
+La BDE publica **2.331 series** en esta escala. 9.2% de los 25.369 códigos únicos del catálogo. La unidad de observación es 16 regiones × 13 sectores.
+
+| Capítulo | Series | Frecuencias |
+|---|---:|---|
+| Cuentas Nacionales | 2.331 | anual 2123. trimestral 208 |
+
+::: {.fuente}
+**Fuente:** elaboración propia (2026) en base a la Base de Datos Estadísticos del Banco Central de Chile. Datos: [`censo_bde_series.csv`](../datos/censo_bde_series.csv).
+:::
+
+
+## Qué usa el proyecto
+
+### Los dos ejes: renta espacial y renta de recursos
+
+**Objetivo.** Contexto de selección de casos. No responde a un objetivo específico: sostiene el marco muestral, al medir cuán extractivas son las economías regionales cuyas capitales el proyecto estudia.
+
+Los dos ejes del marco de crecimiento desbalanceado tienen contraparte directa en las cuentas regionales: sector 10 (Servicios de vivienda e inmobiliarios) es renta espacial, sector 03 (Minería) es renta de recursos, sector 06 (Construcción) es la pata de inversión. Ninguna requiere descarga: ya están en raw_annual.csv. El sector 10 es mayoritariamente ALQUILER IMPUTADO de las cuentas nacionales, no arriendo efectivamente pagado; es el supuesto que sostiene todo el eje espacial y se declara en cada reporte que se apoya en él. La familia abarca dos escalas: 2.037 series sectorial-regionales y 209 totales regionales (sector Z). La escala declarada es la principal, no la única.
+
+## Lo que esta escala sostiene
+
+La medición de cuán extractiva es cada economía regional, que sostiene el marco muestral del proyecto: las dos conurbaciones menores entran a la muestra por ser centros urbanos de economías extractivas, y esta escala lo mide en vez de asumirlo.
+
+## Lo que no sostiene
+
+Productividad: el catálogo no contiene ninguna serie de PTF, de modo que el estancamiento se argumenta con participaciones de producto y descomposición shift-share, nunca como caída de productividad medida.
