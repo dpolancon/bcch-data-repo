@@ -17,7 +17,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.paths import REPO_ROOT, DATA_DIR, REPORT1_ASSETS_DIR, REPORT1_DIR
 from lib.regions import REGIONS
-from lib.codes import SECTOR_MAP, SECTOR_MINING
+from lib.codes import SECTOR_MAP, SECTOR_MINING, short_labels
 from lib.sectors import compute_location_quotients, compute_sector_shares
 from lib.stats import compute_hhi, compute_weighted_gini, compute_weighted_theil
 
@@ -528,6 +528,10 @@ def main():
         "@@GINI_MIN_YEAR@@": str(gini_min_year),
         "@@THEIL_AT_MIN@@": f"{theil_at_min:.4f}",
         "@@SPAN@@": span,
+        # Derived, never restated: the 2018 base has 13 activities, not 12
+        # (commerce splits into COM and RH). Hardcoding "12" understated every
+        # region's output by roughly the share of restaurants and hotels.
+        "@@NSECTORS@@": str(len(categories)),
     }
 
     def resolve_narrative(path):
@@ -582,7 +586,7 @@ Table 1 summarizes the key parameters of economic output for the 16 Chilean regi
 
 ---
 
-## **3. Section 2: Regional Economic Specialization (12-Sector Decomposition)**
+## **3. Section 2: Regional Economic Specialization (@@NSECTORS@@-Sector Decomposition)**
 
 Location Quotients (LQ) reveal how specialized a region is in a particular sector relative to the national average. An LQ greater than 1.0 indicates that a sector's share in regional output is larger than its share in the national economy. This section leverages the official 12-sector regional GDP classification compiled by the Central Bank of Chile to extract the structural composition of the territories.
 
@@ -596,11 +600,13 @@ where:
 - $Y_{\text{nat},s} = \sum_{j=1}^n Y_{j,s}$ is the national GDP of sector $s$ across all $n$ regions,
 - $Y_{\text{nat}} = \sum_{j=1}^n \sum_{k=1}^m Y_{j,k}$ is the total national GDP.
 
-### **Table 2: Location Quotients (LQ) by Region and Sector (2025 - 12 Sectors)**
-
-| Region | Agro | Fish | Mine | Manuf | EGA | Const | Trade | Hotels | Transp | Finan | RealEst | Social |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 """)
+        f.write(
+            f"### **Table 2: Location Quotients (LQ) by Region and Sector "
+            f"({year_lq} - {len(categories)} Sectors)**\n\n"
+        )
+        f.write("| Region | " + " | ".join(short_labels(categories, "en")) + " |\n")
+        f.write("| :--- |" + " :---: |" * len(categories) + "\n")
         for _, row in df_t2.iterrows():
             f.write("| **" + row["Region"] + "** | "
                     + " | ".join(f"{row[c]:.2f}" for c in categories) + " |\n")
@@ -608,11 +614,11 @@ where:
         f.write(r"""
 ### **Corresponding Figures**
 
-#### **Figure 2.1: 12-Sector Specialization Heatmap**
+#### **Figure 2.1: @@NSECTORS@@-Sector Specialization Heatmap**
 ![Figure 2.1: Specialization Heatmap](assets/fig2_1_heatmap.png)
-*The heatmap immediately exposes Chile's geographical economic identities across all 12 economic sectors. It highlights the mining-dominant North, the services-oriented Center, and the agricultural-fishing South.*
+*The heatmap immediately exposes Chile's geographical economic identities across all @@NSECTORS@@ economic sectors. It highlights the mining-dominant North, the services-oriented Center, and the agricultural-fishing South.*
 
-#### **Figure 2.2: 12-Sector Regional Specialization Radar Charts by Macro-Zone**
+#### **Figure 2.2: @@NSECTORS@@-Sector Regional Specialization Radar Charts by Macro-Zone**
 
 We group the regional radar charts by geographic macro-zones to expose shared regional structures and territorial clusters:
 
@@ -750,9 +756,9 @@ La Tabla 1 resume los parámetros clave de la producción económica de las 16 r
 
 ---
 
-## **3. Sección 2: Especialización Económica Regional (Decomposición en 12 Sectores)**
+## **3. Sección 2: Especialización Económica Regional (Decomposición en @@NSECTORS@@ Sectores)**
 
-Los Cocientes de Localización (LQ) revelan qué tan especializada está una región en un sector particular en relación con el promedio nacional. Un LQ mayor que 1.0 indica que la participación de un sector en la producción regional es mayor que su participación en la economía nacional. Esta sección aprovecha la clasificación oficial de PIB regional de 12 sectores compilada por el Banco Central de Chile para extraer la composición estructural de los territorios.
+Los Cocientes de Localización (LQ) revelan qué tan especializada está una región en un sector particular en relación con el promedio nacional. Un LQ mayor que 1.0 indica que la participación de un sector en la producción regional es mayor que su participación en la economía nacional. Esta sección aprovecha la clasificación oficial de PIB regional de @@NSECTORS@@ sectores compilada por el Banco Central de Chile para extraer la composición estructural de los territorios.
 
 ### **Formalización Metodológica**
 
@@ -764,11 +770,13 @@ donde:
 - $Y_{\text{nat},s} = \sum_{j=1}^n Y_{j,s}$ es el PIB nacional del sector $s$ a través de las $n$ regiones,
 - $Y_{\text{nat}} = \sum_{j=1}^n \sum_{k=1}^m Y_{j,k}$ es el PIB nacional total.
 
-### **Tabla 2: Cocientes de Localización (LQ) por Región y Sector (2025 - 12 Sectores)**
-
-| Región | Agro | Pesca | Minería | Manuf | EGA | Const | Comercio | Hoteles | Transp | Finan | Inmob | Social |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 """)
+        f.write(
+            f"### **Tabla 2: Cocientes de Localización (LQ) por Región y Sector "
+            f"({year_lq} - {len(categories)} Sectores)**\n\n"
+        )
+        f.write("| Región | " + " | ".join(short_labels(categories, "es")) + " |\n")
+        f.write("| :--- |" + " :---: |" * len(categories) + "\n")
         for _, row in df_t2.iterrows():
             f.write("| **" + row["Region"] + "** | "
                     + " | ".join(f"{row[c]:.2f}" for c in categories) + " |\n")
@@ -776,11 +784,11 @@ donde:
         f.write(r"""
 ### **Figuras Correspondientes**
 
-#### **Figura 2.1: Mapa de Calor de Especialización en 12 Sectores**
+#### **Figura 2.1: Mapa de Calor de Especialización en @@NSECTORS@@ Sectores**
 ![Figura 2.1: Mapa de Calor de Especialización](assets/fig2_1_heatmap.png)
-*El mapa de calor expone inmediatamente las identidades económicas geográficas de Chile a través de los 12 sectores económicos. Destaca el norte predominantemente minero, el centro orientado a los servicios y el sur silvoagropecuario y pesquero.*
+*El mapa de calor expone inmediatamente las identidades económicas geográficas de Chile a través de los @@NSECTORS@@ sectores económicos. Destaca el norte predominantemente minero, el centro orientado a los servicios y el sur silvoagropecuario y pesquero.*
 
-#### **Figura 2.2: Gráficos de Radar de Especialización Regional por Macro-Zona (Decomposición de 12 Sectores)**
+#### **Figura 2.2: Gráficos de Radar de Especialización Regional por Macro-Zona (Decomposición de @@NSECTORS@@ Sectores)**
 
 Agrupamos los gráficos de radar regionales por macrozonas geográficas para exponer estructuras regionales compartidas y clusters territoriales:
 

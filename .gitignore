@@ -64,3 +64,4 @@ bcch-data-repo-vault/.obsidian/plugins/*/data.json
 *.fls
 *.fdb_latexmk
 *.toc
+*.xdv

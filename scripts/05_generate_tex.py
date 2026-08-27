@@ -63,6 +63,7 @@ def generate_tex_report():
     # taxonomy. The previous version named twelve invented columns and raised
     # KeyError the moment real sectoral data arrived.
     t2_sectors = [c for c in df_t2.columns if c != "Region"]
+    n_sectors = len(t2_sectors)
     t2_col_spec = "l" + "r" * len(t2_sectors)
     t2_header = " & ".join(
         r"\rotatebox{90}{" + escape_latex(c) + "}" for c in t2_sectors
@@ -90,6 +91,9 @@ def generate_tex_report():
     _first, _last = int(_g.index.min()), int(_g.index.max())
     _min_year = int(_g["Gini Coefficient"].idxmin())
     NARRATIVE = {
+        # Derived from the table this section describes: the 2018 base has
+        # 13 activities, not 12 -- commerce splits into COM and RH.
+        "@@NSECTORS@@": str(n_sectors),
         "@@HHI_LO@@": f"{_g['HHI (Output Concentration)'].min():.4f}",
         "@@HHI_HI@@": f"{_g['HHI (Output Concentration)'].max():.4f}",
         "@@SPAN@@": f"{_first}-{_last}",
@@ -187,9 +191,9 @@ La Tabla 1 resume los parámetros clave de la producción económica de las 16 r
 
 \newpage
 
-\section{Sección 2: Especialización Económica Regional (Decomposición en 12 Sectores)}
+\section{Sección 2: Especialización Económica Regional (Decomposición en @@NSECTORS@@ Sectores)}
 
-Los Cocientes de Localización ($LQ$) revelan qué tan especializada está una región en un sector particular en relación con el promedio nacional. Un $LQ$ mayor que 1.0 indica que la participación de un sector en la producción regional es mayor que su participación en la economía nacional. Esta sección aprovecha la clasificación oficial de PIB regional de 12 sectores compilada por el Banco Central de Chile para extraer la composición estructural de los territorios.
+Los Cocientes de Localización ($LQ$) revelan qué tan especializada está una región en un sector particular en relación con el promedio nacional. Un $LQ$ mayor que 1.0 indica que la participación de un sector en la producción regional es mayor que su participación en la economía nacional. Esta sección aprovecha la clasificación oficial de PIB regional de @@NSECTORS@@ sectores compilada por el Banco Central de Chile para extraer la composición estructural de los territorios.
 
 \subsection{Formalización Metodológica}
 
@@ -232,10 +236,10 @@ donde:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{../assets/fig2_1_heatmap.pdf}
-\caption{Mapa de Calor de Especialización en 12 Sectores}
+\caption{Mapa de Calor de Especialización en @@NSECTORS@@ Sectores}
 \label{fig:heatmap}
 \end{figure}
-\noindent \textit{El mapa de calor expone inmediatamente las identidades económicas geográficas de Chile a través de los 12 sectores económicos. Destaca el norte predominantemente minero, el centro orientado a los servicios y el sur silvoagropecuario y pesquero.}
+\noindent \textit{El mapa de calor expone inmediatamente las identidades económicas geográficas de Chile a través de los @@NSECTORS@@ sectores económicos. Destaca el norte predominantemente minero, el centro orientado a los servicios y el sur silvoagropecuario y pesquero.}
 
 \subsection{Gráficos de Radar de Especialización Regional por Macro-Zona}
 

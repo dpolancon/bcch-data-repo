@@ -43,7 +43,7 @@ Table 1 summarizes the key parameters of economic output for the 16 Chilean regi
 
 ---
 
-## **3. Section 2: Regional Economic Specialization (12-Sector Decomposition)**
+## **3. Section 2: Regional Economic Specialization (13-Sector Decomposition)**
 
 Location Quotients (LQ) reveal how specialized a region is in a particular sector relative to the national average. An LQ greater than 1.0 indicates that a sector's share in regional output is larger than its share in the national economy. This section leverages the official 12-sector regional GDP classification compiled by the Central Bank of Chile to extract the structural composition of the territories.
 
@@ -57,10 +57,10 @@ where:
 - $Y_{\text{nat},s} = \sum_{j=1}^n Y_{j,s}$ is the national GDP of sector $s$ across all $n$ regions,
 - $Y_{\text{nat}} = \sum_{j=1}^n \sum_{k=1}^m Y_{j,k}$ is the total national GDP.
 
-### **Table 2: Location Quotients (LQ) by Region and Sector (2025 - 12 Sectors)**
+### **Table 2: Location Quotients (LQ) by Region and Sector (2025 - 13 Sectors)**
 
-| Region | Agro | Fish | Mine | Manuf | EGA | Const | Trade | Hotels | Transp | Finan | RealEst | Social |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Region | PubAdm | Agro | Trade | Const | EGA | Manuf | Mining | Fish | Hotels | RealEst | Finance | Personal | Transp |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Antofagasta** | 0.24 | 0.00 | 0.23 | 1.26 | 1.30 | 0.26 | 4.46 | 0.08 | 0.51 | 0.25 | 0.39 | 0.27 | 0.42 |
 | **La Araucanía** | 1.62 | 2.42 | 0.96 | 1.28 | 1.20 | 0.83 | 0.02 | 0.07 | 1.10 | 1.48 | 0.60 | 1.68 | 0.84 |
 | **Arica y Parinacota** | 2.61 | 1.09 | 0.67 | 2.12 | 0.64 | 0.83 | 0.23 | 2.07 | 1.83 | 1.20 | 0.69 | 1.26 | 0.78 |
@@ -80,11 +80,11 @@ where:
 
 ### **Corresponding Figures**
 
-#### **Figure 2.1: 12-Sector Specialization Heatmap**
+#### **Figure 2.1: 13-Sector Specialization Heatmap**
 ![Figure 2.1: Specialization Heatmap](assets/fig2_1_heatmap.png)
-*The heatmap immediately exposes Chile's geographical economic identities across all 12 economic sectors. It highlights the mining-dominant North, the services-oriented Center, and the agricultural-fishing South.*
+*The heatmap immediately exposes Chile's geographical economic identities across all 13 economic sectors. It highlights the mining-dominant North, the services-oriented Center, and the agricultural-fishing South.*
 
-#### **Figure 2.2: 12-Sector Regional Specialization Radar Charts by Macro-Zone**
+#### **Figure 2.2: 13-Sector Regional Specialization Radar Charts by Macro-Zone**
 
 We group the regional radar charts by geographic macro-zones to expose shared regional structures and territorial clusters:
 

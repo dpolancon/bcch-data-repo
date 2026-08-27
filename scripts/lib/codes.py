@@ -101,6 +101,57 @@ SECTOR_MAP = {
     "XBSSR": "Exportaciones de bienes y servicios",
 }
 
+# Short column labels for report tables. Keyed by the *name* rather than the
+# sector id, because table frames carry sector names as column headers. Report
+# table headers must be derived from these -- a hand-written header row drifts
+# out of alignment with the data the moment the sector set changes, which is
+# exactly how Table 2 came to print Antofagasta's mining LQ under "Trade".
+SECTOR_SHORT_LABELS_EN = {
+    "Agropecuario-silvícola": "Agro",
+    "Pesca": "Fish",
+    "Minería": "Mining",
+    "Industria": "Manuf",
+    "Electricidad, gas, agua y gestión de desechos": "EGA",
+    "Construcción": "Const",
+    "Comercio": "Trade",
+    "Restaurantes y hoteles": "Hotels",
+    "Transporte, información y comunicaciones": "Transp",
+    "Servicios financieros y empresariales": "Finance",
+    "Servicios de vivienda e inmobiliarios": "RealEst",
+    "Servicios personales": "Personal",
+    "Administración pública": "PubAdm",
+}
+
+SECTOR_SHORT_LABELS_ES = {
+    "Agropecuario-silvícola": "Agro",
+    "Pesca": "Pesca",
+    "Minería": "Minería",
+    "Industria": "Manuf",
+    "Electricidad, gas, agua y gestión de desechos": "EGA",
+    "Construcción": "Const",
+    "Comercio": "Comercio",
+    "Restaurantes y hoteles": "Hoteles",
+    "Transporte, información y comunicaciones": "Transp",
+    "Servicios financieros y empresariales": "Finan",
+    "Servicios de vivienda e inmobiliarios": "Inmob",
+    "Servicios personales": "Personales",
+    "Administración pública": "AdmPub",
+}
+
+
+def short_labels(names, lang="en"):
+    """Map sector names to short table headers, preserving the given order.
+
+    Raises KeyError on an unmapped sector so a new sector surfaces as a build
+    failure rather than a silently mislabelled column.
+    """
+    table = SECTOR_SHORT_LABELS_ES if lang == "es" else SECTOR_SHORT_LABELS_EN
+    missing = [n for n in names if n not in table]
+    if missing:
+        raise KeyError(f"No short label for sector(s): {missing}")
+    return [table[n] for n in names]
+
+
 # The SHT framework's two rent axes, plus construction as the investment leg.
 SECTOR_MINING = "03"
 SECTOR_CONSTRUCTION = "06"

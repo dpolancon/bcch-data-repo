@@ -43,9 +43,9 @@ La Tabla 1 resume los parámetros clave de la producción económica de las 16 r
 
 ---
 
-## **3. Sección 2: Especialización Económica Regional (Decomposición en 12 Sectores)**
+## **3. Sección 2: Especialización Económica Regional (Decomposición en 13 Sectores)**
 
-Los Cocientes de Localización (LQ) revelan qué tan especializada está una región en un sector particular en relación con el promedio nacional. Un LQ mayor que 1.0 indica que la participación de un sector en la producción regional es mayor que su participación en la economía nacional. Esta sección aprovecha la clasificación oficial de PIB regional de 12 sectores compilada por el Banco Central de Chile para extraer la composición estructural de los territorios.
+Los Cocientes de Localización (LQ) revelan qué tan especializada está una región en un sector particular en relación con el promedio nacional. Un LQ mayor que 1.0 indica que la participación de un sector en la producción regional es mayor que su participación en la economía nacional. Esta sección aprovecha la clasificación oficial de PIB regional de 13 sectores compilada por el Banco Central de Chile para extraer la composición estructural de los territorios.
 
 ### **Formalización Metodológica**
 
@@ -57,10 +57,10 @@ donde:
 - $Y_{\text{nat},s} = \sum_{j=1}^n Y_{j,s}$ es el PIB nacional del sector $s$ a través de las $n$ regiones,
 - $Y_{\text{nat}} = \sum_{j=1}^n \sum_{k=1}^m Y_{j,k}$ es el PIB nacional total.
 
-### **Tabla 2: Cocientes de Localización (LQ) por Región y Sector (2025 - 12 Sectores)**
+### **Tabla 2: Cocientes de Localización (LQ) por Región y Sector (2025 - 13 Sectores)**
 
-| Región | Agro | Pesca | Minería | Manuf | EGA | Const | Comercio | Hoteles | Transp | Finan | Inmob | Social |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Región | AdmPub | Agro | Comercio | Const | EGA | Manuf | Minería | Pesca | Hoteles | Inmob | Finan | Personales | Transp |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Antofagasta** | 0.24 | 0.00 | 0.23 | 1.26 | 1.30 | 0.26 | 4.46 | 0.08 | 0.51 | 0.25 | 0.39 | 0.27 | 0.42 |
 | **La Araucanía** | 1.62 | 2.42 | 0.96 | 1.28 | 1.20 | 0.83 | 0.02 | 0.07 | 1.10 | 1.48 | 0.60 | 1.68 | 0.84 |
 | **Arica y Parinacota** | 2.61 | 1.09 | 0.67 | 2.12 | 0.64 | 0.83 | 0.23 | 2.07 | 1.83 | 1.20 | 0.69 | 1.26 | 0.78 |
@@ -80,11 +80,11 @@ donde:
 
 ### **Figuras Correspondientes**
 
-#### **Figura 2.1: Mapa de Calor de Especialización en 12 Sectores**
+#### **Figura 2.1: Mapa de Calor de Especialización en 13 Sectores**
 ![Figura 2.1: Mapa de Calor de Especialización](assets/fig2_1_heatmap.png)
-*El mapa de calor expone inmediatamente las identidades económicas geográficas de Chile a través de los 12 sectores económicos. Destaca el norte predominantemente minero, el centro orientado a los servicios y el sur silvoagropecuario y pesquero.*
+*El mapa de calor expone inmediatamente las identidades económicas geográficas de Chile a través de los 13 sectores económicos. Destaca el norte predominantemente minero, el centro orientado a los servicios y el sur silvoagropecuario y pesquero.*
 
-#### **Figura 2.2: Gráficos de Radar de Especialización Regional por Macro-Zona (Decomposición de 12 Sectores)**
+#### **Figura 2.2: Gráficos de Radar de Especialización Regional por Macro-Zona (Decomposición de 13 Sectores)**
 
 Agrupamos los gráficos de radar regionales por macrozonas geográficas para exponer estructuras regionales compartidas y clusters territoriales:
 
