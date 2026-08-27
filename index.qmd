@@ -50,7 +50,7 @@ absorción.
 | # | Reporte | Tier | Familia | Frec. | Estado |
 |---|---------|------|---------|-------|--------|
 | 3 | [Los dos ejes: renta espacial y renta de recursos](reportes/report3-dos-ejes.qmd) | sectorial-regional | `two_axes` | A, T | publicado |
-| 4 | El ciclo regional de la construcción | regional | `permits` | M | en preparación |
+| 4 | [El ciclo regional de la construcción](reportes/report4-construccion.qmd) | regional | `permits` | M | publicado |
 | 5 | El inmueble como reserva de valor | macro-zona | `housing_wealth` | A, T | en preparación |
 | 6 | Profundidad financiera y morosidad por región | regional | `financial_depth` | M | en preparación |
 | 7 | Estancamiento del sector dinámico | regional | `interregional_trade` | M, T, A | en preparación |

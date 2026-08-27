@@ -13,6 +13,8 @@ juntas.
 | [`censo_bde_resumen.csv`](datos/censo_bde_resumen.csv) | Series por escala, capítulo y frecuencia | 3 KB |
 | [`panel_two_axes_annual.csv`](datos/panel_two_axes_annual.csv) | Renta espacial y de recursos, región × año | 72 KB |
 | [`panel_two_axes_summary.csv`](datos/panel_two_axes_summary.csv) | Resumen anual de los dos ejes | 3 KB |
+| [`panel_permits_annual.csv`](datos/panel_permits_annual.csv) | Permisos de edificación, región × año | 59 KB |
+| [`panel_permits_summary.csv`](datos/panel_permits_summary.csv) | Permisos: totales nacionales y variación | 3 KB |
 | [`panel_regional_pib_annual.csv`](datos/panel_regional_pib_annual.csv) | PIB regional anual | 27 KB |
 
 ::: {.fuente}

@@ -34,6 +34,8 @@ website:
             href: reportes/report2-cobertura.qmd
           - text: "3 · Los dos ejes"
             href: reportes/report3-dos-ejes.qmd
+          - text: "4 · El ciclo de la construcción"
+            href: reportes/report4-construccion.qmd
       - text: "Explorar"
         href: explorar.qmd
       - text: "Datos"
