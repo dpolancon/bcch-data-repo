@@ -1,13 +1,8 @@
 ---
-title: "El precio del dinero: tasas y apalancamiento"
+title: "El precio del dinero"
 ---
 
 <span class="escala esc-nac">NACIONAL &middot; una economía</span>
-
-*El desplome de la tasa de créditos hipotecarios desde más del 7% hasta un piso
-histórico de 1,99% en 2019 constituyó el principal estímulo financiero a la
-valorización del suelo. Paralelamente, el apalancamiento de los hogares sobre su
-ingreso disponible se multiplicó por 2,7.*
 
 ---
 
