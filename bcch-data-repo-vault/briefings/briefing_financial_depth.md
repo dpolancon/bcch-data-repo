@@ -1,0 +1,123 @@
+# Nota de familia — `financial_depth` (Reporte 6)
+
+**Escala:** regional (16 regiones) · **Frecuencia:** mensual
+**Fuente:** `data/raw/regional-spatial-macro-dataset/raw_monthly.csv`
+**Universo:** `universe_financial_depth.csv` (96 series) · **Manifiesto:** `manifest_financial_depth.csv`
+
+Esta nota existe para que la próxima persona no tenga que reconstruir lo que ya
+se aprendió acá. No resume el reporte: describe los datos.
+
+## Qué contiene la familia
+
+Seis indicadores mensuales, cada uno para las 16 regiones. **96 series, cero
+errores de descarga.** Se dividen en dos grupos que no se mezclan.
+
+### Morosidad (porcentaje de la cartera)
+
+| Mnemónico | Cartera | Rango observado |
+|-----------|---------|-----------------|
+| `DV90` | Vivienda, deuda con 90 días o más de mora | 0,13 a 4,06 % |
+| `DCS90` | Consumo | 0,28 a 4,13 % |
+| `DCM90` | Comercial | 0,28 a 9,58 % |
+
+Son **porcentajes de la cartera respectiva**, no montos. Suben cuando la mora
+crece *o* cuando la cartera se contrae: una alza no distingue entre más deudores
+en problemas y menos crédito vigente. Cualquier lectura tiene que decir cuál de
+las dos se está afirmando.
+
+### Profundidad de depósitos
+
+| Mnemónico | Qué mide | Unidad |
+|-----------|----------|--------|
+| `CCPN` | Número de cuentas corrientes y vista | cuentas |
+| `SCCPN` | Saldo medio en cuentas corrientes | pesos |
+| `SDV` | Saldos en depósitos a la vista | pesos |
+
+## Por qué esta familia importa en el programa
+
+Es la **huella regional del ciclo financiero**, y es lo más cerca que la BDE
+llega de territorializar la financiarización.
+
+Con una advertencia que conviene tener presente antes de escribir cualquier
+conclusión: mide **angustia y profundidad de depósitos, nunca volumen de
+crédito**. Los montos de crédito hipotecario, las tasas hipotecarias, el LTV y
+los plazos son **nacionales**. Es decir: esta familia dice cómo le está yendo al
+deudor en cada región, no cuánto crédito entró en cada región. La segunda
+pregunta no se puede responder con la BDE.
+
+## Cómo se leen los códigos
+
+La región va **pegada al mnemónico**, igual que en `permits`:
+
+```
+F022 . DV90 AP . TAS . Z . Z . Z . M
+  0      1↑      2     3   4   5   6
+         └── mnemónico + sufijo de región de dos letras
+```
+
+`TAS` marca tasa o porcentaje; `STO` marca stock. Los seis mnemónicos usan uno u
+otro de forma consistente con lo que miden.
+
+### La trampa del mnemónico pegado
+
+Esta es **la familia por la que existe la lista blanca de raíces** en
+`lib.regions`. Con el sufijo pegado al mnemónico, la coincidencia por subcadena
+produce falsos positivos silenciosos:
+
+- `F022.CTOBI` **no** es Biobío
+- `F022.CAP` **no** es Arica y Parinacota
+
+Y en sentido inverso, esta familia produjo el falso positivo que obligó a
+anclar la selección: `F022.CCPNVA` —cuentas corrientes de Valparaíso— contiene
+`NVA` y entraba en la familia `permits`, que es del Reporte 4 y de otro tema.
+Por eso `SeriesFamily.matches()` ancla el token al mnemónico como prefijo y no
+como subcadena.
+
+**Regla:** nunca escribir un parser nuevo. `lib.regions.parse_region` resuelve
+las cuatro codificaciones del catálogo y ya tiene la lista blanca.
+
+## Cobertura real
+
+| Mnemónico | Series | Observaciones | Inicio | Fin |
+|-----------|--------|---------------|--------|-----|
+| `DV90` | 16 | 3.407 | 2008-01 | 2026-05 |
+| `DCS90` | 16 | 3.407 | 2008-01 | 2026-05 |
+| `DCM90` | 16 | 3.407 | 2008-01 | 2026-05 |
+| `SDV` | 16 | 3.423 | 2008-01 | 2026-06 |
+| `CCPN` | 16 | 3.243 | 2009-01 | 2026-06 |
+| `SCCPN` | 16 | 3.243 | 2009-01 | 2026-06 |
+
+Las series de morosidad empiezan en **enero de 2008**; las de cuentas
+corrientes, un año después. La ventana común arranca en **2009-01**. Ninguna
+región falta y ninguna serie viene vacía.
+
+Nótese que esta familia alcanza hasta 2008, más atrás que `permits` (2014) y que
+los paneles de PIB regional (2013). Es la serie regional mensual más larga que
+el programa ha ingerido, y cubre la crisis subprime desde su comienzo.
+
+## Advertencias al construir el panel
+
+1. **No sumar los tres porcentajes de mora.** Son porcentajes de carteras
+   distintas y con denominadores distintos: su suma no significa nada. Si se
+   necesita un agregado, hay que ponderarlo por el tamaño de cada cartera, y ese
+   dato no está en esta familia.
+2. **Los saldos están en pesos nominales.** `SCCPN` y `SDV` no están
+   deflactados. Comparar 2009 con 2026 en pesos corrientes confunde inflación
+   con profundización financiera; hay que deflactar con un índice de precios
+   —que es nacional— y decirlo.
+3. **`CCPN` es un conteo de cuentas, no de personas.** Una persona puede tener
+   varias cuentas y una cuenta puede ser de una empresa. No es una medida de
+   inclusión financiera per cápita, y no se puede convertir en una: la población
+   regional no existe como serie del Banco Central.
+4. **Estacionalidad menor pero presente** en los saldos, con picos de fin de
+   año. Para lecturas de nivel usar promedios de doce meses.
+5. **2026 está incompleto** —termina en mayo o junio según el indicador—, de
+   modo que cualquier panel anual debe excluirlo o marcarlo.
+
+## Relacionado
+
+- [[briefing_permits]] — el mismo sufijo de región pegado, y el falso positivo
+  de `NVA` dentro de `CCPNVA`
+- [[briefing_two_axes]] — los sectores 10, 03 y 06
+- `lib/families.py` — declaración de la familia y `matches()`
+- `lib/regions.py` — el parser de las cuatro codificaciones y su lista blanca

@@ -387,7 +387,7 @@ FAMILIES: dict[str, SeriesFamily] = {
             "Objetivo 1 — dinamismo del sector productivo. El estancamiento se argumenta con participaciones de producto y descomposición shift-share, nunca como caída de productividad medida: el catálogo no contiene ninguna serie de PTF."
         ),
         notas_es=(
-            "Las compraventas usan un token de región NUMÉRICO (15 = Arica y Parinacota), una quinta codificación que lib.regions todavía no resuelve. El parser va ahí, nunca como parser suelto en otro lado."
+            "Las compraventas identifican la región con un token NUMÉRICO (01 = Tarapacá), distinto del sufijo de dos letras de F034 y F022. No es una codificación nueva: es la posicional de F035, que lib.regions ya resuelve. Verificado en la descarga: los doce mnemónicos de compraventas resuelven las 16 regiones por f035_positional. Antes esta nota afirmaba que hacía falta un parser nuevo, y era falso."
         ),
         notes=(
             "Compraventas use a NUMERIC region token (15 = Arica y "

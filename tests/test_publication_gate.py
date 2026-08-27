@@ -13,6 +13,8 @@ Owner:    dpolancon
 
 import os
 import re
+
+import pandas as pd
 import sys
 
 import pytest
@@ -161,4 +163,36 @@ class TestAbsorptionGate:
             text = note.read_text(encoding="utf-8")
             assert len(text.split()) >= 120, (
                 f"{note.name} is too short to brief anyone ({len(text.split())} words)"
+            )
+
+class TestCapaCruda:
+    """Invariantes de la capa cruda que un merge parcial ya rompió dos veces.
+
+    Las dos fallas fueron silenciosas: nada explotó al escribir, y el error
+    apareció mucho después, en un consumidor que usaba .dt sobre una columna
+    de texto o que cruzaba por un region_id sin relleno.
+    """
+
+    def _archivos(self):
+        raw = REPO_ROOT / "data" / "raw" / "regional-spatial-macro-dataset"
+        return sorted(raw.glob("raw_*.csv"))
+
+    def test_fecha_uniforme(self):
+        """Una sola representación de fecha por archivo, YYYY-MM-DD."""
+        for archivo in self._archivos():
+            fechas = pd.read_csv(archivo, dtype=str, low_memory=False)["date"]
+            largos = set(fechas.dropna().str.len())
+            assert largos == {10}, (
+                f"{archivo.name} mezcla formatos de fecha {sorted(largos)}. "
+                "Un merge parcial dejó filas nuevas con hora y preservadas sin."
+            )
+
+    def test_region_id_con_relleno(self):
+        """region_id es texto de dos caracteres: '01', no '1'."""
+        for archivo in self._archivos():
+            ids = pd.read_csv(archivo, dtype=str, low_memory=False)["region_id"]
+            malos = sorted({v for v in ids.dropna().unique() if len(v) != 2})
+            assert not malos, (
+                f"{archivo.name} tiene region_id sin relleno: {malos[:5]}. "
+                "Leerlo como entero convierte '01' en 1 y rompe todo cruce."
             )

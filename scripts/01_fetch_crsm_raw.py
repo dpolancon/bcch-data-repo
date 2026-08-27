@@ -485,6 +485,16 @@ def write_outputs(
     exactly as it was. A full run replaces, so stale series that no longer
     resolve do not linger.
     """
+    # Normaliza la fecha a YYYY-MM-DD antes de escribir. Sin esto el merge deja
+    # dos representaciones en el mismo archivo: las filas nuevas llegan como
+    # datetime y se serializan con hora, las preservadas se leyeron como texto
+    # y conservan la forma corta. Cualquier consumidor que use .dt sobre la
+    # columna revienta, y revienta lejos de acá.
+    observations = observations.copy()
+    observations["date"] = pd.to_datetime(
+        observations["date"], format="ISO8601"
+    ).dt.strftime("%Y-%m-%d")
+
     for letter, slug in codes_lib.FREQ_SLUG.items():
         subset = observations[observations["frequency"] == letter][OUTPUT_COLUMNS]
         path = out_dir / f"raw_{slug}.csv"

@@ -1,0 +1,117 @@
+# Nota de familia — `interregional_trade` (Reporte 7)
+
+**Escala:** regional (16 regiones) · **Frecuencia:** mensual y anual
+**Fuente:** `raw_monthly.csv` (compraventas) y `raw_annual.csv` (exportaciones)
+**Universo:** `universe_interregional_trade.csv` (496 series) · **Manifiesto:** `manifest_interregional_trade.csv`
+
+Esta nota existe para que la próxima persona no tenga que reconstruir lo que ya
+se aprendió acá. No resume el reporte: describe los datos.
+
+## Qué contiene la familia
+
+Dos bloques con frecuencias y ventanas temporales distintas. **496 series, cero
+errores y ninguna serie vacía.**
+
+### Compraventas regionales (mensual, desde 2018)
+
+| Mnemónico | Qué mide |
+|-----------|----------|
+| `CVRV` | Monto de compraventas según región de **venta** |
+| `CVRC` | Monto de compraventas según región de **compra** |
+| `NFRV` | Número de facturas, región de venta |
+| `NFRC` | Número de facturas, región de compra |
+
+Cada uno viene en tres variantes: el total, el sufijo `ITE` (**inter**regional) y
+el sufijo `ITA` (**intra**regional). Doce mnemónicos × 16 regiones = 192 series.
+
+La distinción `ITE`/`ITA` es lo interesante del bloque: permite ver qué
+proporción del comercio de una región se hace consigo misma y qué proporción con
+el resto del país. Es lo más cerca que la BDE llega de una matriz de flujos
+interregionales.
+
+### Exportaciones regionales (anual, desde 2013)
+
+`XSE`, 304 series, exportaciones de bienes y servicios por región. Es el bloque
+que conecta la estructura productiva regional con los circuitos externos.
+
+## Por qué esta familia importa en el programa
+
+Sirve al **Objetivo 1** —dinamismo del sector productivo— y da el contrapunto
+del eje espacial: si la renta espacial crece mientras la construcción cae
+(Reporte 4), la pregunta siguiente es qué pasa con el sector que sí produce
+bienes transables.
+
+::: advertencia
+**El estancamiento no se puede medir como productividad.** El catálogo no
+contiene ninguna serie de PTF —la búsqueda de «productividad» devuelve cero
+resultados en las 25.369 series—. El argumento tiene que apoyarse en
+participaciones de producto, composición del comercio y descomposición
+*shift-share*, nunca en una caída de productividad medida. Decir lo contrario
+sería atribuir a los datos algo que no contienen.
+:::
+
+## Cómo se leen los códigos
+
+Acá está la diferencia con `permits` y `financial_depth`. La región **no** va
+pegada al mnemónico: va en un token posicional y en forma **numérica**.
+
+```
+F035 . CVRC . FLU . Z . CLP . Z . Z . Z . Z . 01 . 0 . M
+  0      1      2    3    4    5   6   7   8   9↑   10  11
+                                                └── región, numérica
+```
+
+`01` es Tarapacá, y la numeración sigue el orden norte-sur del F035, no el orden
+alfabético ni el de los sufijos de dos letras.
+
+### Corrección de una nota anterior
+
+Este registro afirmaba que la codificación numérica era «una quinta
+codificación que `lib.regions` todavía no resuelve» y que hacía falta un parser
+nuevo. **Era falso.** El token numérico posicional de F035 es precisamente lo
+que resuelve `f035_positional`, que ya estaba implementado desde el primer día.
+Verificado en la descarga: los doce mnemónicos de compraventas resuelven las 16
+regiones por ese método, sin tocar una línea de `lib.regions`.
+
+Vale la pena registrar el error porque el costo de una nota así no es cero: un
+coinvestigador habría salido a escribir un parser para un problema inexistente.
+
+## Cobertura real
+
+| Bloque | Series | Observaciones | Inicio | Fin |
+|--------|--------|---------------|--------|-----|
+| `CVRV` (+ ITE, ITA) | 48 | 4.896 | 2018-01 | 2026-06 |
+| `CVRC` (+ ITE, ITA) | 48 | 4.896 | 2018-01 | 2026-06 |
+| `NFRV` (+ ITE, ITA) | 48 | 4.896 | 2018-01 | 2026-06 |
+| `NFRC` (+ ITE, ITA) | 48 | 4.896 | 2018-01 | 2026-06 |
+| `XSE` | 304 | 3.840 | 2013-01 | 2025-01 |
+
+**Las compraventas empiezan en 2018**, no antes. Son la serie regional más
+corta que el programa ha ingerido: ocho años y medio, contra 2008 de
+`financial_depth` y 2013 de los paneles de PIB. Cualquier análisis que las cruce
+con el eje espacial queda limitado a esa ventana, y la ventana no cubre el
+período de tasas más bajas que interesa al proyecto en su tramo inicial.
+
+## Advertencias al construir el panel
+
+1. **`ITE` + `ITA` debería dar el total, y hay que comprobarlo, no suponerlo.**
+   Si no cierra, la diferencia necesita explicación antes de publicar cualquier
+   proporción.
+2. **No sumar región de venta y región de compra.** Cada transacción aparece dos
+   veces —una en cada lado— y sumarlas duplica el comercio nacional. Son dos
+   vistas del mismo flujo, no dos flujos.
+3. **Montos en pesos nominales.** Igual que en `financial_depth`, comparar 2018
+   con 2026 en pesos corrientes confunde inflación con crecimiento del comercio.
+4. **Ventanas distintas dentro de la familia.** Compraventas desde 2018 y
+   mensuales; exportaciones desde 2013 y anuales. Cruzarlas exige agregar las
+   compraventas a anual y recortar al rango común 2018–2025, con 2026 excluido
+   por incompleto.
+5. **`NFRV`/`NFRC` son conteos de facturas, no de transacciones económicas
+   distintas.** Un mismo negocio puede facturarse varias veces.
+
+## Relacionado
+
+- [[briefing_two_axes]] — la trampa del token 7 en los códigos F035
+- [[briefing_permits]] — el sufijo de región pegado, que acá **no** aplica
+- [[briefing_financial_depth]] — la otra familia regional mensual
+- `lib/regions.py` — `f035_positional`, que resuelve esta familia sin cambios
