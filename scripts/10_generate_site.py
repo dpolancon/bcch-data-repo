@@ -63,6 +63,8 @@ PUBLISHED_PANELS = [
     "censo_bde_resumen.csv",
     "panel_two_axes_annual.csv",
     "panel_two_axes_summary.csv",
+    "panel_permits_annual.csv",
+    "panel_permits_summary.csv",
     "panel_regional_pib_annual.csv",
 ]
 
@@ -423,6 +425,126 @@ encadenado. Los volúmenes encadenados no son aditivos entre sectores: sumarlos
 no reproduce el total regional, y una participación construida así no sería una
 proporción de nada. El detalle está en la [página de
 metodología](../metodologia.qmd).
+"""
+
+
+def build_report4(
+    anual: pd.DataFrame, resumen: pd.DataFrame, ejes: pd.DataFrame
+) -> str:
+    """Reporte 4: la cantidad construida contra la renta espacial.
+
+    Toda cifra se interpola desde los paneles; ninguna se escribe a mano. La
+    etapa 11 las recalcula y falla si la prosa deja de cuadrar.
+    """
+    sah = anual[anual["indicador"] == "superficie_habitacional"]
+    nva = anual[anual["indicador"] == "viviendas_autorizadas"]
+    ceys = anual[anual["indicador"] == "empresas_constituidas"]
+    a0, a1 = int(anual["anio"].min()), int(anual["anio"].max())
+
+    def total(marco, anio):
+        return float(marco[marco["anio"] == anio]["valor"].sum())
+
+    sah0, sah1 = total(sah, a0), total(sah, a1)
+    nva0, nva1 = total(nva, a0), total(nva, a1)
+    ceys0, ceys1 = total(ceys, a0), total(ceys, a1)
+
+    # Renta espacial: participación media entre regiones, del panel de R3.
+    esp = ejes[ejes["axis"] == "spatial_rent"]
+    renta = esp.groupby("year")["share"].mean()
+    renta0, renta1 = float(renta.loc[a0]), float(renta.loc[a1])
+
+    idx_sah = 100 * sah1 / sah0
+    idx_renta = 100 * renta1 / renta0
+
+    ultimo = sah[sah["anio"] == a1].set_index("region_display")["indice_base100"]
+    bajo = int((ultimo < 100).sum())
+    arriba = ultimo.nlargest(1)
+    abajo = ultimo.nsmallest(1)
+
+    def mm(x):
+        return site_lib.es(x / 1e6, 1)
+
+    def miles(x):
+        return f"{int(round(x / 1000)):,}".replace(",", ".")
+
+    return f"""---
+title: "El ciclo regional de la construcción"
+---
+
+{site_lib.escala_badge(families_lib.ESCALA_REGIONAL)}
+
+*La renta espacial creció mientras la cantidad construida se redujo a la mitad.
+Lo que se valoriza es el stock existente, no la formación de capital.*
+
+---
+
+## El argumento
+
+El Reporte 3 dejó una pregunta que el sector 10 no puede responder. *Servicios
+de vivienda e inmobiliarios* es en buena parte **alquiler imputado**: sube
+cuando suben los precios de la vivienda, se construya o no un metro cuadrado
+nuevo. Precio y cantidad son indistinguibles dentro de esa serie.
+
+Los permisos de edificación son cantidad sin precio: metros cuadrados
+autorizados y unidades de vivienda. Puestos contra la participación del sector
+10 separan las dos historias. Si la renta espacial sube **con** los permisos,
+hay formación de capital. Si sube **contra** permisos que caen, lo que crece es
+la valorización del stock que ya existe.
+
+## Lo que muestran los datos
+
+Entre {a0} y {a1} la superficie habitacional autorizada pasó de
+**{mm(sah0)} millones de m²** a **{mm(sah1)} millones de m²**, una caída de
+**{site_lib.es(100 - idx_sah, 1)}%**. Las viviendas autorizadas cayeron de
+**{miles(nva0)} mil** a **{miles(nva1)} mil** unidades.
+
+En el mismo período la participación media de la renta espacial en el producto
+regional **subió**: índice **{site_lib.es(idx_renta, 1)}** contra un índice de
+**{site_lib.es(idx_sah, 1)}** para los permisos, ambos con base 100 en {a0}.
+
+La caída no es de una región ni de un año: **{bajo} de las 16 regiones**
+autorizaban en {a1} menos superficie habitacional que en {a0}. El rango va de
+{arriba.index[0]} ({site_lib.es(float(arriba.iloc[0]), 1)}) a
+{abajo.index[0]} ({site_lib.es(float(abajo.iloc[0]), 1)}).
+
+::: {{.caveat}}
+**Un permiso es intención de construir, no construcción.** Un permiso
+autorizado puede no ejecutarse nunca. La serie es un indicador adelantado del
+ciclo, no una medida de stock ni de producto, y la caída documentada acá es de
+autorizaciones, no de obra terminada.
+:::
+
+## Por qué importa
+
+La divergencia es el objeto del proyecto medido a escala regional. Una renta
+espacial que crece mientras la cantidad construida se contrae no describe una
+expansión inmobiliaria: describe la revalorización de un activo que no se
+deprecia, sostenida por algo distinto de la demanda física de suelo.
+
+El dato regional no prueba nada sobre las tasas de interés —eso ocurre a escala
+nacional y con otra serie—, pero sí descarta que el alza de la renta espacial
+venga acompañada de más construcción. Esa es la mitad del argumento que la
+escala regional sí puede sostener.
+
+Las empresas constituidas siguen el camino contrario: de **{miles(ceys0)} mil**
+a **{miles(ceys1)} mil** entre {a0} y {a1}. Entra como control de dinamismo
+empresarial y **no forma parte del eje espacial**: no se suma a los otros tres
+indicadores.
+
+## Nota metodológica
+
+Los cuatro indicadores son flujos mensuales con estacionalidad marcada —los
+permisos caen en invierno austral y en enero—, de modo que el panel mensual
+carga la suma móvil de doce meses y ninguna lectura mes contra mes es
+interpretable. El panel anual usa sólo años calendario **completos**: las series
+del INE terminan en mayo de {a1 + 1}, y graficar un año parcial junto a años
+completos inventaría una caída que no ocurrió.
+
+Las regiones se comparan como **índice base 100 = {a0}**, no per cápita: el
+Banco Central no publica población regional como serie propia, sólo como
+denominador dentro de las tablas per cápita.
+
+{site_lib.fuente("panel_permits_annual.csv")}
 """
 
 
@@ -1100,6 +1222,8 @@ def main() -> int:
         "censo_bde_resumen.csv": "Series por escala, capítulo y frecuencia",
         "panel_two_axes_annual.csv": "Renta espacial y de recursos, región × año",
         "panel_two_axes_summary.csv": "Resumen anual de los dos ejes",
+        "panel_permits_annual.csv": "Permisos de edificación, región × año",
+        "panel_permits_summary.csv": "Permisos: totales nacionales y variación",
         "panel_regional_pib_annual.csv": "PIB regional anual",
     }
     panels_meta = [
@@ -1152,6 +1276,30 @@ def main() -> int:
             "family": "two_axes",
         }
     )
+
+    # ---- reporte 4: permisos de edificación -------------------------------
+    permisos_anual = DATA_DIR / "panel_permits_annual.csv"
+    if permisos_anual.exists():
+        page4 = build_report4(
+            pd.read_csv(permisos_anual, dtype={"region_id": str}),
+            pd.read_csv(DATA_DIR / "panel_permits_summary.csv"),
+            panel,
+        )
+        check_tokens(page4, "reportes/report4-construccion.qmd")
+        write(root / "reportes" / "report4-construccion.qmd", page4)
+        published.append(
+            {
+                "n": 4,
+                "slug": "report4-construccion",
+                "nav_label": "4 · El ciclo de la construcción",
+                "family": "permits",
+            }
+        )
+    else:
+        logger.warning(
+            "Sin panel de permisos; el reporte 4 no se genera. "
+            "Corra: python scripts/09_build_theme_panels.py --family permits"
+        )
 
     # ---- vendored chart libraries ----------------------------------------
     # Observable Plot and d3 ship with the site rather than loading from a CDN:

@@ -9,6 +9,7 @@ Inputs:   data/raw/regional-spatial-macro-dataset/raw_annual.csv (via lib.sector
           data/panel_regional_pib_annual.csv
 Outputs:  data/panel_two_axes_annual.csv
           data/panel_two_axes_summary.csv
+          data/panel_permits_{monthly,annual,summary}.csv
 Created:  2026-08-26
 Updated:  2026-08-26
 Owner:    dpolancon
@@ -28,7 +29,7 @@ import pandas as pd
 
 from lib import families as families_lib
 from lib.codes import SECTOR_CONSTRUCTION, SECTOR_MINING, SECTOR_REAL_ESTATE
-from lib.paths import DATA_DIR
+from lib.paths import CRSM_RAW_DIR, DATA_DIR
 from lib.regions import REGIONS
 from lib.sectors import compute_sector_shares
 from lib.stats import compute_weighted_gini
@@ -125,7 +126,137 @@ def build_two_axes() -> tuple[pd.DataFrame, pd.DataFrame]:
     return panel, summary
 
 
-BUILDERS = {"two_axes": build_two_axes}
+# Mnemónicos de la familia de permisos, con lo que mide cada uno. SAH y NVA
+# son cantidad pura --metros y unidades-- sin precio de por medio; ahí está su
+# valor para el programa. CEYS entra como control de dinamismo empresarial y
+# NO forma parte del eje espacial: no se suma a los otros tres.
+PERMISOS = {
+    "SAH": ("superficie_habitacional", "m2", True),
+    "SANH": ("superficie_no_habitacional", "m2", True),
+    "NVA": ("viviendas_autorizadas", "unidades", True),
+    "CEYS": ("empresas_constituidas", "unidades", False),
+}
+
+SUFIJOS_REGION = (
+    "AP", "TA", "AN", "AT", "CO", "VA", "RM", "LI",
+    "ML", "NB", "BI", "AR", "LR", "LL", "AI", "MA",
+)
+
+
+def _mnemonico(code: str) -> str:
+    """Mnemónico sin el sufijo de región pegado."""
+    mn = code.split(".")[1].upper()
+    for suf in SUFIJOS_REGION:
+        if mn.endswith(suf) and len(mn) > len(suf):
+            return mn[: -len(suf)]
+    return mn
+
+
+def build_permits() -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Permisos de edificación por región, mensual y anual.
+
+    Son flujos mensuales con estacionalidad fuerte --los permisos caen en
+    invierno austral y en enero--, de modo que el panel mensual carga la suma
+    móvil de doce meses y ninguna lectura mes contra mes tiene sentido. El
+    panel anual se limita a años calendario COMPLETOS: las series del INE
+    terminan en mayo de 2026, y graficar un año parcial junto a años completos
+    inventa una caída que no ocurrió.
+    """
+    ruta = CRSM_RAW_DIR / "raw_monthly.csv"
+    if not ruta.exists():
+        raise SystemExit(f"Falta {ruta}. Corra la etapa 01 con --family permits.")
+
+    # dtype=str preserva el relleno de ceros de region_id y sector_id, pero
+    # anula parse_dates: la conversión va explícita y con formato ISO, que es
+    # como lib.client normaliza las fechas al escribir la capa cruda.
+    crudo = pd.read_csv(ruta, dtype=str, low_memory=False)
+    crudo["date"] = pd.to_datetime(crudo["date"], format="ISO8601")
+    crudo["mnemonico"] = crudo["series_code"].map(_mnemonico)
+    sub = crudo[crudo["mnemonico"].isin(PERMISOS)].copy()
+    if sub.empty:
+        raise SystemExit(
+            "No hay filas de permisos en raw_monthly.csv -- ¿se descargó la familia?"
+        )
+
+    sub["valor"] = pd.to_numeric(sub["value"], errors="coerce")
+    sub["indicador"] = sub["mnemonico"].map(lambda m: PERMISOS[m][0])
+    sub["unidad"] = sub["mnemonico"].map(lambda m: PERMISOS[m][1])
+    sub["eje_espacial"] = sub["mnemonico"].map(lambda m: PERMISOS[m][2])
+
+    display = {r.name_ascii: r.name_es for r in REGIONS}
+    por_id = {r.id: r.name_es for r in REGIONS}
+    sub["region_display"] = sub["region_id"].map(por_id)
+    faltan = sub[sub["region_display"].isna()]["region_id"].unique()
+    if len(faltan):
+        raise SystemExit(f"Regiones sin nombre: {sorted(faltan)}")
+
+    mensual = (
+        sub[[
+            "date", "region_id", "region_display", "mnemonico", "indicador",
+            "unidad", "eje_espacial", "valor",
+        ]]
+        .sort_values(["indicador", "region_id", "date"])
+        .reset_index(drop=True)
+    )
+    # Suma móvil de doce meses: es la única lectura defendible de un flujo
+    # mensual con esta estacionalidad, y evita que alguien grafique enero.
+    mensual["suma_12m"] = mensual.groupby(
+        ["indicador", "region_id"], sort=False
+    )["valor"].transform(lambda x: x.rolling(12, min_periods=12).sum())
+
+    # Panel anual, sólo años completos y comunes a los cuatro indicadores.
+    mensual["anio"] = mensual["date"].dt.year
+    conteo = (
+        mensual.groupby(["indicador", "region_id", "anio"])["valor"]
+        .size()
+        .reset_index(name="meses")
+    )
+    completos = conteo[conteo["meses"] == 12]
+    anios_por_ind = completos.groupby("indicador")["anio"].apply(set)
+    comunes = set.intersection(*anios_por_ind) if len(anios_por_ind) else set()
+    logger.info(
+        "Años completos comunes a los %d indicadores: %d-%d",
+        len(anios_por_ind), min(comunes), max(comunes),
+    )
+
+    anual = (
+        mensual[mensual["anio"].isin(comunes)]
+        .groupby(
+            ["anio", "region_id", "region_display", "indicador", "unidad",
+             "eje_espacial"],
+            as_index=False,
+        )["valor"]
+        .sum()
+    )
+    # La Región Metropolitana domina en niveles por población, y el Banco
+    # Central no publica población regional como serie propia: sólo aparece
+    # como denominador dentro de las tablas per cápita. Comparar regiones
+    # exige entonces un índice, no un per cápita que no se puede construir.
+    base = min(comunes)
+    ref = (
+        anual[anual["anio"] == base]
+        .set_index(["region_id", "indicador"])["valor"]
+        .rename("base")
+    )
+    anual = anual.join(ref, on=["region_id", "indicador"])
+    anual["indice_base100"] = 100 * anual["valor"] / anual["base"]
+    anual = anual.drop(columns=["base"]).sort_values(
+        ["indicador", "region_id", "anio"]
+    ).reset_index(drop=True)
+
+    # Resumen nacional por indicador y año, con variación anual.
+    resumen = (
+        anual.groupby(["anio", "indicador", "unidad"], as_index=False)["valor"]
+        .sum()
+        .sort_values(["indicador", "anio"])
+    )
+    resumen["var_anual_pct"] = 100 * resumen.groupby("indicador")["valor"].pct_change()
+    resumen = resumen.reset_index(drop=True)
+
+    return mensual.drop(columns=["anio"]), anual, resumen
+
+
+BUILDERS = {"two_axes": build_two_axes, "permits": build_permits}
 
 
 def main() -> int:
@@ -146,22 +277,28 @@ def main() -> int:
         fam.name, fam.report, fam.escala,
     )
 
-    panel, summary = BUILDERS[args.family]()
+    marcos = BUILDERS[args.family]()
 
-    panel_path = DATA_DIR / f"panel_{args.family}_annual.csv"
-    summary_path = DATA_DIR / f"panel_{args.family}_summary.csv"
-    panel.to_csv(panel_path, index=False, encoding="utf-8")
-    summary.to_csv(summary_path, index=False, encoding="utf-8")
+    # Cada familia decide cuántos marcos publica. two_axes emite panel anual y
+    # resumen; permits emite mensual, anual y resumen, porque un flujo mensual
+    # no se deja resumir sin perder la estacionalidad que lo define.
+    if len(marcos) == 2:
+        nombres = ["annual", "summary"]
+    elif len(marcos) == 3:
+        nombres = ["monthly", "annual", "summary"]
+    else:
+        raise SystemExit(f"{args.family} devolvió {len(marcos)} marcos")
 
-    logger.info(
-        "Panel: %d rows | %d regions | %d-%d",
-        len(panel),
-        panel["region_code"].nunique(),
-        int(panel["year"].min()),
-        int(panel["year"].max()),
-    )
-    logger.info("Wrote %s", panel_path.name)
-    logger.info("Wrote %s", summary_path.name)
+    for sufijo, marco in zip(nombres, marcos):
+        ruta = DATA_DIR / f"panel_{args.family}_{sufijo}.csv"
+        marco.to_csv(ruta, index=False, encoding="utf-8")
+        col_region = "region_code" if "region_code" in marco.columns else "region_id"
+        detalle = ""
+        if col_region in marco.columns:
+            detalle = f" | {marco[col_region].nunique()} regiones"
+        logger.info(
+            "Escribió %-34s %6d filas%s", ruta.name, len(marco), detalle
+        )
     return 0
 
 

@@ -146,6 +146,57 @@ def audit_report3(root: Path, problems: list[str]) -> None:
         )
 
 
+def audit_report4(root: Path, problems: list[str]) -> None:
+    """Recalcula las cifras del reporte 4 y las compara con su página.
+
+    Igual que para el reporte 3: si la prosa deja de seguir del panel que dice
+    describir, la auditoría falla en vez de publicar una página que ya no
+    corresponde a los datos.
+    """
+    pagina = root / "reportes" / "report4-construccion.qmd"
+    if not pagina.exists():
+        logger.info("Reporte 4 ausente -- se omite su verificación")
+        return
+
+    anual = pd.read_csv(DATA_DIR / "panel_permits_annual.csv", dtype={"region_id": str})
+    sah = anual[anual["indicador"] == "superficie_habitacional"]
+    a0, a1 = int(anual["anio"].min()), int(anual["anio"].max())
+    sah0 = float(sah[sah["anio"] == a0]["valor"].sum())
+    sah1 = float(sah[sah["anio"] == a1]["valor"].sum())
+    idx = 100 * sah1 / sah0
+    bajo = int((sah[sah["anio"] == a1]["indice_base100"] < 100).sum())
+
+    esperados = {
+        site_lib.es(sah0 / 1e6, 1),
+        site_lib.es(sah1 / 1e6, 1),
+        site_lib.es(100 - idx, 1),
+        site_lib.es(idx, 1),
+    }
+    texto = pagina.read_text(encoding="utf-8")
+    # Los números van dentro del negrita junto a su unidad --«**13,3 millones
+    # de m²**»--, que es mejor prosa que un negrita con la cifra desnuda. Se
+    # extraen de dentro del bloque en vez de exigir que lo ocupen entero.
+    # Dos pasos a propósito: un solo regex lazy captura «13» y descarta el
+    # «,3». Se extraen primero los bloques en negrita y después los números
+    # completos dentro de cada bloque.
+    hallados = set()
+    for bloque in re.findall(r"\*\*([^*]+)\*\*", texto):
+        hallados.update(re.findall(r"\d+(?:,\d+)?", bloque))
+    faltan = esperados - hallados
+    if faltan:
+        fail(
+            problems,
+            f"El reporte 4 no reproduce su propio panel; ausentes: {sorted(faltan)}",
+        )
+    elif f"**{bajo} de las 16 regiones**" not in texto:
+        fail(problems, f"El reporte 4 no declara las {bajo} regiones bajo el nivel de {a0}")
+    else:
+        logger.info(
+            "Reporte 4: %d cifras y el conteo de regiones reproducen del panel",
+            len(esperados),
+        )
+
+
 def audit_panels(root: Path, problems: list[str]) -> None:
     """Published CSVs must be identical to the ones in data/."""
     datos = root / "datos"
@@ -404,6 +455,7 @@ def main() -> int:
     audit_panels(root, problems)
     audit_tokens(root, problems)
     audit_report3(root, problems)
+    audit_report4(root, problems)
     audit_conteos(root, problems)
     audit_atribucion(root, problems)
     audit_idioma(root, problems)
