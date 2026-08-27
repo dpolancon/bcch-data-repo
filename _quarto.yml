@@ -31,10 +31,10 @@ website:
             href: escalas/sectorial-regional.qmd
       - text: "Reportes"
         menu:
-          - text: "1 · Disparidades regionales"
-            href: reportes/report1-disparidades.qmd
-          - text: "2 · Cobertura de datos"
-            href: reportes/report2-cobertura.qmd
+          - text: "1 · Cobertura de datos"
+            href: reportes/report1-cobertura.qmd
+          - text: "2 · Disparidades regionales"
+            href: reportes/report2-disparidades.qmd
           - text: "3 · Los dos ejes"
             href: reportes/report3-dos-ejes.qmd
           - text: "4 · El ciclo de la construcción"

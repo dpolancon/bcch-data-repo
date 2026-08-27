@@ -14,9 +14,7 @@ se aprendió acá. No resume el reporte: describe los datos.
 
 ## Qué contiene la familia
 
-La familia reúne el conjunto completo de regresores financieros de la hipótesis
-H1 del proyecto Fondecyt (la caída de la tasa de descuento como determinante
-financiero de la valorización del suelo metropolitano, Tabla 1 de la formulación):
+La familia reúne el conjunto completo de regresores financieros del ciclo macroeconómico (la caída de la tasa de descuento como determinante financiero de la valorización del suelo metropolitano):
 
 1. **Tasa de Política Monetaria (TPM):**
    - Tasa diaria y promedios mensuales/anuales (`F022.TPM.TIN.D001.NO.Z.D` y series de operaciones).
@@ -61,7 +59,7 @@ necesita desagregación regional**:
    - Captación y colocación desde 1983; TPM desde 1995; bonos BCU y tasas
      hipotecarias desagregadas desde 2002; deuda de hogares `DEUBH` desde
      2003/2008.
-   - Cualquier cruce simultáneo multivariado (como la Tabla 1 de la formulación)
+   - Cualquier cruce simultáneo multivariado de regresores
      debe trabajar con ventanas comunes o empalmes explícitos.
 2. **Nominal vs Real:**
    - La TPM operaba en UF (tasa real) hasta agosto de 2001, fecha en que se

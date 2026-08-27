@@ -34,11 +34,7 @@ cuadrados, número de propiedades y el Índice de Precios de Vivienda (IPV):
 
 ## Por qué esta familia importa en el programa
 
-Reproduce y extiende la Figura 4 de la formulación del proyecto Fondecyt: el
-valor del stock de suelo residencial agregado y unitario. Demuestra
-empíricamente que la mayor parte de la apreciación del patrimonio habitacional
-chileno en las últimas dos décadas se explica por la renta del suelo urbano
-(`VALT`) y no por el costo de edificación (`VALC`).
+Analiza y extiende la descomposición empírica de la riqueza inmobiliaria: el valor del stock de suelo residencial agregado y unitario. Demuestra empíricamente que la mayor parte de la apreciación del patrimonio habitacional chileno en las últimas dos décadas se explica por la renta del suelo urbano (`VALT`) y no por el costo de edificación (`VALC`).
 
 ## Geografía: Tier A (Zonas, no Regiones)
 

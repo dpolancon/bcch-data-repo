@@ -84,7 +84,7 @@ Las compraventas identifican la región con un token NUMÉRICO (01 = Tarapacá),
 
 ### `tasas` — Reporte 8 (nacional)
 
-Escala nacional, y no le falta desagregación: la tasa de descuento que discute H1 es un precio único de la economía. La cobertura es desigual entre series (captación y colocación desde 1983; TPM desde 1995; hipotecarias y bonos UF desde 2002), de modo que cualquier ventana común es más corta que la más larga. DEUBH mide apalancamiento de hogares como porcentaje del PIB y del ingreso disponible, y es la contraparte financiera del stock de vivienda que mide housing_wealth.
+Escala nacional, y no le falta desagregación: la tasa de descuento es un precio único de la economía. La cobertura es desigual entre series (captación y colocación desde 1983; TPM desde 1995; hipotecarias y bonos UF desde 2002), de modo que cualquier ventana común es más corta que la más larga. DEUBH mide apalancamiento de hogares como porcentaje del PIB y del ingreso disponible, y es la contraparte financiera del stock de vivienda que mide housing_wealth.
 
 ## Reproducir
 

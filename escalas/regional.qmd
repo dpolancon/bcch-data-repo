@@ -32,19 +32,19 @@ La BDE publica **1.695 series** en esta escala. 6.7% de los 25.369 códigos úni
 
 ### El ciclo regional de la construcción
 
-**Objetivo.** Objetivo 2 — demanda física de suelo. Es el insumo con que la formulación propone reconstruir el Consumo de Suelo Urbano del MINVU a partir de permisos de edificación desde 2010 (Proxy 2).
+**Objetivo.** Demanda física de suelo. Permite analizar la trayectoria de la edificación residencial a partir de permisos de edificación desde 2010.
 
 Primer encuentro con el sufijo de región de dos letras pegado al mnemónico (AP, TA, AN...). Son permisos: intención de construir, no construcción ejecutada. Fuerte estacionalidad, así que toda lectura mes contra mes es ruido; usar variación doce meses. CEYS es constitución de empresas de todo tipo y entra como control de dinamismo empresarial, no como parte del eje espacial: no sumarlo a los otros tres.
 
 ### Profundidad financiera y morosidad por región
 
-**Objetivo.** Objetivo 4 — huella regional del ciclo financiero. Mide angustia y profundidad de depósitos, nunca volumen de crédito: los volúmenes hipotecarios son nacionales.
+**Objetivo.** Huella regional del ciclo financiero. Mide angustia y profundidad de depósitos, nunca volumen de crédito: los volúmenes hipotecarios son nacionales.
 
 F022 usa la codificación de mnemónico pegado. F022.CTOBI NO es Biobío y F022.CAP NO es Arica y Parinacota: la lista blanca de raíces en lib.regions existe exactamente para esta familia. La selección por familia se ancla al mnemónico por la misma razón, después de que NVA hiciera match dentro de CCPNVA.
 
 ### Estancamiento del sector dinámico
 
-**Objetivo.** Objetivo 1 — dinamismo del sector productivo. El estancamiento se argumenta con participaciones de producto y descomposición shift-share, nunca como caída de productividad medida: el catálogo no contiene ninguna serie de PTF.
+**Objetivo.** Dinamismo del sector productivo. El estancamiento se argumenta con participaciones de producto y descomposición shift-share, nunca como caída de productividad medida: el catálogo no contiene ninguna serie de PTF.
 
 Las compraventas identifican la región con un token NUMÉRICO (01 = Tarapacá), distinto del sufijo de dos letras de F034 y F022. No es una codificación nueva: es la posicional de F035, que lib.regions ya resuelve. Verificado en la descarga: los doce mnemónicos de compraventas resuelven las 16 regiones por f035_positional. Antes esta nota afirmaba que hacía falta un parser nuevo, y era falso.
 

@@ -27,7 +27,7 @@ La BDE publica **2.331 series** en esta escala. 9.2% de los 25.369 códigos úni
 
 ### Los dos ejes: renta espacial y renta de recursos
 
-**Objetivo.** Contexto de selección de casos. No responde a un objetivo específico: sostiene el marco muestral, al medir cuán extractivas son las economías regionales cuyas capitales el proyecto estudia.
+**Objetivo.** Contexto de selección de casos. Sostiene el marco muestral al medir cuán extractivas son las economías regionales.
 
 Los dos ejes del marco de crecimiento desbalanceado tienen contraparte directa en las cuentas regionales: sector 10 (Servicios de vivienda e inmobiliarios) es renta espacial, sector 03 (Minería) es renta de recursos, sector 06 (Construcción) es la pata de inversión. Ninguna requiere descarga: ya están en raw_annual.csv. El sector 10 es mayoritariamente ALQUILER IMPUTADO de las cuentas nacionales, no arriendo efectivamente pagado; es el supuesto que sostiene todo el eje espacial y se declara en cada reporte que se apoya en él. La familia abarca dos escalas: 2.037 series sectorial-regionales y 209 totales regionales (sector Z). La escala declarada es la principal, no la única.
 

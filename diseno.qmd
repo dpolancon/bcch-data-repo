@@ -2,8 +2,7 @@
 title: "Diseño"
 ---
 
-A qué responde cada pieza de esta revisión dentro de la formulación del
-proyecto, y dónde la BDE no alcanza.
+A qué responde cada pieza de esta revisión dentro del diseño de investigación del proyecto, y dónde la BDE no alcanza.
 
 ## Correspondencia
 

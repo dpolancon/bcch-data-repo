@@ -28,7 +28,7 @@ La BDE publica **56 series** en esta escala. 0.2% de los 25.369 códigos únicos
 
 ### El inmueble como reserva de valor
 
-**Objetivo.** Reproduce y extiende la Figura 4 de la formulación (valor del stock de suelo residencial, agregado y unitario). VALT frente a VALC es la descomposición terreno/construcción de Knoll et al., premisa empírica de la propuesta, medida para Chile.
+**Objetivo.** Analiza el valor del stock de suelo residencial, agregado y unitario. VALT frente a VALC es la descomposición terreno/construcción propuesta por Knoll et al., medida para Chile.
 
 La geografía son zonas, no regiones: Norte, Centro, Sur y cuatro subzonas de la Región Metropolitana. La correspondencia con las 16 regiones es de uno a muchos salvo en la RM, de modo que la única dirección de agregación honesta es subir el dato regional hasta la zona. Ojo con la transposición de origen: la zona 1 es IVPZ1 y no IPVZ1, y corregirla acá sencillamente no encontraría la serie. La familia abarca dos escalas: 56 series zonales y 21 nacionales. VALT y VALC --la descomposición entre valorización del terreno y de la construcción-- sólo existen para NAC, CAS y DEP, de modo que la premisa empírica de Knoll et al. es medible en Chile únicamente a escala nacional y nunca por zona.
 
