@@ -362,6 +362,44 @@ def es_pct(fraction: float, decimals: int = 2) -> str:
     return es(fraction * 100, decimals)
 
 
+def es_delta(value: float, decimals: int = 1, sufijo: str = "") -> str:
+    """Variación con su signo explícito, en formato español.
+
+    El «+» va antepuesto sólo cuando el valor es positivo. Anteponerlo de forma
+    incondicional es cómo la Tabla 1 del reporte 5 llegó a publicar «+-0,4 pp»:
+    la participación metropolitana cayó y la plantilla ya había escrito el
+    signo. La misma plantilla se repite en varias tablas, así que el formato
+    vive acá y no en cada `build_report`.
+    """
+    signo = "+" if value > 0 else ""
+    return f"{signo}{es(value, decimals)}{sufijo}"
+
+
+ANIO_PARTICION_NUBLE = 2018
+
+
+def aviso_nuble(anio_base: int, extra: str = "") -> str:
+    """Advertencia obligatoria en toda tabla regional que cruce 2018.
+
+    Ñuble se separa de Biobío ese año. Una comparación de extremos que lo cruce
+    mezcla un cambio de fronteras administrativas con un ciclo económico, y el
+    resultado se lee como si fuera economía: el reporte 4 publicaba a Biobío
+    cayendo 68,6% cuando la unidad geográfica comparable cae bastante menos.
+    """
+    if anio_base >= ANIO_PARTICION_NUBLE:
+        return ""
+    cuerpo = (
+        f"**Ñuble no existía en {anio_base}.** La región se separa de Biobío en "
+        f"{ANIO_PARTICION_NUBLE}, de modo que el dato de Biobío en el año base "
+        f"incluye el territorio que hoy es Ñuble. La comparación de extremos "
+        f"para esas dos regiones mezcla un cambio de fronteras con un ciclo "
+        f"económico; el agregado nacional no se ve afectado."
+    )
+    if extra:
+        cuerpo += " " + extra.strip()
+    return "::: {.caveat}\n" + cuerpo + "\n:::\n"
+
+
 def escala_badge(escala: str) -> str:
     """Distintivo con la escala de observación y su unidad.
 
@@ -411,7 +449,7 @@ def es_dinero(pesos: float) -> str:
 
 
 def fuente(
-    csv: str | None = None,
+    csv: "str | list[str] | tuple[str, ...] | None" = None,
     *,
     tamano: str | None = None,
     extra: str | None = None,
@@ -434,9 +472,17 @@ def fuente(
         partes.append(extra.rstrip("."))
         partes[-1] += "."
     if csv:
-        etiqueta = f"`{csv}`" + (f" · {tamano}" if tamano else "")
+        # Una página puede citar cifras de más de un panel: el reporte 8 toma
+        # la serie del panel anual y los extremos del resumen, que son
+        # sub-anuales. Enlazar sólo uno manda al lector a un archivo donde la
+        # cifra que quiere verificar no está.
+        nombres = [csv] if isinstance(csv, str) else list(csv)
         prefijo = "datos" if raiz else "../datos"
-        partes.append(f"Datos: [{etiqueta}]({prefijo}/{csv}).")
+        enlaces = []
+        for i, nombre in enumerate(nombres):
+            etiqueta = f"`{nombre}`" + (f" · {tamano}" if tamano and i == 0 else "")
+            enlaces.append(f"[{etiqueta}]({prefijo}/{nombre})")
+        partes.append("Datos: " + ", ".join(enlaces) + ".")
     return '::: {.fuente}\n' + " ".join(partes) + "\n:::\n"
 
 

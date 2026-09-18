@@ -605,7 +605,15 @@ def build_housing_wealth() -> tuple[pd.DataFrame, pd.DataFrame]:
 
     v_pib_12 = float(anual[(anual["anio"] == 2012) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_vivienda_pib")]["valor"].iloc[0])
     v_pib_24 = float(anual[(anual["anio"] == 2024) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_vivienda_pib")]["valor"].iloc[0])
-    v_pib_max = float(anual[(anual["zone"] == "Nacional") & (anual["indicador"] == "valor_vivienda_pib")]["valor"].max())
+    # El año del pico se deriva del propio panel. Estaba escrito a mano como
+    # 2021, y el máximo ocurre en 2020: 2021 es el único año de caída de toda
+    # la serie, de modo que el reporte adjudicaba el techo al año del retroceso.
+    _serie_pib = (
+        anual[(anual["zone"] == "Nacional") & (anual["indicador"] == "valor_vivienda_pib")]
+        .set_index("anio")["valor"]
+    )
+    v_pib_max = float(_serie_pib.max())
+    v_pib_max_anio = int(_serie_pib.idxmax())
 
     vt_nac_12 = float(anual[(anual["anio"] == 2012) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_terreno")]["valor"].iloc[0])
     vt_nac_24 = float(anual[(anual["anio"] == 2024) & (anual["zone"] == "Nacional") & (anual["indicador"] == "valor_terreno")]["valor"].iloc[0])
@@ -623,13 +631,19 @@ def build_housing_wealth() -> tuple[pd.DataFrame, pd.DataFrame]:
     ipv_rm_ini = float(ipv_rm.iloc[0]["value"])
     ipv_rm_max = float(ipv_rm["value"].max())
     ipv_rm_act = float(ipv_rm.iloc[-1]["value"])
+    # Los años acompañan al valor, siempre. Estos tres coincidían con el dato,
+    # pero escritos a mano sólo lo hacen hasta que la serie se extiende.
+    _anio = lambda fecha: int(str(fecha)[:4])
+    ipv_rm_ini_anio = _anio(ipv_rm.iloc[0]["date"])
+    ipv_rm_max_anio = _anio(ipv_rm.loc[ipv_rm["value"].idxmax(), "date"])
+    ipv_rm_act_anio = _anio(ipv_rm.iloc[-1]["date"])
 
     res_rows = [
         {"indicador": "valor_vivienda_nacional_2012", "valor": v_nac_12, "unidad": "miles de millones de pesos", "anio": 2012},
         {"indicador": "valor_vivienda_nacional_2024", "valor": v_nac_24, "unidad": "miles de millones de pesos", "anio": 2024},
         {"indicador": "valor_vivienda_pib_2012", "valor": v_pib_12, "unidad": "% del PIB", "anio": 2012},
         {"indicador": "valor_vivienda_pib_2024", "valor": v_pib_24, "unidad": "% del PIB", "anio": 2024},
-        {"indicador": "valor_vivienda_pib_pico", "valor": v_pib_max, "unidad": "% del PIB", "anio": 2021},
+        {"indicador": "valor_vivienda_pib_pico", "valor": v_pib_max, "unidad": "% del PIB", "anio": v_pib_max_anio},
         {"indicador": "valor_terreno_nacional_2012", "valor": vt_nac_12, "unidad": "miles de millones de pesos", "anio": 2012},
         {"indicador": "valor_terreno_nacional_2024", "valor": vt_nac_24, "unidad": "miles de millones de pesos", "anio": 2024},
         {"indicador": "valor_construccion_nacional_2012", "valor": vc_nac_12, "unidad": "miles de millones de pesos", "anio": 2012},
@@ -638,9 +652,9 @@ def build_housing_wealth() -> tuple[pd.DataFrame, pd.DataFrame]:
         {"indicador": "participacion_terreno_2024", "valor": share_t_24, "unidad": "%", "anio": 2024},
         {"indicador": "valor_vivienda_rm_2024", "valor": v_rm_24, "unidad": "miles de millones de pesos", "anio": 2024},
         {"indicador": "participacion_rm_2024", "valor": share_rm_24, "unidad": "%", "anio": 2024},
-        {"indicador": "ipv_rm_inicio", "valor": ipv_rm_ini, "unidad": "índice base 2008=100", "anio": 2002},
-        {"indicador": "ipv_rm_pico", "valor": ipv_rm_max, "unidad": "índice base 2008=100", "anio": 2021},
-        {"indicador": "ipv_rm_actual", "valor": ipv_rm_act, "unidad": "índice base 2008=100", "anio": 2026},
+        {"indicador": "ipv_rm_inicio", "valor": ipv_rm_ini, "unidad": "índice base 2008=100", "anio": ipv_rm_ini_anio},
+        {"indicador": "ipv_rm_pico", "valor": ipv_rm_max, "unidad": "índice base 2008=100", "anio": ipv_rm_max_anio},
+        {"indicador": "ipv_rm_actual", "valor": ipv_rm_act, "unidad": "índice base 2008=100", "anio": ipv_rm_act_anio},
     ]
 
     resumen = pd.DataFrame(res_rows)

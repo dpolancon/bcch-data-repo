@@ -20,6 +20,7 @@ from lib.regions import REGIONS
 from lib.codes import SECTOR_MAP, SECTOR_MINING, short_labels
 from lib.sectors import compute_location_quotients, compute_sector_shares
 from lib.stats import compute_hhi, compute_weighted_gini, compute_weighted_theil
+from lib import site as site_lib
 
 import pathlib
 import re
@@ -534,7 +535,20 @@ def main():
         "@@NSECTORS@@": str(len(categories)),
     }
 
-    def resolve_narrative(path):
+    # El mismo mapa de tokens alimenta el informe inglés y el español, pero la
+    # cifra no se escribe igual en los dos idiomas. El informe español publicaba
+    # «45.9%» con punto decimal en un sitio que en todas las demás páginas
+    # escribe «45,9%», y en español ese punto es el separador de miles.
+    _NO_NUMERICOS = {"@@TOP_REGION@@", "@@SPAN@@"}
+
+    def _a_español(token: str, value: str) -> str:
+        if token in _NO_NUMERICOS or token.endswith("_YEAR@@") or token == "@@NSECTORS@@":
+            return value
+        return value.replace(".", ",")
+
+    NARRATIVE_ES = {t: _a_español(t, v) for t, v in NARRATIVE.items()}
+
+    def resolve_narrative(path, español: bool = False):
         """Substitute derived figures into a written report.
 
         Done as a post-pass rather than with f-strings because the report
@@ -542,7 +556,7 @@ def main():
         interpret as format fields.
         """
         text = pathlib.Path(path).read_text(encoding="utf-8")
-        for token, value in NARRATIVE.items():
+        for token, value in (NARRATIVE_ES if español else NARRATIVE).items():
             text = text.replace(token, value)
         leftover = re.findall(r"@@[A-Z_]+@@", text)
         if leftover:
@@ -567,7 +581,7 @@ Table 1 summarizes the key parameters of economic output for the 16 Chilean regi
 
 ### **Table 1: Summary Statistics of Regional Economic Output (2013-2025)**
 
-| Region | Mean GDP (Billion CLP) | Share of National GDP (%) | Avg. Annual Growth Rate (%) | Output Volatility (Std. Dev.) |
+| Region | Mean GDP (Trillion CLP) | Share of National GDP (%) | Avg. Annual Growth Rate (%) | Output Volatility (Std. Dev.) |
 | :--- | :---: | :---: | :---: | :---: |
 """)
         for _, row in df_t1.iterrows():
@@ -737,13 +751,30 @@ La Tabla 1 resume los parámetros clave de la producción económica de las 16 r
 
 ### **Tabla 1: Estadísticas Resumidas del Producto Económico Regional (2013-2025)**
 
-| Región | PIB Promedio (Miles de Millones de CLP) | Participación en el PIB Nacional (%) | Tasa de Crecimiento Anual Promedio (%) | Volatilidad del Producto (Desv. Est.) |
+| Región | PIB Promedio (Billones de CLP) | Participación en el PIB Nacional (%) | Tasa de Crecimiento Anual Promedio (%) | Volatilidad del Producto (Desv. Est.) |
 | :--- | :---: | :---: | :---: | :---: |
 """)
+        # `mean_gdp` viene del panel en miles de millones y ya está dividido por
+        # mil: la unidad es el billón. El encabezado decía «Miles de Millones» y
+        # asignaba 78,49 a la Región Metropolitana, unos ochenta millones de
+        # dólares. El formato numérico también era inglés en un sitio español.
         for _, row in df_t1.iterrows():
-            f.write(f"| {row['region']} | {row['mean_gdp']:,.2f} | {row['share']:.2f}% | {row['growth']:.2f}% | {row['volatility']:.2f} |\n")
+            f.write(
+                f"| {row['region']} | {site_lib.es(row['mean_gdp'], 2)} | "
+                f"{site_lib.es(row['share'], 2)}% | {site_lib.es(row['growth'], 2)}% | "
+                f"{site_lib.es(row['volatility'], 2)} |\n"
+            )
             
         f.write(r"""
+> **Sobre la columna de participación.** Las cifras de este informe están medidas
+> en volumen encadenado, y los volúmenes encadenados **no son aditivos**: la suma
+> de las partes no reproduce el total. La participación de cada región es por lo
+> tanto un cociente de referencia para ordenar por tamaño, no una proporción del
+> producto nacional en sentido estricto. Es la razón por la que el Reporte 3
+> calcula sus participaciones sectoriales sobre precios corrientes y obtiene una
+> cifra distinta para la Región Metropolitana: las dos son correctas en su propia
+> valoración y no deben compararse entre sí.
+
 ### **Figuras Correspondientes**
 
 #### **Figura 1.1: Distribución del PIB Regional - La Dominancia de Santiago**
@@ -883,7 +914,7 @@ La comparación entre la concentración bruta de la producción (HHI) y los índ
 3. **Implicancias de Política**: Las estrategias de desarrollo regional deben ir más allá de los subsidios generales y enfocarse en construir capacidades productivas locales. Fortalecer las especializaciones sectoriales (por ejemplo, clusters agrícolas en el Sur) mientras se fomenta la complejidad económica es clave para mitigar la dependencia de la extracción de recursos primarios y los servicios centrales.
 """)
         
-    resolve_narrative(report_es_path)
+    resolve_narrative(report_es_path, español=True)
     logger.info("Spanish report generation complete!")
 
 

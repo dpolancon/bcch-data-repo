@@ -380,11 +380,11 @@ El promedio, sin embargo, es lo menos interesante. Lo decisivo es cómo se *repa
 
 En {y1} las regiones con mayor participación de renta espacial fueron {sr_list}. Las de mayor renta de recursos fueron {rr_list}.
 
-![Figura 3.1: Matriz de los Dos Ejes: Renta Espacial vs. Renta de Recursos por Región (2025)](../assets/fig3_1_dos_ejes.png)
+![Figura 3.1: Matriz de los dos ejes — renta espacial y renta de recursos por región ({y1})](../assets/fig3_1_dos_ejes.png)
 
 ::: {{.callout-note}}
-### Medición de la Matriz Bi-Axial de Rentas (Figura 3.1)
-La matriz ubica a las 16 regiones según su grado de apertura externa (eje de recursos/comercio) y su grado de autocontención interna (eje espacial metropolitano). Aísla el contraste entre la Región Metropolitana (nodo autocontenido de consumo final) y las regiones minero-exportadoras del norte.
+### Medición de la matriz de los dos ejes (Figura 3.1)
+Cada punto es una región, situada por la participación del sector 10 en su producto —eje horizontal, renta espacial— y la del sector 03 —eje vertical, renta de recursos—. Ambas participaciones se calculan sobre precios corrientes, por la razón que explica la nota metodológica del sitio. Las líneas cortan en la mediana de cada eje y no en un umbral fijo: las dos rentas viven en rangos muy distintos, y un corte común dejaría cuadrantes vacíos por construcción. La lectura que importa no es en qué cuadrante cae cada región sino la forma de la nube: dispersa y estrecha en el eje espacial, concentrada en unos pocos extremos en el de recursos.
 :::
 
 ## Por qué importa
@@ -441,7 +441,15 @@ def build_report4(
         ejes_r = ejes[(ejes["region_code"] == rid) & (ejes["sector_id"] == 10)].set_index("year")["share"]
         s10_0 = ejes_r.get(a0)
         s10_1 = ejes_r.get(a1)
-        delta_s10 = (s10_1 - s10_0) if (s10_0 is not None and s10_1 is not None) else None
+        # `share` es una fracción (0,0904), no un porcentaje. La columna se
+        # publica en puntos porcentuales, así que la diferencia se escala aquí.
+        # Sin el factor 100 la tabla imprimía «+0,01 pp» donde la RM sube 0,71,
+        # y desmentía en silencio a la entradilla del propio reporte.
+        delta_s10 = (
+            100 * (s10_1 - s10_0)
+            if (s10_0 is not None and s10_1 is not None)
+            else None
+        )
 
         s_sah0 = site_lib.es(s0 / 1e3, 0) if s0 is not None else "—"
         s_sah1 = site_lib.es(s1 / 1e3, 0) if s1 is not None else "—"
@@ -458,6 +466,31 @@ def build_report4(
     tabla1_md = f"""| Código | Región | Superficie Hab. {a0} (miles m²) | Superficie Hab. {a1} (miles m²) | Δ Superficie (%) | Viviendas {a0} (unid.) | Viviendas {a1} (unid.) | Δ Viviendas (%) | Δ Sector 10 (pp) |
 |:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 """ + "\n".join(filas_tabla1)
+
+    # Biobío recompuesto: la unidad geográfica que en el año base incluía a
+    # Ñuble sólo es comparable si se le devuelve el territorio que perdió.
+    _sah_reg = anual[anual["indicador"] == "superficie_habitacional"].pivot_table(
+        index="region_display", columns="anio", values="valor", aggfunc="sum"
+    )
+
+    def _sah(region: str, anio: int) -> float | None:
+        if region in _sah_reg.index and anio in _sah_reg.columns:
+            v = _sah_reg.loc[region, anio]
+            return None if pd.isna(v) else float(v)
+        return None
+
+    bio_0, bio_1, nub_1 = _sah("Biobío", a0), _sah("Biobío", a1), _sah("Ñuble", a1)
+    if bio_0 and bio_1 is not None and nub_1 is not None:
+        var_bio_pub = 100 * (bio_1 / bio_0 - 1)
+        var_bio_comp = 100 * ((bio_1 + nub_1) / bio_0 - 1)
+        nota_nuble = site_lib.aviso_nuble(
+            a0,
+            f"Sumando el territorio que se le separó, la caída de la unidad "
+            f"comparable es de **{site_lib.es(var_bio_comp, 1)}%** y no del "
+            f"**{site_lib.es(var_bio_pub, 1)}%** que muestra la fila de Biobío.",
+        )
+    else:
+        nota_nuble = site_lib.aviso_nuble(a0)
 
     # ---- Tabla 2: Serie Nacional y Metraje Medio ---------------------------
     nat_piv = anual.pivot_table(index="anio", columns="indicador", values="valor", aggfunc="sum")
@@ -508,6 +541,8 @@ En el mismo período, la participación media de la renta espacial en el product
 ### Tabla 1: Matriz Forense del Ciclo de Edificación por Región ({a0} vs. {a1})
 
 {tabla1_md}
+
+{nota_nuble}
 
 ### Tabla 2: Evolución Macroeconómica de la Edificación y Dinamismo Empresarial ({a0}–{a1})
 
@@ -581,9 +616,20 @@ def build_report5(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
     share_rm_12 = (v_rm_12 / v_nac_12) * 100
     share_rm_24 = float(resumen[resumen["indicador"] == "participacion_rm_2024"]["valor"].iloc[0])
 
+    # El resumen trae el año junto al valor; la prosa interpola los dos. Antes
+    # el año iba escrito a mano y el techo se adjudicaba a 2021, que es el año
+    # de la caída, no el del máximo.
+    def _anio_de(indicador: str) -> int:
+        return int(resumen[resumen["indicador"] == indicador]["anio"].iloc[0])
+
+    v_pib_max_anio = _anio_de("valor_vivienda_pib_pico")
+
     ipv_rm_ini = float(resumen[resumen["indicador"] == "ipv_rm_inicio"]["valor"].iloc[0])
     ipv_rm_max = float(resumen[resumen["indicador"] == "ipv_rm_pico"]["valor"].iloc[0])
     ipv_rm_act = float(resumen[resumen["indicador"] == "ipv_rm_actual"]["valor"].iloc[0])
+    ipv_rm_ini_anio = _anio_de("ipv_rm_inicio")
+    ipv_rm_max_anio = _anio_de("ipv_rm_pico")
+    ipv_rm_act_anio = _anio_de("ipv_rm_actual")
 
     factor_valv = v_nac_24 / v_nac_12
     factor_valt = vt_nac_24 / vt_nac_12
@@ -593,13 +639,13 @@ def build_report5(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
 
     tabla1_md = f"""| Variable / Dimensión | 2012 | 2024 | Variación (%) / Δ pp |
 |:---|:---:|:---:|:---:|
-| **Valor Total Vivienda ($VALV$)** | {site_lib.es_dinero(v_nac_12)} | {site_lib.es_dinero(v_nac_24)} | **+{site_lib.es(100*(factor_valv - 1), 1)}%** |
-| **Riqueza Residencial / PIB** | {site_lib.es(v_pib_12, 1)}% | {site_lib.es(v_pib_24, 1)}% | **+{site_lib.es(v_pib_24 - v_pib_12, 1)} pp** |
-| **Valor del Terreno ($VALT$)** | {site_lib.es_dinero(vt_nac_12)} | {site_lib.es_dinero(vt_nac_24)} | **+{site_lib.es(100*(factor_valt - 1), 1)}%** |
-| **Participación Suelo ($VALT/VALV$)** | {site_lib.es(share_t_12, 1)}% | {site_lib.es(share_t_24, 1)}% | **+{site_lib.es(share_t_24 - share_t_12, 1)} pp** |
-| **Valor Construcción ($VALC$)** | {site_lib.es_dinero(vc_nac_12)} | {site_lib.es_dinero(vc_nac_24)} | **+{site_lib.es(100*(factor_vc - 1), 1)}%** |
-| **Valor Vivienda en RM** | {site_lib.es_dinero(v_rm_12)} | {site_lib.es_dinero(v_rm_24)} | **+{site_lib.es(100*(factor_rm - 1), 1)}%** |
-| **Participación RM en Riqueza Nacional** | {site_lib.es(share_rm_12, 1)}% | {site_lib.es(share_rm_24, 1)}% | **+{site_lib.es(share_rm_24 - share_rm_12, 1)} pp** |
+| **Valor Total Vivienda ($VALV$)** | {site_lib.es_dinero(v_nac_12)} | {site_lib.es_dinero(v_nac_24)} | **{site_lib.es_delta(100*(factor_valv - 1), 1, "%")}** |
+| **Riqueza Residencial / PIB** | {site_lib.es(v_pib_12, 1)}% | {site_lib.es(v_pib_24, 1)}% | **{site_lib.es_delta(v_pib_24 - v_pib_12, 1, " pp")}** |
+| **Valor del Terreno ($VALT$)** | {site_lib.es_dinero(vt_nac_12)} | {site_lib.es_dinero(vt_nac_24)} | **{site_lib.es_delta(100*(factor_valt - 1), 1, "%")}** |
+| **Participación Suelo ($VALT/VALV$)** | {site_lib.es(share_t_12, 1)}% | {site_lib.es(share_t_24, 1)}% | **{site_lib.es_delta(share_t_24 - share_t_12, 1, " pp")}** |
+| **Valor Construcción ($VALC$)** | {site_lib.es_dinero(vc_nac_12)} | {site_lib.es_dinero(vc_nac_24)} | **{site_lib.es_delta(100*(factor_vc - 1), 1, "%")}** |
+| **Valor Vivienda en RM** | {site_lib.es_dinero(v_rm_12)} | {site_lib.es_dinero(v_rm_24)} | **{site_lib.es_delta(100*(factor_rm - 1), 1, "%")}** |
+| **Participación RM en Riqueza Nacional** | {site_lib.es(share_rm_12, 1)}% | {site_lib.es(share_rm_24, 1)}% | **{site_lib.es_delta(share_rm_24 - share_rm_12, 1, " pp")}** |
 """
 
     tabla2_md = f"""| Macro-Zona / Subzona RM | 2002 | 2008 (Base) | 2014 | 2021 (Pico) | 2026 (Actual) | Δ Acumulada (%) |
@@ -650,7 +696,7 @@ experimentó una expansión masiva: el valor total de las viviendas pasó de
 **{site_lib.es_dinero(v_nac_12)}** (**{site_lib.es(v_pib_12, 1)}%** del PIB) a
 **{site_lib.es_dinero(v_nac_24)}** (**{site_lib.es(v_pib_24, 1)}%** del PIB),
 multiplicándose por **{site_lib.es(factor_valv, 1)}** veces en doce años y
-alcanzando un techo histórico de **{site_lib.es(v_pib_max, 1)}%** del PIB en 2021.
+alcanzando un techo histórico de **{site_lib.es(v_pib_max, 1)}%** del PIB en {v_pib_max_anio}.
 
 ### La descomposición terreno frente a construcción
 
@@ -677,9 +723,9 @@ Región Metropolitana concentra **{site_lib.es_dinero(v_rm_24)}**, lo que equiva
 
 Esta valorización patrimonial se refleja en el Índice de Precios de Vivienda (`IPV`).
 En la Región Metropolitana, el IPV (base 2008=100) transitó desde un nivel inicial de
-**{site_lib.es(ipv_rm_ini, 2)}** en 2002 hasta un pico de **{site_lib.es(ipv_rm_max, 2)}**
-en 2021 (multiplicándose por **{site_lib.es(factor_ipv_rm, 1)}** veces), situándose
-en **{site_lib.es(ipv_rm_act, 2)}** hacia 2026.
+**{site_lib.es(ipv_rm_ini, 2)}** en {ipv_rm_ini_anio} hasta un pico de **{site_lib.es(ipv_rm_max, 2)}**
+en {ipv_rm_max_anio} (multiplicándose por **{site_lib.es(factor_ipv_rm, 1)}** veces), situándose
+en **{site_lib.es(ipv_rm_act, 2)}** hacia {ipv_rm_act_anio}.
 
 ### Tabla 2: Matriz del IPV (Base 2008=100) por Macro-Zona y Subzona RM (2002–2026)
 
@@ -760,12 +806,17 @@ def build_report6(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
 
     filas_t1 = []
     for reg in sorted(anual_25.index.tolist()):
-        c09 = float(anual_09.loc[reg, "cuentas_corrientes"]) if reg in anual_09.index else 0
+        # Ausencia no es cero. Ñuble no existía como región en el año base, y
+        # escribir `0` afirma que allí no había una sola cuenta corriente
+        # cuando lo cierto es que el territorio estaba dentro de Biobío.
+        tiene_base = reg in anual_09.index
+        c09 = float(anual_09.loc[reg, "cuentas_corrientes"]) if tiene_base else None
         c25 = float(anual_25.loc[reg, "cuentas_corrientes"])
         d25 = float(anual_25.loc[reg, "depositos_vista"])
         s25 = float(anual_25.loc[reg, "saldo_medio_cuenta"])
+        s_c09 = site_lib.es(c09, 0) if c09 is not None else "—"
         filas_t1.append(
-            f"| **{reg}** | {site_lib.es(c09, 0)} | {site_lib.es(c25, 0)} | {site_lib.es_dinero(d25)} | {site_lib.es_dinero(s25)} |"
+            f"| **{reg}** | {s_c09} | {site_lib.es(c25, 0)} | {site_lib.es_dinero(d25)} | {site_lib.es_dinero(s25)} |"
         )
     tabla1_md = "\n".join(filas_t1)
 
@@ -786,7 +837,7 @@ title: "Profundidad financiera y morosidad por región"
 
 {site_lib.escala_badge(families_lib.ESCALA_REGIONAL)}
 
-*Entre 2009 y 2025, las cuentas corrientes pasaron de **{site_lib.es(ctas0 / 1e6, 2)} millones** a **{site_lib.es(ctas1 / 1e6, 2)} millones**, pero la concentración espacial de la liquidez en la Región Metropolitana escaló del **{site_lib.es(conc0, 1)}%** al **{site_lib.es(conc1, 1)}%** nacional. La mora hipotecaria cayó de **{site_lib.es(pico, 2)}%** a un piso de **{site_lib.es(piso, 2)}%** (reducción del **{site_lib.es(caida, 0)}%**), situándose en **{site_lib.es(hoy, 2)}%** en 2025.*
+*Entre {a0} y {a1}, las cuentas corrientes pasaron de **{site_lib.es(ctas0 / 1e6, 2)} millones** a **{site_lib.es(ctas1 / 1e6, 2)} millones**, pero la concentración espacial de la liquidez en la Región Metropolitana escaló del **{site_lib.es(conc0, 1)}%** al **{site_lib.es(conc1, 1)}%** nacional. La mora hipotecaria cayó de **{site_lib.es(pico, 2)}%** a un piso de **{site_lib.es(piso, 2)}%** (reducción del **{site_lib.es(caida, 0)}%**), situándose en **{site_lib.es(hoy, 2)}%** en {a1}.*
 
 ---
 
@@ -803,6 +854,8 @@ En el mercado de crédito, la cartera habitacional exhibe el menor nivel de impa
 | Región | Cuentas Corrientes ({a0}) | Cuentas Corrientes ({a1}) | Depósitos a la Vista ({a1}) | Saldo Medio por Cuenta ({a1}) |
 |:---|:---:|:---:|:---:|:---:|
 {tabla1_md}
+
+{site_lib.aviso_nuble(a0)}
 
 ### Tabla 2: Matriz de Morosidad Bancaria a 90 Días o Más por Cartera y Región ({a1})
 
@@ -991,41 +1044,51 @@ La masa comercial combina el volumen de ventas intrarregionales e interregionale
 
 ## Nota metodológica
 
-Las compraventas inician en **{a0}** (2018), constituyendo la capa regional más corta del sistema. Los montos están en pesos nominales y la identidad `total = inter + intra` se cumple de forma exacta.
+Las compraventas inician en **{a0}**, constituyendo la capa regional más corta del sistema. Los montos están en pesos nominales y la identidad `total = inter + intra` se cumple de forma exacta.
 
 {site_lib.fuente("panel_interregional_trade_annual.csv")}
 """
 
 
 def build_report8(anual: pd.DataFrame, resumen: pd.DataFrame) -> str:
-    """Reporte 8: el precio del dinero, tasas y apalancamiento de hogares."""
-    tpm_max = float(resumen[resumen["indicador"] == "tpm_maximo"]["valor"].iloc[0])
-    tpm_min = float(resumen[resumen["indicador"] == "tpm_minimo"]["valor"].iloc[0])
-    tpm_act = float(resumen[resumen["indicador"] == "tpm_actual"]["valor"].iloc[0])
+    """Reporte 8: el precio del dinero, tasas y apalancamiento de hogares.
 
-    hip_max = float(resumen[resumen["indicador"] == "hipotecaria_maxima"]["valor"].iloc[0])
-    hip_min = float(resumen[resumen["indicador"] == "hipotecaria_minima"]["valor"].iloc[0])
-    hip_act = float(resumen[resumen["indicador"] == "hipotecaria_actual"]["valor"].iloc[0])
+    El resumen trae el año de cada extremo junto al valor. La prosa interpola
+    ambos: un año escrito a mano es correcto una sola vez, y deja de serlo en
+    cuanto la serie se extiende.
+    """
+
+    def ext(indicador: str) -> tuple[float, int]:
+        fila = resumen[resumen["indicador"] == indicador].iloc[0]
+        return float(fila["valor"]), int(fila["anio"])
+
+    tpm_max, tpm_max_a = ext("tpm_maximo")
+    tpm_min, tpm_min_a = ext("tpm_minimo")
+    tpm_act, tpm_act_a = ext("tpm_actual")
+
+    hip_max, hip_max_a = ext("hipotecaria_maxima")
+    hip_min, hip_min_a = ext("hipotecaria_minima")
+    hip_act, hip_act_a = ext("hipotecaria_actual")
 
     deub_pib_min = float(resumen[resumen["indicador"] == "deuda_pib_minima"]["valor"].iloc[0])
     deub_pib_max = float(resumen[resumen["indicador"] == "deuda_pib_maxima"]["valor"].iloc[0])
     deub_pib_act = float(resumen[resumen["indicador"] == "deuda_pib_actual"]["valor"].iloc[0])
 
-    deub_ing_min = float(resumen[resumen["indicador"] == "deuda_ingreso_minima"]["valor"].iloc[0])
-    deub_ing_max = float(resumen[resumen["indicador"] == "deuda_ingreso_maxima"]["valor"].iloc[0])
-    deub_ing_act = float(resumen[resumen["indicador"] == "deuda_ingreso_actual"]["valor"].iloc[0])
+    deub_ing_min, deub_ing_min_a = ext("deuda_ingreso_minima")
+    deub_ing_max, deub_ing_max_a = ext("deuda_ingreso_maxima")
+    deub_ing_act, deub_ing_act_a = ext("deuda_ingreso_actual")
 
     factor_deuda = deub_ing_max / deub_ing_min
 
     # TABLA 1: Matriz de Tasas de Interés
-    tabla1_md = f"""| Indicador de Tasa | Mínimo Histórico | Máximo Histórico | Nivel Actual (2026) |
+    tabla1_md = f"""| Indicador de Tasa | Mínimo Histórico | Máximo Histórico | Nivel Actual ({tpm_act_a}) |
 |:---|:---:|:---:|:---:|
 | **Tasa de Política Monetaria (TPM)** | **{site_lib.es(tpm_min, 2)}%** | **{site_lib.es(tpm_max, 2)}%** | **{site_lib.es(tpm_act, 2)}%** |
 | **Tasa Hipotecaria (Vivienda)** | **{site_lib.es(hip_min, 2)}%** | **{site_lib.es(hip_max, 2)}%** | **{site_lib.es(hip_act, 2)}%** |
 """
 
     # TABLA 2: Apalancamiento y Deuda de los Hogares
-    tabla2_md = f"""| Métrica de Deuda de Hogares | Mínimo Histórico | Máximo Histórico | Nivel Actual (2026) |
+    tabla2_md = f"""| Métrica de Deuda de Hogares | Mínimo Histórico | Máximo Histórico | Nivel Actual ({deub_ing_act_a}) |
 |:---|:---:|:---:|:---:|
 | **Deuda / PIB (%)** | **{site_lib.es(deub_pib_min, 1)}%** | **{site_lib.es(deub_pib_max, 1)}%** | **{site_lib.es(deub_pib_act, 1)}%** |
 | **Deuda / Ingreso Disponible (%)** | **{site_lib.es(deub_ing_min, 1)}%** | **{site_lib.es(deub_ing_max, 1)}%** | **{site_lib.es(deub_ing_act, 1)}%** |
@@ -1038,7 +1101,7 @@ title: "El precio del dinero"
 
 {site_lib.escala_badge(families_lib.ESCALA_NACIONAL)}
 
-*El desplome de la tasa de créditos hipotecarios desde más del **{site_lib.es(hip_max, 2)}%** hasta un piso histórico de **{site_lib.es(hip_min, 2)}%** en 2019 constituyó el principal estímulo financiero a la valorización del suelo. Paralelamente, el apalancamiento de los hogares sobre su ingreso disponible se multiplicó por **{site_lib.es(factor_deuda, 1)}** veces.*
+*El desplome de la tasa de créditos hipotecarios desde más del **{site_lib.es(hip_max, 2)}%** hasta un piso histórico de **{site_lib.es(hip_min, 2)}%** en {hip_min_a} constituyó el principal estímulo financiero a la valorización del suelo. Paralelamente, el apalancamiento de los hogares sobre su ingreso disponible se multiplicó por **{site_lib.es(factor_deuda, 1)}** veces.*
 
 ---
 
@@ -1050,9 +1113,9 @@ La BDE concentra a escala nacional el conjunto completo de regresores financiero
 
 ## Lo que muestran los datos
 
-La trayectoria de las tasas hipotecarias en Chile documenta con nitidez el ciclo financiero. A comienzos de la serie (2002), la tasa promedio de colocación para vivienda en UF se situaba en **{site_lib.es(hip_max, 2)}%**. Durante las dos décadas siguientes experimentó un descenso sostenido que culminó en un piso histórico de **{site_lib.es(hip_min, 2)}%** a fines de 2019. Posteriormente, el ciclo de ajuste monetario post-pandemia elevó la tasa hasta situarse actualmente en **{site_lib.es(hip_act, 2)}%**.
+La trayectoria de las tasas hipotecarias en Chile documenta con nitidez el ciclo financiero. A comienzos de la serie ({hip_max_a}), la tasa promedio de colocación para vivienda en UF se situaba en **{site_lib.es(hip_max, 2)}%**. Durante las dos décadas siguientes experimentó un descenso sostenido que culminó en un piso histórico de **{site_lib.es(hip_min, 2)}%** a fines de {hip_min_a}. Posteriormente, el ciclo de ajuste monetario post-pandemia elevó la tasa hasta situarse actualmente en **{site_lib.es(hip_act, 2)}%**.
 
-La Tasa de Política Monetaria (`TPM`) acompañó esta dinámica, transitando desde máximos históricos de **{site_lib.es(tpm_max, 2)}%** (durante la crisis asiática de 1998) hasta mínimos técnicos de **{site_lib.es(tpm_min, 2)}%** durante los shocks de 2009 y 2020–2021, ubicándose en **{site_lib.es(tpm_act, 2)}%** en 2026.
+La Tasa de Política Monetaria (`TPM`) acompañó esta dinámica, transitando desde máximos históricos de **{site_lib.es(tpm_max, 2)}%** (durante la crisis asiática de {tpm_max_a}) hasta mínimos técnicos de **{site_lib.es(tpm_min, 2)}%** durante los shocks de {tpm_min_a} y 2020–2021, ubicándose en **{site_lib.es(tpm_act, 2)}%** en {tpm_act_a}.
 
 ### Tabla 1: Matriz de Tasas de Interés y Política Monetaria (1995–2026)
 
@@ -1073,7 +1136,7 @@ La TPM es la tasa objetivo fijada por el Banco Central para las operaciones inte
 
 ::: {{.callout-note}}
 ### Medición de la Estructura de Tasas por Colocación (Figura 8.2)
-La tasa de interés hipotecaria a largo plazo alcanzó su piso de **{site_lib.es(hip_min, 2)}%** en 2019. Su trayectoria evidencia una menor volatilidad que las tasas de consumo y comerciales, pero su repunte actual al **{site_lib.es(hip_act, 2)}%** encarece el dividendo mensual de las nuevas colocaciones.
+La tasa de interés hipotecaria a largo plazo alcanzó su piso de **{site_lib.es(hip_min, 2)}%** en {hip_min_a}. Su trayectoria evidencia una menor volatilidad que las tasas de consumo y comerciales, pero su repunte actual al **{site_lib.es(hip_act, 2)}%** encarece el dividendo mensual de las nuevas colocaciones.
 :::
 
 ![Figura 8.3: Margen de Intermediación y Transmisión Monetaria (Spreads sobre TPM)](../assets/fig8_3_diferencial_tasas.png)
@@ -1091,7 +1154,9 @@ Este abaratamiento del costo del crédito facilitó una acumulación masiva de d
 
 Las series de captación y colocación inician en 1983; la TPM en 1995 (nominalizada en agosto de 2001); las tasas hipotecarias desagregadas y bonos BCU en 2002; y los ratios de deuda de hogares `DEUBH` en 2003. El panel anual integra los promedios anuales de series mensuales y trimestrales con años completos.
 
-{site_lib.fuente("panel_tasas_annual.csv")}
+**Dos agregaciones conviven en esta página y conviene no confundirlas.** Las figuras dibujan el **promedio anual** de cada serie. Los mínimos y máximos históricos de las Tablas 1 y 2, en cambio, son **extremos de la serie original mensual**: la TPM tocó el **{site_lib.es(tpm_min, 2)}%** en un mes de {tpm_min_a}, no en el promedio de ese año. Por eso un extremo puede no aparecer en el panel anual, y por eso se enlazan los dos archivos.
+
+{site_lib.fuente(["panel_tasas_annual.csv", "panel_tasas_summary.csv"])}
 """
 
 

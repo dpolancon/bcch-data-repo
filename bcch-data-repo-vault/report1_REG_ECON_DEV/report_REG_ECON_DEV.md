@@ -12,7 +12,7 @@ Table 1 summarizes the key parameters of economic output for the 16 Chilean regi
 
 ### **Table 1: Summary Statistics of Regional Economic Output (2013-2025)**
 
-| Region | Mean GDP (Billion CLP) | Share of National GDP (%) | Avg. Annual Growth Rate (%) | Output Volatility (Std. Dev.) |
+| Region | Mean GDP (Trillion CLP) | Share of National GDP (%) | Avg. Annual Growth Rate (%) | Output Volatility (Std. Dev.) |
 | :--- | :---: | :---: | :---: | :---: |
 | Metropolitana de Santiago | 78.49 | 45.92% | 2.04% | 4.79 |
 | Antofagasta | 16.00 | 9.39% | 1.36% | 4.20 |

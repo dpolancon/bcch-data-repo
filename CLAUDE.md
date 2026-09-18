@@ -115,13 +115,14 @@ scripts/            # ALL Python
 │   ├── stats.py    # weighted Gini / Theil / HHI
 │   ├── reporting.py# LaTeX escaping, table export
 │   └── transform.py
-├── 00_query_catalog.py          07_validate_tex.py
-├── 01_fetch_crsm_raw.py         08_audit_outputs.py
-├── 02_build_regional_panel.py
-├── 03_report_coverage.py
-├── 04_analyze_regional.py
-├── 05_generate_tex.py
-└── 06_generate_coverage_tex.py
+├── 00_query_catalog.py          08_audit_outputs.py
+├── 01_fetch_crsm_raw.py         09_build_theme_panels.py
+├── 02_build_regional_panel.py   10_generate_site.py
+├── 03_report_coverage.py        11_audit_site.py
+├── 04_analyze_regional.py       12_deploy_site.py
+├── 05_generate_tex.py           13_census_bde.py
+├── 06_generate_coverage_tex.py  14_build_report_figures.py
+└── 07_validate_tex.py
 
 codes/              # ALL R
 secrets/            # local credentials -- gitignored except the two docs
@@ -152,6 +153,9 @@ bcch-data-repo-vault/   # Obsidian research vault
 
 ## Standard Workflow
 
+The LaTeX chain, which produces the two vault reports the site publishes as
+pages 1 and 2:
+
 ```bash
 python scripts/00_query_catalog.py --search vivienda   # discover series codes
 python scripts/01_fetch_crsm_raw.py --dry-run          # resolve universe, no API calls
@@ -164,6 +168,23 @@ python scripts/06_generate_coverage_tex.py             # coverage LaTeX
 python scripts/07_validate_tex.py                      # validate LaTeX
 python scripts/08_audit_outputs.py                     # audit outputs
 ```
+
+The site chain, which produces the published Quarto site. Stage 14 draws the
+figures reports 3-8 embed, so it runs before stage 10 copies them into the
+worktree and stage 11 compares them byte for byte:
+
+```bash
+python scripts/13_census_bde.py                        # catalog census
+python scripts/01_fetch_crsm_raw.py --family <familia> # bounded download
+python scripts/09_build_theme_panels.py --family <fam> # analytical panel
+python scripts/14_build_report_figures.py              # report 3-8 figures
+python scripts/10_generate_site.py                     # .qmd into the worktree
+python scripts/11_audit_site.py                        # coherence audit
+python scripts/12_deploy_site.py                       # mirror to the host site
+```
+
+Quarto is not on PATH: prepend `C:\Program Files\Quarto\bin`, and stop any
+local preview server first -- it locks `docs/` and fails the render.
 
 ## Testing
 

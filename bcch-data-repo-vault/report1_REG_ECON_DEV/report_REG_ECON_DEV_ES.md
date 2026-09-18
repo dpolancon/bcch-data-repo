@@ -8,28 +8,37 @@ Chile se caracteriza históricamente por una alta centralización económica y d
 
 ## **2. Sección 1: Tamaño Económico Regional y Dinámicas de Crecimiento**
 
-La Tabla 1 resume los parámetros clave de la producción económica de las 16 regiones chilenas. La dominancia de la Región Metropolitana es clara, representando el 45.9% del PIB nacional, seguida de regiones con fuerte actividad minera como Antofagasta. 
+La Tabla 1 resume los parámetros clave de la producción económica de las 16 regiones chilenas. La dominancia de la Región Metropolitana es clara, representando el 45,9% del PIB nacional, seguida de regiones con fuerte actividad minera como Antofagasta. 
 
 ### **Tabla 1: Estadísticas Resumidas del Producto Económico Regional (2013-2025)**
 
-| Región | PIB Promedio (Miles de Millones de CLP) | Participación en el PIB Nacional (%) | Tasa de Crecimiento Anual Promedio (%) | Volatilidad del Producto (Desv. Est.) |
+| Región | PIB Promedio (Billones de CLP) | Participación en el PIB Nacional (%) | Tasa de Crecimiento Anual Promedio (%) | Volatilidad del Producto (Desv. Est.) |
 | :--- | :---: | :---: | :---: | :---: |
-| Metropolitana de Santiago | 78.49 | 45.92% | 2.04% | 4.79 |
-| Antofagasta | 16.00 | 9.39% | 1.36% | 4.20 |
-| Valparaíso | 14.26 | 8.35% | 1.41% | 4.07 |
-| Biobío | 11.45 | 6.69% | 2.63% | 3.49 |
-| O'Higgins | 7.86 | 4.60% | 1.99% | 3.98 |
-| Maule | 7.22 | 4.21% | 3.06% | 3.61 |
-| Los Lagos | 6.31 | 3.68% | 3.57% | 3.69 |
-| Coquimbo | 5.87 | 3.44% | 1.39% | 3.78 |
-| La Araucanía | 5.36 | 3.12% | 3.24% | 3.90 |
-| Tarapacá | 4.46 | 2.61% | 1.62% | 4.83 |
-| Atacama | 3.85 | 2.26% | 2.54% | 5.81 |
-| Ñuble | 2.80 | 1.63% | 2.89% | 4.33 |
-| Los Ríos | 2.50 | 1.46% | 2.72% | 3.35 |
-| Magallanes | 1.84 | 1.08% | 2.56% | 5.37 |
-| Arica y Parinacota | 1.49 | 0.87% | 3.28% | 5.48 |
-| Aysén | 1.21 | 0.71% | 2.35% | 5.71 |
+| Metropolitana de Santiago | 78,49 | 45,92% | 2,04% | 4,79 |
+| Antofagasta | 16,00 | 9,39% | 1,36% | 4,20 |
+| Valparaíso | 14,26 | 8,35% | 1,41% | 4,07 |
+| Biobío | 11,45 | 6,69% | 2,63% | 3,49 |
+| O'Higgins | 7,86 | 4,60% | 1,99% | 3,98 |
+| Maule | 7,22 | 4,21% | 3,06% | 3,61 |
+| Los Lagos | 6,31 | 3,68% | 3,57% | 3,69 |
+| Coquimbo | 5,87 | 3,44% | 1,39% | 3,78 |
+| La Araucanía | 5,36 | 3,12% | 3,24% | 3,90 |
+| Tarapacá | 4,46 | 2,61% | 1,62% | 4,83 |
+| Atacama | 3,85 | 2,26% | 2,54% | 5,81 |
+| Ñuble | 2,80 | 1,63% | 2,89% | 4,33 |
+| Los Ríos | 2,50 | 1,46% | 2,72% | 3,35 |
+| Magallanes | 1,84 | 1,08% | 2,56% | 5,37 |
+| Arica y Parinacota | 1,49 | 0,87% | 3,28% | 5,48 |
+| Aysén | 1,21 | 0,71% | 2,35% | 5,71 |
+
+> **Sobre la columna de participación.** Las cifras de este informe están medidas
+> en volumen encadenado, y los volúmenes encadenados **no son aditivos**: la suma
+> de las partes no reproduce el total. La participación de cada región es por lo
+> tanto un cociente de referencia para ordenar por tamaño, no una proporción del
+> producto nacional en sentido estricto. Es la razón por la que el Reporte 3
+> calcula sus participaciones sectoriales sobre precios corrientes y obtiene una
+> cifra distinta para la Región Metropolitana: las dos son correctas en su propia
+> valoración y no deben compararse entre sí.
 
 ### **Figuras Correspondientes**
 
@@ -162,13 +171,13 @@ Para evaluar la desigualdad espacial del bienestar entre los ciudadanos en lugar
 La comparación entre la concentración bruta de la producción (HHI) y los índices de desigualdad ponderados por población (Gini y Theil) expone características estructurales clave de la geografía económica de Chile:
 
 1. **Rigidez Estructural de la Producción (HHI)**:
-   El HHI se mantiene prácticamente plano, oscilando entre **0.2364** y **0.2438** durante todo el período 2013-2025. Esto indica que la concentración geográfica de la producción bruta está estructuralmente bloqueada. La Región Metropolitana y los centros mineros del norte siguen capturando exactamente las mismas proporciones de la producción económica nacional, sin mostrar señales de descentralización territorial.
+   El HHI se mantiene prácticamente plano, oscilando entre **0,2364** y **0,2438** durante todo el período 2013-2025. Esto indica que la concentración geográfica de la producción bruta está estructuralmente bloqueada. La Región Metropolitana y los centros mineros del norte siguen capturando exactamente las mismas proporciones de la producción económica nacional, sin mostrar señales de descentralización territorial.
 
 2. **Volatilidad Temporal del Bienestar (Gini y Theil)**:
    A diferencia de la rigidez del HHI, el Gini y Theil ponderados por población muestran ciclos temporales claros impulsados por choques macroeconómicos nacionales:
-   - **La Corrección Post-Boom de Commodities (2013–2016)**: El Gini ponderado disminuyó de **0.1893** en 2013 a **0.1476** en 2025 (y el Theil de **0.0765** a **0.0496**). Al normalizarse los precios del cobre tras el súper-ciclo, la brecha de PIB per cápita entre las regiones ricas en recursos (como Antofagasta) y las regiones agrícolas o de servicios se comprimió. Esto representa una "convergencia pasiva" por normalización de rentas y no por un catch-up estructural de los sectores rezagados.
-   - **La Compresión por el COVID-19 en 2020**: El Gini ponderado alcanzó su mínimo en 2023, en **0.1445** (Theil en **0.0452**). Esta anomalía refleja el impacto desigual de las cuarentenas. Los centros urbanos basados en servicios (como Santiago) enfrentaron cierres severos que contrajeron su producción, mientras que los sectores primarios (minería en el Norte) se mantuvieron activos al ser catalogados como estratégicos. Esto redujo temporalmente la brecha de ingresos entre la capital y las regiones periféricas.
-   - **Rebote Post-Pandemia (2021–2025)**: Con la reapertura de los servicios y los ciclos de inflación global, el Gini se situó en **0.1476** hacia 2025 (Theil en **0.0496**), demostrando que las disparidades espaciales subyacentes regresan a sus niveles históricos una vez que se normaliza el ciclo económico.
+   - **La Corrección Post-Boom de Commodities (2013–2016)**: El Gini ponderado disminuyó de **0,1893** en 2013 a **0,1476** en 2025 (y el Theil de **0,0765** a **0,0496**). Al normalizarse los precios del cobre tras el súper-ciclo, la brecha de PIB per cápita entre las regiones ricas en recursos (como Antofagasta) y las regiones agrícolas o de servicios se comprimió. Esto representa una "convergencia pasiva" por normalización de rentas y no por un catch-up estructural de los sectores rezagados.
+   - **La Compresión por el COVID-19 en 2020**: El Gini ponderado alcanzó su mínimo en 2023, en **0,1445** (Theil en **0,0452**). Esta anomalía refleja el impacto desigual de las cuarentenas. Los centros urbanos basados en servicios (como Santiago) enfrentaron cierres severos que contrajeron su producción, mientras que los sectores primarios (minería en el Norte) se mantuvieron activos al ser catalogados como estratégicos. Esto redujo temporalmente la brecha de ingresos entre la capital y las regiones periféricas.
+   - **Rebote Post-Pandemia (2021–2025)**: Con la reapertura de los servicios y los ciclos de inflación global, el Gini se situó en **0,1476** hacia 2025 (Theil en **0,0496**), demostrando que las disparidades espaciales subyacentes regresan a sus niveles históricos una vez que se normaliza el ciclo económico.
 
 3. **Implicancia de Política Pública**:
    La divergencia entre una concentración constante de la producción (HHI) y variables de bienestar fluctuantes (Gini/Theil) sugiere que los ciclos de commodities y choques temporales mueven los indicadores per cápita temporalmente, pero no resuelven el centralismo espacial persistente en Chile. Reducir la desigualdad requiere políticas industriales activas y de diversificación productiva dirigidas a sectores de alto valor fuera de la Región Metropolitana.
@@ -177,6 +186,6 @@ La comparación entre la concentración bruta de la producción (HHI) y los índ
 
 ## **5. Conclusiones e Implicancias de Política**
 
-1. **Centralización Persistente**: La Región Metropolitana continúa dominando el panorama económico, capturando consistentemente el 45.9% del PIB nacional. No existe evidencia visual ni estadística de una descentralización importante.
+1. **Centralización Persistente**: La Región Metropolitana continúa dominando el panorama económico, capturando consistentemente el 45,9% del PIB nacional. No existe evidencia visual ni estadística de una descentralización importante.
 2. **Débil Cohesión**: El gráfico de convergencia demuestra que las regiones rurales y periféricas no están alcanzando al centro. El crecimiento sigue estando impulsado por enclaves de recursos específicos (Minería en el Norte).
 3. **Implicancias de Política**: Las estrategias de desarrollo regional deben ir más allá de los subsidios generales y enfocarse en construir capacidades productivas locales. Fortalecer las especializaciones sectoriales (por ejemplo, clusters agrícolas en el Sur) mientras se fomenta la complejidad económica es clave para mitigar la dependencia de la extracción de recursos primarios y los servicios centrales.

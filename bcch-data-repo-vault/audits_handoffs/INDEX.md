@@ -3,6 +3,14 @@
 **Repositorios Relacionados:** `bcch-data-repo` (`main`), `bcch-site` (`site`), `dpolancon.github.io` (`master`)  
 **Sitio Público en Vivo:** <https://dpolancon.github.io/bcch/>
 
+> ⚠ **Esta carpeta es historia absorbida, no el estado vigente.** Los cuatro
+> documentos de abajo describen el programa tal como estaba al 2026-08-27 y
+> anteceden a la revisión por pares de los ocho reportes.
+>
+> **Para abrir una sesión, lee primero
+> [`../HANDOFF_SESION.md`](../HANDOFF_SESION.md).** Es el traspaso vigente y
+> contiene la decisión con la que la sesión debe empezar.
+
 ---
 
 ## Estructura Interrelacionada de Documentos de Traspaso y Auditoría
